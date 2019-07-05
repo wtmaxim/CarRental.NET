@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1">
+        <EntityTypeShape EntityType="CarRentalModel.Action" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Address" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Booking" Width="1.5" PointX="10.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Car" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.CarMake" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.CarModel" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.CarReport" Width="1.5" PointX="12.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.CategoryCost" Width="1.5" PointX="10.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Company" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Cost" Width="1.5" PointX="12.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Event" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.persistent_logins" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.RequestBooking" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Role" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.Status" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.StopOver" Width="1.5" PointX="15.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.StopOverAddress" Width="1.5" PointX="18" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.StopOverType" Width="1.5" PointX="13.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.User" Width="1.5" PointX="8.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.user_address" Width="1.5" PointX="13.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarRentalModel.UserBooking" Width="1.5" PointX="15.75" PointY="6.25" IsExpanded="true" />
+        <AssociationConnector Association="CarRentalModel.FK__Company__id_Addr__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__StopOverA__id_Ad__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__user_addr__id_ad__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Booking__id_Requ__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Booking__Licence__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__CarReport__Id_Bo__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Cost__Id_Booking__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__StopOver__Id_Boo__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__UserBooki__Id_Bo__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Car__id_Car_Mode__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Car__Id_Company__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Car__Id_User__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Event__Licence_P__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__CarModel__id_Car__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__Cost__Id_Categor__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__User__Id_Company__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__RequestBo__Id_St__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__StopOver__Id_Sto__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__StopOverA__Id_St__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__user_addr__id_us__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.FK__UserBooki__Id_Us__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.ActionRole" ManuallyRouted="false" />
+        <AssociationConnector Association="CarRentalModel.user_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
