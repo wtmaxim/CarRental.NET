@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace CarRental.DAL
 {
-    interface IVoitureEngine
+    public interface ICarEngine
     {
         void Insert(CarDTO voiture);
         List<CarDTO> List();
-
         CarDTO Get(string licencePlate);
     }
 }

@@ -105,7 +105,7 @@
     <Compile Include="IReservationEngine.cs" />
     <Compile Include="IUserEngine.cs" />
     <Compile Include="IUtilisateurEngine.cs" />
-    <Compile Include="IVoitureEngine.cs" />
+    <Compile Include="ICarEngine.cs" />
     <Compile Include="persistent_logins.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -150,7 +150,7 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UtilisateurEngine.cs" />
-    <Compile Include="VoitureEngine.cs" />
+    <Compile Include="CarEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarRental.Common\CarRental.Common.csproj">

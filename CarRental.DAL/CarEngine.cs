@@ -7,11 +7,11 @@ using CarRental.Model;
 
 namespace CarRental.DAL
 {
-    public class VoitureEngine : IVoitureEngine
+    public class CarEngine : ICarEngine
     {
         private CarMapping carMapping;
 
-        public VoitureEngine()
+        public CarEngine()
         {
             carMapping = new CarMapping();
         }
