@@ -520,6 +520,12 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="usp_Adress_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_Booking_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Booking_List_LicencePlate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="licencePlate" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_Car_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licence_Plate" Type="varchar" Mode="In" />
         </Function>
@@ -1306,7 +1312,13 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_CarMake_Get_Id" EntitySet="CarMake" ReturnType="Collection(CarRentalModel.CarMake)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Booking_Get_Id" EntitySet="Booking" ReturnType="Collection(CarRentalModel.Booking)">
             <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Booking_List_LicencePlate" EntitySet="Booking" ReturnType="Collection(CarRentalModel.Booking)">
+            <Parameter Name="licencePlate" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1349,6 +1361,18 @@
         <ComplexType Name="usp_CarMake_Get_Id_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="Make" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_Booking_Get_Id_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="id_Request_Booking" Nullable="false" />
+          <Property Type="Byte" Name="is_Personal_Car_Used" Nullable="false" />
+          <Property Type="String" Name="Licence_Plate" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="usp_Booking_List_LicencePlate_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="id_Request_Booking" Nullable="false" />
+          <Property Type="Byte" Name="is_Personal_Car_Used" Nullable="false" />
+          <Property Type="String" Name="Licence_Plate" Nullable="false" MaxLength="25" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1597,6 +1621,10 @@
           <FunctionImportMapping FunctionImportName="usp_CarModel_Get_id" FunctionName="CarRentalModel.Store.usp_CarModel_Get_id">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_CarMake_Get_Id" FunctionName="CarRentalModel.Store.usp_CarMake_Get_Id">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Booking_Get_Id" FunctionName="CarRentalModel.Store.usp_Booking_Get_Id">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Booking_List_LicencePlate" FunctionName="CarRentalModel.Store.usp_Booking_List_LicencePlate">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

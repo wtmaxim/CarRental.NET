@@ -60,6 +60,8 @@
     <Compile Include="Booking.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BookingEngine.cs" />
+    <Compile Include="BookingMapping.cs" />
     <Compile Include="Car.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -106,6 +108,7 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IAdressEngine.cs" />
+    <Compile Include="IBookingEngine.cs" />
     <Compile Include="ICarMakeEngine.cs" />
     <Compile Include="ICarModelEngine.cs" />
     <Compile Include="IReservationEngine.cs" />
@@ -144,6 +147,12 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Adress_List_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Booking_Get_Id_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Booking_List_LicencePlate_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_CarMake_Get_Id_Result.cs">

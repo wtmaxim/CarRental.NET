@@ -14,12 +14,14 @@ namespace CarRental.UI.Controllers
         private readonly CarLogic carLogic;
         private readonly CarModelLogic carModelLogic;
         private readonly CarMakeLogic carMakeLogic;
+        private readonly BookingLogic bookingLogic;
 
         public CarController()
         {
             carLogic = new CarLogic();
             carModelLogic = new CarModelLogic();
             carMakeLogic = new CarMakeLogic();
+            bookingLogic = new BookingLogic();
         }
 
         // GET: Voiture
@@ -40,6 +42,7 @@ namespace CarRental.UI.Controllers
             CarDTO car = carLogic.Get(licencePlate);
             CarModelDTO carModel = carModelLogic.Get(car.id_Car_Model);
             CarMakeDTO carMake = carMakeLogic.Get(carModel.id_Car_Make);
+            List<BookingDTO> bookings = bookingLogic.List(car.Licence_Plate);
 
             CarDetailViewsModel vm = new CarDetailViewsModel();
 

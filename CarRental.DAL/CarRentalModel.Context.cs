@@ -159,5 +159,41 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarMake>("usp_CarMake_Get_Id", mergeOption, idParameter);
         }
+    
+        public virtual ObjectResult<Booking> usp_Booking_Get_Id(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_Get_Id", idParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_Get_Id(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_Get_Id", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_List_LicencePlate(string licencePlate)
+        {
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_List_LicencePlate", licencePlateParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_List_LicencePlate(string licencePlate, MergeOption mergeOption)
+        {
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_List_LicencePlate", mergeOption, licencePlateParameter);
+        }
     }
 }
