@@ -4,5 +4,73 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail</h2>
+<section class="content-header">
+    <h1>
+        Fiche @Html.Raw(Model.carMake.Make) @Html.Raw(Model.carModel.Model)
+    </h1>
+</section>
 
+<!-- Main content -->
+<section class="content">
+
+    <!-- Car -->
+    <div class="box-body">
+        <div class="row">
+
+            <!-- Car infos -->
+            <div class="col-md-4">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-car"></i>
+                        <h3 class="box-title">@Html.Raw(Model.carMake.Make) @Html.Raw(Model.carModel.Model)</h3>
+                    </div>
+                    <div class="box-body">
+                        <img src="../../dist/img/cars/ab456gf.jpg" class="img-thumbnail">
+                        <br><br>
+
+                        <div class="row">
+                            <div class="col-xs-4 text-center">
+                                <i class="fa fa-heartbeat"></i><br>
+                                28/06/2019
+                            </div>
+                            <div class="col-xs-2 text-center">
+                                <i class="fa fa-beer"></i><br>
+                                40%
+                            </div>
+                            <div class="col-xs-2 text-center">
+                                <i class="fa fa-clock-o"></i><br>
+                                2000
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <i class="fa fa-users"></i><br>
+                                @Html.Raw(Model.carModel.Places) places
+                            </div>
+                        </div>
+                        <br>
+
+                        <dl>
+                            <dt>Immatriculation</dt>
+                            <dd>@Html.Raw(Model.car.Licence_Plate)</dd>
+                            <dt>Moteur</dt>
+                            <dd>@Html.Raw(Model.carModel.Energy)</dd>
+                            <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                            <dt>Malesuada porta</dt>
+                            <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car calendar -->
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-body no-padding">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>

@@ -4,31 +4,146 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<section class="content-header">
+    <h2>Voitures</h2>
 
-<div class="form-group col-md-12">
-    <label>Licence Plate</label>
-    <input type="text" name="Licence_Plate" id="Licence_Plate" class="form-control" placeholder="Enter Licence_Plate" required="" />
+</section>
+<section class="content">
+    <!-- New car form -->
+    <div class="box box-primary collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Ajouter une voiture</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
 
-    <br />
+        <div class="box-body">
+            <div class="form-group col-md-12">
+                <label>Licence Plate</label>
+                <input type="text" name="Licence_Plate" id="Licence_Plate" class="form-control" placeholder="Enter Licence_Plate" required="" />
 
-    <label>Mileage</label>
-    <input type="text" name="Mileage" id="Mileage" class="form-control" placeholder="Enter Mileage" required="" />
-</div>
+                <br />
 
-<input type="submit" name="AjouterCar" value="Ajouter" id="AjouterCar" />
+                <label>Mileage</label>
+                <input type="text" name="Mileage" id="Mileage" class="form-control" placeholder="Enter Mileage" required="" />
+            </div>
+
+            <input type="submit" name="AjouterCar" value="Ajouter" id="AjouterCar" />
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="box collapsed-box">
+
+        <div class="box-header with-border">
+            <h3 class="box-title">Filtres</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Filtre par emplacement</label>
+                        <select class="form-control">
+                            <option>Campus de Nantes</option>
+                            <option>Campus de Nantes Faraday</option>
+                            <option>Campus de Rennes</option>
+                            <option>Campus de Niort</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Disponibilité</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="freeOn">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Nombre de place</label>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> 5
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> 7
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input id="search-input" type="text" name="q" class="form-control search" placeholder="Rechercher une voiture">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- List -->
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Liste des voitures</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                @foreach (var car in Model.Cars)
+                {
+                    <div class="col-md-4">
+                        <div class="box box-solid">
+                            <div class="box-header with-border car-title">
+                                <a href="@Url.Action("Detail", "Car", new { licencePlate = car.Licence_Plate })" class="text-center">
+                                    <i class="fa fa-car"></i>&nbsp;
+                                    <h3 class="box-title">Nissan Micra #@Html.Raw(car.Licence_Plate)</h3>
+                                    <p>Disponible</p>
+                                </a>
+                            </div>
+                            <div class="box-body">
+                                <img src="../../dist/img/cars/ab456gf.jpg" class="img-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    
+</section>
 
 
-<br />
-<br />
-
-@foreach (var car in Model.Cars)
-{
-    <span> @Html.Raw(car.Licence_Plate)</span>
-    @Html.ActionLink("Detail", "Detail", new { licencePlate = car.Licence_Plate })
-
-    <br />
-}
 
 @section scripts
 {

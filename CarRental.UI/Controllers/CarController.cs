@@ -44,7 +44,12 @@ namespace CarRental.UI.Controllers
             CarMakeDTO carMake = carMakeLogic.Get(carModel.id_Car_Make);
             List<BookingDTO> bookings = bookingLogic.List(car.Licence_Plate);
 
-            CarDetailViewsModel vm = new CarDetailViewsModel();
+            CarDetailViewsModel vm = new CarDetailViewsModel
+            {
+                car = car,
+                carModel = carModel,
+                carMake = carMake
+            };
 
             return View(vm);
         }
