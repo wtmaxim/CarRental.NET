@@ -20,11 +20,16 @@ namespace CarRental.UI
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/adminlte.min.js",
+                      "~/Scripts/demo.js",
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/font-awesome/css/font-awesome.css",
+                      "~/Content/Ionicons/css/ionicons.css",
+                      "~/Content/AdminLTE.min.css",
+                      "~/Content/skins/_all-skins.min.css"));
         }
     }
 }
