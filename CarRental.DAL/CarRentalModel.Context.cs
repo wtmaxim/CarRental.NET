@@ -123,5 +123,41 @@ namespace CarRental.DAL
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Address>("usp_Adress_List", mergeOption);
         }
+    
+        public virtual ObjectResult<CarModel> usp_CarModel_Get_id(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarModel>("usp_CarModel_Get_id", idParameter);
+        }
+    
+        public virtual ObjectResult<CarModel> usp_CarModel_Get_id(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarModel>("usp_CarModel_Get_id", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<CarMake> usp_CarMake_Get_Id(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarMake>("usp_CarMake_Get_Id", idParameter);
+        }
+    
+        public virtual ObjectResult<CarMake> usp_CarMake_Get_Id(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarMake>("usp_CarMake_Get_Id", mergeOption, idParameter);
+        }
     }
 }

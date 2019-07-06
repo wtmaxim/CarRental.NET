@@ -44,6 +44,8 @@
     <Compile Include="ActionDTO.cs" />
     <Compile Include="AddressDTO.cs" />
     <Compile Include="BookingDTO.cs" />
+    <Compile Include="CarMakeDTO.cs" />
+    <Compile Include="CarModelDTO.cs" />
     <Compile Include="CarReportDTO.cs" />
     <Compile Include="CategoryCostDTO.cs" />
     <Compile Include="CompanyDTO.cs" />

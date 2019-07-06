@@ -29,7 +29,7 @@ namespace CarRental.BLL
 
         public CarDTO Get(string licencePlate)
         {
-            return carEngine.Get(licencePlate)
+            return carEngine.Get(licencePlate);
         }
     }
 }

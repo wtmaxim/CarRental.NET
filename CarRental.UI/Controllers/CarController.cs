@@ -12,10 +12,14 @@ namespace CarRental.UI.Controllers
     public class CarController : Controller
     {
         private readonly CarLogic carLogic;
+        private readonly CarModelLogic carModelLogic;
+        private readonly CarMakeLogic carMakeLogic;
 
         public CarController()
         {
             carLogic = new CarLogic();
+            carModelLogic = new CarModelLogic();
+            carMakeLogic = new CarMakeLogic();
         }
 
         // GET: Voiture
@@ -34,12 +38,15 @@ namespace CarRental.UI.Controllers
         public ActionResult Detail(string licencePlate)
         {
             CarDTO car = carLogic.Get(licencePlate);
+            CarModelDTO carModel = carModelLogic.Get(car.id_Car_Model);
+            CarMakeDTO carMake = carMakeLogic.Get(carModel.id_Car_Make);
 
             CarDetailViewsModel vm = new CarDetailViewsModel();
 
             return View(vm);
         }
 
+        
         [HttpPost]
         public ActionResult AddCar(CarDTO car)
         {

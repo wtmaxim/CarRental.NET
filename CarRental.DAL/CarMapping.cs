@@ -9,11 +9,6 @@ namespace CarRental.DAL
 {
     public class CarMapping
     {
-        public CarMapping()
-        {
-
-        }
-
         public CarDTO MapToCarDTO(Car car)
         {
             return new CarDTO

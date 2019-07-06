@@ -534,6 +534,12 @@
           <Parameter Name="id_Car_Model" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_Car_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_CarMake_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_CarModel_Get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="CarRentalModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionRole" EntityType="Self.ActionRole" Schema="dbo" store:Type="Tables" />
@@ -1296,6 +1302,12 @@
             <Parameter Name="id_Car_Model" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Adress_List" EntitySet="Address" ReturnType="Collection(CarRentalModel.Address)" />
+          <FunctionImport Name="usp_CarModel_Get_id" EntitySet="CarModel" ReturnType="Collection(CarRentalModel.CarModel)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CarMake_Get_Id" EntitySet="CarMake" ReturnType="Collection(CarRentalModel.CarMake)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1326,6 +1338,17 @@
           <Property Type="String" Name="Administrative_Area" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Route" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_CarModel_Get_id_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Places" Nullable="true" />
+          <Property Type="String" Name="Energy" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="id_Car_Make" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_CarMake_Get_Id_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Make" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1570,6 +1593,10 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Car_Insert" FunctionName="CarRentalModel.Store.usp_Car_Insert" />
           <FunctionImportMapping FunctionImportName="usp_Adress_List" FunctionName="CarRentalModel.Store.usp_Adress_List">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CarModel_Get_id" FunctionName="CarRentalModel.Store.usp_CarModel_Get_id">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CarMake_Get_Id" FunctionName="CarRentalModel.Store.usp_CarMake_Get_Id">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
