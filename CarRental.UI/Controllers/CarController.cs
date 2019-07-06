@@ -25,8 +25,17 @@ namespace CarRental.UI.Controllers
 
             CarIndexViewsModel vm = new CarIndexViewsModel
             {
-                cars = cars
+                Cars = cars
             };
+
+            return View(vm);
+        }
+
+        public ActionResult Detail(string licencePlate)
+        {
+            CarDTO car = carLogic.Get(licencePlate);
+
+            CarDetailViewsModel vm = new CarDetailViewsModel();
 
             return View(vm);
         }

@@ -6,9 +6,8 @@ using System.Web;
 
 namespace CarRental.UI.ViewsModels.Car
 {
-    public class CarIndexViewsModel
+    public class CarDetailViewsModel
     {
-        public List<CarDTO> Cars { get; set; }
-        public CarDTO Car { get; set; }
+        public CarDTO car { get; set; }
     }
 }
