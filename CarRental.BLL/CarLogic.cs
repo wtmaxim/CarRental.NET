@@ -22,5 +22,9 @@ namespace CarRental.BLL
             carEngine.Insert(car);
         }
 
+        public List<CarDTO> List()
+        {
+            return carEngine.List();
+        }
     }
 }

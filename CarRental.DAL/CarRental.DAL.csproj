@@ -103,7 +103,6 @@
     </Compile>
     <Compile Include="IAdressEngine.cs" />
     <Compile Include="IReservationEngine.cs" />
-    <Compile Include="IUserEngine.cs" />
     <Compile Include="IUtilisateurEngine.cs" />
     <Compile Include="ICarEngine.cs" />
     <Compile Include="persistent_logins.cs">
@@ -135,8 +134,6 @@
     <Compile Include="UserBooking.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserEngine.cs" />
-    <Compile Include="UserMapping.cs" />
     <Compile Include="user_address.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

@@ -1,0 +1,52 @@
+﻿@model CarRental.UI.ViewsModels.Car.CarIndexViewsModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="form-group col-md-12">
+    <label>Licence Plate</label>
+    <input type="text" name="Licence_Plate" id="Licence_Plate" class="form-control" placeholder="Enter Licence_Plate" required="" />
+
+    <br />
+
+    <label>Mileage</label>
+    <input type="text" name="Mileage" id="Mileage" class="form-control" placeholder="Enter Mileage" required="" />
+</div>
+    <input type="submit" name="AjouterCar" value="Ajouter" id="AjouterCar" />
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#AjouterCar").on('click', function () {
+
+                var car = {};
+
+                car.licence_plate = $("#Licence_Plate").val();
+                car.Mileage = $("#Mileage").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddCar", "Car")',
+                    data: '{car: ' + JSON.stringify(car) + '}',  
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("Ajoutée");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

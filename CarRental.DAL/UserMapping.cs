@@ -1,20 +1,24 @@
 ﻿using CarRental.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CarRental.DAL
 {
     public class UserMapping
     {
+        private CarMapping carMapping;
+
+
         public UserMapping()
         {
-
+            carMapping = new CarMapping();
         }
 
         public UserDTO MapToUserDTO(User user)
         {
             return new UserDTO
             {
-                Car = user.Car,
+                Car = carMapping.MapToListCarDTO(user.Car.ToList()),
                 Company = user.Company,
                 Job = user.Job,
                 Email = user.Email,
