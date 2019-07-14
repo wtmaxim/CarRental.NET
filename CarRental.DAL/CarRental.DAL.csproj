@@ -61,22 +61,22 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BookingEngine.cs" />
-    <Compile Include="BookingMapping.cs" />
+    <Compile Include="Mapping\BookingMapping.cs" />
     <Compile Include="Car.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarMake.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AdressMapping.cs" />
+    <Compile Include="Mapping\AdressMapping.cs" />
     <Compile Include="CarMakeEngine.cs" />
-    <Compile Include="CarMakeMapping.cs" />
-    <Compile Include="CarMapping.cs" />
+    <Compile Include="Mapping\CarMakeMapping.cs" />
+    <Compile Include="Mapping\CarMapping.cs" />
     <Compile Include="CarModel.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CarModelEngine.cs" />
-    <Compile Include="CarModelMapping.cs" />
+    <Compile Include="Mapping\CarModelMapping.cs" />
     <Compile Include="CarRentalModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,13 +107,17 @@
     <Compile Include="Event.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IAdressEngine.cs" />
-    <Compile Include="IBookingEngine.cs" />
-    <Compile Include="ICarMakeEngine.cs" />
-    <Compile Include="ICarModelEngine.cs" />
-    <Compile Include="IReservationEngine.cs" />
+    <Compile Include="Interface\IAdressEngine.cs" />
+    <Compile Include="Interface\IBookingEngine.cs" />
+    <Compile Include="Interface\ICarMakeEngine.cs" />
+    <Compile Include="Interface\ICarModelEngine.cs" />
+    <Compile Include="Interface\IReservationEngine.cs" />
+    <Compile Include="Interface\IStopOverAddressEngine.cs" />
+    <Compile Include="Interface\IStopOverEngine.cs" />
+    <Compile Include="Interface\IStopOverTypeEngine.cs" />
     <Compile Include="IUtilisateurEngine.cs" />
-    <Compile Include="ICarEngine.cs" />
+    <Compile Include="Interface\ICarEngine.cs" />
+    <Compile Include="Mapping\StopOverTypeMapping.cs" />
     <Compile Include="persistent_logins.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -134,9 +138,14 @@
     <Compile Include="StopOverAddress.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="StopOverAddressEngine.cs" />
+    <Compile Include="Mapping\StopOverAddressMapping.cs" />
+    <Compile Include="StopOverEngine.cs" />
+    <Compile Include="Mapping\StopOverMapping.cs" />
     <Compile Include="StopOverType.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="StopOverTypeEngine.cs" />
     <Compile Include="User.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -165,6 +174,15 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Car_List_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_StopOverAddress_Get_idStopOver_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_StopOverType_Get_id_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_StopOver_List_idBooking_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UtilisateurEngine.cs" />

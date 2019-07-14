@@ -1,7 +1,9 @@
 ﻿@model CarRental.UI.ViewsModels.Car.CarDetailViewsModel
+@using System.Configuration
 
 @{
     ViewBag.Title = "Detail";
+    var imageUrl = ConfigurationManager.AppSettings["CarImageURL"];
 }
 
 <section class="content-header">
@@ -25,7 +27,7 @@
                         <h3 class="box-title">@Html.Raw(Model.carMake.Make) @Html.Raw(Model.carModel.Model)</h3>
                     </div>
                     <div class="box-body">
-                        <img src="../../dist/img/cars/ab456gf.jpg" class="img-thumbnail">
+                        <img src="@Url.Content(imageUrl + Model.car.Licence_Plate + ".jpg")" class="img-thumbnail">
                         <br><br>
 
                         <div class="row">
@@ -74,3 +76,9 @@
     </div>
 
 </section>
+
+
+@section scripts
+{
+    <script src="../Scripts/car.js"></script>
+}

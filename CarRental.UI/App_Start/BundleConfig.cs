@@ -22,14 +22,19 @@ namespace CarRental.UI
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/adminlte.min.js",
                       "~/Scripts/demo.js",
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/moment/moment.js",
+                      "~/Scripts/fullcalendar/dist/fullcalendar.min.js",
+                      "~/Scripts/fullcalendar/dist/locale/fr.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/Ionicons/css/ionicons.css",
                       "~/Content/AdminLTE.min.css",
-                      "~/Content/skins/_all-skins.min.css"));
+                      "~/Content/skins/_all-skins.min.css",
+                      "~/Content/fullcalendar/dist/fullcalendar.min.css",
+                      "~/Content/fullcalendar/dist/fullcalendar.print.min.css"));
         }
     }
 }

@@ -546,6 +546,15 @@
         <Function Name="usp_CarModel_Get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idBooking" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_StopOverAddress_Get_idStopOver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idStopOver" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_StopOverType_Get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="CarRentalModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionRole" EntityType="Self.ActionRole" Schema="dbo" store:Type="Tables" />
@@ -1315,10 +1324,19 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Booking_Get_Id" EntitySet="Booking" ReturnType="Collection(CarRentalModel.Booking)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Booking_List_LicencePlate" EntitySet="Booking" ReturnType="Collection(CarRentalModel.Booking)">
-            <Parameter Name="licencePlate" Mode="In" Type="String" />
+          <Parameter Name="licencePlate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_StopOver_List_idBooking" EntitySet="StopOver" ReturnType="Collection(CarRentalModel.StopOver)">
+          <Parameter Name="idBooking" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_StopOverAddress_Get_idStopOver" EntitySet="StopOverAddress" ReturnType="Collection(CarRentalModel.StopOverAddress)">
+          <Parameter Name="idStopOver" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_StopOverType_Get_id" EntitySet="StopOverType" ReturnType="Collection(CarRentalModel.StopOverType)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1373,6 +1391,22 @@
           <Property Type="Int32" Name="id_Request_Booking" Nullable="false" />
           <Property Type="Byte" Name="is_Personal_Car_Used" Nullable="false" />
           <Property Type="String" Name="Licence_Plate" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="usp_StopOver_List_idBooking_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Departure_Date" Nullable="false" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="false" />
+          <Property Type="Int32" Name="Id_Booking" Nullable="false" />
+          <Property Type="Int32" Name="Id_Stop_Over_Type" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_StopOverAddress_Get_idStopOver_Result">
+          <Property Type="Byte" Name="is_Departure" Nullable="false" />
+          <Property Type="Int32" Name="id_Address" Nullable="false" />
+          <Property Type="Int32" Name="Id_Stop_Over" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_StopOverType_Get_id_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Libelle" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1625,6 +1659,12 @@
           <FunctionImportMapping FunctionImportName="usp_Booking_Get_Id" FunctionName="CarRentalModel.Store.usp_Booking_Get_Id">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Booking_List_LicencePlate" FunctionName="CarRentalModel.Store.usp_Booking_List_LicencePlate">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StopOver_List_idBooking" FunctionName="CarRentalModel.Store.usp_StopOver_List_idBooking">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StopOverAddress_Get_idStopOver" FunctionName="CarRentalModel.Store.usp_StopOverAddress_Get_idStopOver">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StopOverType_Get_id" FunctionName="CarRentalModel.Store.usp_StopOverType_Get_id">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

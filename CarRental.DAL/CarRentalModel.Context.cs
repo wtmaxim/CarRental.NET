@@ -195,5 +195,59 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_List_LicencePlate", mergeOption, licencePlateParameter);
         }
+    
+        public virtual ObjectResult<StopOver> usp_StopOver_List_idBooking(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOver>("usp_StopOver_List_idBooking", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<StopOver> usp_StopOver_List_idBooking(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOver>("usp_StopOver_List_idBooking", mergeOption, idBookingParameter);
+        }
+    
+        public virtual ObjectResult<StopOverAddress> usp_StopOverAddress_Get_idStopOver(Nullable<int> idStopOver)
+        {
+            var idStopOverParameter = idStopOver.HasValue ?
+                new ObjectParameter("idStopOver", idStopOver) :
+                new ObjectParameter("idStopOver", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOverAddress>("usp_StopOverAddress_Get_idStopOver", idStopOverParameter);
+        }
+    
+        public virtual ObjectResult<StopOverAddress> usp_StopOverAddress_Get_idStopOver(Nullable<int> idStopOver, MergeOption mergeOption)
+        {
+            var idStopOverParameter = idStopOver.HasValue ?
+                new ObjectParameter("idStopOver", idStopOver) :
+                new ObjectParameter("idStopOver", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOverAddress>("usp_StopOverAddress_Get_idStopOver", mergeOption, idStopOverParameter);
+        }
+    
+        public virtual ObjectResult<StopOverType> usp_StopOverType_Get_id(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOverType>("usp_StopOverType_Get_id", idParameter);
+        }
+    
+        public virtual ObjectResult<StopOverType> usp_StopOverType_Get_id(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOverType>("usp_StopOverType_Get_id", mergeOption, idParameter);
+        }
     }
 }
