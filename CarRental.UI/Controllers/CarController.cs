@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace CarRental.UI.Controllers
 {
@@ -27,14 +28,65 @@ namespace CarRental.UI.Controllers
         // GET: Voiture
         public ActionResult Index()
         {
-            List<CarDTO> cars = carLogic.List();
-
             CarIndexViewsModel vm = new CarIndexViewsModel
+            {
+                CarsMakes = GetCarsMakes()
+            };
+
+            return View(vm);
+        }
+
+        public ActionResult SearchCar(string searchWord)
+        {
+
+            var po = 2;
+            return null;
+        }
+
+        [ChildActionOnly]
+        public ActionResult _ListCars()
+        {
+            List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>> cars = new List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>>();
+
+            List<CarDTO> _cars = carLogic.List();
+
+            foreach (CarDTO car in _cars)
+            {
+                CarModelDTO carModel = carModelLogic.Get(car.id_Car_Model);
+                CarMakeDTO carMake = carMakeLogic.Get(carModel.id_Car_Make);
+
+                cars.Add(new Tuple<CarDTO, CarModelDTO, CarMakeDTO>(car, carModel, carMake));
+            }
+
+            CarIndexListCarViewsModel vm = new CarIndexListCarViewsModel
             {
                 Cars = cars
             };
 
-            return View(vm);
+            return PartialView(vm);
+        }
+
+        public ActionResult GetCarsModels(int idMake)
+        {
+            List<CarModelDTO> carsModels = carModelLogic.List(idMake);
+
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(carsModels, "Id", "Model"), JsonRequestBehavior.AllowGet);
+
+            return View(carsModels);
+        }
+
+        private IEnumerable<SelectListItem> GetCarsMakes()
+        {
+            List<CarMakeDTO> dbCarsMakes= carMakeLogic.List();
+
+            var carsMakes = dbCarsMakes.Select(x => new SelectListItem
+            {
+                Value = x.id.ToString(),
+                Text = x.Make
+            });
+
+            return new SelectList(carsMakes, "Value", "Text");
         }
 
         public ActionResult Detail(string licencePlate)
@@ -62,8 +114,6 @@ namespace CarRental.UI.Controllers
             car.Energy_Value = 1;
             car.is_Available = 1;
             car.is_Active = 1;
-            car.id_Car_Model = 1;
-            car.Id_Company = 2;
             car.Id_User = 1;
             carLogic.AddCar(car);
 

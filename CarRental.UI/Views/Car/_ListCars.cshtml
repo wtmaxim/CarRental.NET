@@ -1,0 +1,24 @@
+﻿@model CarRental.UI.ViewsModels.Car.CarIndexListCarViewsModel
+@using System.Configuration
+
+@{
+    var imageUrl = ConfigurationManager.AppSettings["CarImageURL"];
+}
+
+@foreach (var car in Model.Cars)
+{
+    <div class="col-md-4">
+        <div class="box box-solid">
+            <div class="box-header with-border car-title">
+                <a href="@Url.Action("Detail", "Car", new { licencePlate = car.Item1.Licence_Plate })" class="text-center">
+                    <i class="fa fa-car"></i>&nbsp;
+                    <h3 class="box-title">@Html.Raw(car.Item2.Model) #@Html.Raw(car.Item1.Licence_Plate)</h3>
+                    <p>@Html.Raw(car.Item1.is_Available)</p>
+                </a>
+            </div>
+            <div class="box-body">
+                <img src="@Url.Content(imageUrl + car.Item1.Licence_Plate + ".jpg")" class="img-thumbnail">
+            </div>
+        </div>
+    </div>
+}

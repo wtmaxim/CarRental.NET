@@ -249,5 +249,33 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOverType>("usp_StopOverType_Get_id", mergeOption, idParameter);
         }
+    
+        public virtual ObjectResult<CarMake> usp_CarMake_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarMake>("usp_CarMake_List");
+        }
+    
+        public virtual ObjectResult<CarMake> usp_CarMake_List(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarMake>("usp_CarMake_List", mergeOption);
+        }
+    
+        public virtual ObjectResult<CarModel> usp_CarModel_List_idMake(Nullable<int> idMake)
+        {
+            var idMakeParameter = idMake.HasValue ?
+                new ObjectParameter("idMake", idMake) :
+                new ObjectParameter("idMake", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarModel>("usp_CarModel_List_idMake", idMakeParameter);
+        }
+    
+        public virtual ObjectResult<CarModel> usp_CarModel_List_idMake(Nullable<int> idMake, MergeOption mergeOption)
+        {
+            var idMakeParameter = idMake.HasValue ?
+                new ObjectParameter("idMake", idMake) :
+                new ObjectParameter("idMake", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarModel>("usp_CarModel_List_idMake", mergeOption, idMakeParameter);
+        }
     }
 }

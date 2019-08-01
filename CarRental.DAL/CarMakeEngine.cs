@@ -24,5 +24,14 @@ namespace CarRental.DAL
                 return carMakeMapping.MapToCarMakeDTO(carMake);
             }
         }
+
+        public List<CarMakeDTO> List()
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                List<CarMake> carsMakes = context.usp_CarMake_List().ToList();
+                return carMakeMapping.MapToListCarMakeDTO(carsMakes);
+            }
+        }
     }
 }

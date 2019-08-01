@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
+    <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
   </ItemGroup>
@@ -152,6 +153,10 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\fullcalendar\dist\fullcalendar.css" />
+    <Content Include="Content\fullcalendar\dist\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar\dist\fullcalendar.print.css" />
+    <Content Include="Content\fullcalendar\dist\fullcalendar.print.min.css" />
     <Content Include="Content\Images\avatar\avatar.png" />
     <Content Include="Content\Images\avatar\avatar04.png" />
     <Content Include="Content\Images\avatar\avatar2.png" />
@@ -1495,6 +1500,8 @@
     <Content Include="Content\Ionicons\src\woman.svg" />
     <Content Include="Content\Ionicons\src\wrench.svg" />
     <Content Include="Content\Ionicons\src\xbox.svg" />
+    <Content Include="Content\Select2\select2-bootstrap.min.css" />
+    <Content Include="Content\Select2\select2.min.css" />
     <Content Include="Content\skins\skin-black-light.css" />
     <Content Include="Content\skins\skin-black-light.min.css" />
     <Content Include="Content\skins\skin-black.css" />
@@ -1532,6 +1539,71 @@
     <Content Include="Images\avatar\avatar5.png" />
     <Content Include="Images\Cars\AA00AA.jpg" />
     <Content Include="Images\Cars\AA00AB.jpg" />
+    <Content Include="Images\logoCarMake\Alfa Romeo.png" />
+    <Content Include="Images\logoCarMake\Alpine.png" />
+    <Content Include="Images\logoCarMake\ARO.png" />
+    <Content Include="Images\logoCarMake\Audi.png" />
+    <Content Include="Images\logoCarMake\Austin.png" />
+    <Content Include="Images\logoCarMake\Autobianchi.png" />
+    <Content Include="Images\logoCarMake\Bertone.png" />
+    <Content Include="Images\logoCarMake\BMW.png" />
+    <Content Include="Images\logoCarMake\Buick.png" />
+    <Content Include="Images\logoCarMake\Cadillac.png" />
+    <Content Include="Images\logoCarMake\Chevrolet.png" />
+    <Content Include="Images\logoCarMake\Chrysler.png" />
+    <Content Include="Images\logoCarMake\Citroen.png" />
+    <Content Include="Images\logoCarMake\Corvette.png" />
+    <Content Include="Images\logoCarMake\Dacia.png" />
+    <Content Include="Images\logoCarMake\Daewoo.png" />
+    <Content Include="Images\logoCarMake\DAF.png" />
+    <Content Include="Images\logoCarMake\Daihatsu.png" />
+    <Content Include="Images\logoCarMake\Datsun.png" />
+    <Content Include="Images\logoCarMake\Dodge.png" />
+    <Content Include="Images\logoCarMake\DS.png" />
+    <Content Include="Images\logoCarMake\Fiat.png" />
+    <Content Include="Images\logoCarMake\Fisker.png" />
+    <Content Include="Images\logoCarMake\Ford.png" />
+    <Content Include="Images\logoCarMake\Honda.png" />
+    <Content Include="Images\logoCarMake\Hyundai.png" />
+    <Content Include="Images\logoCarMake\Infiniti.png" />
+    <Content Include="Images\logoCarMake\Innocenti.png" />
+    <Content Include="Images\logoCarMake\Isuzu.png" />
+    <Content Include="Images\logoCarMake\Jaguar.png" />
+    <Content Include="Images\logoCarMake\Jeep.png" />
+    <Content Include="Images\logoCarMake\Kia.png" />
+    <Content Include="Images\logoCarMake\Lancia.png" />
+    <Content Include="Images\logoCarMake\Land-Rover.png" />
+    <Content Include="Images\logoCarMake\Lexus.png" />
+    <Content Include="Images\logoCarMake\Lotus.png" />
+    <Content Include="Images\logoCarMake\Mahindra.png" />
+    <Content Include="Images\logoCarMake\MAN.png" />
+    <Content Include="Images\logoCarMake\Mazda.png" />
+    <Content Include="Images\logoCarMake\Mercedes-Benz.png" />
+    <Content Include="Images\logoCarMake\Mini.png" />
+    <Content Include="Images\logoCarMake\Mitsubishi.png" />
+    <Content Include="Images\logoCarMake\Nissan.png" />
+    <Content Include="Images\logoCarMake\Opel.png" />
+    <Content Include="Images\logoCarMake\Panhard.png" />
+    <Content Include="Images\logoCarMake\Peugeot.png" />
+    <Content Include="Images\logoCarMake\Pininfarina.png" />
+    <Content Include="Images\logoCarMake\Porsche.png" />
+    <Content Include="Images\logoCarMake\Renault.png" />
+    <Content Include="Images\logoCarMake\Rover.png" />
+    <Content Include="Images\logoCarMake\Saab.png" />
+    <Content Include="Images\logoCarMake\SEAT.png" />
+    <Content Include="Images\logoCarMake\Skoda.png" />
+    <Content Include="Images\logoCarMake\Smart.png" />
+    <Content Include="Images\logoCarMake\SsangYong.png" />
+    <Content Include="Images\logoCarMake\Subaru.png" />
+    <Content Include="Images\logoCarMake\Suzuki.png" />
+    <Content Include="Images\logoCarMake\Talbot.png" />
+    <Content Include="Images\logoCarMake\Tata.png" />
+    <Content Include="Images\logoCarMake\Tesla.png" />
+    <Content Include="Images\logoCarMake\Toyota.png" />
+    <Content Include="Images\logoCarMake\Triumph.png" />
+    <Content Include="Images\logoCarMake\Volkswagen.png" />
+    <Content Include="Images\logoCarMake\Volvo.png" />
+    <Content Include="Images\logoCarMake\Zastava.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome\.bower.json" />
@@ -1960,6 +2032,7 @@
     <Content Include="Scripts\moment\templates\default.js" />
     <Content Include="Scripts\moment\templates\locale-header.js" />
     <Content Include="Scripts\moment\templates\test-header.js" />
+    <Content Include="Scripts\Select2\select2.full.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1982,6 +2055,7 @@
     <Content Include="Scripts\moment\LICENSE" />
     <Content Include="Scripts\moment\package-lock.json" />
     <Content Include="Scripts\moment\README.md" />
+    <Content Include="Views\Car\_ListCars.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,5 +21,10 @@ namespace CarRental.BLL
         {
             return carModelEngine.Get(id);
         }
+
+        public List<CarModelDTO> List(int idMake)
+        {
+            return carModelEngine.List(idMake);
+        }
     }
 }

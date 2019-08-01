@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <title>@ViewBag.Title - Mon application ASP.NET</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fullcalendar")
+    @Styles.Render("~/Content/select2")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -92,7 +94,7 @@
                     </div>
                     <div class="pull-left info">
                         <p>Paul Martin</p>
-                        <a href="#"></i>Intervenant réseau</a>
+                        <a href="#">Intervenant réseau</a>
                     </div>
                 </div>
 
@@ -170,6 +172,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/fullcalendar")
+    @Scripts.Render("~/bundles/select2")
     @RenderSection("scripts", required: false)
 </body>
 </html>

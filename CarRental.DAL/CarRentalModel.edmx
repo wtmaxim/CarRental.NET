@@ -543,8 +543,12 @@
         <Function Name="usp_CarMake_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_CarMake_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_CarModel_Get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_CarModel_List_idMake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMake" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
@@ -1336,7 +1340,11 @@
           <Parameter Name="idStopOver" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_StopOverType_Get_id" EntitySet="StopOverType" ReturnType="Collection(CarRentalModel.StopOverType)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CarMake_List" EntitySet="CarMake" ReturnType="Collection(CarRentalModel.CarMake)" />
+          <FunctionImport Name="usp_CarModel_List_idMake" EntitySet="CarModel" ReturnType="Collection(CarRentalModel.CarModel)">
+            <Parameter Name="idMake" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1407,6 +1415,17 @@
         <ComplexType Name="usp_StopOverType_Get_id_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="Libelle" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_CarMake_List_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Make" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_CarModel_List_idMake_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Places" Nullable="true" />
+          <Property Type="String" Name="Energy" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="id_Car_Make" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1665,6 +1684,10 @@
           <FunctionImportMapping FunctionImportName="usp_StopOverAddress_Get_idStopOver" FunctionName="CarRentalModel.Store.usp_StopOverAddress_Get_idStopOver">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_StopOverType_Get_id" FunctionName="CarRentalModel.Store.usp_StopOverType_Get_id">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CarMake_List" FunctionName="CarRentalModel.Store.usp_CarMake_List">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CarModel_List_idMake" FunctionName="CarRentalModel.Store.usp_CarModel_List_idMake">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

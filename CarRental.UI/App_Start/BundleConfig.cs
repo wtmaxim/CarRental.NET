@@ -23,18 +23,31 @@ namespace CarRental.UI
                       "~/Scripts/adminlte.min.js",
                       "~/Scripts/demo.js",
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/moment/moment.js",
-                      "~/Scripts/fullcalendar/dist/fullcalendar.min.js",
-                      "~/Scripts/fullcalendar/dist/locale/fr.js"));
+                      "~/Scripts/moment/moment.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/Ionicons/css/ionicons.css",
                       "~/Content/AdminLTE.min.css",
-                      "~/Content/skins/_all-skins.min.css",
-                      "~/Content/fullcalendar/dist/fullcalendar.min.css",
-                      "~/Content/fullcalendar/dist/fullcalendar.print.min.css"));
+                      "~/Content/skins/_all-skins.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
+                "~/Scripts/fullcalendar/core/main.js",
+                "~/Scripts/fullcalendar/daygrid/main.js",
+                "~/Scripts/fullcalendar/core/locale/fr.js"));
+
+            bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
+                "~/Content/fullcalendar/core/main.css",
+                "~/Content/fullcalendar/daygrid/main.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                "~/Scripts/Select2/select2.full.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/select2").Include(
+                "~/Content/Select2/select2.min.css",
+                "~/Content/Select2/select2-bootstrap.min.css"));
+
         }
     }
 }

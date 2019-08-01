@@ -27,13 +27,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Marque</label>
-                        <input type="text" name="Make" id="Make" class="form-control" placeholder="Marque de la voiture" required="" />
+                        @Html.DropDownListFor(m => m.SelectedCarsMakeId, Model.CarsMakes, "Selectionner la marque d'une voiture", new { @class = "select2CarMake form-control" })
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Modèle</label>
-                        <input type="text" name="Model" id="Model" class="form-control" placeholder="Modèle de la voiture" required="" />
+                        <select id="dropdownlistCarsModels" class="form-control select2CarModel" name="dropdownlistCarsModels"></select>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -85,7 +85,18 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Entreprise</label>
-                        <input type="text" name="Company" id="Company" class="form-control" placeholder="" required="" />
+                        <select id="dropdownlistCompany" class="form-control">
+                            <option value="1">Campus de Nantes</option>
+                            <option value="2">Campus de Nantes Faraday</option>
+                            <option value="3">Campus de Rennes</option>
+                            <option value="4">Campus de Niort</option>
+                        </select>                    
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" name="CarImage" id="CarImage" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -158,7 +169,7 @@
                 <div class="col-sm-12">
                     <form action="#" method="get" class="sidebar-form">
                         <div class="input-group">
-                            <input id="search-input" type="text" name="q" class="form-control search" placeholder="Rechercher une voiture">
+                            <input id="search-input" type="text" name="q" class="form-control search" placeholder="Rechercher une voiture (plaque d'immatriculation, Marque, Modèle)">
                             <span class="input-group-btn">
                                 <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                                     <i class="fa fa-search"></i>
@@ -179,23 +190,7 @@
 
         <div class="box-body">
             <div class="row">
-                @foreach (var car in Model.Cars)
-                {
-                    <div class="col-md-4">
-                        <div class="box box-solid">
-                            <div class="box-header with-border car-title">
-                                <a href="@Url.Action("Detail", "Car", new { licencePlate = car.Licence_Plate })" class="text-center">
-                                    <i class="fa fa-car"></i>&nbsp;
-                                    <h3 class="box-title">Nissan Micra #@Html.Raw(car.Licence_Plate)</h3>
-                                    <p>Disponible</p>
-                                </a>
-                            </div>
-                            <div class="box-body">
-                                <img src="@Url.Content(imageUrl + car.Licence_Plate + ".jpg")" class="img-thumbnail">
-                            </div>
-                        </div>
-                    </div>
-                }
+                @{ Html.RenderAction("_ListCars", "Car"); }
             </div>
         </div>
     </div>
@@ -208,13 +203,70 @@
 @section scripts
 {
     <script>
+
+        function formatCarMake(carMake) {
+            if (!carMake.id) {
+                return carMake.text;
+            }
+
+            var baseUrl = "/Images/logoCarMake";
+            var $carMake = $(
+                '<span><img src="' + baseUrl + '/' + carMake.element.text.toLowerCase() + '.png" class="img-carMake" /> ' + carMake.text + '</span>'
+            );
+
+            return $carMake;
+        }
+
         $(function () {
+            $(".select2CarMake").select2({
+                theme: "bootstrap",
+                templateResult: formatCarMake
+            });
+
+            $(".select2CarModel").select2({
+                theme: "bootstrap"
+            });
+
+            $('#search-input').on('keypress', function () {
+                var searchWord = $('#search-input').val();
+                console.log(searchWord);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SearchCar", "Car")',
+                    dataType: 'json',
+                    data: { searchWord: searchWord },
+                    success: function (response) {
+                        console.log(reponse);
+                    }
+                });
+            });
+
+            $("#SelectedCarsMakeId").on('change', function () {
+                var idCarMake = $("#SelectedCarsMakeId > option:selected").attr("value");
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCarsModels", "Car")',
+                    dataType: 'json',
+                    data: { idMake: idCarMake },
+                    success: function (response) {
+                        var items = "<option>--------------------</option>";
+                        $.each(response, function (i, model) {
+                            items += "<option value='" + model.Value + "'>" + model.Text + "</option>";
+                        });
+                        $("#dropdownlistCarsModels").html(items);
+                    }
+                });
+            });
+
             $("#AjouterCar").on('click', function () {
 
                 var car = {};
 
+                car.id_Car_Model = $("#dropdownlistCarsModels > option:selected").attr("value");
                 car.licence_plate = $("#Licence_Plate").val();
                 car.Mileage = $("#Mileage").val();
+                car.Id_Company = $("#dropdownlistCompany > option:selected").attr("value");
 
                 $.ajax({
                     type: "POST",
