@@ -277,5 +277,32 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarModel>("usp_CarModel_List_idMake", mergeOption, idMakeParameter);
         }
+    
+        public virtual ObjectResult<usp_Event_List_Result> usp_Event_List(string licencePlate)
+        {
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Event_List_Result>("usp_Event_List", licencePlateParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_GET(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", emailParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_GET(string email, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", mergeOption, emailParameter);
+        }
     }
 }
