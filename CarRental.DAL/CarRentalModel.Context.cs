@@ -304,5 +304,41 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", mergeOption, emailParameter);
         }
+    
+        public virtual ObjectResult<User> Usp_User_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("Usp_User_List");
+        }
+    
+        public virtual ObjectResult<User> Usp_User_List(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("Usp_User_List", mergeOption);
+        }
+    
+        public virtual ObjectResult<User> usp_User_Get_By_Email_And_Password(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_By_Email_And_Password", emailParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_Get_By_Email_And_Password(string email, string password, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_By_Email_And_Password", mergeOption, emailParameter, passwordParameter);
+        }
     }
 }

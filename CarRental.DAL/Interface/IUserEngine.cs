@@ -11,6 +11,8 @@ namespace CarRental.DAL.Interface
     {
         UserDTO Get(string email);
         List<UserDTO> List();
-        void update(UserDTO user);
+        void Update(UserDTO user);
+
+        UserDTO GetByMailAndPassword(string email, string passowrd);
     }
 }

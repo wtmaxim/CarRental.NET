@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/select2")   
+    @Styles.Render("~/Content/iCheck/square")
+    @Styles.Render("~/Content/font-awesome/css/font")
+    @Styles.Render("~/Content/Ionicons/css/ionicons.min.css")
+
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="/"><b>Car</b>Rental</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+
+            <p class="login-box-msg">Connectez vous !</p>
+
+            <form action="" method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" id="email" name="email" class="form-control"
+                           placeholder="Email" required autofocus> <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" id="password" name="password"
+                           class="form-control" placeholder="Mot de Passe" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox"> Se souvenir de
+                                moi
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+
+
+            <a href="">J'ai oublié mon mot de passe</a><br> <a href="">
+                Enregistrer un nouveau
+                membre
+            </a>
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/select2")
+   
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' /* optional */
+            });
+        });
+    </script>
+</body>
+</html>

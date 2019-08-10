@@ -22,19 +22,32 @@ namespace CarRental.DAL
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-                User user = contexte.usp_User_GET(email).FirstOrDefault();
-                return UserMapping.MapToUserDto(user);
+               return UserMapping.MapToUserDto(contexte.usp_User_GET(email).FirstOrDefault());
             }
-            throw new NotImplementedException();
+        }
+
+        UserDTO IUserEngine.GetByMailAndPassword(string email, string password)
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToUserDto(contexte.usp_User_Get_By_Email_And_Password(email, password).FirstOrDefault());
+
+            }
+            
         }
 
         List<UserDTO> IUserEngine.List()
         {
-            throw new NotImplementedException();
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToListUserDTO(contexte.Usp_User_List().ToList<User>());
+            }
+               
         }
 
-        void IUserEngine.update(UserDTO user)
+        void IUserEngine.Update(UserDTO user)
         {
+            // TODO Créer la procédure pour terminer la méthode
             throw new NotImplementedException();
         }
     }

@@ -565,6 +565,11 @@
         <Function Name="usp_User_GET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_User_Get_By_Email_And_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_User_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CarRentalModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionRole" EntityType="Self.ActionRole" Schema="dbo" store:Type="Tables" />
@@ -1353,10 +1358,15 @@
           <Parameter Name="idMake" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Event_List" ReturnType="Collection(CarRentalModel.usp_Event_List_Result)">
-            <Parameter Name="licencePlate" Mode="In" Type="String" />
+          <Parameter Name="licencePlate" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_User_GET" EntitySet="User" ReturnType="Collection(CarRentalModel.User)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Usp_User_List" EntitySet="User" ReturnType="Collection(CarRentalModel.User)" />
+          <FunctionImport Name="usp_User_Get_By_Email_And_Password" EntitySet="User" ReturnType="Collection(CarRentalModel.User)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1447,6 +1457,45 @@
           <Property Type="String" Name="Licence_Plate" Nullable="false" MaxLength="25" />
         </ComplexType>
         <ComplexType Name="usp_User_GET_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Usp_User_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_By_Email_And_Password_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
@@ -1734,6 +1783,9 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_User_GET" FunctionName="CarRentalModel.Store.usp_User_GET">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_Get_By_Email_And_Password" FunctionName="CarRentalModel.Store.usp_User_Get_By_Email_And_Password">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Usp_User_List" FunctionName="CarRentalModel.Store.usp_User_List" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
