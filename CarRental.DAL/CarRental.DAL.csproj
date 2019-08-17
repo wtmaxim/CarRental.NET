@@ -61,6 +61,8 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BookingEngine.cs" />
+    <Compile Include="EventEngine.cs" />
+    <Compile Include="Interface\IEventEngine.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
     <Compile Include="Car.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -117,6 +119,7 @@
     <Compile Include="Interface\IStopOverTypeEngine.cs" />
     <Compile Include="IUtilisateurEngine.cs" />
     <Compile Include="Interface\ICarEngine.cs" />
+    <Compile Include="Mapping\EventMapping.cs" />
     <Compile Include="Mapping\StopOverTypeMapping.cs" />
     <Compile Include="persistent_logins.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -180,6 +183,12 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Car_List_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Car_List_Search_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Event_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_StopOverAddress_Get_idStopOver_Result.cs">

@@ -111,7 +111,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Libelle" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="varchar(max)" Nullable="false" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
@@ -363,7 +363,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__Licence_P__6A30C649">
+        <Association Name="FK__Event__Licence_P__54CB950F">
           <End Role="Car" Type="Self.Car" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -540,6 +540,9 @@
           <Parameter Name="id_Car_Model" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_Car_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_Car_List_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchWord" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="usp_CarMake_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -549,6 +552,9 @@
         </Function>
         <Function Name="usp_CarModel_List_idMake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMake" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
@@ -631,7 +637,7 @@
             <End Role="CategoryCost" EntitySet="CategoryCost" />
             <End Role="Cost" EntitySet="Cost" />
           </AssociationSet>
-          <AssociationSet Name="FK__Event__Licence_P__6A30C649" Association="Self.FK__Event__Licence_P__6A30C649">
+          <AssociationSet Name="FK__Event__Licence_P__54CB950F" Association="Self.FK__Event__Licence_P__54CB950F">
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
@@ -743,7 +749,7 @@
           <NavigationProperty Name="CarModel" Relationship="Self.FK__Car__id_Car_Mode__5BE2A6F2" FromRole="Car" ToRole="CarModel" />
           <NavigationProperty Name="Company" Relationship="Self.FK__Car__Id_Company__59FA5E80" FromRole="Car" ToRole="Company" />
           <NavigationProperty Name="User" Relationship="Self.FK__Car__Id_User__5AEE82B9" FromRole="Car" ToRole="User" />
-          <NavigationProperty Name="Event" Relationship="Self.FK__Event__Licence_P__6A30C649" FromRole="Car" ToRole="Event" />
+          <NavigationProperty Name="Event" Relationship="CarRentalModel.FK__Event__Licence_P__54CB950F" FromRole="Car" ToRole="Event" />
         </EntityType>
         <EntityType Name="CarMake">
           <Key>
@@ -805,17 +811,6 @@
           <Property Name="Id_Category_Cost" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Booking" Relationship="Self.FK__Cost__Id_Booking__66603565" FromRole="Cost" ToRole="Booking" />
           <NavigationProperty Name="CategoryCost" Relationship="Self.FK__Cost__Id_Categor__6754599E" FromRole="Cost" ToRole="CategoryCost" />
-        </EntityType>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Libelle" Type="Int32" Nullable="false" />
-          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Licence_Plate" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Car" Relationship="Self.FK__Event__Licence_P__6A30C649" FromRole="Event" ToRole="Car" />
         </EntityType>
         <EntityType Name="persistent_logins">
           <Key>
@@ -1076,18 +1071,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__Licence_P__6A30C649">
-          <End Role="Car" Type="Self.Car" Multiplicity="1" />
-          <End Role="Event" Type="Self.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Car">
-              <PropertyRef Name="Licence_Plate" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="Licence_Plate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__CarModel__id_Car__47DBAE45">
           <End Role="CarMake" Type="Self.CarMake" Multiplicity="1" />
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="*" />
@@ -1203,7 +1186,6 @@
           <EntitySet Name="CategoryCost" EntityType="Self.CategoryCost" />
           <EntitySet Name="Company" EntityType="Self.Company" />
           <EntitySet Name="Cost" EntityType="Self.Cost" />
-          <EntitySet Name="Event" EntityType="Self.Event" />
           <EntitySet Name="persistent_logins" EntityType="Self.persistent_logins" />
           <EntitySet Name="RequestBooking" EntityType="Self.RequestBooking" />
           <EntitySet Name="Role" EntityType="Self.Role" />
@@ -1261,10 +1243,6 @@
           <AssociationSet Name="FK__Car__Id_User__5AEE82B9" Association="Self.FK__Car__Id_User__5AEE82B9">
             <End Role="User" EntitySet="User" />
             <End Role="Car" EntitySet="Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Event__Licence_P__6A30C649" Association="Self.FK__Event__Licence_P__6A30C649">
-            <End Role="Car" EntitySet="Car" />
-            <End Role="Event" EntitySet="Event" />
           </AssociationSet>
           <AssociationSet Name="FK__CarModel__id_Car__47DBAE45" Association="Self.FK__CarModel__id_Car__47DBAE45">
             <End Role="CarMake" EntitySet="CarMake" />
@@ -1344,7 +1322,18 @@
           </FunctionImport>
           <FunctionImport Name="usp_CarMake_List" EntitySet="CarMake" ReturnType="Collection(CarRentalModel.CarMake)" />
           <FunctionImport Name="usp_CarModel_List_idMake" EntitySet="CarModel" ReturnType="Collection(CarRentalModel.CarModel)">
-            <Parameter Name="idMake" Mode="In" Type="Int32" />
+          <Parameter Name="idMake" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Event_List" EntitySet="Event" ReturnType="Collection(CarRentalModel.Event)">
+          <Parameter Name="licencePlate" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Event" EntityType="CarRentalModel.Event" />
+          <AssociationSet Name="FK__Event__Licence_P__54CB950F" Association="CarRentalModel.FK__Event__Licence_P__54CB950F">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <FunctionImport Name="usp_Car_List_Search" EntitySet="Car" ReturnType="Collection(CarRentalModel.Car)">
+            <Parameter Name="searchWord" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1426,6 +1415,46 @@
           <Property Type="Int32" Name="Places" Nullable="true" />
           <Property Type="String" Name="Energy" Nullable="true" MaxLength="15" />
           <Property Type="Int32" Name="id_Car_Make" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Event_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Libelle" Nullable="false" />
+          <Property Type="DateTime" Name="Start_Date" Nullable="false" />
+          <Property Type="DateTime" Name="End_Date" Nullable="false" />
+          <Property Type="String" Name="Licence_Plate" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Car" Relationship="CarRentalModel.FK__Event__Licence_P__54CB950F" FromRole="Event" ToRole="Car" />
+        </EntityType>
+        <Association Name="FK__Event__Licence_P__54CB950F">
+          <End Type="CarRentalModel.Car" Role="Car" Multiplicity="1" />
+          <End Type="CarRentalModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Licence_Plate" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="Licence_Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_Car_List_Search_Result">
+          <Property Type="Byte" Name="is_Available" Nullable="false" />
+          <Property Type="Int32" Name="Mileage" Nullable="false" />
+          <Property Type="String" Name="Licence_Plate" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="Energy_Value" Nullable="false" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="false" />
+          <Property Type="Int32" Name="Id_User" Nullable="false" />
+          <Property Type="Int32" Name="id_Car_Model" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1533,17 +1562,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Id_Booking" ColumnName="Id_Booking" />
                 <ScalarProperty Name="Id_Category_Cost" ColumnName="Id_Category_Cost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Event">
-            <EntityTypeMapping TypeName="CarRentalModel.Event">
-              <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
-                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
-                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
-                <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1688,6 +1706,21 @@
           <FunctionImportMapping FunctionImportName="usp_CarMake_List" FunctionName="CarRentalModel.Store.usp_CarMake_List">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_CarModel_List_idMake" FunctionName="CarRentalModel.Store.usp_CarModel_List_idMake">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Event_List" FunctionName="CarRentalModel.Store.usp_Event_List">
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Event">
+            <EntityTypeMapping TypeName="CarRentalModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Car_List_Search" FunctionName="CarRentalModel.Store.usp_Car_List_Search">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

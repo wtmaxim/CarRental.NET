@@ -46,6 +46,7 @@
     <Compile Include="CarLogic.cs" />
     <Compile Include="CarMakeLogic.cs" />
     <Compile Include="CarModelLogic.cs" />
+    <Compile Include="EventLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

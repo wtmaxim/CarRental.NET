@@ -124,7 +124,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Filtre par emplacement</label>
-                        <select class="form-control">
+                        <select class="form-control select2CarModel">
                             <option>Campus de Nantes</option>
                             <option>Campus de Nantes Faraday</option>
                             <option>Campus de Rennes</option>
@@ -189,16 +189,12 @@
         </div>
 
         <div class="box-body">
-            <div class="row">
+            <div class="row" id="renderListCar">
                 @{ Html.RenderAction("_ListCars", "Car"); }
             </div>
         </div>
     </div>
-
-
 </section>
-
-
 
 @section scripts
 {
@@ -228,16 +224,14 @@
             });
 
             $('#search-input').on('keypress', function () {
-                var searchWord = $('#search-input').val();
-                console.log(searchWord);
-
+                var licencePlate = $('#search-input').val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("SearchCar", "Car")',
-                    dataType: 'json',
-                    data: { searchWord: searchWord },
+                    url: '@Url.Action("_ListCars", "Car")',
+                    dataType: 'html',
+                    data: { licencePlate: licencePlate },
                     success: function (response) {
-                        console.log(reponse);
+                        $("#renderListCar").html(response);
                     }
                 });
             });

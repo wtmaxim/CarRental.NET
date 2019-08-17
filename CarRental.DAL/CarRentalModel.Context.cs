@@ -37,7 +37,6 @@ namespace CarRental.DAL
         public virtual DbSet<CategoryCost> CategoryCost { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Cost> Cost { get; set; }
-        public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<persistent_logins> persistent_logins { get; set; }
         public virtual DbSet<RequestBooking> RequestBooking { get; set; }
         public virtual DbSet<Role> Role { get; set; }
@@ -48,6 +47,7 @@ namespace CarRental.DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -276,6 +276,42 @@ namespace CarRental.DAL
                 new ObjectParameter("idMake", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CarModel>("usp_CarModel_List_idMake", mergeOption, idMakeParameter);
+        }
+    
+        public virtual ObjectResult<Event> usp_Event_List(string licencePlate)
+        {
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Event>("usp_Event_List", licencePlateParameter);
+        }
+    
+        public virtual ObjectResult<Event> usp_Event_List(string licencePlate, MergeOption mergeOption)
+        {
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Event>("usp_Event_List", mergeOption, licencePlateParameter);
+        }
+    
+        public virtual ObjectResult<Car> usp_Car_List_Search(string searchWord)
+        {
+            var searchWordParameter = searchWord != null ?
+                new ObjectParameter("searchWord", searchWord) :
+                new ObjectParameter("searchWord", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Car>("usp_Car_List_Search", searchWordParameter);
+        }
+    
+        public virtual ObjectResult<Car> usp_Car_List_Search(string searchWord, MergeOption mergeOption)
+        {
+            var searchWordParameter = searchWord != null ?
+                new ObjectParameter("searchWord", searchWord) :
+                new ObjectParameter("searchWord", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Car>("usp_Car_List_Search", mergeOption, searchWordParameter);
         }
     }
 }

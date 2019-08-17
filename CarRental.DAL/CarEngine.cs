@@ -41,5 +41,14 @@ namespace CarRental.DAL
                 return carMapping.MapToListCarDTO(cars);
             }
         }
+
+        public List<CarDTO> List(string searchWord)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                var cars = context.usp_Car_List_Search(searchWord).ToList();
+                return carMapping.MapToListCarDTO(cars);
+            }
+        }
     }
 }

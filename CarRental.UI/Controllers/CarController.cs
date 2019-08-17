@@ -4,9 +4,7 @@ using CarRental.UI.ViewsModels.Car;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace CarRental.UI.Controllers
 {
@@ -16,6 +14,7 @@ namespace CarRental.UI.Controllers
         private readonly CarModelLogic carModelLogic;
         private readonly CarMakeLogic carMakeLogic;
         private readonly BookingLogic bookingLogic;
+        private readonly EventLogic eventLogic;
 
         public CarController()
         {
@@ -23,6 +22,7 @@ namespace CarRental.UI.Controllers
             carModelLogic = new CarModelLogic();
             carMakeLogic = new CarMakeLogic();
             bookingLogic = new BookingLogic();
+            eventLogic = new EventLogic();
         }
 
         // GET: Voiture
@@ -43,12 +43,21 @@ namespace CarRental.UI.Controllers
             return null;
         }
 
-        [ChildActionOnly]
-        public ActionResult _ListCars()
+        public ActionResult _ListCars(string licencePlate)
         {
+            List<CarDTO> _cars = new List<CarDTO>();
+
+            if (string.IsNullOrWhiteSpace(licencePlate))
+            {
+                _cars = carLogic.List();
+            }
+            else
+            {
+                _cars = carLogic.List(licencePlate);
+            }
+
             List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>> cars = new List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>>();
 
-            List<CarDTO> _cars = carLogic.List();
 
             foreach (CarDTO car in _cars)
             {
@@ -95,19 +104,31 @@ namespace CarRental.UI.Controllers
             CarModelDTO carModel = carModelLogic.Get(car.id_Car_Model);
             CarMakeDTO carMake = carMakeLogic.Get(carModel.id_Car_Make);
             List<BookingDTO> bookings = bookingLogic.List(car.Licence_Plate);
-            
+            List<EventDTO> events = eventLogic.List(licencePlate);
+
 
             CarDetailViewsModel vm = new CarDetailViewsModel
             {
                 car = car,
                 carModel = carModel,
-                carMake = carMake
+                carMake = carMake,
+                events = events
             };
 
             return View(vm);
         }
 
         
+
+        public ActionResult GetCalendarData(string start, string end, string licencePlate)
+        {
+            List<EventDTO> events = eventLogic.List(licencePlate);
+
+            return Json(events.Select(e => new { id = e.Id, title = e.Libelle, start = e.Start_Date.Date.ToString("yyyy-MM-dd"), end = e.End_Date.Date.ToString("yyyy-MM-dd") }), JsonRequestBehavior.AllowGet);
+        }
+
+
+
         [HttpPost]
         public ActionResult AddCar(CarDTO car)
         {

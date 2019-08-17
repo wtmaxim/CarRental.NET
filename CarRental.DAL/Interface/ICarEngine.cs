@@ -12,5 +12,6 @@ namespace CarRental.DAL
         void Insert(CarDTO voiture);
         List<CarDTO> List();
         CarDTO Get(string licencePlate);
+        List<CarDTO> List(string searchWord);
     }
 }

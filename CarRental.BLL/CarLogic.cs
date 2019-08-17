@@ -22,14 +22,19 @@ namespace CarRental.BLL
             carEngine.Insert(car);
         }
 
-        public List<CarDTO> List()
+        public List<CarDTO> List(string searchWord)
         {
-            return carEngine.List();
+            return carEngine.List(searchWord);
         }
 
         public CarDTO Get(string licencePlate)
         {
             return carEngine.Get(licencePlate);
+        }
+
+        public List<CarDTO> List()
+        {
+            return carEngine.List();
         }
     }
 }
