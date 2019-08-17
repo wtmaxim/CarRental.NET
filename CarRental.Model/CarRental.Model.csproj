@@ -51,6 +51,7 @@
     <Compile Include="CompanyDTO.cs" />
     <Compile Include="CostDTO.cs" />
     <Compile Include="EventDTO.cs" />
+    <Compile Include="FullCalendarDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CarDTO.cs" />
     <Compile Include="RequestBookingDTO.cs" />
