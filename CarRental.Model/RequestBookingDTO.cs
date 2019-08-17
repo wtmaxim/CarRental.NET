@@ -9,7 +9,5 @@ namespace CarRental.Model
         public System.DateTime Date { get; set; }
         public string Reason { get; set; }
         public int Id_Status { get; set; }
-        public virtual ICollection<BookingDTO> Booking { get; set; }
-        public virtual StatusDTO Status { get; set; }
     }
 }

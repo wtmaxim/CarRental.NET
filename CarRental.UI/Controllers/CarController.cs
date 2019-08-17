@@ -14,6 +14,7 @@ namespace CarRental.UI.Controllers
         private readonly CarModelLogic carModelLogic;
         private readonly CarMakeLogic carMakeLogic;
         private readonly BookingLogic bookingLogic;
+        private readonly RequestBookingLogic requestBookingLogic;
         private readonly EventLogic eventLogic;
 
         public CarController()
@@ -22,6 +23,7 @@ namespace CarRental.UI.Controllers
             carModelLogic = new CarModelLogic();
             carMakeLogic = new CarMakeLogic();
             bookingLogic = new BookingLogic();
+            requestBookingLogic = new RequestBookingLogic();
             eventLogic = new EventLogic();
         }
 
@@ -123,8 +125,23 @@ namespace CarRental.UI.Controllers
         public ActionResult GetCalendarData(string start, string end, string licencePlate)
         {
             List<EventDTO> events = eventLogic.List(licencePlate);
+            List<BookingDTO> bookings = bookingLogic.List(licencePlate);
 
-            return Json(events.Select(e => new { id = e.Id, title = e.Libelle, start = e.Start_Date.Date.ToString("yyyy-MM-dd"), end = e.End_Date.Date.ToString("yyyy-MM-dd") }), JsonRequestBehavior.AllowGet);
+            List<FullCalendarDTO> fullCalendars = new List<FullCalendarDTO>();
+
+            foreach (EventDTO @event in events)
+            {
+                fullCalendars.Add(new FullCalendarDTO { Id = @event.Id, Libelle = @event.Libelle, Start = @event.Start_Date.ToString("yyyy-MM-dd"), End = @event.End_Date.ToString("yyyy-MM-dd") });
+            }
+
+            foreach (BookingDTO booking in bookings)
+            {
+                RequestBookingDTO requestBooking = requestBookingLogic.Get(booking.Id);
+
+                fullCalendars.Add(new FullCalendarDTO { Id = booking.Id, Libelle = requestBooking.Reason });
+            }
+
+            return Json(fullCalendars.Select(e => new { id = e.Id, title = e.Libelle, start = e.Start, end = e.End }), JsonRequestBehavior.AllowGet);
         }
 
 

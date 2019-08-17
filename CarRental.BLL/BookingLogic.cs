@@ -10,7 +10,7 @@ namespace CarRental.BLL
 {
     public class BookingLogic
     {
-        private readonly BookingEngine bookingEngine;
+        private readonly IBookingEngine bookingEngine;
 
         public BookingLogic()
         {

@@ -313,5 +313,23 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Car>("usp_Car_List_Search", mergeOption, searchWordParameter);
         }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Get_IdBooking(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get_IdBooking", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Get_IdBooking(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get_IdBooking", mergeOption, idBookingParameter);
+        }
     }
 }

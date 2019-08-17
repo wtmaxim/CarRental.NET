@@ -556,6 +556,9 @@
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_RequestBooking_Get_IdBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdBooking" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
         </Function>
@@ -1333,7 +1336,10 @@
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
           <FunctionImport Name="usp_Car_List_Search" EntitySet="Car" ReturnType="Collection(CarRentalModel.Car)">
-            <Parameter Name="searchWord" Mode="In" Type="String" />
+          <Parameter Name="searchWord" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RequestBooking_Get_IdBooking" EntitySet="RequestBooking" ReturnType="Collection(CarRentalModel.RequestBooking)">
+            <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1455,6 +1461,13 @@
           <Property Type="Int32" Name="Id_Company" Nullable="false" />
           <Property Type="Int32" Name="Id_User" Nullable="false" />
           <Property Type="Int32" Name="id_Car_Model" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_RequestBooking_Get_IdBooking_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Id_Status" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Byte" Name="is_Personal_Car_Available" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1721,6 +1734,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_Car_List_Search" FunctionName="CarRentalModel.Store.usp_Car_List_Search">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RequestBooking_Get_IdBooking" FunctionName="CarRentalModel.Store.usp_RequestBooking_Get_IdBooking">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
