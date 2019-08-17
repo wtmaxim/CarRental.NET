@@ -10,11 +10,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/select2")   
-    @Styles.Render("~/Content/iCheck/square")
-    @Styles.Render("~/Content/font-awesome/css/font")
-    @Styles.Render("~/Content/Ionicons/css/ionicons.min.css")
-
+    @Styles.Render("~/Content/select2")
+    @Styles.Render("~/Content/iCheck/square/blue")
+    @Styles.Render("~/Content/font-awesome/css")
+    @Styles.Render("~/Content/Ionicons/css")
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -67,7 +69,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/select2")
-   
+    @Scripts.Render("~/Content/iCheck")
+
+ @section scripts 
+{
     <script>
         $(function () {
             $('input').iCheck({
@@ -77,5 +82,6 @@
             });
         });
     </script>
-</body>
+    }
+    </body>
 </html>
