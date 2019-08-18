@@ -7,7 +7,7 @@ using CarRental.Model;
 
 namespace CarRental.DAL.Interface
 {
-    interface IUserEngine
+   public interface IUtilisateurEngine
     {
         UserDTO Get(string email);
         List<UserDTO> List();

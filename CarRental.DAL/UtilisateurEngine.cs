@@ -9,7 +9,7 @@ using CarRental.Model;
 
 namespace CarRental.DAL
 {
-    public class UtilisateurEngine : IUserEngine
+    public class UtilisateurEngine : IUtilisateurEngine
     {
         private UserMapping UserMapping;
        
@@ -18,7 +18,7 @@ namespace CarRental.DAL
             UserMapping = new UserMapping();
            
         }
-        UserDTO IUserEngine.Get(string email)
+        UserDTO IUtilisateurEngine.Get(string email)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
@@ -26,17 +26,18 @@ namespace CarRental.DAL
             }
         }
 
-        UserDTO IUserEngine.GetByMailAndPassword(string email, string password)
+        UserDTO IUtilisateurEngine.GetByMailAndPassword(string email, string password)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-                return UserMapping.MapToUserDto(contexte.usp_User_Get_By_Email_And_Password(email, password).FirstOrDefault());
+               var x = contexte.usp_User_Get_By_Email_And_Password(email,password).FirstOrDefault();
+                return UserMapping.MapToUserDto(x);
 
             }
             
         }
 
-        List<UserDTO> IUserEngine.List()
+        List<UserDTO> IUtilisateurEngine.List()
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
@@ -45,7 +46,7 @@ namespace CarRental.DAL
                
         }
 
-        void IUserEngine.Update(UserDTO user)
+        void IUtilisateurEngine.Update(UserDTO user)
         {
             // TODO Créer la procédure pour terminer la méthode
             throw new NotImplementedException();

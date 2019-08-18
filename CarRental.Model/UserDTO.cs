@@ -3,12 +3,20 @@
 
 namespace CarRental.Model
 {
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public class UserDTO
     {
         public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        [DisplayName("Email")]
+        [Required(ErrorMessage ="Veuillez saisir votre Email")]
         public string Email { get; set; }
+        [DisplayName("Mot de passe")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage ="Veuillez saisir votre mot de passe")]
         public string Password { get; set; }
         public byte Is_Active { get; set; }
         public string Job { get; set; }
@@ -16,10 +24,7 @@ namespace CarRental.Model
         public string Phone_Number { get; set; }
         public byte Is_Address_Private { get; set; }
         public int? Id_Company { get; set; }
-        public ICollection<CarDTO> Car { get; set; }
-        public CompanyDTO Company { get; set; }
-        public ICollection<user_addressDTO> user_address { get; set; }
-        public ICollection<UserBookingDTO> UserBooking { get; set; }
-        public ICollection<RoleDTO> Role { get; set; }
+        public string LoginErrorMessage { get; set; }
+        
     }
 }

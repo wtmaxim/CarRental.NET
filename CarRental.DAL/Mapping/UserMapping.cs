@@ -9,37 +9,52 @@ namespace CarRental.DAL.Mapping
 {
     class UserMapping
     {
-        public UserDTO MapToUserDto(User user) => new UserDTO
+        public UserDTO MapToUserDto(User user)
         {
-            Lastname = user.Lastname,
-            Password = user.Password,
-            Firstname = user.Firstname,
-            Is_Active = user.is_Active,
-            Job = user.Job,
-            Note = user.Note,
-            Email = user.Email,
-            Id_Company = user.Id_Company,
-            Phone_Number = user.Phone_Number,
-            Id = user.Id,
-            Is_Address_Private = user.is_Address_Private
+            if(user != null)
+            {
+                return new UserDTO
+                {
+                    Lastname = user.Lastname,
+                    Password = user.Password,
+                    Firstname = user.Firstname,
+                    Is_Active = user.is_Active,
+                    Job = user.Job,
+                    Note = user.Note,
+                    Email = user.Email,
+                    Id_Company = user.Id_Company,
+                    Phone_Number = user.Phone_Number,
+                    Id = user.Id,
+                    Is_Address_Private = user.is_Address_Private
 
-        };
+                };
 
-        public List<UserDTO> MapToListUserDTO(List<User> users) => (from User user in users
-                                                                    let newUser = new UserDTO
-                                                                    {
-                                                                        Lastname = user.Lastname,
-                                                                        Password = user.Password,
-                                                                        Firstname = user.Firstname,
-                                                                        Is_Active = user.is_Active,
-                                                                        Job = user.Job,
-                                                                        Note = user.Note,
-                                                                        Email = user.Email,
-                                                                        Id_Company = user.Id_Company,
-                                                                        Phone_Number = user.Phone_Number,
-                                                                        Id = user.Id,
-                                                                        Is_Address_Private = user.is_Address_Private
-                                                                    }
-                                                                    select newUser).ToList();
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public List<UserDTO> MapToListUserDTO(List<User> users)
+        {
+            return (from User user in users
+                    let newUser = new UserDTO
+                    {
+                        Lastname = user.Lastname,
+                        Password = user.Password,
+                        Firstname = user.Firstname,
+                        Is_Active = user.is_Active,
+                        Job = user.Job,
+                        Note = user.Note,
+                        Email = user.Email,
+                        Id_Company = user.Id_Company,
+                        Phone_Number = user.Phone_Number,
+                        Id = user.Id,
+                        Is_Address_Private = user.is_Address_Private
+                    }
+                    select newUser).ToList();
+        }
     }
 }

@@ -131,7 +131,7 @@
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
-    <Compile Include="Controllers\UtilisateurController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2200,13 +2200,14 @@
     <Content Include="Scripts\moment\package-lock.json" />
     <Content Include="Scripts\moment\README.md" />
     <Content Include="Views\Car\_ListCars.cshtml" />
-    <Content Include="Views\Utilisateur\Login.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ViewsModels\Reservation\" />
     <Folder Include="Views\Configuration\" />
     <Folder Include="Views\Reservation\" />
+    <Folder Include="Views\Utilisateur\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
