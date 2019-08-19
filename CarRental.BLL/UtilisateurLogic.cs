@@ -21,5 +21,10 @@ namespace CarRental.BLL
         {
             return utilisateurEngine.GetByMailAndPassword(mail, password);
         }
+
+        public UserDTO GetUserByMail(String mail)
+        {
+            return utilisateurEngine.GetByMail(mail);
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace CarRental.Model
         public string Lastname { get; set; }
         [DisplayName("Email")]
         [Required(ErrorMessage ="Veuillez saisir votre Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [DisplayName("Mot de passe")]
         [DataType(DataType.Password)]

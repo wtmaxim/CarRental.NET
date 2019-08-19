@@ -18,7 +18,7 @@ namespace CarRental.DAL
             UserMapping = new UserMapping();
            
         }
-        UserDTO IUtilisateurEngine.Get(string email)
+        UserDTO IUtilisateurEngine.GetByMail(string email)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {

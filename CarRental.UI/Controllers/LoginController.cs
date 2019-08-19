@@ -22,6 +22,7 @@ namespace CarRental.UI.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Autherize(UserDTO userDTO)
         {
@@ -33,16 +34,14 @@ namespace CarRental.UI.Controllers
             }
             else
             {
-
                 Session["userID"] = userDetails.Id;
                 Session["firstname"] = userDetails.Firstname;
                 Session["lastName"] = userDetails.Lastname;
                 Session["userJob"] = userDetails.Job;
                 return RedirectToAction("Index", "Home");
             }
-
-            
         }
+
         public ActionResult LogOut()
         {
             Session.Abandon();
@@ -57,13 +56,21 @@ namespace CarRental.UI.Controllers
         public ActionResult PasswordReset(UserDTO userDTO)
         {
             //TODO Verifier que l'email existe dans base de données
-            //TODO Générer le lien pour changer le mot de passe
-            //TODO Envoyer un mail à l'utilisateur si l'email existe
-            //TODO Afficher un message d'erreur si l'email n'existe pas
+            UserDTO userDetails = utilisateurLogic.GetUserByMail(userDTO.Email);
+            if (userDetails == null)
+            {
+                //TODO Afficher un message d'erreur si l'email n'existe pas
+                userDTO.LoginErrorMessage = "Aucun compte avec cet email n'a été trouvé";
+                return View("PasswordReset", userDTO);
+            }
+            else
+            {
+                //TODO Générer le lien pour changer le mot de passe
+                //TODO Envoyer un mail à l'utilisateur si l'email existe
+            }
+
             return View();
         }
         
-
-        }
     }
 }

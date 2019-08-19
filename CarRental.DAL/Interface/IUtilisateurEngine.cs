@@ -9,7 +9,7 @@ namespace CarRental.DAL.Interface
 {
    public interface IUtilisateurEngine
     {
-        UserDTO Get(string email);
+        UserDTO GetByMail(string email);
         List<UserDTO> List();
         void Update(UserDTO user);
 
