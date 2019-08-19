@@ -37,6 +37,7 @@ namespace CarRental.UI.Controllers
                 Session["userID"] = userDetails.Id;
                 Session["firstname"] = userDetails.Firstname;
                 Session["lastName"] = userDetails.Lastname;
+                Session["userJob"] = userDetails.Job;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -48,6 +49,21 @@ namespace CarRental.UI.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-       
+       public ActionResult PasswordReset()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PasswordReset(UserDTO userDTO)
+        {
+            //TODO Verifier que l'email existe dans base de données
+            //TODO Générer le lien pour changer le mot de passe
+            //TODO Envoyer un mail à l'utilisateur si l'email existe
+            //TODO Afficher un message d'erreur si l'email n'existe pas
+            return View();
+        }
+        
+
+        }
     }
 }

@@ -140,7 +140,6 @@
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
-    <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE.min.css" />
@@ -2086,9 +2085,12 @@
     <Content Include="Scripts\moment\README.md" />
     <Content Include="Views\Car\_ListCars.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\PasswordReset.cshtml" />
+    <Content Include="Views\Shared\LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewsModels\Home\" />
     <Folder Include="ViewsModels\Reservation\" />
     <Folder Include="Views\Configuration\" />
     <Folder Include="Views\Reservation\" />

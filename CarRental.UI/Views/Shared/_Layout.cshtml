@@ -72,7 +72,7 @@
 
                                     <p>
                                         @Session["firstName"].ToString() @Session["lastName"].ToString()
-                                        <small>Intervenant réseau</small>
+                                        <small>@Session["userJob"].ToString()</small>
                                     </p>
                                 </li>
                                 <li class="user-footer">
@@ -100,7 +100,7 @@
                     </div>
                     <div class="pull-left info">
                         <p>@Session["firstName"].ToString() @Session["lastName"].ToString()</p>
-                        <a href="#">Intervenant réseau</a>
+                        <a href="#">@Session["userJob"].ToString()</a>
                     </div>
                 </div>
 

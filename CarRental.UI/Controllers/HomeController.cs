@@ -1,6 +1,5 @@
 ﻿using CarRental.BLL;
 using CarRental.Model;
-using CarRental.UI.ViewsModels.Home;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,18 +31,8 @@ namespace CarRental.UI.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
+        
 
-        [HttpPost]
-        public ActionResult Login(LoginViewModel loginViewModel)
-        {
-
-
-            return View();
-        }
+        
     }
 }

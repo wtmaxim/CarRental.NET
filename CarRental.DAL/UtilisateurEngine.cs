@@ -30,9 +30,7 @@ namespace CarRental.DAL
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-               var x = contexte.usp_User_Get_By_Email_And_Password(email,password).FirstOrDefault();
-                return UserMapping.MapToUserDto(x);
-
+              return UserMapping.MapToUserDto(contexte.usp_User_Get_By_Email_And_Password(email, password).FirstOrDefault());
             }
             
         }
