@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="BookingEngine.cs" />
     <Compile Include="Interface\IUtilisateurEngine.cs" />
+    <Compile Include="Interface\IPasswordResetTokenEngine.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
     <Compile Include="Car.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -117,11 +118,13 @@
     <Compile Include="Interface\IStopOverEngine.cs" />
     <Compile Include="Interface\IStopOverTypeEngine.cs" />
     <Compile Include="Interface\ICarEngine.cs" />
+    <Compile Include="Mapping\PasswordResetTokenMapping.cs" />
     <Compile Include="Mapping\StopOverTypeMapping.cs" />
     <Compile Include="Mapping\UserMapping.cs" />
-    <Compile Include="persistent_logins.cs">
+    <Compile Include="PasswordResetToken.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PasswordResetTokenEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBooking.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -184,6 +187,9 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Event_List_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_PasswordResetToken_get_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_StopOverAddress_Get_idStopOver_Result.cs">

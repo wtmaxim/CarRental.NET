@@ -38,7 +38,6 @@ namespace CarRental.DAL
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Cost> Cost { get; set; }
         public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<persistent_logins> persistent_logins { get; set; }
         public virtual DbSet<RequestBooking> RequestBooking { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Status> Status { get; set; }
@@ -48,6 +47,7 @@ namespace CarRental.DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
+        public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -339,6 +339,41 @@ namespace CarRental.DAL
                 new ObjectParameter("Password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_By_Email_And_Password", mergeOption, emailParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<PasswordResetToken> usp_PasswordResetToken_get(string token)
+        {
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PasswordResetToken>("usp_PasswordResetToken_get", tokenParameter);
+        }
+    
+        public virtual ObjectResult<PasswordResetToken> usp_PasswordResetToken_get(string token, MergeOption mergeOption)
+        {
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PasswordResetToken>("usp_PasswordResetToken_get", mergeOption, tokenParameter);
+        }
+    
+        public virtual int usp_PasswordResetToken_Insert(string token, Nullable<System.DateTime> expiry_date, Nullable<int> user_Id)
+        {
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            var expiry_dateParameter = expiry_date.HasValue ?
+                new ObjectParameter("expiry_date", expiry_date) :
+                new ObjectParameter("expiry_date", typeof(System.DateTime));
+    
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("user_Id", user_Id) :
+                new ObjectParameter("user_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_PasswordResetToken_Insert", tokenParameter, expiry_dateParameter, user_IdParameter);
         }
     }
 }

@@ -46,6 +46,7 @@
     <Compile Include="CarLogic.cs" />
     <Compile Include="CarMakeLogic.cs" />
     <Compile Include="CarModelLogic.cs" />
+    <Compile Include="PasswordResetTokenLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilisateurLogic.cs" />
   </ItemGroup>

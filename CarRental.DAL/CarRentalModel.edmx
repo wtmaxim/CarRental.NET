@@ -116,14 +116,14 @@
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
-        <EntityType Name="persistent_logins">
+        <EntityType Name="PasswordResetToken">
           <Key>
-            <PropertyRef Name="series" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="username" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="series" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="token" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="last_used" Type="datetime" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="expiry_date" Type="datetime" />
+          <Property Name="token" Type="varchar" MaxLength="255" />
+          <Property Name="user_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestBooking">
           <Key>
@@ -519,6 +519,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PasswordResetToken_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PasswordResetToken" Type="Self.PasswordResetToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordResetToken">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="usp_Adress_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Booking_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -553,6 +567,14 @@
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_PasswordResetToken_get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="token" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_PasswordResetToken_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="token" Type="varchar" Mode="In" />
+          <Parameter Name="expiry_date" Type="datetime" Mode="In" />
+          <Parameter Name="user_Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
         </Function>
@@ -583,7 +605,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cost" EntityType="Self.Cost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="persistent_logins" EntityType="Self.persistent_logins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PasswordResetToken" EntityType="Self.PasswordResetToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestBooking" EntityType="Self.RequestBooking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
@@ -693,6 +715,10 @@
           <AssociationSet Name="FK__UserBooki__Id_Us__59FA5E80" Association="Self.FK__UserBooki__Id_Us__59FA5E80">
             <End Role="User" EntitySet="User" />
             <End Role="UserBooking" EntitySet="UserBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PasswordResetToken_UserID" Association="Self.FK_PasswordResetToken_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="PasswordResetToken" EntitySet="PasswordResetToken" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -828,15 +854,6 @@
           <Property Name="Licence_Plate" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Car" Relationship="Self.FK__Event__Licence_P__6A30C649" FromRole="Event" ToRole="Car" />
         </EntityType>
-        <EntityType Name="persistent_logins">
-          <Key>
-            <PropertyRef Name="series" />
-          </Key>
-          <Property Name="username" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="series" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="token" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="last_used" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="RequestBooking">
           <Key>
             <PropertyRef Name="id" />
@@ -919,6 +936,7 @@
           <NavigationProperty Name="user_address" Relationship="Self.FK__user_addr__id_us__5629CD9C" FromRole="User" ToRole="user_address" />
           <NavigationProperty Name="UserBooking" Relationship="Self.FK__UserBooki__Id_Us__6383C8BA" FromRole="User" ToRole="UserBooking" />
           <NavigationProperty Name="Role" Relationship="Self.user_role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="PasswordResetToken" Relationship="CarRentalModel.FK_PasswordResetToken_UserID" FromRole="User" ToRole="PasswordResetToken" />
         </EntityType>
         <EntityType Name="user_address">
           <Key>
@@ -1215,7 +1233,6 @@
           <EntitySet Name="Company" EntityType="Self.Company" />
           <EntitySet Name="Cost" EntityType="Self.Cost" />
           <EntitySet Name="Event" EntityType="Self.Event" />
-          <EntitySet Name="persistent_logins" EntityType="Self.persistent_logins" />
           <EntitySet Name="RequestBooking" EntityType="Self.RequestBooking" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Status" EntityType="Self.Status" />
@@ -1368,6 +1385,19 @@
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="PasswordResetToken" EntityType="CarRentalModel.PasswordResetToken" />
+          <AssociationSet Name="FK_PasswordResetToken_UserID" Association="CarRentalModel.FK_PasswordResetToken_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="PasswordResetToken" EntitySet="PasswordResetToken" />
+          </AssociationSet>
+          <FunctionImport Name="usp_PasswordResetToken_get" EntitySet="PasswordResetToken" ReturnType="Collection(CarRentalModel.PasswordResetToken)">
+          <Parameter Name="token" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PasswordResetToken_Insert">
+            <Parameter Name="token" Mode="In" Type="String" />
+            <Parameter Name="expiry_date" Mode="In" Type="DateTime" />
+            <Parameter Name="user_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1508,6 +1538,36 @@
           <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
           <Property Type="Int32" Name="Id_Company" Nullable="true" />
         </ComplexType>
+        <EntityType Name="PasswordResetToken">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="expiry_date" Type="DateTime" Precision="3" />
+          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CarRentalModel.FK_PasswordResetToken_UserID" FromRole="PasswordResetToken" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_PasswordResetToken_UserID">
+          <End Type="CarRentalModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CarRentalModel.PasswordResetToken" Role="PasswordResetToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordResetToken">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_PasswordResetToken_get_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="expiry_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="token" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1625,16 +1685,6 @@
                 <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
                 <ScalarProperty Name="End_Date" ColumnName="End_Date" />
                 <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="persistent_logins">
-            <EntityTypeMapping TypeName="CarRentalModel.persistent_logins">
-              <MappingFragment StoreEntitySet="persistent_logins">
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="series" ColumnName="series" />
-                <ScalarProperty Name="token" ColumnName="token" />
-                <ScalarProperty Name="last_used" ColumnName="last_used" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1786,6 +1836,19 @@
           <FunctionImportMapping FunctionImportName="usp_User_Get_By_Email_And_Password" FunctionName="CarRentalModel.Store.usp_User_Get_By_Email_And_Password">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Usp_User_List" FunctionName="CarRentalModel.Store.usp_User_List" />
+          <EntitySetMapping Name="PasswordResetToken">
+            <EntityTypeMapping TypeName="CarRentalModel.PasswordResetToken">
+              <MappingFragment StoreEntitySet="PasswordResetToken">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_get" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_get">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_Insert" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

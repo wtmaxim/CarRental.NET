@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Model;
 
-namespace CarRental.DAL.Interface
+namespace CarRental.DAL
 {
    public interface IUtilisateurEngine
     {

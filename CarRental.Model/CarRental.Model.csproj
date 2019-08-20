@@ -51,6 +51,7 @@
     <Compile Include="CategoryCostDTO.cs" />
     <Compile Include="CompanyDTO.cs" />
     <Compile Include="CostDTO.cs" />
+    <Compile Include="PasswordResetTokenDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CarDTO.cs" />
     <Compile Include="RequestBookingDTO.cs" />

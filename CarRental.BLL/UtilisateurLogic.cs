@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Model;
 using CarRental.DAL;
-using CarRental.DAL.Interface;
 
 namespace CarRental.BLL
 {

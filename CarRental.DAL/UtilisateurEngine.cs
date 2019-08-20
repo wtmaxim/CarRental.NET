@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.DAL.Interface;
 using CarRental.DAL.Mapping;
 using CarRental.Model;
 
@@ -11,7 +8,7 @@ namespace CarRental.DAL
 {
     public class UtilisateurEngine : IUtilisateurEngine
     {
-        private UserMapping UserMapping;
+        private readonly UserMapping UserMapping;
        
         public UtilisateurEngine()
         {
