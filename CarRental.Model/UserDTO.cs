@@ -12,13 +12,17 @@ namespace CarRental.Model
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         [DisplayName("Email")]
-        [Required(ErrorMessage ="Veuillez saisir votre Email")]
-        [DataType(DataType.EmailAddress)]
+        [Required(AllowEmptyStrings =false,ErrorMessage ="Veuillez saisir votre Email.")]
+        [EmailAddress(ErrorMessage ="Veuillez saisir une addresse email valide.")]
         public string Email { get; set; }
         [DisplayName("Mot de passe")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage ="Veuillez saisir votre mot de passe")]
+        [Required(AllowEmptyStrings = false, ErrorMessage ="Veuillez saisir votre mot de passe")]
         public string Password { get; set; }
+        [DisplayName("Confirmez votre mot de passe")]
+        [DataType(DataType.Password)]
+        [Compare("Password",ErrorMessage ="Les mots de passe ne correspondent pas")]
+        public string confirmPassword { get; set; }
         public byte Is_Active { get; set; }
         public string Job { get; set; }
         public string Note { get; set; }

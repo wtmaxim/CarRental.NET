@@ -9,16 +9,16 @@ using CarRental.BLL;
 namespace CarRental.UI.Controllers
 {
     
-    public class LoginController : Controller
+    public class AccountController : Controller
     {
         private readonly UtilisateurLogic utilisateurLogic;
        
-        public LoginController()
+        public AccountController()
         {
             utilisateurLogic = new UtilisateurLogic();
         }
 
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
@@ -45,7 +45,7 @@ namespace CarRental.UI.Controllers
         public ActionResult LogOut()
         {
             Session.Abandon();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Account");
         }
 
        public ActionResult PasswordReset()

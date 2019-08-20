@@ -1,185 +1,188 @@
-﻿@{ 
-    if (Session["userID"]== null)
+﻿@{
+    if (Session["userID"] == null)
     {
-        Response.Redirect("~/Login/Index");
+        Response.Redirect("~/Account/Login");
     }
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <title>@ViewBag.Title - Mon application ASP.NET</title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/fullcalendar")
-    @Styles.Render("~/Content/select2")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
+    else
+    {
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+            <title>@ViewBag.Title - Mon application ASP.NET</title>
+            @Styles.Render("~/Content/css")
+            @Styles.Render("~/Content/fullcalendar")
+            @Styles.Render("~/Content/select2")
+            @Scripts.Render("~/bundles/modernizr")
+        </head>
+        <body class="hold-transition skin-blue sidebar-mini">
 
-    <div class="wrapper">
-        <header class="main-header">
-            <a href="index3.html" class="logo">
-                <span class="logo-mini"><b>E</b>NI</span>
-                <span class="logo-lg"><b>Locations</b> ENI</span>
-            </a>
+            <div class="wrapper">
+                <header class="main-header">
+                    <a href="index3.html" class="logo">
+                        <span class="logo-mini"><b>E</b>NI</span>
+                        <span class="logo-lg"><b>Locations</b> ENI</span>
+                    </a>
 
-            <nav class="navbar navbar-static-top">
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
+                    <nav class="navbar navbar-static-top">
+                        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
 
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">2</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 2 notifications</li>
-                                <li>
-                                    <ul class="menu">
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown notifications-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-bell-o"></i>
+                                        <span class="label label-warning">2</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="header">You have 2 notifications</li>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i>Nouvelle demande de John Doe
-                                            </a>
+                                            <ul class="menu">
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-users text-aqua"></i>Nouvelle demande de John Doe
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-users text-aqua" style="word-wrap: break-word"></i>Raphael s'est ajouté à votre demande pour Nantes du 30/03/2019
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua" style="word-wrap: break-word"></i>Raphael s'est ajouté à votre demande pour Nantes du 30/03/2019
-                                            </a>
+                                        <li class="footer"><a href="#">Voir plus</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="~/Images/avatar/avatar.png" class="user-image" alt="User Image">
+                                        <span class="hidden-xs">@Session["firstName"].ToString() @Session["lastName"].ToString()</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="user-header">
+                                            <img src="~/Images/avatar/avatar.png" class="img-circle" alt="User Image">
+
+                                            <p>
+                                                @Session["firstName"].ToString() @Session["lastName"].ToString()
+                                                <small>@Session["userJob"].ToString()</small>
+                                            </p>
+                                        </li>
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <a href="pages/profile/profile.html" class="btn btn-default btn-flat">Profile</a>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a href="@Url.Action("LogOut","Account")" class="btn btn-default btn-flat">Déconnexion</a>
+                                            </div>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">Voir plus</a></li>
                             </ul>
-                        </li>
+                        </div>
+                    </nav>
+                </header>
 
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/Images/avatar/avatar.png" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@Session["firstName"].ToString() @Session["lastName"].ToString()</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="user-header">
-                                    <img src="~/Images/avatar/avatar.png" class="img-circle" alt="User Image">
+                <aside class="main-sidebar">
+                    <!-- sidebar: style can be found in sidebar.less -->
+                    <section class="sidebar">
 
-                                    <p>
-                                        @Session["firstName"].ToString() @Session["lastName"].ToString()
-                                        <small>@Session["userJob"].ToString()</small>
-                                    </p>
-                                </li>
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="pages/profile/profile.html" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="@Url.Action("LogOut","Login")" class="btn btn-default btn-flat">Déconnexion</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <div class="user-panel">
+                            <div class="pull-left image">
+                                <img src="~/Images/avatar/avatar.png" class="img-circle" alt="User Image">
+                            </div>
+                            <div class="pull-left info">
+                                <p>@Session["firstName"].ToString() @Session["lastName"].ToString()</p>
+                                <a href="#">@Session["userJob"].ToString()</a>
+                            </div>
+                        </div>
+
+                        <!-- sidebar menu: : style can be found in sidebar.less -->
+                        <ul class="sidebar-menu" data-widget="tree">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-dashboard"></i> <span>Accueil</span>
+                                    <span class="pull-right-container">
+                                    </span>
+                                </a>
+                            </li>
+
+                            <!-- my customer area-->
+                            <li class="header">MON ESPACE</li>
+                            <li>
+                                <a href="pages/profile/profile.html">
+                                    <i class="fa fa-user"></i> <span>Mon profil</span>
+                                    <span class="pull-right-container">
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pages/notifs/notifs.html">
+                                    <i class="fa fa-bell"></i> <span>Notifications</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pages/my_rents/my_rents.2.html">
+                                    <i class="fa fa-map-pin"></i> <span>Mes réservations</span>
+                                </a>
+                            </li>
+
+                            <!-- administrator area -->
+                            <li class="header">ADMINISTRATEUR</li>
+                            <li>
+                                <a href="pages/rents_validation/rents_validation.html">
+                                    <i class="fa fa-check"></i> <span>Demandes à valider</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pages/users/users.html">
+                                    <i class="fa fa-users"></i> <span>Utilisateurs</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Car")">
+                                    <i class="fa fa-car"></i> <span>Voitures</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pages/config/config.html">
+                                    <i class="fa fa-cog"></i> <span>Configuration</span>
+                                </a>
+                            </li>
+
+                            <!-- deconnexion -->
+                            <li class="header">PLUS</li>
+                            <li>
+                                <a href="@Url.Action("LogOut","Account")">
+                                    <i class="fa fa-sign-out text-red"></i> <span class="text-red">Deconnexion</span>
+                                    <span class="pull-right-container">
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </aside>
+
+                <div class="content-wrapper">
+                    @RenderBody()
+
                 </div>
-            </nav>
-        </header>
+            </div>
 
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <img src="~/Images/avatar/avatar.png" class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
-                        <p>@Session["firstName"].ToString() @Session["lastName"].ToString()</p>
-                        <a href="#">@Session["userJob"].ToString()</a>
-                    </div>
-                </div>
-
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Accueil</span>
-                            <span class="pull-right-container">
-                            </span>
-                        </a>
-                    </li>
-
-                    <!-- my customer area-->
-                    <li class="header">MON ESPACE</li>
-                    <li>
-                        <a href="pages/profile/profile.html">
-                            <i class="fa fa-user"></i> <span>Mon profil</span>
-                            <span class="pull-right-container">
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/notifs/notifs.html">
-                            <i class="fa fa-bell"></i> <span>Notifications</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/my_rents/my_rents.2.html">
-                            <i class="fa fa-map-pin"></i> <span>Mes réservations</span>
-                        </a>
-                    </li>
-
-                    <!-- administrator area -->
-                    <li class="header">ADMINISTRATEUR</li>
-                    <li>
-                        <a href="pages/rents_validation/rents_validation.html">
-                            <i class="fa fa-check"></i> <span>Demandes à valider</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/users/users.html">
-                            <i class="fa fa-users"></i> <span>Utilisateurs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "Car")">
-                            <i class="fa fa-car"></i> <span>Voitures</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/config/config.html">
-                            <i class="fa fa-cog"></i> <span>Configuration</span>
-                        </a>
-                    </li>
-
-                    <!-- deconnexion -->
-                    <li class="header">PLUS</li>
-                    <li>
-                        <a href="@Url.Action("LogOut","Login")">
-                            <i class="fa fa-sign-out text-red"></i> <span class="text-red">Deconnexion</span>
-                            <span class="pull-right-container">
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-        </aside>
-    
-        <div class="content-wrapper">
-            @RenderBody()
-
-        </div>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/fullcalendar")
-    @Scripts.Render("~/bundles/select2")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @Scripts.Render("~/bundles/fullcalendar")
+            @Scripts.Render("~/bundles/select2")
+            @RenderSection("scripts", required: false)
+        </body>
+    </html>
+}
+}

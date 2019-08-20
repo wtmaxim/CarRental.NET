@@ -2,10 +2,16 @@
 @model CarRental.Model.UserDTO
 @{
     Layout = "~/Views/Shared/LoginLayout.cshtml";
+    ViewBag.Title = "Login";
 }
+
+
+    
+   
+
 <p class="login-box-msg">Connectez vous !</p>
 
-@using (Html.BeginForm("Autherize", "Login", FormMethod.Post))
+@using (Html.BeginForm("Autherize", "Account", FormMethod.Post))
 
 {
     <div class="form-group has-feedback row">
@@ -36,8 +42,8 @@
         <div class="col-xs-8">
             <input type="submit" class="btn btn-primary btn-block btn-flat" value="Connexion">
         </div>
-        <div class="col-xs-2"></div>        
+        <div class="col-xs-2"></div>
     </div>
 }
 <br />
-<a href="@Url.Action("PasswordReset","Login")">J'ai oublié mon mot de passe</a>
+<a href="@Url.Action("PasswordReset","Account")">J'ai oublié mon mot de passe</a>
