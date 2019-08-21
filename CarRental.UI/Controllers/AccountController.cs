@@ -66,7 +66,7 @@ namespace CarRental.UI.Controllers
         public ActionResult PasswordReset(UserDTO userDTO)
         {
             bool status = false;
-            string message = "";
+            string message;
             //TODO Verifier que l'email existe dans base de données
             UserDTO userDetails = utilisateurLogic.GetUserByMail(userDTO.Email);
             if (userDetails == null)
@@ -98,7 +98,7 @@ namespace CarRental.UI.Controllers
             // Variable qui me permet de déterminer si je dois afficher une erreur true = erreur
             bool status = true;
             // Variable qui me permet d'afficher le message de mon erreur
-            string message = "";
+            string message;
             if(id != null && id != "")
             {
                 PasswordResetTokenDTO passwordResetTokenDTO = passwordResetTokenLogic.Get(id);
@@ -169,7 +169,7 @@ namespace CarRental.UI.Controllers
             string body = "Bonjour, veuillez cliquez sur ce <a href='"+link+"'>lien</a> pour changer votre mot de passe.<br/>" +
                 "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande";
 
-            var smtp = new SmtpClient
+            var smtpClient = new SmtpClient
             {
                 Host = "smtp.gmail.com",
                 Port = 587,
@@ -184,7 +184,7 @@ namespace CarRental.UI.Controllers
                 Body = body,
                 IsBodyHtml = true
             })
-                smtp.Send(message);
+                smtpClient.Send(message);
         }
         
     }
