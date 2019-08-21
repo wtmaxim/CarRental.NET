@@ -204,6 +204,9 @@
     <Compile Include="usp_User_Get_By_Email_And_Password_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_User_GET_By_EMail_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_User_GET_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

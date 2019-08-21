@@ -585,6 +585,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_User_GET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_User_GET_By_EMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_User_Get_By_Email_And_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -592,6 +595,10 @@
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_User_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_Update_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="CarRentalModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionRole" EntityType="Self.ActionRole" Schema="dbo" store:Type="Tables" />
@@ -1378,7 +1385,7 @@
           <Parameter Name="licencePlate" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_User_GET" EntitySet="User" ReturnType="Collection(CarRentalModel.User)">
-          <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Usp_User_List" EntitySet="User" ReturnType="Collection(CarRentalModel.User)" />
           <FunctionImport Name="usp_User_Get_By_Email_And_Password" EntitySet="User" ReturnType="Collection(CarRentalModel.User)">
@@ -1397,6 +1404,13 @@
             <Parameter Name="token" Mode="In" Type="String" />
             <Parameter Name="expiry_date" Mode="In" Type="DateTime" />
             <Parameter Name="user_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_GET_By_EMail" EntitySet="User" ReturnType="Collection(CarRentalModel.User)">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Update_Password">
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1567,6 +1581,19 @@
           <Property Type="DateTime" Name="expiry_date" Nullable="true" Precision="23" />
           <Property Type="String" Name="token" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="user_id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_GET_By_EMail_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1849,6 +1876,9 @@
           <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_get" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_get">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_Insert" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_User_GET_By_EMail" FunctionName="CarRentalModel.Store.usp_User_GET_By_EMail">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_Update_Password" FunctionName="CarRentalModel.Store.usp_User_Update_Password" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

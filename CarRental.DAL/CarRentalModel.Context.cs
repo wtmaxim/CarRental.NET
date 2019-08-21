@@ -287,22 +287,22 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Event_List_Result>("usp_Event_List", licencePlateParameter);
         }
     
-        public virtual ObjectResult<User> usp_User_GET(string email)
+        public virtual ObjectResult<User> usp_User_GET(Nullable<int> id)
         {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", emailParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", idParameter);
         }
     
-        public virtual ObjectResult<User> usp_User_GET(string email, MergeOption mergeOption)
+        public virtual ObjectResult<User> usp_User_GET(Nullable<int> id, MergeOption mergeOption)
         {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", mergeOption, emailParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<User> Usp_User_List()
@@ -374,6 +374,37 @@ namespace CarRental.DAL
                 new ObjectParameter("user_Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_PasswordResetToken_Insert", tokenParameter, expiry_dateParameter, user_IdParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_GET_By_EMail(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET_By_EMail", emailParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_GET_By_EMail(string email, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GET_By_EMail", mergeOption, emailParameter);
+        }
+    
+        public virtual int usp_User_Update_Password(string password, string email)
+        {
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update_Password", passwordParameter, emailParameter);
         }
     }
 }

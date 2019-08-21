@@ -12,14 +12,24 @@ namespace CarRental.DAL
        
         public UtilisateurEngine()
         {
-            UserMapping = new UserMapping();
-           
+            UserMapping = new UserMapping();           
         }
+
+        UserDTO IUtilisateurEngine.Get(int id)
+        {     
+            using(CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToUserDto(contexte.usp_User_GET(id).FirstOrDefault());
+            }
+            throw new NotImplementedException();
+
+        }
+
         UserDTO IUtilisateurEngine.GetByMail(string email)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-               return UserMapping.MapToUserDto(contexte.usp_User_GET(email).FirstOrDefault());
+               return UserMapping.MapToUserDto(contexte.usp_User_GET_By_EMail(email).FirstOrDefault());
             }
         }
 
@@ -39,12 +49,15 @@ namespace CarRental.DAL
                 return UserMapping.MapToListUserDTO(contexte.Usp_User_List().ToList<User>());
             }
                
-        }
+        }       
 
-        void IUtilisateurEngine.Update(UserDTO user)
-        {
-            // TODO Créer la procédure pour terminer la méthode
-            throw new NotImplementedException();
+        void IUtilisateurEngine.UpdatePasswordByMail(string password, string mail)
+        {        
+            using (CarRentalEntities contexte = new CarRentalEntities())
+                {
+                    contexte.usp_User_Update_Password(password, mail);
+                }
+            
         }
     }
 }

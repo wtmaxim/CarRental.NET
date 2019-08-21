@@ -11,8 +11,10 @@ namespace CarRental.DAL
     {
         UserDTO GetByMail(string email);
         List<UserDTO> List();
-        void Update(UserDTO user);
+        void UpdatePasswordByMail(string password, string mail);
 
         UserDTO GetByMailAndPassword(string email, string passowrd);
+        UserDTO Get(int id);
+
     }
 }

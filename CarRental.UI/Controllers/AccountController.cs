@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using CarRental.BLL;
 using System.Net.Mail;
 using System.Net;
+using CarRental.Common;
 
 namespace CarRental.UI.Controllers
 {
@@ -30,11 +31,16 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult Autherize(UserDTO userDTO)
         {
-            UserDTO userDetails = utilisateurLogic.GetUserByMailAndPassword(userDTO.Email, userDTO.Password);
+            UserDTO userDetails = utilisateurLogic.GetUserByMail(userDTO.Email);
+
             if (userDetails == null)
             {
-                userDTO.LoginErrorMessage = "Mauvais identifiants";
-                return View("Index",userDTO);
+                userDTO.LoginErrorMessage = "Aucun compte n'a été trouvé avec cette addresse";
+                return View("Login",userDTO);
+            }else if (SecurePasswordHasherHelper.Verify(userDTO.Password, userDetails.Password)==false)
+            {
+                userDTO.LoginErrorMessage = "Vérifiez vos identifiants";
+                return View("Login", userDTO);
             }
             else
             {
@@ -59,26 +65,87 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult PasswordReset(UserDTO userDTO)
         {
+            bool status = false;
+            string message = "";
             //TODO Verifier que l'email existe dans base de données
             UserDTO userDetails = utilisateurLogic.GetUserByMail(userDTO.Email);
             if (userDetails == null)
             {
                 //TODO Afficher un message d'erreur si l'email n'existe pas
-                userDTO.LoginErrorMessage = "Aucun compte avec cet email n'a été trouvé";
-                return View("PasswordReset", userDTO);
+                message = "Aucun compte avec cet email n'a été trouvé.";
+                
             }
             else
             {
+                //Générer le token
                 PasswordResetTokenDTO passwordResetTokenDTO = new PasswordResetTokenDTO(userDetails.Id);
+                // Sauvegarder le token en base
                 passwordResetTokenLogic.insert(passwordResetTokenDTO);
-               // SendPasswordResetLinkEmail(userDTO.Email, passwordResetTokenDTO);
-                //TODO Générer le lien pour changer le mot de passe
-                //TODO Envoyer un mail à l'utilisateur si l'email existe
-            }
 
+                // Générer le lien pour changer le mot de passe
+                // Envoyer un mail à l'utilisateur 
+                SendPasswordResetLinkEmail(userDTO.Email, passwordResetTokenDTO);
+                message = "Un email contenant un lien vers la page d'édition de votre mot de passe vous à été envoyé.";
+                status = true;
+            }
+            ViewBag.Message = message;
+            ViewBag.Status = status;
             return View();
         }
-
+        [HttpGet]
+        public ActionResult ChangePassword(string id)
+        {
+            // Variable qui me permet de déterminer si je dois afficher une erreur true = erreur
+            bool status = true;
+            // Variable qui me permet d'afficher le message de mon erreur
+            string message = "";
+            if(id != null && id != "")
+            {
+                PasswordResetTokenDTO passwordResetTokenDTO = passwordResetTokenLogic.Get(id);
+                if (passwordResetTokenDTO == null)
+                {
+                    // Si le token n'existe pas
+                    message = "Lien invalide";
+                }
+                else if (passwordResetTokenDTO.Expiry_date.HasValue && DateTime.Compare(passwordResetTokenDTO.Expiry_date.Value, DateTime.Now) < 0)
+                {
+                    message = " Ce lien est expiré";
+                }
+                else
+                {
+                    // Si le code token existe et qu'il est encore valide
+                    status = false;                   
+                    UserDTO userDTO = utilisateurLogic.Get(passwordResetTokenDTO.User_id);                   
+                    ViewBag.UserNow = userDTO;
+                    ViewBag.Status = status;
+                    return View("ChangePassword",userDTO);
+                }
+            }
+            else
+            {
+                // Si il n'y a pas de token
+                message = "Lien invalide";
+            }  
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(UserDTO user)
+        {
+            UpdatePassword(user);
+            return RedirectToAction("Login","Action");
+        }
+        [NonAction]
+        public void UpdatePassword(UserDTO userDTO)
+        {
+           
+            if(userDTO.Password == userDTO.confirmPassword){
+                utilisateurLogic.UpdatePasswordByMail(userDTO);
+            }
+          
+          
+        }
         [NonAction]
         public void SendPasswordResetLinkEmail(string emailID, PasswordResetTokenDTO passwordResetTokenDTO)
         {
@@ -88,7 +155,8 @@ namespace CarRental.UI.Controllers
             var toEmail = new MailAddress(emailID);
             var fromEmailPassword = "@DminMsii";
             string subject = "Demande de changement de mot de passe";
-            string body = "Bonjour, veuillez cliquez sur ce <a href='"+link+"'>lien</a> pour changer votre mot de passe.";
+            string body = "Bonjour, veuillez cliquez sur ce <a href='"+link+"'>lien</a> pour changer votre mot de passe.<br/>" +
+                "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande";
 
             var smtp = new SmtpClient
             {

@@ -51,6 +51,10 @@
     <Compile Include="UtilisateurLogic.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarRental.Common\CarRental.Common.csproj">
+      <Project>{27C4E0B4-CA96-4E2E-A700-FCA3FA97EEAE}</Project>
+      <Name>CarRental.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj">
       <Project>{8543063E-8947-4FB9-A082-E1159BD64007}</Project>
       <Name>CarRental.DAL</Name>
