@@ -131,10 +131,21 @@ namespace CarRental.UI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ChangePassword(UserDTO user)
+        public ActionResult ChangePassword(UserDTO user, string guid)
         {
-            UpdatePassword(user);
-            return RedirectToAction("Login","Action");
+            if(guid!=null && guid != "")
+            {
+                PasswordResetTokenDTO prt = passwordResetTokenLogic.Get(guid);
+                UserDTO _user= utilisateurLogic.Get(prt.User_id);
+                if (user.Password == user.confirmPassword)
+                {
+                    _user.Password = user.Password;
+                    _user.confirmPassword = user.confirmPassword;
+                    UpdatePassword(_user);
+                }
+            }
+            
+            return RedirectToAction("Login","Account");
         }
         [NonAction]
         public void UpdatePassword(UserDTO userDTO)
