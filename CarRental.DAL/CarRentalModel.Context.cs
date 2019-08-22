@@ -406,5 +406,14 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update_Password", passwordParameter, emailParameter);
         }
+    
+        public virtual int usp_PasswordResetToken_DELETE_BY_ID(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_PasswordResetToken_DELETE_BY_ID", idParameter);
+        }
     }
 }

@@ -14,6 +14,23 @@ namespace CarRental.DAL
         {
             passwordResetTokenMapping = new PasswordResetTokenMapping();
         }
+
+        public void Delete(int id)
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                try
+                {
+                    contexte.usp_PasswordResetToken_DELETE_BY_ID(id);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
+                 
+            }
+        }
+
         public PasswordResetTokenDTO Get(string token)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())

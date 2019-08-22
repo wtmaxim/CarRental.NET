@@ -567,6 +567,9 @@
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_PasswordResetToken_DELETE_BY_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_PasswordResetToken_get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="token" Type="varchar" Mode="In" />
         </Function>
@@ -1412,6 +1415,9 @@
             <Parameter Name="password" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="usp_PasswordResetToken_DELETE_BY_ID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1879,6 +1885,7 @@
           <FunctionImportMapping FunctionImportName="usp_User_GET_By_EMail" FunctionName="CarRentalModel.Store.usp_User_GET_By_EMail">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_User_Update_Password" FunctionName="CarRentalModel.Store.usp_User_Update_Password" />
+          <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_DELETE_BY_ID" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_DELETE_BY_ID" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

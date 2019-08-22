@@ -20,9 +20,24 @@ namespace CarRental.BLL
             return passwordResetTokenEngine.Get(token);
         }
 
-        public void insert(PasswordResetTokenDTO passwordResetTokenDTO)
+        public void Insert(PasswordResetTokenDTO passwordResetTokenDTO)
         {
             passwordResetTokenEngine.Insert(passwordResetTokenDTO);
+        }
+        public void Delete(PasswordResetTokenDTO passwordResetTokenDTO)
+        {
+            if (passwordResetTokenDTO.Id == 0 )
+            {
+                throw new NullReferenceException();
+
+            }
+            else
+            {
+                passwordResetTokenEngine.Delete(passwordResetTokenDTO.Id);
+            }
+            
+            
+            
         }
     }
 }

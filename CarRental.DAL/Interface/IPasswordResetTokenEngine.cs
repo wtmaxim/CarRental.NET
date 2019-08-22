@@ -11,5 +11,6 @@ namespace CarRental.DAL
     {
         PasswordResetTokenDTO Get(String token);
         void Insert(PasswordResetTokenDTO passwordResetTokenDTO);
+        void Delete(int id);
     }
 }
