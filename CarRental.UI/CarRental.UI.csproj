@@ -1695,6 +1695,7 @@
     <Content Include="Content\fullcalendar\CHANGELOG.md" />
     <Content Include="Content\fullcalendar\CONTRIBUTING.md" />
     <Content Include="Content\fullcalendar\README.md" />
+    <None Include="Properties\PublishProfiles\mwp-wil-CarRental - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
