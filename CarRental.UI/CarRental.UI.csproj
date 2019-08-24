@@ -162,6 +162,7 @@
     <Content Include="Content\fullcalendar\dist\fullcalendar.min.css" />
     <Content Include="Content\fullcalendar\dist\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar\dist\fullcalendar.print.min.css" />
+    <Content Include="Content\fullcalendar\LICENSE.txt" />
     <Content Include="Content\Images\avatar\avatar.png" />
     <Content Include="Content\Images\avatar\avatar04.png" />
     <Content Include="Content\Images\avatar\avatar2.png" />
@@ -1689,6 +1690,11 @@
     <Content Include="Scripts\car.js" />
     <Content Include="Content\input-mask\phone-codes\phone-be.json" />
     <Content Include="Content\input-mask\phone-codes\phone-codes.json" />
+    <Content Include="Content\fullcalendar\.bower.json" />
+    <Content Include="Content\fullcalendar\bower.json" />
+    <Content Include="Content\fullcalendar\CHANGELOG.md" />
+    <Content Include="Content\fullcalendar\CONTRIBUTING.md" />
+    <Content Include="Content\fullcalendar\README.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
