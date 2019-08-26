@@ -29,7 +29,16 @@ namespace CarRental.DAL
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-               return UserMapping.MapToUserDto(contexte.usp_User_GET_By_EMail(email).FirstOrDefault());
+                try
+                {
+                    return UserMapping.MapToUserDto(contexte.usp_User_GET_By_EMail(email).FirstOrDefault());
+                }
+                catch (Exception e)
+                {
+                    throw e;
+
+                }
+              
             }
         }
 
@@ -37,7 +46,16 @@ namespace CarRental.DAL
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-              return UserMapping.MapToUserDto(contexte.usp_User_Get_By_Email_And_Password(email, password).FirstOrDefault());
+                try
+                {
+                    return UserMapping.MapToUserDto(contexte.usp_User_Get_By_Email_And_Password(email, password).FirstOrDefault());
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
+              
             }
             
         }
