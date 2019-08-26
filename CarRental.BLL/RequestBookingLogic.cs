@@ -1,4 +1,5 @@
-﻿using CarRental.DAL.Interface;
+﻿using CarRental.DAL;
+using CarRental.DAL.Interface;
 using CarRental.Model;
 using System;
 using System.Collections.Generic;
