@@ -696,7 +696,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CarRentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CarRental.DAL" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Action">
           <Key>
             <PropertyRef Name="Id" />
@@ -752,7 +752,7 @@
           <NavigationProperty Name="CarModel" Relationship="Self.FK__Car__id_Car_Mode__5BE2A6F2" FromRole="Car" ToRole="CarModel" />
           <NavigationProperty Name="Company" Relationship="Self.FK__Car__Id_Company__59FA5E80" FromRole="Car" ToRole="Company" />
           <NavigationProperty Name="User" Relationship="Self.FK__Car__Id_User__5AEE82B9" FromRole="Car" ToRole="User" />
-          <NavigationProperty Name="Event" Relationship="CarRentalModel.FK__Event__Licence_P__54CB950F" FromRole="Car" ToRole="Event" />
+          <NavigationProperty Name="Event" Relationship="CarRental.DAL.FK__Event__Licence_P__54CB950F" FromRole="Car" ToRole="Event" />
         </EntityType>
         <EntityType Name="CarMake">
           <Key>
@@ -1287,10 +1287,10 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <FunctionImport Name="usp_Car_Get" EntitySet="Car" ReturnType="Collection(CarRentalModel.Car)">
+          <FunctionImport Name="usp_Car_Get" EntitySet="Car" ReturnType="Collection(CarRental.DAL.Car)">
           <Parameter Name="licence_Plate" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_Car_List" EntitySet="Car" ReturnType="Collection(CarRentalModel.Car)" />
+          <FunctionImport Name="usp_Car_List" EntitySet="Car" ReturnType="Collection(CarRental.DAL.Car)" />
           <FunctionImport Name="usp_Car_Insert">
             <Parameter Name="is_Available" Mode="In" Type="Byte" />
             <Parameter Name="mileage" Mode="In" Type="Int32" />
@@ -1301,44 +1301,44 @@
             <Parameter Name="id_User" Mode="In" Type="Int32" />
             <Parameter Name="id_Car_Model" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Adress_List" EntitySet="Address" ReturnType="Collection(CarRentalModel.Address)" />
-          <FunctionImport Name="usp_CarModel_Get_id" EntitySet="CarModel" ReturnType="Collection(CarRentalModel.CarModel)">
+          <FunctionImport Name="usp_Adress_List" EntitySet="Address" ReturnType="Collection(CarRental.DAL.Address)" />
+          <FunctionImport Name="usp_CarModel_Get_id" EntitySet="CarModel" ReturnType="Collection(CarRental.DAL.CarModel)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_CarMake_Get_Id" EntitySet="CarMake" ReturnType="Collection(CarRentalModel.CarMake)">
+          <FunctionImport Name="usp_CarMake_Get_Id" EntitySet="CarMake" ReturnType="Collection(CarRental.DAL.CarMake)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Booking_Get_Id" EntitySet="Booking" ReturnType="Collection(CarRentalModel.Booking)">
+          <FunctionImport Name="usp_Booking_Get_Id" EntitySet="Booking" ReturnType="Collection(CarRental.DAL.Booking)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Booking_List_LicencePlate" EntitySet="Booking" ReturnType="Collection(CarRentalModel.Booking)">
+          <FunctionImport Name="usp_Booking_List_LicencePlate" EntitySet="Booking" ReturnType="Collection(CarRental.DAL.Booking)">
           <Parameter Name="licencePlate" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_StopOver_List_idBooking" EntitySet="StopOver" ReturnType="Collection(CarRentalModel.StopOver)">
+          <FunctionImport Name="usp_StopOver_List_idBooking" EntitySet="StopOver" ReturnType="Collection(CarRental.DAL.StopOver)">
           <Parameter Name="idBooking" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_StopOverAddress_Get_idStopOver" EntitySet="StopOverAddress" ReturnType="Collection(CarRentalModel.StopOverAddress)">
+          <FunctionImport Name="usp_StopOverAddress_Get_idStopOver" EntitySet="StopOverAddress" ReturnType="Collection(CarRental.DAL.StopOverAddress)">
           <Parameter Name="idStopOver" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_StopOverType_Get_id" EntitySet="StopOverType" ReturnType="Collection(CarRentalModel.StopOverType)">
+          <FunctionImport Name="usp_StopOverType_Get_id" EntitySet="StopOverType" ReturnType="Collection(CarRental.DAL.StopOverType)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_CarMake_List" EntitySet="CarMake" ReturnType="Collection(CarRentalModel.CarMake)" />
-          <FunctionImport Name="usp_CarModel_List_idMake" EntitySet="CarModel" ReturnType="Collection(CarRentalModel.CarModel)">
+          <FunctionImport Name="usp_CarMake_List" EntitySet="CarMake" ReturnType="Collection(CarRental.DAL.CarMake)" />
+          <FunctionImport Name="usp_CarModel_List_idMake" EntitySet="CarModel" ReturnType="Collection(CarRental.DAL.CarModel)">
           <Parameter Name="idMake" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Event_List" EntitySet="Event" ReturnType="Collection(CarRentalModel.Event)">
+          <FunctionImport Name="usp_Event_List" EntitySet="Event" ReturnType="Collection(CarRental.DAL.Event)">
           <Parameter Name="licencePlate" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Event" EntityType="CarRentalModel.Event" />
-          <AssociationSet Name="FK__Event__Licence_P__54CB950F" Association="CarRentalModel.FK__Event__Licence_P__54CB950F">
+          <EntitySet Name="Event" EntityType="CarRental.DAL.Event" />
+          <AssociationSet Name="FK__Event__Licence_P__54CB950F" Association="CarRental.DAL.FK__Event__Licence_P__54CB950F">
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <FunctionImport Name="usp_Car_List_Search" EntitySet="Car" ReturnType="Collection(CarRentalModel.Car)">
+          <FunctionImport Name="usp_Car_List_Search" EntitySet="Car" ReturnType="Collection(CarRental.DAL.Car)">
           <Parameter Name="searchWord" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_RequestBooking_Get_IdBooking" EntitySet="RequestBooking" ReturnType="Collection(CarRentalModel.RequestBooking)">
+          <FunctionImport Name="usp_RequestBooking_Get_IdBooking" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
             <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1438,11 +1438,11 @@
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Car" Relationship="CarRentalModel.FK__Event__Licence_P__54CB950F" FromRole="Event" ToRole="Car" />
+          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Event__Licence_P__54CB950F" FromRole="Event" ToRole="Car" />
         </EntityType>
         <Association Name="FK__Event__Licence_P__54CB950F">
-          <End Type="CarRentalModel.Car" Role="Car" Multiplicity="1" />
-          <End Type="CarRentalModel.Event" Role="Event" Multiplicity="*" />
+          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="1" />
+          <End Type="CarRental.DAL.Event" Role="Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Car">
               <PropertyRef Name="Licence_Plate" />
@@ -1476,7 +1476,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CarRentalModelStoreContainer" CdmEntityContainer="CarRentalEntities">
           <EntitySetMapping Name="Action">
-            <EntityTypeMapping TypeName="CarRentalModel.Action">
+            <EntityTypeMapping TypeName="CarRental.DAL.Action">
               <MappingFragment StoreEntitySet="Action">
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1484,7 +1484,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Address">
-            <EntityTypeMapping TypeName="CarRentalModel.Address">
+            <EntityTypeMapping TypeName="CarRental.DAL.Address">
               <MappingFragment StoreEntitySet="Address">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Street_Number" ColumnName="Street_Number" />
@@ -1498,7 +1498,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Booking">
-            <EntityTypeMapping TypeName="CarRentalModel.Booking">
+            <EntityTypeMapping TypeName="CarRental.DAL.Booking">
               <MappingFragment StoreEntitySet="Booking">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="is_Personal_Car_Used" ColumnName="is_Personal_Car_Used" />
@@ -1508,7 +1508,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Car">
-            <EntityTypeMapping TypeName="CarRentalModel.Car">
+            <EntityTypeMapping TypeName="CarRental.DAL.Car">
               <MappingFragment StoreEntitySet="Car">
                 <ScalarProperty Name="is_Available" ColumnName="is_Available" />
                 <ScalarProperty Name="Mileage" ColumnName="Mileage" />
@@ -1522,7 +1522,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CarMake">
-            <EntityTypeMapping TypeName="CarRentalModel.CarMake">
+            <EntityTypeMapping TypeName="CarRental.DAL.CarMake">
               <MappingFragment StoreEntitySet="CarMake">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Make" ColumnName="Make" />
@@ -1530,7 +1530,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CarModel">
-            <EntityTypeMapping TypeName="CarRentalModel.CarModel">
+            <EntityTypeMapping TypeName="CarRental.DAL.CarModel">
               <MappingFragment StoreEntitySet="CarModel">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
@@ -1541,7 +1541,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CarReport">
-            <EntityTypeMapping TypeName="CarRentalModel.CarReport">
+            <EntityTypeMapping TypeName="CarRental.DAL.CarReport">
               <MappingFragment StoreEntitySet="CarReport">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Information" ColumnName="Information" />
@@ -1551,7 +1551,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CategoryCost">
-            <EntityTypeMapping TypeName="CarRentalModel.CategoryCost">
+            <EntityTypeMapping TypeName="CarRental.DAL.CategoryCost">
               <MappingFragment StoreEntitySet="CategoryCost">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
@@ -1559,7 +1559,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Company">
-            <EntityTypeMapping TypeName="CarRentalModel.Company">
+            <EntityTypeMapping TypeName="CarRental.DAL.Company">
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1568,7 +1568,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cost">
-            <EntityTypeMapping TypeName="CarRentalModel.Cost">
+            <EntityTypeMapping TypeName="CarRental.DAL.Cost">
               <MappingFragment StoreEntitySet="Cost">
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -1579,7 +1579,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="persistent_logins">
-            <EntityTypeMapping TypeName="CarRentalModel.persistent_logins">
+            <EntityTypeMapping TypeName="CarRental.DAL.persistent_logins">
               <MappingFragment StoreEntitySet="persistent_logins">
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="series" ColumnName="series" />
@@ -1589,7 +1589,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequestBooking">
-            <EntityTypeMapping TypeName="CarRentalModel.RequestBooking">
+            <EntityTypeMapping TypeName="CarRental.DAL.RequestBooking">
               <MappingFragment StoreEntitySet="RequestBooking">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="is_Personal_Car_Available" ColumnName="is_Personal_Car_Available" />
@@ -1600,7 +1600,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="CarRentalModel.Role">
+            <EntityTypeMapping TypeName="CarRental.DAL.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
@@ -1608,7 +1608,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="CarRentalModel.Status">
+            <EntityTypeMapping TypeName="CarRental.DAL.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
@@ -1616,7 +1616,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StopOver">
-            <EntityTypeMapping TypeName="CarRentalModel.StopOver">
+            <EntityTypeMapping TypeName="CarRental.DAL.StopOver">
               <MappingFragment StoreEntitySet="StopOver">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Departure_Date" ColumnName="Departure_Date" />
@@ -1627,7 +1627,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StopOverAddress">
-            <EntityTypeMapping TypeName="CarRentalModel.StopOverAddress">
+            <EntityTypeMapping TypeName="CarRental.DAL.StopOverAddress">
               <MappingFragment StoreEntitySet="StopOverAddress">
                 <ScalarProperty Name="is_Departure" ColumnName="is_Departure" />
                 <ScalarProperty Name="Id_Stop_Over" ColumnName="Id_Stop_Over" />
@@ -1636,7 +1636,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StopOverType">
-            <EntityTypeMapping TypeName="CarRentalModel.StopOverType">
+            <EntityTypeMapping TypeName="CarRental.DAL.StopOverType">
               <MappingFragment StoreEntitySet="StopOverType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
@@ -1644,7 +1644,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="CarRentalModel.User">
+            <EntityTypeMapping TypeName="CarRental.DAL.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
@@ -1661,7 +1661,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="user_address">
-            <EntityTypeMapping TypeName="CarRentalModel.user_address">
+            <EntityTypeMapping TypeName="CarRental.DAL.user_address">
               <MappingFragment StoreEntitySet="user_address">
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id_address" ColumnName="id_address" />
@@ -1670,7 +1670,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserBooking">
-            <EntityTypeMapping TypeName="CarRentalModel.UserBooking">
+            <EntityTypeMapping TypeName="CarRental.DAL.UserBooking">
               <MappingFragment StoreEntitySet="UserBooking">
                 <ScalarProperty Name="is_Driver" ColumnName="is_Driver" />
                 <ScalarProperty Name="is_Going" ColumnName="is_Going" />
@@ -1679,7 +1679,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ActionRole" TypeName="CarRentalModel.ActionRole" StoreEntitySet="ActionRole">
+          <AssociationSetMapping Name="ActionRole" TypeName="CarRental.DAL.ActionRole" StoreEntitySet="ActionRole">
             <EndProperty Name="Action">
               <ScalarProperty Name="Id" ColumnName="Id_Action" />
             </EndProperty>
@@ -1687,7 +1687,7 @@
               <ScalarProperty Name="Id" ColumnName="Id_Role" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="user_role" TypeName="CarRentalModel.user_role" StoreEntitySet="user_role">
+          <AssociationSetMapping Name="user_role" TypeName="CarRental.DAL.user_role" StoreEntitySet="user_role">
             <EndProperty Name="Role">
               <ScalarProperty Name="Id" ColumnName="id_role" />
             </EndProperty>
@@ -1723,7 +1723,7 @@
           <FunctionImportMapping FunctionImportName="usp_Event_List" FunctionName="CarRentalModel.Store.usp_Event_List">
           </FunctionImportMapping>
           <EntitySetMapping Name="Event">
-            <EntityTypeMapping TypeName="CarRentalModel.Event">
+            <EntityTypeMapping TypeName="CarRental.DAL.Event">
               <MappingFragment StoreEntitySet="Event">
                 <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
                 <ScalarProperty Name="End_Date" ColumnName="End_Date" />
