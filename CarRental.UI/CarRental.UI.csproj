@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
@@ -2056,6 +2057,10 @@
     <Content Include="Scripts\moment\package-lock.json" />
     <Content Include="Scripts\moment\README.md" />
     <Content Include="Views\Car\_ListCars.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\PasswordReset.cshtml" />
+    <Content Include="Views\Shared\LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2081,6 +2086,10 @@
     <ProjectReference Include="..\CarRental.BLL\CarRental.BLL.csproj">
       <Project>{9D45D39D-AF79-4004-AB62-6007A0D6E3A3}</Project>
       <Name>CarRental.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarRental.Common\CarRental.Common.csproj">
+      <Project>{27C4E0B4-CA96-4E2E-A700-FCA3FA97EEAE}</Project>
+      <Name>CarRental.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\CarRental.Model\CarRental.Model.csproj">
       <Project>{F59490EF-AFF5-4BD4-A715-1838DED831EC}</Project>

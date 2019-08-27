@@ -1,0 +1,40 @@
+﻿@model CarRental.Model.UserDTO
+@{
+    Layout = null;
+    if (Session["userID"] != null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+    else
+    {
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>@ViewBag.Title</title>
+            <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/Content/AdminLTE.min.css" rel="stylesheet" />
+            <link href="~/Content/Ionicons/css/ionicons.min.css" rel="stylesheet" />
+            <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" rel="stylesheet" />
+            <link href="~/Content/Site.css" rel="stylesheet" />
+        </head>
+        <body class="hold-transition login-page">
+            <div class="login-box">
+                <div class="login-logo">
+                    <a href="/"><b>Car</b>Rental</a>
+                </div>
+                <!-- /.login-logo -->
+                <div class="login-box-body">
+                    @RenderBody()
+                </div>
+                <!-- /.login-box-body -->
+            </div>
+            <!-- /.login-box -->
+            <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        </body>
+    </html>
+}
+}

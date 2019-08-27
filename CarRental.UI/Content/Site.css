@@ -19,6 +19,28 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea {
-    max-width: 280px;
+textarea,
+.input-group {
+   /* max-width: 280px;*/
+}
+
+    input.form-block,
+    select.form-block,
+    textarea.form-block {
+        max-width: none;
+    }
+.field-validation-error {
+    color: red;
+}
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
 }

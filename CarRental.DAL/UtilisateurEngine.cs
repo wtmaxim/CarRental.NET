@@ -1,12 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CarRental.DAL.Mapping;
+using CarRental.Model;
 
 namespace CarRental.DAL
 {
     public class UtilisateurEngine : IUtilisateurEngine
     {
+        private readonly UserMapping UserMapping;
+
+        public UtilisateurEngine()
+        {
+            UserMapping = new UserMapping();
+        }
+
+        UserDTO IUtilisateurEngine.Get(int id)
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToUserDto(contexte.usp_User_GET(id).FirstOrDefault());
+            }
+            throw new NotImplementedException();
+
+        }
+
+        UserDTO IUtilisateurEngine.GetByMail(string email)
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                try
+                {
+                    return UserMapping.MapToUserDto(contexte.usp_User_GET_By_EMail(email).FirstOrDefault());
+                }
+                catch (Exception e)
+                {
+                    throw e;
+
+                }
+
+            }
+        }
+
+        UserDTO IUtilisateurEngine.GetByMailAndPassword(string email, string password)
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                try
+                {
+                    return UserMapping.MapToUserDto(contexte.usp_User_Get_By_Email_And_Password(email, password).FirstOrDefault());
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
+
+            }
+
+        }
+
+        List<UserDTO> IUtilisateurEngine.List()
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToListUserDTO(contexte.usp_User_List().ToList<User>());
+            }
+
+        }
+
+        void IUtilisateurEngine.UpdatePasswordByMail(string password, string mail)
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                contexte.usp_User_Update_Password(password, mail);
+            }
+
+        }
     }
 }
