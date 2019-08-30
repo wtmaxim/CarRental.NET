@@ -17,7 +17,7 @@ namespace CarRental.BLL
             carEngine = new CarEngine();
         }
     
-        public void AddCar(CarDTO car)
+        public void AddCar(CarDTO car)  
         {
             carEngine.Insert(car);
         }

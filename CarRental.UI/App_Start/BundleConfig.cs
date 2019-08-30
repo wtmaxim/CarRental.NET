@@ -11,6 +11,9 @@ namespace CarRental.UI
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                        "~/Scripts/select2.full.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -26,6 +29,7 @@ namespace CarRental.UI
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/select2.min.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/Ionicons/css/ionicons.css",
                       "~/Content/AdminLTE.min.css",

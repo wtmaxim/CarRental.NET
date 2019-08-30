@@ -7,11 +7,16 @@ namespace CarRental.DAL
     public class UserMapping
     {
         private CarMapping carMapping;
-
+        private CompanyMapping companyMapping;
+        private AddressMapping addressMapping;
+        private RoleMapping roleMapping;
 
         public UserMapping()
         {
             carMapping = new CarMapping();
+            companyMapping = new CompanyMapping();
+            addressMapping = new AddressMapping();
+            roleMapping = new RoleMapping();
         }
 
         public UserDTO MapToUserDTO(User user)
@@ -19,7 +24,7 @@ namespace CarRental.DAL
             return new UserDTO
             {
                 Car = carMapping.MapToListCarDTO(user.Car.ToList()),
-                Company = user.Company,
+                // Company = companyMapping.MapToCompanyDTO(user.Company),
                 Job = user.Job,
                 Email = user.Email,
                 Firstname = user.Firstname,
@@ -30,9 +35,11 @@ namespace CarRental.DAL
                 Note = user.Note,
                 Password = user.Password,
                 Phone_Number = user.Phone_Number,
-                Role = user.Role,
-                UserBooking = user.UserBooking,
-                user_address = user.user_address
+                // Role = user.Role,
+                Id_Company = user.Id_Company,
+                Id_Role = user.Id_Role
+                // UserBooking = user.UserBooking,
+                // user_address = addressMapping.MapToAddressDTO(user.user_address)
             };
         }
 
@@ -40,12 +47,12 @@ namespace CarRental.DAL
         {
             List<UserDTO> retour = new List<UserDTO>();
 
-            foreach (User car in users)
+            foreach (User user in users)
             {
                 UserDTO newUser = new UserDTO
                 {
-                    Car = user.Car,
-                    Company = user.Company,
+                    // Car = user.Car,
+                    // Company = companyMapping.MapToCompanyDTO(user.Company),
                     Job = user.Job,
                     Email = user.Email,
                     Firstname = user.Firstname,
@@ -56,9 +63,11 @@ namespace CarRental.DAL
                     Note = user.Note,
                     Password = user.Password,
                     Phone_Number = user.Phone_Number,
-                    Role = user.Role,
-                    UserBooking = user.UserBooking,
-                    user_address = user.user_address
+                    // Role = roleMapping.MapToListRoleDTO(user.Role),
+                    Id_Company = user.Id_Company,
+                    Id_Role = user.Id_Role
+                    // UserBooking = user.UserBooking,
+                    // user_address = user.user_address
                 };
 
                 retour.Add(newUser);

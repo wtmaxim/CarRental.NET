@@ -1,0 +1,345 @@
+﻿@model CarRental.UI.ViewsModels.User.UserIndexViewsModel
+@{
+    // ViewBag.Error = "Erreur dans le formulaire";
+    // ViewBag.GlobalError = "Erreur lors de la supression";
+}
+
+<section class="content-header">
+    <h1>
+        Utilisateurs
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- New request form -->
+    <div class="box box-primary @((ViewBag.Error != null || ViewBag.UserToEdit != null) ? "": "collapsed-box")">
+        <div class="box-header with-border">
+            <h3 class="box-title">Ajouter un utilisateur</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <form action="@Url.Action("AddUser", "Utilisateur")" method="post" role="form" class="form-horizontal">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-3 control-label">Nom *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom" value="@(ViewBag.UserToEdit.Lastname ?? String.Empty)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="surname" class="col-sm-3 control-label">Prénom *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="workPlace" class="col-sm-3 control-label">Lieu de travail *</label>
+
+                            <div class="col-sm-9">
+
+                                @{
+                                    List<SelectListItem> companiesListItems = new List<SelectListItem>();
+                                    foreach (var company in Model.Companies)
+                                    {
+                                        companiesListItems.Add(new SelectListItem
+                                        {
+                                            Text = company.Name,
+                                            Value = company.Id.ToString(),
+                                        }
+                                        );
+                                    }
+                                }
+
+                                @Html.DropDownList("idCompany", companiesListItems, new { @class = "form-control select2", multiple = "multiple", style = "width: 100%;" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="mail" class="col-sm-3 control-label">Email *</label>
+
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="mail" name="mail" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-3 control-label">Téléphone</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="role" class="col-sm-3 control-label">Role *</label>
+
+                            <div class="col-sm-9">
+                                <!--
+                                <select class="form-control" id="role" style="width: 100%;">
+                                    <option>Administrateur</option>
+                                    <option>Collaborateur</option>
+                                </select>
+                                    -->
+                                @if (Model.Roles != null && Model.Roles.Count > 0)
+                                {
+
+                                    List<SelectListItem> rolesListItems = new List<SelectListItem>();
+                                    int i = 0;
+                                    foreach (var role in Model.Roles)
+                                    {
+                                        rolesListItems.Add(new SelectListItem
+                                        {
+                                            Text = role.Libelle,
+                                            Value = role.Id.ToString(),
+                                            Selected = i.Equals(0) ? true : false
+                                        }
+                                        );
+                                        i++;
+                                    }
+
+                                    @Html.DropDownList("idRole", rolesListItems, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    <select class="form-control" disabled>
+                                        <option>Aucun role.</option>
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-3 control-label">Poste *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="job" name="job" placeholder="Poste">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    @if (ViewBag.Error != null)
+                    {
+                        <span class="text-danger">
+                            @Html.Raw(ViewBag.Error)
+                        </span>
+                        <br />
+                    }
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert-->
+    @if (ViewBag.GlobalError != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-warning"></i>Erreur</h4>
+            @Html.Raw(ViewBag.GlobalError)
+        </div>
+    }
+
+        <!-- List -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Liste des utilisateurs</h3>
+
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Filtre par emplacement</label>
+
+                            @if (Model.Companies != null && Model.Companies.Count > 0)
+                            {
+                                <select class="form-control">
+                                    @foreach (var company in Model.Companies)
+                                    {
+                                        <option value="@company.Id">@company.Name</option>
+                                    }
+                                </select>
+                            }
+                            else
+                            {
+                                <select class="form-control" disabled>
+                                    <option>Aucun etablissement.</option>
+                                </select>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <form action="@Url.Action("SearchUser", "Utilisateur")" method="post">
+                            <div class="input-group">
+                                <label>Rechercher un utilisateur</label>
+                                <input type="text" name="searchVal" id="searchVal" class="form-control" placeholder="rechercher un utilisateur">
+                                <span class="input-group-btn">
+                                    <button type="submit" name="search" class="btn btn-flat" id="SearchUser">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Lieu de travail</th>
+                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Telephone</th>
+                        </tr>
+                        @if (Model.Users != null && Model.Users.Count > 0)
+                        {
+                            foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td>@user.Item1.Lastname</td>
+                                    <td>@user.Item1.Firstname</td>
+                                    <td>@user.Item2.Name</td>
+                                    <td>
+                                        @if (user.Item3 != null)
+                                        {
+                                            if (user.Item3.Libelle.ToLower().Replace(" ", "") == "Admin")
+                                            {
+                                                <span class="label label-primary">@user.Item3.Libelle</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">@user.Item3.Libelle</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Aucun</span>
+                                        }
+
+                                    </td>
+                                    <td>@user.Item1.Email</td>
+                                    <td>@user.Item1.Phone_Number</td>
+                                    <td>
+                                        <a href="@Url.Action("UpdateUserForm", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">
+                                            <i class="fa fa-pencil"></i>    
+                                        </a>
+                                        <a href="@Url.Action("ArchiveUser", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">
+                                            <i class="fa fa-trash text-red"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    Aucun utilisateur.
+                                </td>
+                            </tr>
+                        }
+                        <!--
+                        <tr>
+                            <td>Martin</td>
+                            <td>Paul</td>
+                            <td>Campus de Nantes Faraday</td>
+                            <td><span class="label label-primary">Admin</span></td>
+                            <td>b.denis@eni-ecole.com</td>
+                            <td>0123456789</td>
+                        </tr>
+                        -->
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+@section scripts
+        {
+    <script>
+        /*
+        $(function () {
+            $("#SearchUser").on('click', function () {
+                
+                var searchVal = $("#searchVal").val()
+                var url = ''
+                window.location.href = url + '?searchVal    =' + searchVal;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: '',
+                    data: '{searchVal: ' + searchVal + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Success - Ajoutée");
+                    },
+                    failure: function (response) {
+                        console.log("Failure", response.responseText);
+                    },
+                    error: function (response) {
+                        console.log("Error", response.responseText);
+                    }
+                });
+                
+
+            });
+        });
+        */
+
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+
+            //Initialize Select2 Elements
+            $('.select2').select2({
+                maximumSelectionLength: 1,
+                placeholder: "Choisissez un établissement",
+            })
+        })
+    </script>
+}
