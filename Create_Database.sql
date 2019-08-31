@@ -183,7 +183,7 @@ CREATE TABLE Cost
 CREATE TABLE Event
 (
   Id INT NOT NULL IDENTITY(1,1),
-  Libelle INT NOT NULL,
+  Libelle VARCHAR(255) NOT NULL,
   Start_Date DATE NOT NULL,
   End_Date DATE NOT NULL,
   Licence_Plate VARCHAR(25) NOT NULL,
@@ -223,10 +223,11 @@ CREATE TABLE CarReport
   FOREIGN KEY (Id_Booking) REFERENCES Booking(Id)
 );
 
-CREATE TABLE persistent_logins (
-  username varchar(64) NOT NULL,
-  series varchar(64) NOT NULL,
-  token varchar(64) NOT NULL,
-  last_used DATETIME NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY (series)
-)
+CREATE TABLE PasswordResetToken (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [expiry_date] DATETIME      NULL,
+    [token]       VARCHAR (255) NULL,
+    [user_id]     INT           NOT NULL,
+    CONSTRAINT [PK_ID] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_PasswordResetToken_UserID] FOREIGN KEY (user_id) REFERENCES [User] (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
