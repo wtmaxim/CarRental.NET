@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1" ZoomLevel="68">
+      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1" ZoomLevel="78">
         <EntityTypeShape EntityType="CarRental.DAL.Action" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CarRental.DAL.Address" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CarRental.DAL.Booking" Width="1.5" PointX="10.5" PointY="9.875" IsExpanded="true" />

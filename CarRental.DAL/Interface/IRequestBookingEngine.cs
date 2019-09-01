@@ -9,6 +9,7 @@ namespace CarRental.DAL.Interface
 {
     public interface IRequestBookingEngine
     {
+        void Insert(RequestBookingDTO requestBooking);
         RequestBookingDTO Get(int idBooking);
     }
 }

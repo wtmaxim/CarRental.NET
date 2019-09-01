@@ -128,8 +128,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RequestBookingController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UtilisateurController.cs" />
     <Compile Include="Controllers\CarController.cs" />
@@ -137,6 +139,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewsModels\Booking\BookingIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
@@ -2056,12 +2059,13 @@
     <Content Include="Scripts\moment\package-lock.json" />
     <Content Include="Scripts\moment\README.md" />
     <Content Include="Views\Car\_ListCars.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ViewsModels\Reservation\" />
     <Folder Include="Views\Configuration\" />
-    <Folder Include="Views\Reservation\" />
+    <Folder Include="Views\RequestBooking\" />
     <Folder Include="Views\Utilisateurs\" />
   </ItemGroup>
   <ItemGroup>

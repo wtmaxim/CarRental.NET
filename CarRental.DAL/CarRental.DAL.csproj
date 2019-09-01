@@ -64,6 +64,7 @@
     <Compile Include="EventEngine.cs" />
     <Compile Include="Interface\IEventEngine.cs" />
     <Compile Include="Interface\IRequestBookingEngine.cs" />
+    <Compile Include="Interface\IUserBookingEngine.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
     <Compile Include="Car.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -156,6 +157,7 @@
     <Compile Include="UserBooking.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserBookingEngine.cs" />
     <Compile Include="user_address.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

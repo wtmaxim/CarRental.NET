@@ -559,6 +559,11 @@
         <Function Name="usp_RequestBooking_Get_IdBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdBooking" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_RequestBooking_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="isPersonalCarAvailable" Type="tinyint" Mode="In" />
+          <Parameter Name="Reason" Type="varchar" Mode="In" />
+          <Parameter Name="idStatut" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
         </Function>
@@ -567,6 +572,12 @@
         </Function>
         <Function Name="usp_StopOverType_Get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_UserBooking_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="isDriver" Type="tinyint" Mode="In" />
+          <Parameter Name="isGoing" Type="tinyint" Mode="In" />
+          <Parameter Name="idBooking" Type="int" Mode="In" />
+          <Parameter Name="idUser" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="CarRentalModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
@@ -1339,7 +1350,18 @@
           <Parameter Name="searchWord" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_RequestBooking_Get_IdBooking" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
-            <Parameter Name="IdBooking" Mode="In" Type="Int32" />
+          <Parameter Name="IdBooking" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RequestBooking_Insert">
+            <Parameter Name="isPersonalCarAvailable" Mode="In" Type="Byte" />
+            <Parameter Name="Reason" Mode="In" Type="String" />
+            <Parameter Name="idStatut" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UserBooking_Insert">
+            <Parameter Name="isDriver" Mode="In" Type="Byte" />
+            <Parameter Name="isGoing" Mode="In" Type="Byte" />
+            <Parameter Name="idBooking" Mode="In" Type="Int32" />
+            <Parameter Name="idUser" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1737,6 +1759,8 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_RequestBooking_Get_IdBooking" FunctionName="CarRentalModel.Store.usp_RequestBooking_Get_IdBooking">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RequestBooking_Insert" FunctionName="CarRentalModel.Store.usp_RequestBooking_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_UserBooking_Insert" FunctionName="CarRentalModel.Store.usp_UserBooking_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

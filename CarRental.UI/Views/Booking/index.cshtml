@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewBag.Title = "index";
+}
+
+<section class="content-header">
+    <h2>Mes réservations</h2>
+
+</section>
+<section class="content">
+    <div class="box box-primary collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Faire une réservation</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="text-light-blue">General</h4>
+
+                    <!-- driver column -->
+                    <div class="form-group">
+                        <select class="form-control select2" id="SelectedDriverId" data-placeholder="Entrez le conducteur" style="width: 100%;">
+                            <option value="1">Paul Martin</option>
+                            <option value="2">Blanche Denis</option>
+                            <option value="3">Frédéric Veilleux</option>
+                            <option value="4">Paul Raymond</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <!--personnal vehicle checkbox -->
+                        <div class="checkbox">
+                            <label class="col-sm-6">
+                                <input type="checkbox" id="checkBoxIsPersonalCarAvailable">
+                                Véhicule personnel disponible
+                            </label>
+                            <label class="col-sm-6">
+                                <input type="checkbox" id="checkBoxDriverChange">
+                                Changement de conducteur
+                            </label>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div class="form-group" id="driverChange">
+                        <select class="form-control select2" id="DropDownListDriverChange" multiple="multiple" data-placeholder="Conducteur retour" style="width: 100%;">
+                            <option>Paul Martin</option>
+                            <option>Blanche Denis</option>
+                            <option>Frédéric Veilleux</option>
+                            <option>Paul Raymond</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="checkBoxCoVoiturage">
+                                Co-voiturage non accepté
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control select2" id="DropDownListPassagers" multiple="multiple" data-placeholder="Entrez les passagers" style="width: 100%;">
+                            <option value="1">Paul Martin</option>
+                            <option value="2">Blanche Denis</option>
+                            <option value="3">Frédéric Veilleux</option>
+                            <option value="4">Paul Raymond</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control select2" multiple="multiple"
+                                data-placeholder="Catégorie du déplacement" style="width: 100%;">
+                            <option>Technique</option>
+                            <option>Formation</option>
+                            <option>Evenement</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="reason" placeholder="Raison du déplacement">
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="text-light-blue">Point de départ</h4>
+
+                    <div class="noPadding form-group col-sm-6">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control" id="dateStart">
+                        </div>
+                    </div>
+
+                    <div class="noPadding form-group col-sm-6">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-clock-o"></i>
+                            </div>
+                            <input type="text" class="form-control timepicker">
+                        </div>
+                    </div>
+
+                    <p id="link"></p>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button id="defAddressDepBtn" type="button" class="btn btn-block btn-default">
+                                Adresse prédéfinie
+                            </button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button id="manAddressDepBtn" type="button" class="btn btn-block btn-default link">
+                                Adresse manuelle
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group" id="defAddressDepTxt">
+                        <select class="form-control select2" multiple="multiple"
+                                data-placeholder="Adresse prédéfinie" style="width: 100%;">
+                            <option>Campus de Nantes</option>
+                            <option>Campus de Nantes Faraday</option>
+                            <option>Campus de Rennes</option>
+                            <option>Campus de Niort</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="manAddressDepTxt">
+                        <input id="addressInputDep" type="text" class="form-control">
+                    </div>
+
+                    <br>
+                    <h4 class="text-light-blue">Point d'arrivée</h4>
+
+                    <div class="noPadding form-group col-sm-6">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" class="form-control" id="dateStart">
+                        </div>
+                    </div>
+                    <div class="noPadding form-group col-sm-6">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-clock-o"></i>
+                            </div>
+                            <input type="text" class="form-control timepicker">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-xs-6">
+                            <button id="defAddressRetBtn" type="button" class="btn btn-block btn-default">
+                                Adresse prédéfinie
+                            </button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button id="manAddressRetBtn" type="button" class="btn btn-block btn-default link">
+                                Adresse manuelle
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="defAddressRetTxt">
+                        <select class="form-control select2" multiple="multiple"
+                                data-placeholder="Adresse prédéfinie" style="width: 100%;">
+                            <option>Campus de Nantes</option>
+                            <option>Campus de Nantes Faraday</option>
+                            <option>Campus de Rennes</option>
+                            <option>Campus de Niort</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="manAddressRetTxt">
+                        <input id="addressInputRet" type="text" class="form-control">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="box-footer text-center">
+                <a class="btn btn-app">
+                    <i class="fa fa-mail-reply"></i> Annuler
+                </a>
+                <a class="btn btn-app" href="./my_rents_AllOptions.html">
+                    <i class="fa fa-edit"></i> Plus d'options
+                </a>
+                <a class="btn btn-app bg-olive">
+                    <i class="fa fa-save" id="DemanderReservation"></i>Enregistrer
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(function () {
+            handleStatusChanged();
+
+            $("#DemanderReservation").on('click', function () {
+                addRequestBooking();
+            });
+
+            $(".select2").select2({
+                theme: "bootstrap"
+            });            
+        });
+
+        function addRequestBooking() {
+            var requestBooking = {};
+
+            var conducteur = $("#SelectedDriverId > option:selected").attr("value");
+            requestBooking.reason = $("#reason").val();
+            requestBooking.isPersonalCarAvailable = $("#checkBoxIsPersonalCarAvailable").is(":checked");
+
+            var passagers = $('#DropDownListPassagers').val();
+
+            console.log("Passager : " + passagers);
+            console.log("Conducteur : " + conducteur + " Raison " + requestBooking.reason + " Véhicule perso dispo : " + requestBooking.isPersonalCarAvailable);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddRequestBooking", "RequestBooking")',
+                data: '{requestBooking: ' + JSON.stringify(requestBooking) + ', passagers: ' + JSON.stringify(passagers) + ', driver: ' + JSON.stringify(conducteur) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("Ajoutée");
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function handleStatusChanged() {
+            $('#checkBoxDriverChange').on('change', function () {
+                toggleChangeConducteur();   
+            });
+            $('#checkBoxCoVoiturage').on('change', function () {
+                toggleChangeCoVoiturage();
+            });
+        }
+
+        function toggleChangeCoVoiturage() {
+            if ($('#checkBoxCoVoiturage').is(':checked')) {
+                $('#DropDownListPassagers').attr('disabled', true);
+            } else {
+                $('#DropDownListPassagers').removeAttr('disabled');
+            }   
+        }
+
+        function toggleChangeConducteur() {
+            if ($('#checkBoxDriverChange').is(':checked')) {
+                $('#DropDownListDriverChange').attr('disabled', true);
+            } else {
+                $('#DropDownListDriverChange').removeAttr('disabled');
+            }   
+        }
+    </script>
+}
