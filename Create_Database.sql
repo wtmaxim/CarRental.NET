@@ -223,10 +223,16 @@ CREATE TABLE CarReport
   FOREIGN KEY (Id_Booking) REFERENCES Booking(Id)
 );
 
-CREATE TABLE persistent_logins (
-  username varchar(64) NOT NULL,
-  series varchar(64) NOT NULL,
-  token varchar(64) NOT NULL,
-  last_used DATETIME NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY (series)
-)
+-- Liste des utilisteurs
+CREATE PROCEDURE usp_User_List
+AS
+BEGIN
+	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
+		Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
+	FROM [User]
+	WHERE is_Active = 1
+END
+GO
+
+ALTER TABLE [User] ADD Id_Role INT NOT NULL DEFAULT 0;
+ALTER TABLE [User] ADD CONSTRAINT fk_Id_Role FOREIGN KEY (Id_Role) REFERENCES [Role](Id);

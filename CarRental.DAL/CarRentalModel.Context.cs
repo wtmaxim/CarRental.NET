@@ -460,5 +460,171 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_PasswordResetToken_DELETE_BY_ID", idParameter);
         }
+    
+        public virtual ObjectResult<usp_Company_List_Result> usp_Company_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Company_List_Result>("usp_Company_List");
+        }
+    
+        public virtual ObjectResult<usp_Role_List_Result> usp_Role_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Role_List_Result>("usp_Role_List");
+        }
+    
+        public virtual int usp_User_Archive(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Archive", idParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_Get_Fistname_Lastname_Email(string searchValue)
+        {
+            var searchValueParameter = searchValue != null ?
+                new ObjectParameter("searchValue", searchValue) :
+                new ObjectParameter("searchValue", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Fistname_Lastname_Email", searchValueParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_Get_Fistname_Lastname_Email(string searchValue, MergeOption mergeOption)
+        {
+            var searchValueParameter = searchValue != null ?
+                new ObjectParameter("searchValue", searchValue) :
+                new ObjectParameter("searchValue", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Fistname_Lastname_Email", mergeOption, searchValueParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_Get_Id(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Id", idParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_Get_Id(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Id", mergeOption, idParameter);
+        }
+    
+        public virtual int usp_User_Insert(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        {
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("firstname", firstname) :
+                new ObjectParameter("firstname", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("isActive", isActive) :
+                new ObjectParameter("isActive", typeof(byte));
+    
+            var jobParameter = job != null ?
+                new ObjectParameter("job", job) :
+                new ObjectParameter("job", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("phoneNumber", phoneNumber) :
+                new ObjectParameter("phoneNumber", typeof(string));
+    
+            var isAddressPrivateParameter = isAddressPrivate.HasValue ?
+                new ObjectParameter("isAddressPrivate", isAddressPrivate) :
+                new ObjectParameter("isAddressPrivate", typeof(byte));
+    
+            var idCompanyParameter = idCompany.HasValue ?
+                new ObjectParameter("idCompany", idCompany) :
+                new ObjectParameter("idCompany", typeof(int));
+    
+            var idRoleParameter = idRole.HasValue ?
+                new ObjectParameter("idRole", idRole) :
+                new ObjectParameter("idRole", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+        }
+    
+        public virtual int usp_User_Update(Nullable<int> id, string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("firstname", firstname) :
+                new ObjectParameter("firstname", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("isActive", isActive) :
+                new ObjectParameter("isActive", typeof(byte));
+    
+            var jobParameter = job != null ?
+                new ObjectParameter("job", job) :
+                new ObjectParameter("job", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("phoneNumber", phoneNumber) :
+                new ObjectParameter("phoneNumber", typeof(string));
+    
+            var isAddressPrivateParameter = isAddressPrivate.HasValue ?
+                new ObjectParameter("isAddressPrivate", isAddressPrivate) :
+                new ObjectParameter("isAddressPrivate", typeof(byte));
+    
+            var idCompanyParameter = idCompany.HasValue ?
+                new ObjectParameter("idCompany", idCompany) :
+                new ObjectParameter("idCompany", typeof(int));
+    
+            var idRoleParameter = idRole.HasValue ?
+                new ObjectParameter("idRole", idRole) :
+                new ObjectParameter("idRole", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update", idParameter, firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+        }
+    
+        public virtual ObjectResult<usp_User_GET1_Result> usp_User_GET1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_GET1_Result>("usp_User_GET1", idParameter);
+        }
     }
 }

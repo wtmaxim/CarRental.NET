@@ -39,5 +39,10 @@ namespace CarRental.BLL
             }
 
         }
+
+        public List<UserDTO> List()
+        {
+            return utilisateurEngine.List();
+        }
     }
 }
