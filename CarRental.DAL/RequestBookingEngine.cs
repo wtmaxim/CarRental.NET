@@ -23,11 +23,12 @@ namespace CarRental.DAL
             }
         }
 
-        public void Insert(RequestBookingDTO requestBooking)
+        public RequestBookingDTO Insert(RequestBookingDTO _requestBooking)
         {
             using (CarRentalEntities context = new CarRentalEntities())
             {
-                context.usp_RequestBooking_Insert(requestBooking.is_Personal_Car_Available, requestBooking.Reason, requestBooking.Id_Status);
+                RequestBooking requestBooking = context.usp_RequestBooking_Insert(_requestBooking.is_Personal_Car_Available, _requestBooking.Reason, _requestBooking.Id_Status).FirstOrDefault();
+                return requestBookingMapping.MapToRequestBookingDTO(requestBooking);
             }
         }
     }

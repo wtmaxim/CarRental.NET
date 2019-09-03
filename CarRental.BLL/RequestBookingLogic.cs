@@ -13,11 +13,10 @@ namespace CarRental.BLL
             requestBookingEngine = new RequestBookingEngine();
         }
 
-        public void Insert(RequestBookingDTO requestBooking)
+        public RequestBookingDTO Insert(RequestBookingDTO requestBooking)
         {
             requestBooking.Id_Status = 1;
-            //requestBookingEngine.Insert(requestBooking);
-
+            return requestBookingEngine.Insert(requestBooking);
         }
 
         public RequestBookingDTO Get(int idBooking)

@@ -1352,7 +1352,7 @@
           <FunctionImport Name="usp_RequestBooking_Get_IdBooking" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
           <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_RequestBooking_Insert">
+          <FunctionImport Name="usp_RequestBooking_Insert" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
             <Parameter Name="isPersonalCarAvailable" Mode="In" Type="Byte" />
             <Parameter Name="Reason" Mode="In" Type="String" />
             <Parameter Name="idStatut" Mode="In" Type="Int32" />

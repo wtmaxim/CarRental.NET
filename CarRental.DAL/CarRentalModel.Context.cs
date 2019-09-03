@@ -332,7 +332,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get_IdBooking", mergeOption, idBookingParameter);
         }
     
-        public virtual int usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut)
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut)
         {
             var isPersonalCarAvailableParameter = isPersonalCarAvailable.HasValue ?
                 new ObjectParameter("isPersonalCarAvailable", isPersonalCarAvailable) :
@@ -346,7 +346,24 @@ namespace CarRental.DAL
                 new ObjectParameter("idStatut", idStatut) :
                 new ObjectParameter("idStatut", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_RequestBooking_Insert", isPersonalCarAvailableParameter, reasonParameter, idStatutParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Insert", isPersonalCarAvailableParameter, reasonParameter, idStatutParameter);
+        }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, MergeOption mergeOption)
+        {
+            var isPersonalCarAvailableParameter = isPersonalCarAvailable.HasValue ?
+                new ObjectParameter("isPersonalCarAvailable", isPersonalCarAvailable) :
+                new ObjectParameter("isPersonalCarAvailable", typeof(byte));
+    
+            var reasonParameter = reason != null ?
+                new ObjectParameter("Reason", reason) :
+                new ObjectParameter("Reason", typeof(string));
+    
+            var idStatutParameter = idStatut.HasValue ?
+                new ObjectParameter("idStatut", idStatut) :
+                new ObjectParameter("idStatut", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Insert", mergeOption, isPersonalCarAvailableParameter, reasonParameter, idStatutParameter);
         }
     
         public virtual int usp_UserBooking_Insert(Nullable<byte> isDriver, Nullable<byte> isGoing, Nullable<int> idBooking, Nullable<int> idUser)

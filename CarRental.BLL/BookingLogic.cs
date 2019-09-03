@@ -26,5 +26,10 @@ namespace CarRental.BLL
         {
             return bookingEngine.List(licence_plate);
         }
+
+        public BookingDTO Insert(object p1, object p2, int idRequestBooking)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -49,11 +49,11 @@
                     </div>
 
                     <div class="form-group" id="driverChange">
-                        <select class="form-control select2" id="DropDownListDriverChange" multiple="multiple" data-placeholder="Conducteur retour" style="width: 100%;">
-                            <option>Paul Martin</option>
-                            <option>Blanche Denis</option>
-                            <option>Frédéric Veilleux</option>
-                            <option>Paul Raymond</option>
+                        <select class="form-control select2" id="DropDownListDriverChange" data-placeholder="Conducteur retour" style="width: 100%;">
+                            <option value="1">Paul Martin</option>
+                            <option value="2">Blanche Denis</option>
+                            <option value="3">Frédéric Veilleux</option>
+                            <option value="4">Paul Raymond</option>
                         </select>
                     </div>
 
@@ -97,7 +97,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="date" class="form-control" id="dateStart">
+                            <input type="date" class="form-control" id="inputDepartureDate">
                         </div>
                     </div>
 
@@ -149,7 +149,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="date" class="form-control" id="dateStart">
+                            <input type="date" class="form-control" id="inputArrivalDate">
                         </div>
                     </div>
                     <div class="noPadding form-group col-sm-6">
@@ -223,17 +223,31 @@
 
         function addRequestBooking() {
             var requestBooking = {};
+            var address = {};
+            var stopOver = {};
+            var stopOverAddress = {};
 
             var conducteur = $("#SelectedDriverId > option:selected").attr("value");
+
+            if ($("#DropDownListDriverChange").is(":disabled")) {
+                conducteurRetour = conducteur;
+            } else {
+                conducteurRetour = $("#DropDownListDriverChange > option:selected").attr("value");
+            }
+
             requestBooking.reason = $("#reason").val();
             requestBooking.isPersonalCarAvailable = $("#checkBoxIsPersonalCarAvailable").is(":checked");
+
+            stopOver.Departure_Date = new Date($('#inputDepartureDate').val());
+            stopOver.Arrival_Date = new Date($('#inputArrivalDate').val());
 
             var passagers = $('#DropDownListPassagers').val();
 
             console.log("Passager : " + passagers);
-            console.log("Conducteur : " + conducteur + " Raison " + requestBooking.reason + " Véhicule perso dispo : " + requestBooking.isPersonalCarAvailable);
+            console.log("Address" + stopOver.Departure_Date);
+            console.log("Conducteur : " + conducteur + " Conducteur retour " + conducteurRetour  + " Raison " + requestBooking.reason + " Véhicule perso dispo : " + requestBooking.isPersonalCarAvailable);
 
-            $.ajax({
+            @*$.ajax({
                 type: "POST",
                 url: '@Url.Action("AddRequestBooking", "RequestBooking")',
                 data: '{requestBooking: ' + JSON.stringify(requestBooking) + ', passagers: ' + JSON.stringify(passagers) + ', driver: ' + JSON.stringify(conducteur) + '}',
@@ -248,7 +262,7 @@
                 error: function (response) {
                     alert(response.responseText);
                 }
-            });
+            });*@
         }
 
         function handleStatusChanged() {

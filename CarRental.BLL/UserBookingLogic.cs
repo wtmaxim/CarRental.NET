@@ -12,8 +12,16 @@ namespace CarRental.BLL
             userBookingEngine = new UserBookingEngine();
         }
 
-        public void Insert(UserBookingDTO userBooking)
+        public void Insert(byte is_Driver, byte is_Going, int Id_Booking, int Id_User)
         {
+            UserBookingDTO userBooking = new UserBookingDTO
+            {
+                is_Driver = is_Driver,
+                is_Going = is_Going,
+                Id_Booking = Id_Booking,
+                Id_User = Id_User
+            };
+
             userBookingEngine.Insert(userBooking);
         }
     }
