@@ -23,7 +23,7 @@ namespace CarRental.UI
                       "~/Scripts/adminlte.min.js",
                       "~/Scripts/demo.js",
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/moment/moment.js"));
+                      "~/Scripts/moment.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -37,6 +37,10 @@ namespace CarRental.UI
                 "~/Scripts/fullcalendar/daygrid/main.js",
                 "~/Scripts/fullcalendar/core/locale/fr.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
+                "~/Scripts/bootstrap-datetimepicker.js",
+                "~/Scripts/bootstrap-datetimepicker.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
                 "~/Content/fullcalendar/core/main.css",
                 "~/Content/fullcalendar/daygrid/main.css"));
@@ -47,6 +51,10 @@ namespace CarRental.UI
             bundles.Add(new StyleBundle("~/Content/select2").Include(
                 "~/Content/Select2/select2.min.css",
                 "~/Content/Select2/select2-bootstrap.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/datetimepicker").Include(
+                "~/Content/bootstrap-datetimepicker.css",
+                "~/Content/bootstrap-datetimepicker.min.css"));
 
         }
     }

@@ -22,7 +22,7 @@ namespace CarRental.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRequestBooking(RequestBookingDTO _requestBooking, int[] passagers, int driver, int driver2)
+        public ActionResult AddRequestBooking(RequestBookingDTO _requestBooking, int[] passagers, int driver, int driver2, StopOverDTO stopOver)
         {
             RequestBookingDTO requestBooking = requestBookingLogic.Insert(_requestBooking);
             BookingDTO booking = bookingLogic.Insert(null, null, requestBooking.id);
@@ -37,6 +37,9 @@ namespace CarRental.UI.Controllers
             // Ajout des conducteurs. Ne pas oublier d'jaouter le driver retour.
             userBookingLogic.Insert(1, 1, booking.Id, driver);
             userBookingLogic.Insert(1, 0, booking.Id, driver2);
+
+            // Ajout de l'étape de base
+            stopOver.Id_Booking = booking.Id;
 
             return View();
         }

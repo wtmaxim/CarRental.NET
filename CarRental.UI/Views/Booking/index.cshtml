@@ -92,21 +92,14 @@
                 <div class="col-sm-6">
                     <h4 class="text-light-blue">Point de départ</h4>
 
-                    <div class="noPadding form-group col-sm-6">
+                    <div class="form-group col-sm-12">
                         <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' id="Departure_Date" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
                             </div>
-                            <input type="date" class="form-control" id="inputDepartureDate">
-                        </div>
-                    </div>
-
-                    <div class="noPadding form-group col-sm-6">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-clock-o"></i>
-                            </div>
-                            <input type="text" class="form-control timepicker">
                         </div>
                     </div>
 
@@ -126,67 +119,60 @@
                     </div>
                     <br>
 
-                    <div class="form-group" id="defAddressDepTxt">
+                    <div class="form-group" id="DropDownListAddressDeparture">
                         <select class="form-control select2" multiple="multiple"
                                 data-placeholder="Adresse prédéfinie" style="width: 100%;">
-                            <option>Campus de Nantes</option>
-                            <option>Campus de Nantes Faraday</option>
-                            <option>Campus de Rennes</option>
-                            <option>Campus de Niort</option>
+                            <option value="1">Campus de Nantes</option>
+                            <option value="2">Campus de Nantes Faraday</option>
+                            <option value="3">Campus de Rennes</option>
+                            <option value="4">Campus de Niort</option>
                             <option>Autre</option>
                         </select>
                     </div>
 
                     <div class="form-group" id="manAddressDepTxt">
-                        <input id="addressInputDep" type="text" class="form-control">
+                        <input id="InputAddressDeparture" type="text" class="form-control">
                     </div>
 
                     <br>
                     <h4 class="text-light-blue">Point d'arrivée</h4>
 
-                    <div class="noPadding form-group col-sm-6">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="date" class="form-control" id="inputArrivalDate">
+                    <div class="noPadding form-group col-sm-12">
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input type='text' id="Arrival_Date" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
                     </div>
-                    <div class="noPadding form-group col-sm-6">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-clock-o"></i>
-                            </div>
-                            <input type="text" class="form-control timepicker">
-                        </div>
-                    </div>
+                    
 
                     <div class="row form-group">
                         <div class="col-xs-6">
-                            <button id="defAddressRetBtn" type="button" class="btn btn-block btn-default">
+                            <button id="buttonAddressAuto" type="button" class="btn btn-block btn-default">
                                 Adresse prédéfinie
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button id="manAddressRetBtn" type="button" class="btn btn-block btn-default link">
+                            <button id="buttonAddressMan" type="button" class="btn btn-block btn-default link">
                                 Adresse manuelle
                             </button>
                         </div>
                     </div>
 
-                    <div class="form-group" id="defAddressRetTxt">
+                    <div class="form-group" id="DropDownListAddressArrival">
                         <select class="form-control select2" multiple="multiple"
                                 data-placeholder="Adresse prédéfinie" style="width: 100%;">
-                            <option>Campus de Nantes</option>
-                            <option>Campus de Nantes Faraday</option>
-                            <option>Campus de Rennes</option>
-                            <option>Campus de Niort</option>
+                            <option value="1">Campus de Nantes</option>
+                            <option value="2">Campus de Nantes Faraday</option>
+                            <option value="3">Campus de Rennes</option>
+                            <option value="4">Campus de Niort</option>
                             <option>Autre</option>
                         </select>
                     </div>
 
                     <div class="form-group" id="manAddressRetTxt">
-                        <input id="addressInputRet" type="text" class="form-control">
+                        <input id="InputAddressArrival" type="text" class="form-control">
                     </div>
 
                 </div>
@@ -210,6 +196,14 @@
 @section Scripts {
     <script>
         $(function () {
+            $('#datetimepicker1').datetimepicker({
+                locale: 'fr'
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                locale: 'fr'
+            });
+
             handleStatusChanged();
 
             $("#DemanderReservation").on('click', function () {
@@ -221,36 +215,48 @@
             });            
         });
 
-        function addRequestBooking() {
-            var requestBooking = {};
-            var address = {};
-            var stopOver = {};
-            var stopOverAddress = {};
+        function getValues() {
 
-            var conducteur = $("#SelectedDriverId > option:selected").attr("value");
+            var requestBooking = {};
+            var stopOver = {};
+            var driver = $("#SelectedDriverId > option:selected").attr("value");
 
             if ($("#DropDownListDriverChange").is(":disabled")) {
-                conducteurRetour = conducteur;
+                driver2 = driver;
             } else {
-                conducteurRetour = $("#DropDownListDriverChange > option:selected").attr("value");
+                driver2 = $("#DropDownListDriverChange > option:selected").attr("value");
             }
 
             requestBooking.reason = $("#reason").val();
             requestBooking.isPersonalCarAvailable = $("#checkBoxIsPersonalCarAvailable").is(":checked");
 
-            stopOver.Departure_Date = new Date($('#inputDepartureDate').val());
-            stopOver.Arrival_Date = new Date($('#inputArrivalDate').val());
+            stopOver.Departure_Date = new Date($('#Departure_Date').val());
+            stopOver.Arrival_Date = new Date($('#Arrival_Date').val());
+
+            var addressDeparture = $("DropDownListAddressDeparture > option:selected").attr("value");
+            var addressArrival = $("DropDownListAddressArrival > option:selected").attr("value");
 
             var passagers = $('#DropDownListPassagers').val();
 
-            console.log("Passager : " + passagers);
-            console.log("Address" + stopOver.Departure_Date);
-            console.log("Conducteur : " + conducteur + " Conducteur retour " + conducteurRetour  + " Raison " + requestBooking.reason + " Véhicule perso dispo : " + requestBooking.isPersonalCarAvailable);
+            return { requestBooking: requestBooking, passagers: passagers, driver: driver, driver2: driver2, stopOver: stopOver, addressDeparture: addressDeparture, addressArrival: addressArrival };
+        }
+
+        function getNewStopOver() {
+
+        }
+
+        function addRequestBooking() {
+
+            var data = getValues();
+
+            console.log("Passager : " + data.passagers);
+            console.log("Date Depart : " + data.stopOver.Departure_Date + " Address depart : " + data.addressDeparture + " Date retour : " + data.stopOver.Arrival_Date + " Address Retour : " + data.addressArrival);
+            console.log("Conducteur : " + data.driver + " Conducteur retour " + data.driver2  + " Raison " + data.requestBooking.reason + " Véhicule perso dispo : " + data.requestBooking.isPersonalCarAvailable);
 
             @*$.ajax({
                 type: "POST",
                 url: '@Url.Action("AddRequestBooking", "RequestBooking")',
-                data: '{requestBooking: ' + JSON.stringify(requestBooking) + ', passagers: ' + JSON.stringify(passagers) + ', driver: ' + JSON.stringify(conducteur) + '}',
+                data: '{requestBooking: ' + JSON.stringify(requestBooking) + ', passagers: ' + JSON.stringify(passagers) + ', driver: ' + JSON.stringify(driver) +', driver2: ' + JSON.stringify(driver2) +', stopOver: ' + JSON.stringify(stopOver) +'}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
