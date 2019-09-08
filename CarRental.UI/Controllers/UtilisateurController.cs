@@ -36,7 +36,17 @@ namespace CarRental.UI.Controllers
                 Companies = companyLogic.List(),
                 Roles = roleLogic.List()
             };
-            
+
+            if (TempData["FormError"] != null)
+            {
+                ViewBag.FormError = TempData["FormError"].ToString();
+            }
+
+            if (TempData["SuccessModal"] != null)
+            {
+                ViewBag.SuccessModal = TempData["SuccessModal"].ToString();
+            }
+
             return View("Index", vm);
         }
 
@@ -83,8 +93,8 @@ namespace CarRental.UI.Controllers
         }
 
         /**
-         * GEt : FilterUserByCompany
-         * Recherche des utilisateurs (par nom et prénom) en fonction de la valeur fournie
+         * Post : FilterUserByCompany
+         * Filtre les utilisateurs par emplacement
          */
         [HttpPost]
         public ActionResult FilterUserByCompany(int idCompany)
@@ -105,6 +115,87 @@ namespace CarRental.UI.Controllers
                 Roles = roleLogic.List()
             };
             return View("Index", vm);
+        }
+
+        /**
+         * POST: AddUser
+         * Ajoute un utilisateur après validation des champs
+         */
+        [HttpPost]
+        public ActionResult AddUser(
+            string lastname, string firstname, string idCompany,
+            string mail, string phone, string idRole, string job
+            )
+        {
+            bool addUser = true;
+            UserDTO user = new UserDTO();
+            string errorMessage = "";
+
+            if (lastname.Trim() != "") user.Lastname = lastname;
+            else
+            {
+                addUser = false;
+                errorMessage = errorMessage + "Nom de famille non défini. ";
+            }
+
+            if (firstname.Trim() != "") user.Firstname = firstname;
+            else
+            {
+                addUser = false;
+                errorMessage = errorMessage + "Prénom non défini. ";
+            }
+
+            int resCompany = 0;
+            if (Int32.TryParse(idCompany, out resCompany))
+            {
+                user.Id_Company = resCompany;
+            }
+            else
+            {
+                addUser = false;
+                errorMessage = errorMessage + "Etablissement non choisi. ";
+            }
+
+            if (mail.Trim() != "") user.Email = mail;
+            else
+            {
+                addUser = false;
+                errorMessage = errorMessage + "Email non défini. ";
+            }
+
+            int resRole = 0;
+            if (Int32.TryParse(idRole, out resRole))
+            {
+                user.Id_Role = resRole;
+            }
+            else
+            {
+                addUser = false;
+                errorMessage = errorMessage + "Role non défini. ";
+            }
+
+            if (job.Trim() != "") user.Job = job;
+            else
+            {
+                addUser = false;
+                errorMessage = errorMessage + "Poste non défini. ";
+            }
+
+            user.Password = "Motdepasse1";
+            user.Is_Active = 1;
+            user.Note = "";
+            user.Is_Address_Private = 1;
+
+            if (addUser)
+            {
+                userLogic.InsertOrUpdateUser(user);
+                TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " ajouté avec succès";
+            }
+            else
+            {
+                TempData["FormError"] = errorMessage;
+            }
+            return RedirectToAction("Index");
         }
     }
 }

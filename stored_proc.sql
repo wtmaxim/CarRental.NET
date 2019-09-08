@@ -257,3 +257,75 @@ BEGIN
 		AND is_Active = 1
 END
 GO
+
+-- Ajout d'un utilisateur
+CREATE PROCEDURE usp_User_Insert
+	@firstname varchar(255),
+	@lastname varchar(255),
+	@email varchar(255),
+	@password varchar(255),
+	@isActive tinyint,
+	@job varchar(255),
+	@note text,
+	@phoneNumber varchar(13),
+	@isAddressPrivate tinyint,
+	@idCompany int,
+	@idRole int
+AS
+BEGIN
+	INSERT INTO [User]
+	VALUES (
+		@firstname, @lastname, @email, @password, @isActive, @job, 
+		@note, @phoneNumber, @isAddressPrivate, @idCompany, @idRole
+		)
+END
+GO
+
+-- Ajout ou Insert d'un utilisateur
+CREATE PROCEDURE usp_User_Insert_Or_Update
+(
+    @firstname varchar(255),
+	@lastname varchar(255),
+	@email varchar(255),
+	@password varchar(255),
+	@isActive tinyint,
+	@job varchar(255),
+	@note text,
+	@phoneNumber varchar(13),
+	@isAddressPrivate tinyint,
+	@idCompany int,
+	@idRole int
+)
+AS
+BEGIN
+    IF EXISTS (
+		SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
+			Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
+		FROM [User]
+        WHERE Email=@email
+    )
+    BEGIN
+        UPDATE [User]
+		SET
+			Firstname = @firstname, 
+			Lastname = @lastname, 
+			Email = @email,
+			is_Active = @isActive,
+			Job = @job, 
+			Note = @note, 
+			Phone_Number = @phoneNumber, 
+			is_Address_Private = @isAddressPrivate, 
+			Id_Company = @idCompany, 
+			Id_Role = @idRole
+		WHERE Email=@email
+    END
+ELSE
+    BEGIN
+        INSERT INTO [User]
+		VALUES (
+			@firstname, @lastname, @email, @password, @isActive, @job, 
+			@note, @phoneNumber, @isAddressPrivate, @idCompany, @idRole
+			)
+    END
+
+END

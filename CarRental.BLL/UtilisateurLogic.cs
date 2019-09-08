@@ -49,5 +49,15 @@ namespace CarRental.BLL
         {
             return utilisateurEngine.Search(value);
         }
+
+        public void AddUser(UserDTO user)
+        {
+            utilisateurEngine.Insert(user);
+        }
+
+        public void InsertOrUpdateUser(UserDTO user)
+        {
+            utilisateurEngine.InsertOrUpdate(user);
+        }
     }
 }

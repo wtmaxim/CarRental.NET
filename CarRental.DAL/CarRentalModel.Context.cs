@@ -636,5 +636,54 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_GET1_Result>("usp_User_GET1", idParameter);
         }
+    
+        public virtual int usp_User_Insert_Or_Update(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        {
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("firstname", firstname) :
+                new ObjectParameter("firstname", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("isActive", isActive) :
+                new ObjectParameter("isActive", typeof(byte));
+    
+            var jobParameter = job != null ?
+                new ObjectParameter("job", job) :
+                new ObjectParameter("job", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("phoneNumber", phoneNumber) :
+                new ObjectParameter("phoneNumber", typeof(string));
+    
+            var isAddressPrivateParameter = isAddressPrivate.HasValue ?
+                new ObjectParameter("isAddressPrivate", isAddressPrivate) :
+                new ObjectParameter("isAddressPrivate", typeof(byte));
+    
+            var idCompanyParameter = idCompany.HasValue ?
+                new ObjectParameter("idCompany", idCompany) :
+                new ObjectParameter("idCompany", typeof(int));
+    
+            var idRoleParameter = idRole.HasValue ?
+                new ObjectParameter("idRole", idRole) :
+                new ObjectParameter("idRole", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert_Or_Update", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+        }
     }
 }

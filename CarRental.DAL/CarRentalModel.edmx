@@ -618,6 +618,19 @@
           <Parameter Name="idCompany" Type="int" Mode="In" />
           <Parameter Name="idRole" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_User_Insert_Or_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="tinyint" Mode="In" />
+          <Parameter Name="job" Type="varchar" Mode="In" />
+          <Parameter Name="note" Type="text" Mode="In" />
+          <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="isAddressPrivate" Type="tinyint" Mode="In" />
+          <Parameter Name="idCompany" Type="int" Mode="In" />
+          <Parameter Name="idRole" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_User_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -1478,6 +1491,19 @@
           <FunctionImport Name="usp_User_GET1" ReturnType="Collection(CarRental.DAL.usp_User_GET1_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_User_Insert_Or_Update">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Byte" />
+            <Parameter Name="job" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
+            <Parameter Name="idCompany" Mode="In" Type="Int32" />
+            <Parameter Name="idRole" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -2043,6 +2069,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_User_GET" FunctionName="CarRentalModel.Store.usp_User_GET" />
           <FunctionImportMapping FunctionImportName="usp_User_Update_Password" FunctionName="CarRentalModel.Store.usp_User_Update_Password" />
+          <FunctionImportMapping FunctionImportName="usp_User_Insert_Or_Update" FunctionName="CarRentalModel.Store.usp_User_Insert_Or_Update" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

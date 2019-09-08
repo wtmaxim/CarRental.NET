@@ -11,5 +11,7 @@ namespace CarRental.DAL
         UserDTO GetByMailAndPassword(string email, string passowrd);
         UserDTO Get(int id);
         List<UserDTO> Search(string value);
+        void Insert(UserDTO user);
+        void InsertOrUpdate(UserDTO user);
     }
 }

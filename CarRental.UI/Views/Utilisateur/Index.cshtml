@@ -9,19 +9,29 @@
 <!-- Main content -->
 <section class="content">
 
+    <!-- Success Modal -->
+    @if (ViewBag.SuccessModal != null)
+    {
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Succès!</h4>
+            @Html.Raw(ViewBag.SuccessModal)
+        </div>
+    }
+
     <!-- New request form -->
-    <div class="box box-primary">
+    <div class="box box-primary" @((ViewBag.Error != null) ? "" : "collapsed-box") ">
         <div class="box-header with-border">
             <h3 class="box-title">Ajouter un utilisateur</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-plus"></i>
+                    <i class="fa @((ViewBag.Error != null) ? "fa-plus": "fa-minus")"></i>
                 </button>
             </div>
         </div>
 
         <div class="box-body">
-            <form action="" method="post" role="form" class="form-horizontal">
+            <form action="@Url.Action("AddUser", "Utilisateur")" method="post" role="form" class="form-horizontal">
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -58,10 +68,10 @@
                                     {
                                         companiesListItems.Add(
                                             new SelectListItem
-                                                {
-                                                    Text = company.Name,
-                                                    Value = company.Id.ToString(),
-                                                }
+                                            {
+                                                Text = company.Name,
+                                                Value = company.Id.ToString(),
+                                            }
                                         );
                                     }
                                     @Html.DropDownList("idCompany", companiesListItems, new
@@ -118,11 +128,11 @@
                                     foreach (var role in Model.Roles)
                                     {
                                         rolesListItems.Add(new SelectListItem
-                                            {
-                                                Text = role.Libelle,
-                                                Value = role.Id.ToString(),
-                                                Selected = i.Equals(0) ? true : false
-                                            }
+                                        {
+                                            Text = role.Libelle,
+                                            Value = role.Id.ToString(),
+                                            Selected = i.Equals(0) ? true : false
+                                        }
                                         );
                                         i++;
                                     }
@@ -150,6 +160,13 @@
                 </div>
 
                 <div class="box-footer">
+                    @if (ViewBag.FormError != null)
+                    {
+                        <span class="text-danger">
+                            @Html.Raw(ViewBag.FormError)
+                        </span>
+                        <br />
+                    }
                     <button type="submit" class="btn btn-primary">Valider</button>
                 </div>
             </form>
@@ -182,11 +199,11 @@
 
                                 List<SelectListItem> companiesListItems = new List<SelectListItem>();
                                 companiesListItems.Add(new SelectListItem
-                                    {
-                                        Text = "Choisir un établissement",
-                                        Value = "-1",
-                                        Selected = true
-                                    }
+                                {
+                                    Text = "Choisir un établissement",
+                                    Value = "-1",
+                                    Selected = true
+                                }
                                     );
 
                                 int i = 0;
