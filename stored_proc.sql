@@ -242,7 +242,7 @@ GO
 
 -- Recherche d'un utilisateur
 CREATE PROCEDURE usp_User_Get_Fistname_Lastname_Email
-	@searchValue varchar
+	@searchValue varchar(255)
 AS
 BEGIN
 	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
