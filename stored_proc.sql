@@ -223,3 +223,37 @@ UPDATE [User]
 SET  Password = @password
 Where Email = @email
 END
+
+-- Utilisateur - ajout idRole
+ALTER TABLE [User] ADD Id_Role INT NOT NULL DEFAULT 0;
+ALTER TABLE [User] ADD CONSTRAINT fk_Id_Role FOREIGN KEY (Id_Role) REFERENCES [Role](Id);
+GO
+
+-- Liste des utilisteurs
+CREATE PROCEDURE usp_User_List
+AS
+BEGIN
+	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
+		Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
+	FROM [User]
+	WHERE is_Active = 1
+END
+GO
+
+-- Recherche d'un utilisateur
+CREATE PROCEDURE usp_User_Get_Fistname_Lastname_Email
+	@searchValue varchar
+AS
+BEGIN
+	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
+		Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
+	FROM [User]
+	WHERE 
+		(
+			Firstname LIKE CONCAT('%', @searchValue,'%') OR
+			Lastname LIKE CONCAT('%', @searchValue,'%') OR
+			Email LIKE CONCAT('%', @searchValue,'%')
+		)
+		AND is_Active = 1
+END
+GO

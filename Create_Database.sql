@@ -231,17 +231,3 @@ CREATE TABLE PasswordResetToken (
     CONSTRAINT [PK_ID] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_PasswordResetToken_UserID] FOREIGN KEY (user_id) REFERENCES [User] (Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
--- Liste des utilisteurs
-CREATE PROCEDURE usp_User_List
-AS
-BEGIN
-	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
-		Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
-	FROM [User]
-	WHERE is_Active = 1
-END
-GO
-
-ALTER TABLE [User] ADD Id_Role INT NOT NULL DEFAULT 0;
-ALTER TABLE [User] ADD CONSTRAINT fk_Id_Role FOREIGN KEY (Id_Role) REFERENCES [Role](Id);
