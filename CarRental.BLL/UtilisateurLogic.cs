@@ -44,5 +44,10 @@ namespace CarRental.BLL
         {
             return utilisateurEngine.List();
         }
+
+        public List<UserDTO> Search(string value)
+        {
+            return utilisateurEngine.Search(value);
+        }
     }
 }

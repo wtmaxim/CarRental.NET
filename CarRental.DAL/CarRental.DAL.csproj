@@ -61,11 +61,15 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BookingEngine.cs" />
+    <Compile Include="CompanyEngine.cs" />
+    <Compile Include="CompanyMapping.cs" />
     <Compile Include="EventEngine.cs" />
+    <Compile Include="ICompanyEngine.cs" />
     <Compile Include="Interface\IEventEngine.cs" />
     <Compile Include="Interface\IPasswordResetTokenEngine.cs" />
     <Compile Include="Interface\IRequestBookingEngine.cs" />
     <Compile Include="Interface\IUtilisateurEngine.cs" />
+    <Compile Include="IRoleEngine.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
     <Compile Include="Car.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -137,6 +141,8 @@
     <Compile Include="Role.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RoleEngine.cs" />
+    <Compile Include="RoleMapping.cs" />
     <Compile Include="Status.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

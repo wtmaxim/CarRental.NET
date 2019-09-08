@@ -29,6 +29,7 @@ namespace CarRental.Model
         public string Phone_Number { get; set; }
         public byte Is_Address_Private { get; set; }
         public int? Id_Company { get; set; }
+        public int Id_Role { get; set; }
         public string LoginErrorMessage { get; set; }
 
     }

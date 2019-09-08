@@ -461,14 +461,24 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_PasswordResetToken_DELETE_BY_ID", idParameter);
         }
     
-        public virtual ObjectResult<usp_Company_List_Result> usp_Company_List()
+        public virtual ObjectResult<Company> usp_Company_List()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Company_List_Result>("usp_Company_List");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("usp_Company_List");
         }
     
-        public virtual ObjectResult<usp_Role_List_Result> usp_Role_List()
+        public virtual ObjectResult<Company> usp_Company_List(MergeOption mergeOption)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Role_List_Result>("usp_Role_List");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("usp_Company_List", mergeOption);
+        }
+    
+        public virtual ObjectResult<Role> usp_Role_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_List");
+        }
+    
+        public virtual ObjectResult<Role> usp_Role_List(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_List", mergeOption);
         }
     
         public virtual int usp_User_Archive(Nullable<int> id)

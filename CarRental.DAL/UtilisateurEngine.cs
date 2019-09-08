@@ -77,5 +77,14 @@ namespace CarRental.DAL
             }
 
         }
+
+        public List<UserDTO> Search(string value)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                var users = context.usp_User_Get_Fistname_Lastname_Email(value).ToList();
+                return UserMapping.MapToListUserDTO(users);
+            }
+        }
     }
 }

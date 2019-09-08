@@ -50,10 +50,35 @@
                         <div class="form-group">
                             <label for="workPlace" class="col-sm-3 control-label">Lieu de travail *</label>
 
-                            <div class="col-sm-9 select2">
-                                <select class="form-control" multiple="multiple" style="width: 100%;" disabled>
-                                    <option>Aucun role.</option>
-                                </select>
+                            <div class="col-sm-9">
+                                @if (Model.Companies != null && Model.Companies.Count > 0)
+                                {
+                                    List<SelectListItem> companiesListItems = new List<SelectListItem>();
+                                    foreach (var company in Model.Companies)
+                                    {
+                                        companiesListItems.Add(
+                                            new SelectListItem
+                                                {
+                                                    Text = company.Name,
+                                                    Value = company.Id.ToString(),
+                                                }
+                                        );
+                                    }
+                                    @Html.DropDownList("idCompany", companiesListItems, new
+                                        {
+                                            @class = "form-control select2",
+                                            multiple = "multiple",
+                                            style = "width: 100%;",
+                                        }
+                                    )
+                                }
+                                else
+                                {
+                                    <select class="form-control select2" multiple="multiple" style="width: 100%;" disabled>
+                                        <option>Aucun lieu.</option>
+                                    </select>
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -85,9 +110,31 @@
                             <label for="role" class="col-sm-3 control-label">Role *</label>
 
                             <div class="col-sm-9">
-                                <select class="form-control" disabled>
-                                    <option>Aucun role.</option>
-                                </select>
+                                @if (Model.Roles != null && Model.Roles.Count > 0)
+                                {
+
+                                    List<SelectListItem> rolesListItems = new List<SelectListItem>();
+                                    int i = 0;
+                                    foreach (var role in Model.Roles)
+                                    {
+                                        rolesListItems.Add(new SelectListItem
+                                            {
+                                                Text = role.Libelle,
+                                                Value = role.Id.ToString(),
+                                                Selected = i.Equals(0) ? true : false
+                                            }
+                                        );
+                                        i++;
+                                    }
+
+                                    @Html.DropDownList("idRole", rolesListItems, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    <select class="form-control" disabled>
+                                        <option>Aucun role.</option>
+                                    </select>
+                                }
                             </div>
                         </div>
                     </div>
@@ -126,17 +173,49 @@
 
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Filtre par emplacement</label>
-                        <select class="form-control" disabled>
-                            <option>Aucun etablissement.</option>
-                        </select>
-                    </div>
+                    <form action="@Url.Action("FilterUserByCompany", "Utilisateur")" method="post" id="FilterUserByCompany">
+                        <div class="form-group">
+                            <label>Filtre par emplacement</label>
+
+                            @if (Model.Companies != null && Model.Companies.Count > 0)
+                            {
+
+                                List<SelectListItem> companiesListItems = new List<SelectListItem>();
+                                companiesListItems.Add(new SelectListItem
+                                    {
+                                        Text = "Choisir un établissement",
+                                        Value = "-1",
+                                        Selected = true
+                                    }
+                                    );
+
+                                int i = 0;
+                                foreach (var company in Model.Companies)
+                                {
+                                    companiesListItems.Add(new SelectListItem
+                                    {
+                                        Text = company.Name,
+                                        Value = company.Id.ToString(),
+                                    }
+                                    );
+                                    i++;
+                                }
+
+                                @Html.DropDownList("idCompany", companiesListItems, new { @class = "form-control", onchange = "this.form.submit()" })
+                            }
+                            else
+                            {
+                                <select class="form-control" disabled>
+                                    <option>Aucun etablissement.</option>
+                                </select>
+                            }
+                        </div>
+                    </form>
                 </div>
                 <div class="col-sm-6">
-                    <form action="" method="post">
+                    <form action="@Url.Action("SearchUser", "Utilisateur")" method="post">
+                        <label>Rechercher un utilisateur</label>
                         <div class="input-group">
-                            <label>Rechercher un utilisateur</label>
                             <input type="text" name="searchVal" id="searchVal" class="form-control" placeholder="rechercher un utilisateur">
                             <span class="input-group-btn">
                                 <button type="submit" name="search" class="btn btn-flat" id="SearchUser">
@@ -240,7 +319,7 @@
             //Initialize Select2 Elements
             $('.select2').select2({
                 maximumSelectionLength: 1,
-                placeholder: "Choisissez un établissement",
+                placeholder: "Choisissez un lieu de travail",
             })
         })
     </script>

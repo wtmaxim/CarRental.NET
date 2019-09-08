@@ -12,10 +12,14 @@ namespace CarRental.UI.Controllers
     public class UtilisateurController : Controller
     {
         private readonly UtilisateurLogic userLogic;
+        private readonly CompanyLogic companyLogic;
+        private readonly RoleLogic roleLogic;
 
         public UtilisateurController()
         {
             userLogic = new UtilisateurLogic();
+            companyLogic = new CompanyLogic();
+            roleLogic = new RoleLogic();
         }
 
         /**
@@ -29,8 +33,8 @@ namespace CarRental.UI.Controllers
             UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
             {
                 Users = UserDTOToTuple(userLogic.List()),
-                Companies = new List<CompanyDTO>(),
-                Roles = new List<RoleDTO>()
+                Companies = companyLogic.List(),
+                Roles = roleLogic.List()
             };
             
             return View("Index", vm);
@@ -45,13 +49,62 @@ namespace CarRental.UI.Controllers
             var tupleList = new List<Tuple<UserDTO, CompanyDTO, RoleDTO>>();
             foreach (UserDTO user in users)
             {
-                var usr = user;
-                var company = new CompanyDTO();
-                var role = new RoleDTO();
-                var tupleData = new Tuple<UserDTO, CompanyDTO, RoleDTO>(usr, company, role);
+                var company = companyLogic.List().Find(c => c.Id == user.Id_Company);
+                var role = roleLogic.List().Find(r => r.Id == user.Id_Role);
+                var tupleData = new Tuple<UserDTO, CompanyDTO, RoleDTO>(user, company, role);
                 tupleList.Add(tupleData);
             }
             return tupleList;
+        }
+
+        /**
+         * POST : SearchUser
+         * Recherche des utilisateurs (par nom et prénom) en fonction de la valeur fournie
+         */
+        [HttpPost]
+        public ActionResult SearchUser(string searchVal)
+        {
+            if (searchVal != null)
+            {
+                List<UserDTO> users = userLogic.Search(searchVal);
+                UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
+                {
+                    Users = UserDTOToTuple(users),
+                    Companies = companyLogic.List(),
+                    Roles = roleLogic.List()
+                };
+                return View("Index", vm);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+        }
+
+        /**
+         * GEt : FilterUserByCompany
+         * Recherche des utilisateurs (par nom et prénom) en fonction de la valeur fournie
+         */
+        [HttpPost]
+        public ActionResult FilterUserByCompany(int idCompany)
+        {
+            List<UserDTO> users;
+            if (idCompany != -1)
+            {
+                users = userLogic.List().FindAll(u => u.Id_Company == idCompany);
+            }
+            else
+            {
+                users = userLogic.List();
+            }
+            UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
+            {
+                Users = UserDTOToTuple(users),
+                Companies = companyLogic.List(),
+                Roles = roleLogic.List()
+            };
+            return View("Index", vm);
         }
     }
 }

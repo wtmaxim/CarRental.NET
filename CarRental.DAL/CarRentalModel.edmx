@@ -1437,8 +1437,8 @@
           <FunctionImport Name="usp_PasswordResetToken_DELETE_BY_ID">
           <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_Company_List" ReturnType="Collection(CarRental.DAL.usp_Company_List_Result)" />
-          <FunctionImport Name="usp_Role_List" ReturnType="Collection(CarRental.DAL.usp_Role_List_Result)" />
+          <FunctionImport Name="usp_Company_List" EntitySet="Company" ReturnType="Collection(CarRental.DAL.Company)" />
+          <FunctionImport Name="usp_Role_List" EntitySet="Role" ReturnType="Collection(CarRental.DAL.Role)" />
           <FunctionImport Name="usp_User_Archive">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -2013,21 +2013,8 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_DELETE_BY_ID" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_DELETE_BY_ID" />
           <FunctionImportMapping FunctionImportName="usp_Company_List" FunctionName="CarRentalModel.Store.usp_Company_List">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CarRental.DAL.usp_Company_List_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="id_Address" ColumnName="id_Address" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Role_List" FunctionName="CarRentalModel.Store.usp_Role_List">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CarRental.DAL.usp_Role_List_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_User_Archive" FunctionName="CarRentalModel.Store.usp_User_Archive" />
           <FunctionImportMapping FunctionImportName="usp_User_Get_Fistname_Lastname_Email" FunctionName="CarRentalModel.Store.usp_User_Get_Fistname_Lastname_Email">
