@@ -59,5 +59,10 @@ namespace CarRental.BLL
         {
             utilisateurEngine.InsertOrUpdate(user);
         }
+
+        public void Archive(int id)
+        {
+            utilisateurEngine.Archive(id);
+        }
     }
 }

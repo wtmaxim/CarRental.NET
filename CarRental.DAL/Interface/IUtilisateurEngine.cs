@@ -13,5 +13,6 @@ namespace CarRental.DAL
         List<UserDTO> Search(string value);
         void Insert(UserDTO user);
         void InsertOrUpdate(UserDTO user);
+        void Archive(int userId);
     }
 }

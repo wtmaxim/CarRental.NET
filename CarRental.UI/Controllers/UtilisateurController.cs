@@ -197,5 +197,25 @@ namespace CarRental.UI.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        /**
+        * GET : ArchiveUser
+        * Archive l'utilisateur dans la bdd
+        */
+        [HttpGet]
+        public ActionResult ArchiveUser(int IdUser)
+        {
+            if (IdUser != null)
+            {
+                userLogic.Archive(IdUser);
+                TempData["SuccessModal"] = "Utilisateur supprimé avec succès";
+            }
+            else
+            {
+                TempData["ErrorModal"] = "Erreur lors de la supression de l'utilisateur";
+            }
+            return RedirectToAction("Index");
+
+        }
     }
 }
