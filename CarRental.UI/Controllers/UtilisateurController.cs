@@ -29,12 +29,25 @@ namespace CarRental.UI.Controllers
         public ActionResult Index()
         {
             List<UserDTO> users = userLogic.List();
+            List<CompanyDTO> companies = companyLogic.List();
+            List<RoleDTO> roles = roleLogic.List();
+
+            Tuple<UserDTO, CompanyDTO, RoleDTO> userToEdit = null;
+            if (TempData["userToEdit"] != null)
+            {
+                int userId = (int)TempData["UserToEdit"];
+                UserDTO usr = users.Find(u => u.Id == userId);
+                RoleDTO rle = roles.Find(r => r.Id == usr.Id_Role);
+                CompanyDTO cmp = companies.Find(c => c.Id == usr.Id_Company);
+                userToEdit = new Tuple<UserDTO, CompanyDTO, RoleDTO>(usr, cmp, rle);
+            }
 
             UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
             {
                 Users = UserDTOToTuple(userLogic.List()),
-                Companies = companyLogic.List(),
-                Roles = roleLogic.List()
+                Companies = companies,
+                Roles = roles,
+                UserToEdit = userToEdit
             };
 
             if (TempData["FormError"] != null)
@@ -81,7 +94,8 @@ namespace CarRental.UI.Controllers
                 {
                     Users = UserDTOToTuple(users),
                     Companies = companyLogic.List(),
-                    Roles = roleLogic.List()
+                    Roles = roleLogic.List(),
+                    UserToEdit = null
                 };
                 return View("Index", vm);
             }
@@ -112,7 +126,8 @@ namespace CarRental.UI.Controllers
             {
                 Users = UserDTOToTuple(users),
                 Companies = companyLogic.List(),
-                Roles = roleLogic.List()
+                Roles = roleLogic.List(),
+                UserToEdit = null
             };
             return View("Index", vm);
         }
@@ -127,75 +142,85 @@ namespace CarRental.UI.Controllers
             string mail, string phone, string idRole, string job
             )
         {
-            bool addUser = true;
+            
             UserDTO user = new UserDTO();
-            string errorMessage = "";
-
-            if (lastname.Trim() != "") user.Lastname = lastname;
-            else
-            {
-                addUser = false;
-                errorMessage = errorMessage + "Nom de famille non défini. ";
-            }
-
-            if (firstname.Trim() != "") user.Firstname = firstname;
-            else
-            {
-                addUser = false;
-                errorMessage = errorMessage + "Prénom non défini. ";
-            }
-
+            user.Lastname = lastname;
+             user.Firstname = firstname;
             int resCompany = 0;
-            if (Int32.TryParse(idCompany, out resCompany))
-            {
-                user.Id_Company = resCompany;
-            }
-            else
-            {
-                addUser = false;
-                errorMessage = errorMessage + "Etablissement non choisi. ";
-            }
-
-            if (mail.Trim() != "") user.Email = mail;
-            else
-            {
-                addUser = false;
-                errorMessage = errorMessage + "Email non défini. ";
-            }
-
+            Int32.TryParse(idCompany, out resCompany);
+            user.Id_Company = resCompany;
+            user.Email = mail;
             int resRole = 0;
-            if (Int32.TryParse(idRole, out resRole))
-            {
-                user.Id_Role = resRole;
-            }
-            else
-            {
-                addUser = false;
-                errorMessage = errorMessage + "Role non défini. ";
-            }
-
-            if (job.Trim() != "") user.Job = job;
-            else
-            {
-                addUser = false;
-                errorMessage = errorMessage + "Poste non défini. ";
-            }
-
+            Int32.TryParse(idRole, out resRole);
+            user.Id_Role = resRole;
+            user.Job = job;
             user.Password = "Motdepasse1";
             user.Is_Active = 1;
             user.Note = "";
             user.Is_Address_Private = 1;
+            user.Phone_Number = phone;
 
-            if (addUser)
+            Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, idRole, job);
+
+            if (res.Item1)
             {
                 userLogic.InsertOrUpdateUser(user);
                 TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " ajouté avec succès";
             }
             else
             {
-                TempData["FormError"] = errorMessage;
+                TempData["FormError"] = res.Item2;
             }
             return RedirectToAction("Index");
+        }
+
+        public Tuple<Boolean, String> isFormValid(
+                string lastname, string firstname, string idCompany,
+                string mail, string cellphone, string idRole, string job
+            )
+        {
+            bool isFormValid = true;
+            string errorMessage = "";
+
+            if (lastname.Trim() == "")
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Nom de famille non défini. ";
+            }
+
+            if (firstname.Trim() == "")
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Prénom non défini. ";
+            }
+
+            int resCompany = 0;
+            if (!Int32.TryParse(idCompany, out resCompany))
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Etablissement non choisi. ";
+            }
+
+            if (mail.Trim() == "")
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Email non défini. ";
+            }
+
+            int resRole = 0;
+            if (!Int32.TryParse(idRole, out resRole))
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Role non défini. ";
+            }
+
+            if (job.Trim() == "")
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Poste non défini. ";
+            }
+
+            return new Tuple<Boolean, String>(isFormValid, errorMessage);
         }
 
         /**
@@ -216,6 +241,64 @@ namespace CarRental.UI.Controllers
             }
             return RedirectToAction("Index");
 
+        }
+
+        /**
+         * GET : UpdateUserForm
+         * Récupère l'utilisateur à éditer pour le renvoyer dans le formulaire d'ajout/édition
+         */
+        [HttpGet]
+        public ActionResult UpdateUserForm(int IdUser)
+        {
+            TempData["userToEdit"] = IdUser;
+            return RedirectToAction("Index");
+        }
+
+        /**
+         * POST : UpdateUser
+         * Met à jour l'utilisateur dans la base
+         */
+        [HttpPost]
+        public ActionResult UpdateUser(
+            int id, string lastname, string firstname, string idCompany,
+                string mail, string phone, string idRole, string job
+            )
+        {
+            if (id != -1)
+            {
+                UserDTO user = new UserDTO();
+                user.Id = id;
+                user.Lastname = lastname;
+                user.Firstname = firstname;
+                int resCompany = 0;
+                Int32.TryParse(idCompany, out resCompany);
+                user.Id_Company = resCompany;
+                user.Email = mail;
+                int resRole = 0;
+                Int32.TryParse(idRole, out resRole);
+                user.Phone_Number = phone;
+                user.Id_Role = resRole;
+                user.Job = job;
+                user.Password = "Motdepasse1";
+                user.Is_Active = 1;
+                user.Note = "";
+                user.Is_Address_Private = 1;
+
+                Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, idRole, job);
+
+                if (res.Item1)
+                {
+                    userLogic.Update(user);
+                    TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " modifié avec succès";
+                }
+                else
+                {
+                    TempData["userToEdit"] = id;
+                    TempData["FormError"] = res.Item2;
+                }
+            }
+            
+            return RedirectToAction("Index");
         }
     }
 }

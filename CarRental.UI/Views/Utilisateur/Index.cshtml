@@ -1,4 +1,11 @@
 ﻿@model CarRental.UI.ViewsModels.Utilisateur.UtilisateurIndexViewModel
+@{
+    // ViewBag.ErrorModal = "Erreur dans le formulaire";
+    // ViewBag.SuccessModal = "Erreur lors de la supression";
+    // ViewBag.FormError = "test de l'erreur dans le formulaire";
+    ViewBag.FormOpen = Model.UserToEdit != null || ViewBag.FormError != null;
+    ViewBag.ListOpen = Model.UserToEdit == null && ViewBag.FormError == null;
+}
 
 <section class="content-header">
     <h1>
@@ -29,19 +36,26 @@
         </div>
     }
 
-    <!-- New request form -->
-    <div class="box box-primary" @((ViewBag.Error != null) ? "" : "collapsed-box") ">
+    <!-- User form :add/edit -->
+    <div class="box box-primary @(ViewBag.FormOpen ? "":"collapsed-box")">
         <div class="box-header with-border">
-            <h3 class="box-title">Ajouter un utilisateur</h3>
+            @if (Model.UserToEdit != null)
+            {
+                <h3 class="box-title">Modifier <b>@Model.UserToEdit.Item1.Firstname @Model.UserToEdit.Item1.Lastname</b></h3>
+            }
+            else
+            {
+                <h3 class="box-title">Ajouter un utilisateur</h3>
+            }
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa @((ViewBag.Error != null) ? "fa-plus": "fa-minus")"></i>
+                    <i class="fa @(ViewBag.FormOpen ? "fa-minus":"fa-plus")"></i>
                 </button>
             </div>
         </div>
 
         <div class="box-body">
-            <form action="@Url.Action("AddUser", "Utilisateur")" method="post" role="form" class="form-horizontal">
+            <form action="@(Model.UserToEdit != null ? Url.Action("UpdateUser", "Utilisateur") : Url.Action("AddUser", "Utilisateur"))" method="post" role="form" class="form-horizontal">
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -49,7 +63,7 @@
                             <label for="name" class="col-sm-3 control-label">Nom *</label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom">
+                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom" value="@(Model.UserToEdit != null ? Model.UserToEdit.Item1.Lastname : String.Empty)">
                             </div>
                         </div>
                     </div>
@@ -58,7 +72,7 @@
                             <label for="surname" class="col-sm-3 control-label">Prénom *</label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom">
+                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom" value="@(Model.UserToEdit != null ? Model.UserToEdit.Item1.Firstname : String.Empty)">
                             </div>
                         </div>
                     </div>
@@ -83,6 +97,18 @@
                                                 Value = company.Id.ToString(),
                                             }
                                         );
+
+                                        if (Model.UserToEdit != null && Model.UserToEdit.Item2.Id == company.Id)
+                                        {
+                                            companiesListItems.Add(
+                                            new SelectListItem
+                                            {
+                                                Text = company.Name,
+                                                Value = company.Id.ToString(),
+                                                Selected = true
+                                            }
+                                        );
+                                        }
                                     }
                                     @Html.DropDownList("idCompany", companiesListItems, new
                                         {
@@ -108,7 +134,7 @@
                             <label for="mail" class="col-sm-3 control-label">Email *</label>
 
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="mail" name="mail" placeholder="Email">
+                                <input type="email" class="form-control" id="mail" name="mail" placeholder="Email" value="@(Model.UserToEdit != null ? Model.UserToEdit.Item1.Email : String.Empty)">
                             </div>
                         </div>
                     </div>
@@ -120,7 +146,7 @@
                             <label for="phone" class="col-sm-3 control-label">Téléphone</label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone">
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone" value="@(Model.UserToEdit != null ? Model.UserToEdit.Item1.Phone_Number : String.Empty)">
                             </div>
                         </div>
                     </div>
@@ -141,7 +167,7 @@
                                         {
                                             Text = role.Libelle,
                                             Value = role.Id.ToString(),
-                                            Selected = i.Equals(0) ? true : false
+                                            Selected = Model.UserToEdit != null && Model.UserToEdit.Item3 != null ? (Model.UserToEdit.Item3.Id == role.Id) : (i.Equals(0) ? true : false)
                                         }
                                         );
                                         i++;
@@ -163,11 +189,13 @@
                             <label for="phone" class="col-sm-3 control-label">Poste *</label>
 
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="job" name="job" placeholder="Poste">
+                                <input type="text" class="form-control" id="job" name="job" placeholder="Poste" value="@(Model.UserToEdit != null ? Model.UserToEdit.Item1.Job : String.Empty)">
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <input type="hidden" name="id" value="@(Model.UserToEdit != null ? Model.UserToEdit.Item1.Id : -1)" />
 
                 <div class="box-footer">
                     @if (ViewBag.FormError != null)
@@ -177,21 +205,30 @@
                         </span>
                         <br />
                     }
-                    <button type="submit" class="btn btn-primary">Valider</button>
+
+                    @if (Model.UserToEdit != null)
+                    {
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        <a href="" class="btn btn-secondary">Annuler</a>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    }
                 </div>
             </form>
         </div>
     </div>
 
     <!-- List -->
-    <div class="box">
+    <div class="box @(ViewBag.ListOpen ? "" : "collapsed-box")">
         <div class="box-header">
             <h3 class="box-title">Liste des utilisateurs</h3>
 
             <div class="box-tools">
                 <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
                         title="Collapse">
-                    <i class="fa fa-minus"></i>
+                    <i class="fa @(ViewBag.ListOpen ? "fa-minus":"fa-plus")"></i>
                 </button>
             </div>
         </div>
@@ -210,7 +247,7 @@
                                 List<SelectListItem> companiesListItems = new List<SelectListItem>();
                                 companiesListItems.Add(new SelectListItem
                                 {
-                                    Text = "Choisir un établissement",
+                                    Text = "Tous",
                                     Value = "-1",
                                     Selected = true
                                 }
@@ -286,7 +323,7 @@
                                 <td>
                                     @if (user.Item3 != null && user.Item3.Libelle != null)
                                     {
-                                        if (user.Item3.Libelle.ToLower().Replace(" ", "") == "Admin")
+                                        if (user.Item3.Libelle.ToLower().Replace(" ", "") == "admin")
                                         {
                                             <span class="label label-primary">@user.Item3.Libelle</span>
                                         }
@@ -312,7 +349,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-sm">
+                                    <a href="@Url.Action("UpdateUserForm", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="@Url.Action("ArchiveUser", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">

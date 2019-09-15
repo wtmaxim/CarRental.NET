@@ -64,5 +64,10 @@ namespace CarRental.BLL
         {
             utilisateurEngine.Archive(id);
         }
+
+        public void Update(UserDTO user)
+        {
+            utilisateurEngine.Update(user);
+        }
     }
 }

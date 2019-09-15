@@ -112,5 +112,14 @@ namespace CarRental.DAL
                 context.usp_User_Archive(id);
             }
         }
+
+        public void Update(UserDTO user)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                context.usp_User_Update(user.Id, user.Firstname, user.Lastname, user.Email, user.Password, user.Is_Active, 
+                    user.Job, user.Note, user.Phone_Number, user.Is_Address_Private, user.Id_Company, user.Id_Role);
+            }
+        }
     }
 }
