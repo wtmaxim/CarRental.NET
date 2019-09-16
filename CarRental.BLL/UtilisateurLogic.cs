@@ -40,9 +40,19 @@ namespace CarRental.BLL
 
         }
 
-        public List<UserDTO> List()
+        public List<UserDTO> ListAll()
         {
-            return utilisateurEngine.List();
+            return utilisateurEngine.ListAll();
+        }
+
+        public List<UserDTO> ListActive()
+        {
+            return utilisateurEngine.ListActive();
+        }
+
+        public List<UserDTO> ListUnactive()
+        {
+            return utilisateurEngine.ListUnactive();
         }
 
         public List<UserDTO> Search(string value)
@@ -61,6 +71,11 @@ namespace CarRental.BLL
         }
 
         public void Archive(int id)
+        {
+            utilisateurEngine.Archive(id);
+        }
+
+        public void Unarchive(int id)
         {
             utilisateurEngine.Archive(id);
         }

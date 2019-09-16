@@ -631,7 +631,12 @@
           <Parameter Name="idCompany" Type="int" Mode="In" />
           <Parameter Name="idRole" Type="int" Mode="In" />
         </Function>
-        <Function Name="usp_User_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_List_Active" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_List_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_List_Unactive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_Unarchive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="firstname" Type="varchar" Mode="In" />
@@ -1504,6 +1509,12 @@
             <Parameter Name="idCompany" Mode="In" Type="Int32" />
             <Parameter Name="idRole" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_User_List_Active" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_List_All" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_List_Unactive" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_Unarchive">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1752,6 +1763,48 @@
           <Property Type="Int32" Name="Id_Role" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_User_GET1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_Active_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_All_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_Unactive_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
@@ -2035,8 +2088,6 @@
           <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_Insert" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_Insert" />
           <FunctionImportMapping FunctionImportName="usp_User_GET_By_EMail" FunctionName="CarRentalModel.Store.usp_User_GET_By_EMail">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_User_List" FunctionName="CarRentalModel.Store.usp_User_List">
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_DELETE_BY_ID" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_DELETE_BY_ID" />
           <FunctionImportMapping FunctionImportName="usp_Company_List" FunctionName="CarRentalModel.Store.usp_Company_List">
           </FunctionImportMapping>
@@ -2070,6 +2121,13 @@
           <FunctionImportMapping FunctionImportName="usp_User_GET" FunctionName="CarRentalModel.Store.usp_User_GET" />
           <FunctionImportMapping FunctionImportName="usp_User_Update_Password" FunctionName="CarRentalModel.Store.usp_User_Update_Password" />
           <FunctionImportMapping FunctionImportName="usp_User_Insert_Or_Update" FunctionName="CarRentalModel.Store.usp_User_Insert_Or_Update" />
+          <FunctionImportMapping FunctionImportName="usp_User_List_Active" FunctionName="CarRentalModel.Store.usp_User_List_Active">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_List_All" FunctionName="CarRentalModel.Store.usp_User_List_All">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_List_Unactive" FunctionName="CarRentalModel.Store.usp_User_List_Unactive">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_Unarchive" FunctionName="CarRentalModel.Store.usp_User_Unarchive" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

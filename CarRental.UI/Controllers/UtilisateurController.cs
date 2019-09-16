@@ -28,7 +28,7 @@ namespace CarRental.UI.Controllers
          */
         public ActionResult Index()
         {
-            List<UserDTO> users = userLogic.List();
+            List<UserDTO> users = userLogic.ListActive();
             List<CompanyDTO> companies = companyLogic.List();
             List<RoleDTO> roles = roleLogic.List();
 
@@ -44,7 +44,7 @@ namespace CarRental.UI.Controllers
 
             UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
             {
-                Users = UserDTOToTuple(userLogic.List()),
+                Users = UserDTOToTuple(users),
                 Companies = companies,
                 Roles = roles,
                 UserToEdit = userToEdit
@@ -107,27 +107,41 @@ namespace CarRental.UI.Controllers
         }
 
         /**
-         * Post : FilterUserByCompany
-         * Filtre les utilisateurs par emplacement
+         * Post : FilterUsers
+         * Filtre les utilisateurs :
+         *  - par entreprise
+         *  - ou par leur status : actif, non actifs, tous
          */
         [HttpPost]
-        public ActionResult FilterUserByCompany(int idCompany)
+        public ActionResult FilterUsers(int? idCompany, int? activeFilterVal)
         {
             List<UserDTO> users;
-            if (idCompany != -1)
+
+            switch (activeFilterVal)
             {
-                users = userLogic.List().FindAll(u => u.Id_Company == idCompany);
+                case 0:
+                    users = userLogic.ListUnactive();
+                    break;
+                case 2:
+                    users = userLogic.ListAll();
+                    break;
+                default:
+                    users = userLogic.ListActive();
+                    break;
             }
-            else
+
+            if (idCompany != null)
             {
-                users = userLogic.List();
+                users = users.FindAll(u => u.Id_Company == idCompany);
             }
+
             UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
             {
                 Users = UserDTOToTuple(users),
                 Companies = companyLogic.List(),
                 Roles = roleLogic.List(),
-                UserToEdit = null
+                FilterUserByActiveVal = activeFilterVal,
+                FilterUserByCompanyId = idCompany ?? null
             };
             return View("Index", vm);
         }
@@ -174,6 +188,10 @@ namespace CarRental.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        /**
+         * isFormValid
+         * Validation du formulaire d'un utilisateur (création et édition)
+         */
         public Tuple<Boolean, String> isFormValid(
                 string lastname, string firstname, string idCompany,
                 string mail, string cellphone, string idRole, string job
@@ -220,20 +238,37 @@ namespace CarRental.UI.Controllers
                 errorMessage = errorMessage + "Poste non défini. ";
             }
 
+            if (cellphone.Trim() != "" && !(cellphone is int))
+            {
+                isFormValid = false;
+                errorMessage = errorMessage + "Le numéro de téléphone doit être composé de chiffres.";
+            }
+
             return new Tuple<Boolean, String>(isFormValid, errorMessage);
         }
 
         /**
-        * GET : ArchiveUser
-        * Archive l'utilisateur dans la bdd
+        * GET : ArchiveUnarchiveUser
+        * Archive ou désarchive l'utilisateur dans la bdd
         */
         [HttpGet]
-        public ActionResult ArchiveUser(int IdUser)
+        public ActionResult ArchiveUnarchiveUser(int IdUser)
         {
             if (IdUser != null)
             {
-                userLogic.Archive(IdUser);
-                TempData["SuccessModal"] = "Utilisateur supprimé avec succès";
+                
+                UserDTO user = userLogic.Get(IdUser);
+                if (user.Is_Active == 0)
+                {
+                    userLogic.Unarchive(IdUser);
+                    TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " activé avec succès";
+                }
+                else
+                {
+                    userLogic.Archive(IdUser);
+                    TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " désactivé avec succès";
+                }
+                
             }
             else
             {
@@ -245,7 +280,7 @@ namespace CarRental.UI.Controllers
 
         /**
          * GET : UpdateUserForm
-         * Récupère l'utilisateur à éditer pour le renvoyer dans le formulaire d'ajout/édition
+         * Récupère l'utilisateur à éditer pour le renvoyer dans le formulaire d'édition
          */
         [HttpGet]
         public ActionResult UpdateUserForm(int IdUser)
@@ -300,5 +335,7 @@ namespace CarRental.UI.Controllers
             
             return RedirectToAction("Index");
         }
+
+
     }
 }

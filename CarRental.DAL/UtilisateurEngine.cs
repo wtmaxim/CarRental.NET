@@ -60,11 +60,29 @@ namespace CarRental.DAL
 
         }
 
-        List<UserDTO> IUtilisateurEngine.List()
+        List<UserDTO> IUtilisateurEngine.ListAll()
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
             {
-                return UserMapping.MapToListUserDTO(contexte.usp_User_List().ToList<User>());
+                return UserMapping.MapToListUserDTO(contexte.usp_User_List_All().ToList<User>());
+            }
+
+        }
+
+        List<UserDTO> IUtilisateurEngine.ListActive()
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToListUserDTO(contexte.usp_User_List_Active().ToList<User>());
+            }
+
+        }
+
+        List<UserDTO> IUtilisateurEngine.ListUnactive()
+        {
+            using (CarRentalEntities contexte = new CarRentalEntities())
+            {
+                return UserMapping.MapToListUserDTO(contexte.usp_User_List_Unactive().ToList<User>());
             }
 
         }
@@ -110,6 +128,14 @@ namespace CarRental.DAL
             using (CarRentalEntities context = new CarRentalEntities())
             {
                 context.usp_User_Archive(id);
+            }
+        }
+
+        public void Unarchive(int id)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                context.usp_User_Unarchive(id);
             }
         }
 

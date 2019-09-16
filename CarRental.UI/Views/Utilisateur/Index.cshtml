@@ -78,7 +78,6 @@
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -236,8 +235,8 @@
         <div class="box-body">
 
             <div class="row">
-                <div class="col-sm-6">
-                    <form action="@Url.Action("FilterUserByCompany", "Utilisateur")" method="post" id="FilterUserByCompany">
+                <div class="col-sm-4">
+                    <form action="@Url.Action("FilterUsers", "Utilisateur")" method="post" id="FilterUserByCompany">
                         <div class="form-group">
                             <label>Filtre par emplacement</label>
 
@@ -248,7 +247,7 @@
                                 companiesListItems.Add(new SelectListItem
                                 {
                                     Text = "Tous",
-                                    Value = "-1",
+                                    Value = null,
                                     Selected = true
                                 }
                                     );
@@ -266,6 +265,7 @@
                                 }
 
                                 @Html.DropDownList("idCompany", companiesListItems, new { @class = "form-control", onchange = "this.form.submit()" })
+                                <input type="hidden" name="activeFilterVal" value="@(Model.FilterUserByActiveVal != null ? Model.FilterUserByActiveVal : 1)" />
                             }
                             else
                             {
@@ -276,7 +276,40 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+                    <form action="@Url.Action("FilterUsers", "Utilisateur")" method="post" id="FilterUserByCompany">
+                        <div class="form-group">
+                            <label>Filtre par activité</label>
+
+                            @{
+                                List<SelectListItem> activeListItems = new List<SelectListItem>();
+                                activeListItems.Add(new SelectListItem
+                                {
+                                    Text = "Non actif",
+                                    Value = "0"
+                                }
+                                 );
+                                activeListItems.Add(new SelectListItem
+                                {
+                                    Text = "Actif",
+                                    Value = "1",
+                                    Selected = true
+                                }
+                                 );
+                                activeListItems.Add(new SelectListItem
+                                {
+                                    Text = "Tous",
+                                    Value = "2"
+                                }
+                                 );
+
+                                @Html.DropDownList("activeFilterVal", activeListItems, new { @class = "form-control", onchange = "this.form.submit()" })
+                                <input type="hidden" name="idCompany" value="@(Model.FilterUserByCompanyId != null ? Model.FilterUserByCompanyId : null)" />
+                            }
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4">
                     <form action="@Url.Action("SearchUser", "Utilisateur")" method="post">
                         <label>Rechercher un utilisateur</label>
                         <div class="input-group">
@@ -302,12 +335,13 @@
                         <th>Status</th>
                         <th>Email</th>
                         <th>Telephone</th>
+                        <th>Edit/ Active</th>
                     </tr>
                     @if (Model.Users != null && Model.Users.Count > 0)
                     {
                         foreach (var user in Model.Users)
                         {
-                            <tr>
+                            <tr class="@(user.Item1.Is_Active == 1 ? "":"text-gray")">
                                 <td>@user.Item1.Lastname</td>
                                 <td>@user.Item1.Firstname</td>
                                 <td>
@@ -323,14 +357,22 @@
                                 <td>
                                     @if (user.Item3 != null && user.Item3.Libelle != null)
                                     {
-                                        if (user.Item3.Libelle.ToLower().Replace(" ", "") == "admin")
+                                        if (user.Item1.Is_Active == 1)
                                         {
-                                            <span class="label label-primary">@user.Item3.Libelle</span>
+                                            if (user.Item3.Libelle.ToLower().Replace(" ", "") == "admin")
+                                            {
+                                                <span class="label label-primary">@user.Item3.Libelle</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">@user.Item3.Libelle</span>
+                                            }
                                         }
                                         else
                                         {
-                                            <span class="label label-default">@user.Item3.Libelle</span>
+                                            <span class="label label-default" style="color: white">@user.Item3.Libelle</span>
                                         }
+
                                     }
                                     else
                                     {
@@ -339,12 +381,12 @@
 
                                 </td>
                                 <td>
-                                    <a href="mailto:@user.Item1.Email">
+                                    <a href="mailto:@user.Item1.Email" class="@(user.Item1.Is_Active == 1 ? "":"text-gray")">
                                         @user.Item1.Email
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="tel:@user.Item1.Phone_Number">
+                                    <a href="tel:@user.Item1.Phone_Number" class="@(user.Item1.Is_Active == 1 ? "":"text-gray")">
                                         @user.Item1.Phone_Number
                                     </a>
                                 </td>
@@ -352,8 +394,8 @@
                                     <a href="@Url.Action("UpdateUserForm", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="@Url.Action("ArchiveUser", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">
-                                        <i class="fa fa-trash text-red"></i>
+                                    <a href="@Url.Action("ArchiveUnarchiveUser", "Utilisateur", new { IdUser = user.Item1.Id })" class="btn btn-sm">
+                                        <i class="fa fa-power-off @(user.Item1.Is_Active == 1 ? "text-red":"text-green")"></i>
                                     </a>
                                 </td>
                             </tr>

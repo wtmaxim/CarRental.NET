@@ -6,7 +6,9 @@ namespace CarRental.DAL
     public interface IUtilisateurEngine
     {
         UserDTO GetByMail(string email);
-        List<UserDTO> List();
+        List<UserDTO> ListAll();
+        List<UserDTO> ListActive();
+        List<UserDTO> ListUnactive();
         void UpdatePasswordByMail(string password, string mail);
         UserDTO GetByMailAndPassword(string email, string passowrd);
         UserDTO Get(int id);
@@ -14,6 +16,7 @@ namespace CarRental.DAL
         void Insert(UserDTO user);
         void InsertOrUpdate(UserDTO user);
         void Archive(int userId);
+        void Unarchive(int id);
         void Update(UserDTO user);
     }
 }

@@ -685,5 +685,44 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert_Or_Update", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
         }
+    
+        public virtual ObjectResult<User> usp_User_List_Active()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List_Active");
+        }
+    
+        public virtual ObjectResult<User> usp_User_List_Active(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List_Active", mergeOption);
+        }
+    
+        public virtual ObjectResult<User> usp_User_List_All()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List_All");
+        }
+    
+        public virtual ObjectResult<User> usp_User_List_All(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List_All", mergeOption);
+        }
+    
+        public virtual ObjectResult<User> usp_User_List_Unactive()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List_Unactive");
+        }
+    
+        public virtual ObjectResult<User> usp_User_List_Unactive(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List_Unactive", mergeOption);
+        }
+    
+        public virtual int usp_User_Unarchive(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Unarchive", idParameter);
+        }
     }
 }

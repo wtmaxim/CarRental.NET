@@ -206,7 +206,7 @@ AND [Password] = @Password
 END
 
 GO
-CREATE PROCEDURE usp_User_List
+CREATE PROCEDURE usp_User_List_All
 AS
 BEGIN
 Select * 
@@ -229,14 +229,23 @@ ALTER TABLE [User] ADD Id_Role INT NOT NULL DEFAULT 0;
 ALTER TABLE [User] ADD CONSTRAINT fk_Id_Role FOREIGN KEY (Id_Role) REFERENCES [Role](Id);
 GO
 
--- Liste des utilisteurs
-CREATE PROCEDURE usp_User_List
+-- Liste des utilisteurs actifs
+CREATE PROCEDURE usp_User_List_Active
 AS
 BEGIN
-	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, 
-		Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
+	SELECT *
 	FROM [User]
 	WHERE is_Active = 1
+END
+GO
+
+-- Liste des utilisteurs non actifs
+CREATE PROCEDURE usp_User_List_Unactive
+AS
+BEGIN
+	SELECT *
+	FROM [User]
+	WHERE is_Active = 0
 END
 GO
 
@@ -338,6 +347,17 @@ AS
 BEGIN
 	UPDATE [User]
 	SET is_Active = 0
+	WHERE id = @id
+END
+GO
+
+-- De-archivage d'un utilisateur
+CREATE PROCEDURE usp_User_Unarchive
+	@id INT
+AS
+BEGIN
+	UPDATE [User]
+	SET is_Active = 1
 	WHERE id = @id
 END
 GO
