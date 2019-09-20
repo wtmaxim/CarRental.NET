@@ -1,13 +1,11 @@
 ﻿using CarRental.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using CarRental.BLL;
 using System.Net.Mail;
 using System.Net;
 using CarRental.Common;
+using System.Web.Security;
 
 namespace CarRental.UI.Controllers
 {
@@ -15,12 +13,14 @@ namespace CarRental.UI.Controllers
     public class AccountController : Controller
     {
         private readonly UtilisateurLogic utilisateurLogic;
+        private readonly RoleLogic roleLogic;
         private readonly PasswordResetTokenLogic passwordResetTokenLogic;
 
         public AccountController()
         {
             utilisateurLogic = new UtilisateurLogic();
             passwordResetTokenLogic = new PasswordResetTokenLogic();
+            roleLogic = new RoleLogic();
         }
 
         public ActionResult Login()
@@ -29,7 +29,7 @@ namespace CarRental.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Autherize(UserDTO userDTO)
+        public ActionResult Login(UserDTO userDTO, string ReturnUrl)
         {
             UserDTO userDetails = utilisateurLogic.GetUserByMail(userDTO.Email);
 
@@ -45,16 +45,19 @@ namespace CarRental.UI.Controllers
             }
             else
             {
+                userDetails.Role = roleLogic.GetUserRoles(userDetails.Email);
                 Session["userID"] = userDetails.Id;
                 Session["firstname"] = userDetails.Firstname;
                 Session["lastName"] = userDetails.Lastname;
                 Session["userJob"] = userDetails.Job;
-                return RedirectToAction("Index", "Home");
+                FormsAuthentication.SetAuthCookie(userDetails.Email, false);
+                return Redirect("/");
             }
         }
 
         public ActionResult LogOut()
         {
+            FormsAuthentication.SignOut();
             Session.Abandon();
             return RedirectToAction("Login", "Account");
         }
@@ -160,13 +163,10 @@ namespace CarRental.UI.Controllers
         [NonAction]
         public void UpdatePassword(UserDTO userDTO)
         {
-
             if (userDTO.Password == userDTO.confirmPassword)
             {
                 utilisateurLogic.UpdatePasswordByMail(userDTO);
             }
-
-
         }
         [NonAction]
         public void SendPasswordResetLinkEmail(string emailTarget, PasswordResetTokenDTO passwordResetTokenDTO)
@@ -178,6 +178,7 @@ namespace CarRental.UI.Controllers
                 "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande";
             SendEMail(emailTarget, subject, body);
         }
+        [NonAction]
         public void SendPasswordChangedMail(string emailTarget)
         {
             string subject = "Votre mot de passe à été changé";
@@ -210,6 +211,6 @@ namespace CarRental.UI.Controllers
                 smtpClient.Send(message);
             smtpClient.Dispose();
         }
-
     }
+
 }

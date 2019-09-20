@@ -35,7 +35,6 @@ namespace CarRental.DAL
         public string Phone_Number { get; set; }
         public byte is_Address_Private { get; set; }
         public Nullable<int> Id_Company { get; set; }
-        public int Id_Role { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Car> Car { get; set; }

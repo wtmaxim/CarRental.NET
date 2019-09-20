@@ -138,6 +138,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\CustomRoleProvider.cs" />
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
@@ -2046,8 +2047,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Car\Index.cshtml" />
     <Content Include="Views\Car\Detail.cshtml" />

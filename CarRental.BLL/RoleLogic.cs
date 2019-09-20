@@ -11,16 +11,119 @@ namespace CarRental.BLL
     public class RoleLogic
     {
         private readonly IRoleEngine roleEngine;
-
+        private readonly UtilisateurLogic utilisateurLogic;
         public RoleLogic()
         {
             roleEngine = new RoleEngine();
+            utilisateurLogic = new UtilisateurLogic();
+        }
+        public List<RoleDTO> GetUserRoles(string email)
+        {
+            try
+            {
+                return roleEngine.Get_User_Roles(email);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void AddRole(string roleName)
+        {
+            if (roleName != null && !roleName.Equals(""))
+            {
+                try
+                {
+                    roleEngine.Add(roleName);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+        }
+        public void Add_User_Role(string email, string roleName)
+        {
+            try
+            {
+                RoleDTO role = Get(roleName);
+                UserDTO user = utilisateurLogic.GetUserByMail(email);
+                roleEngine.Add_User_Role(role.Id, user.Id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public List<UserDTO> Get_Users_With_Role(string roleName)
+        {
+            try
+            {
+                return roleEngine.Ger_Users_With_Role(roleName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public RoleDTO Get(string roleName)
+        {
+            try
+            {
+                return roleEngine.Get(roleName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool Is_User_In_Role(string mail, string roleName)
+        {
+            try
+            {
+                return roleEngine.Is_User_In_Role(mail, roleName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<RoleDTO> List()
         {
-            return roleEngine.List();
+            try
+            {
+                return roleEngine.List();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public string[] Convert_List_Roles_To_String_Array(List<RoleDTO> roleDTOs)
+        {
+            List<string> array = new List<string>();
+            foreach (RoleDTO role in roleDTOs)
+            {
+                array.Add(role.Libelle);
+            }
+            return array.ToArray();
         }
 
+        public string[] Convert_List_Users_To_String_Array(List<UserDTO> userDTOs)
+        {
+            List<string> array = new List<string>();
+            foreach (UserDTO user in userDTOs)
+            {
+                array.Add(user.Email);
+            }
+            return array.ToArray();
+        }
     }
 }

@@ -11,10 +11,12 @@ namespace CarRental.UI.Controllers
 {
     public class UtilisateurController : Controller
     {
+        /**
+         
         private readonly UtilisateurLogic userLogic;
         private readonly CompanyLogic companyLogic;
         private readonly RoleLogic roleLogic;
-
+        
         public UtilisateurController()
         {
             userLogic = new UtilisateurLogic();
@@ -22,10 +24,10 @@ namespace CarRental.UI.Controllers
             roleLogic = new RoleLogic();
         }
 
-        /**
-         * GET: Utilisateurs
-         * Récupère la liste des utilisateurs et affiche la page d'index
-         */
+        ///<summary>
+        /// GET: Utilisateurs
+        ///Récupère la liste des utilisateurs et affiche la page d'index
+        ///</summary>
         public ActionResult Index()
         {
             List<UserDTO> users = userLogic.ListActive();
@@ -63,10 +65,12 @@ namespace CarRental.UI.Controllers
             return View("Index", vm);
         }
 
-        /**
-         * UserDTOToTuple
-         * Transforme une liste de UserDTO en liste de Tuple pour l'affichage
-         */
+        /// <summary>
+        /// UserDTOToTuple
+        /// Transforme une liste de UserDTO en liste de Tuple pour l'affichage
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
         private List<Tuple<UserDTO, CompanyDTO, RoleDTO>> UserDTOToTuple(List<UserDTO> users)
         {
             var tupleList = new List<Tuple<UserDTO, CompanyDTO, RoleDTO>>();
@@ -80,10 +84,10 @@ namespace CarRental.UI.Controllers
             return tupleList;
         }
 
-        /**
-         * POST : SearchUser
-         * Recherche des utilisateurs (par nom et prénom) en fonction de la valeur fournie
-         */
+       
+         ///<summary>
+         ///POST : SearchUser  Recherche des utilisateurs(par nom et prénom) en fonction de la valeur fournie
+         ///</summary>
         [HttpPost]
         public ActionResult SearchUser(string searchVal)
         {
@@ -105,13 +109,14 @@ namespace CarRental.UI.Controllers
             }
 
         }
+        /// <summary>
+        /// Post : FilterUsers   
+        /// Filtre les utilisateurs :  par entreprise   ou par leur status : actif, non actifs, tous  
+        /// </summary>
+        /// <param name="idCompany"></param>
+        /// <param name="activeFilterVal"></param>
+        /// <returns></returns>
 
-        /**
-         * Post : FilterUsers
-         * Filtre les utilisateurs :
-         *  - par entreprise
-         *  - ou par leur status : actif, non actifs, tous
-         */
         [HttpPost]
         public ActionResult FilterUsers(int? idCompany, int? activeFilterVal)
         {
@@ -146,10 +151,17 @@ namespace CarRental.UI.Controllers
             return View("Index", vm);
         }
 
-        /**
-         * POST: AddUser
-         * Ajoute un utilisateur après validation des champs
-         */
+        /// <summary>
+        ///  POST: AddUser Ajoute un utilisateur après validation des champs
+        /// </summary>
+        /// <param name="lastname"></param>
+        /// <param name="firstname"></param>
+        /// <param name="idCompany"></param>
+        /// <param name="mail"></param>
+        /// <param name="phone"></param>
+        /// <param name="idRole"></param>
+        /// <param name="job"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult AddUser(
             string lastname, string firstname, string idCompany,
@@ -188,10 +200,17 @@ namespace CarRental.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        /**
-         * isFormValid
-         * Validation du formulaire d'un utilisateur (création et édition)
-         */
+        /// <summary>
+        /// isFormValid  Validation du formulaire d'un utilisateur (création et édition)
+        /// </summary>
+        /// <param name="lastname"></param>
+        /// <param name="firstname"></param>
+        /// <param name="idCompany"></param>
+        /// <param name="mail"></param>
+        /// <param name="cellphone"></param>
+        /// <param name="idRole"></param>
+        /// <param name="job"></param>
+        /// <returns></returns>
         public Tuple<Boolean, String> isFormValid(
                 string lastname, string firstname, string idCompany,
                 string mail, string cellphone, string idRole, string job
@@ -247,10 +266,11 @@ namespace CarRental.UI.Controllers
             return new Tuple<Boolean, String>(isFormValid, errorMessage);
         }
 
-        /**
-        * GET : ArchiveUnarchiveUser
-        * Archive ou désarchive l'utilisateur dans la bdd
-        */
+        /// <summary>
+        ///  GET : ArchiveUnarchiveUser Archive ou désarchive l'utilisateur dans la bdd
+        /// </summary>
+        /// <param name="IdUser"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult ArchiveUnarchiveUser(int IdUser)
         {
@@ -278,10 +298,11 @@ namespace CarRental.UI.Controllers
 
         }
 
-        /**
-         * GET : UpdateUserForm
-         * Récupère l'utilisateur à éditer pour le renvoyer dans le formulaire d'édition
-         */
+        /// <summary>
+        ///  GET : UpdateUserForm Récupère l'utilisateur à éditer pour le renvoyer dans le formulaire d'édition
+        /// </summary>
+        /// <param name="IdUser"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult UpdateUserForm(int IdUser)
         {
@@ -289,10 +310,18 @@ namespace CarRental.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        /**
-         * POST : UpdateUser
-         * Met à jour l'utilisateur dans la base
-         */
+       /// <summary>
+       ///  POST : UpdateUser Met à jour l'utilisateur dans la base
+       /// </summary>
+       /// <param name="id"></param>
+       /// <param name="lastname"></param>
+       /// <param name="firstname"></param>
+       /// <param name="idCompany"></param>
+       /// <param name="mail"></param>
+       /// <param name="phone"></param>
+       /// <param name="idRole"></param>
+       /// <param name="job"></param>
+       /// <returns></returns>
         [HttpPost]
         public ActionResult UpdateUser(
             int id, string lastname, string firstname, string idCompany,
@@ -335,7 +364,7 @@ namespace CarRental.UI.Controllers
             
             return RedirectToAction("Index");
         }
-
+    */
 
     }
 }

@@ -107,20 +107,23 @@ namespace CarRental.DAL
 
         public void Insert(UserDTO user)
         {
+            /**
             using (CarRentalEntities context = new CarRentalEntities())
             {
                 context.usp_User_Insert(user.Firstname, user.Lastname, user.Email, user.Password,
                     user.Is_Active, user.Job, user.Note, user.Phone_Number, user.Is_Address_Private, user.Id_Company, user.Id_Company);
             }
+            */
         }
 
         public void InsertOrUpdate(UserDTO user)
         {
+            /**
             using (CarRentalEntities context = new CarRentalEntities())
             {
                 context.usp_User_Insert_Or_Update(user.Firstname, user.Lastname, user.Email, user.Password,
                     user.Is_Active, user.Job, user.Note, user.Phone_Number, user.Is_Address_Private, user.Id_Company, user.Id_Company);
-            }
+            }*/
         }
 
         public void Archive(int id)
@@ -141,11 +144,13 @@ namespace CarRental.DAL
 
         public void Update(UserDTO user)
         {
+            /**
             using (CarRentalEntities context = new CarRentalEntities())
             {
                 context.usp_User_Update(user.Id, user.Firstname, user.Lastname, user.Email, user.Password, user.Is_Active, 
-                    user.Job, user.Note, user.Phone_Number, user.Is_Address_Private, user.Id_Company, user.Id_Role);
+                    user.Job, user.Note, user.Phone_Number, user.Is_Address_Private, user.Id_Company);
             }
+            */
         }
     }
 }

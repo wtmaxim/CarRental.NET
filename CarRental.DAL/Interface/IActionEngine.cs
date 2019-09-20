@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.DAL
+namespace CarRental.DAL.Interface
 {
-    public interface IRoleEngine
+    public interface IActionEngine
     {
-        List<RoleDTO> List();
-
+        List<ActionDTO> Get_User_Actions(string email);
     }
 }

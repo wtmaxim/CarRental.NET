@@ -52,8 +52,7 @@ namespace CarRental.DAL.Mapping
                         Id_Company = user.Id_Company,
                         Phone_Number = user.Phone_Number,
                         Id = user.Id,
-                        Is_Address_Private = user.is_Address_Private,
-                        Id_Role = user.Id_Role
+                        Is_Address_Private = user.is_Address_Private         
                     }
                     select newUser).ToList();
         }

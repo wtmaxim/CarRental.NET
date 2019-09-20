@@ -526,7 +526,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Id", mergeOption, idParameter);
         }
     
-        public virtual int usp_User_Insert(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        public virtual int usp_User_Insert(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
         {
             var firstnameParameter = firstname != null ?
                 new ObjectParameter("firstname", firstname) :
@@ -568,11 +568,7 @@ namespace CarRental.DAL
                 new ObjectParameter("idCompany", idCompany) :
                 new ObjectParameter("idCompany", typeof(int));
     
-            var idRoleParameter = idRole.HasValue ?
-                new ObjectParameter("idRole", idRole) :
-                new ObjectParameter("idRole", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
     
         public virtual int usp_User_Update(Nullable<int> id, string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
@@ -637,7 +633,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_GET1_Result>("usp_User_GET1", idParameter);
         }
     
-        public virtual int usp_User_Insert_Or_Update(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        public virtual int usp_User_Insert_Or_Update(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
         {
             var firstnameParameter = firstname != null ?
                 new ObjectParameter("firstname", firstname) :
@@ -679,11 +675,7 @@ namespace CarRental.DAL
                 new ObjectParameter("idCompany", idCompany) :
                 new ObjectParameter("idCompany", typeof(int));
     
-            var idRoleParameter = idRole.HasValue ?
-                new ObjectParameter("idRole", idRole) :
-                new ObjectParameter("idRole", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert_Or_Update", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert_Or_Update", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
     
         public virtual ObjectResult<User> usp_User_List_Active()
@@ -723,6 +715,139 @@ namespace CarRental.DAL
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Unarchive", idParameter);
+        }
+    
+        public virtual ObjectResult<Action> usp_Action_List_By_User(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_User", emailParameter);
+        }
+    
+        public virtual ObjectResult<Action> usp_Action_List_By_User(string email, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_User", mergeOption, emailParameter);
+        }
+    
+        public virtual ObjectResult<Role> usp_Role_GET(string roleName)
+        {
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_GET", roleNameParameter);
+        }
+    
+        public virtual ObjectResult<Role> usp_Role_GET(string roleName, MergeOption mergeOption)
+        {
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_GET", mergeOption, roleNameParameter);
+        }
+    
+        public virtual ObjectResult<usp_Role_Get_By_ID_Result> usp_Role_Get_By_ID(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Role_Get_By_ID_Result>("usp_Role_Get_By_ID", idParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_Role_GET_List_Users_BY_Libelle(string roleName)
+        {
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_Role_GET_List_Users_BY_Libelle", roleNameParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_Role_GET_List_Users_BY_Libelle(string roleName, MergeOption mergeOption)
+        {
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_Role_GET_List_Users_BY_Libelle", mergeOption, roleNameParameter);
+        }
+    
+        public virtual int usp_Role_Insert(string libelle)
+        {
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("libelle", libelle) :
+                new ObjectParameter("libelle", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Insert", libelleParameter);
+        }
+    
+        public virtual ObjectResult<usp_User_Get_By_Email_And_Password1_Result> usp_User_Get_By_Email_And_Password1(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_Get_By_Email_And_Password1_Result>("usp_User_Get_By_Email_And_Password1", emailParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<usp_User_GET_List_Roles_Result> usp_User_GET_List_Roles(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_GET_List_Roles_Result>("usp_User_GET_List_Roles", emailParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_UserRole_GET_USER_IN_ROLE(string email, string roleName)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_UserRole_GET_USER_IN_ROLE", emailParameter, roleNameParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_UserRole_GET_USER_IN_ROLE(string email, string roleName, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_UserRole_GET_USER_IN_ROLE", mergeOption, emailParameter, roleNameParameter);
+        }
+    
+        public virtual int usp_UserRole_INSERT(Nullable<int> userID, Nullable<int> roleID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UserRole_INSERT", userIDParameter, roleIDParameter);
         }
     }
 }
