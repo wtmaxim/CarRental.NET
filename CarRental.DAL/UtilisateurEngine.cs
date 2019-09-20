@@ -14,7 +14,11 @@ namespace CarRental.DAL
         {
             UserMapping = new UserMapping();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         UserDTO IUtilisateurEngine.Get(int id)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -24,7 +28,11 @@ namespace CarRental.DAL
             throw new NotImplementedException();
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         UserDTO IUtilisateurEngine.GetByMail(string email)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -41,7 +49,12 @@ namespace CarRental.DAL
 
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         UserDTO IUtilisateurEngine.GetByMailAndPassword(string email, string password)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -59,7 +72,10 @@ namespace CarRental.DAL
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         List<UserDTO> IUtilisateurEngine.ListAll()
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -68,7 +84,10 @@ namespace CarRental.DAL
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         List<UserDTO> IUtilisateurEngine.ListActive()
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -77,7 +96,10 @@ namespace CarRental.DAL
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         List<UserDTO> IUtilisateurEngine.ListUnactive()
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -86,7 +108,11 @@ namespace CarRental.DAL
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="mail"></param>
         void IUtilisateurEngine.UpdatePasswordByMail(string password, string mail)
         {
             using (CarRentalEntities contexte = new CarRentalEntities())
@@ -95,7 +121,11 @@ namespace CarRental.DAL
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public List<UserDTO> Search(string value)
         {
             using (CarRentalEntities context = new CarRentalEntities())
@@ -104,7 +134,10 @@ namespace CarRental.DAL
                 return UserMapping.MapToListUserDTO(users);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
         public void Insert(UserDTO user)
         {
             /**
@@ -115,7 +148,10 @@ namespace CarRental.DAL
             }
             */
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
         public void InsertOrUpdate(UserDTO user)
         {
             /**
@@ -125,7 +161,10 @@ namespace CarRental.DAL
                     user.Is_Active, user.Job, user.Note, user.Phone_Number, user.Is_Address_Private, user.Id_Company, user.Id_Company);
             }*/
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         public void Archive(int id)
         {
             using (CarRentalEntities context = new CarRentalEntities())
@@ -133,7 +172,10 @@ namespace CarRental.DAL
                 context.usp_User_Archive(id);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         public void Unarchive(int id)
         {
             using (CarRentalEntities context = new CarRentalEntities())
@@ -141,7 +183,10 @@ namespace CarRental.DAL
                 context.usp_User_Unarchive(id);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
         public void Update(UserDTO user)
         {
             /**

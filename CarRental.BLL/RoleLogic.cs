@@ -17,6 +17,11 @@ namespace CarRental.BLL
             roleEngine = new RoleEngine();
             utilisateurLogic = new UtilisateurLogic();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public List<RoleDTO> GetUserRoles(string email)
         {
             try
@@ -28,7 +33,10 @@ namespace CarRental.BLL
                 throw;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleName"></param>
         public void AddRole(string roleName)
         {
             if (roleName != null && !roleName.Equals(""))
@@ -44,6 +52,11 @@ namespace CarRental.BLL
             }
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="roleName"></param>
         public void Add_User_Role(string email, string roleName)
         {
             try
@@ -57,6 +70,11 @@ namespace CarRental.BLL
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         public List<UserDTO> Get_Users_With_Role(string roleName)
         {
             try
@@ -69,6 +87,11 @@ namespace CarRental.BLL
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         public RoleDTO Get(string roleName)
         {
             try
@@ -81,6 +104,12 @@ namespace CarRental.BLL
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         public bool Is_User_In_Role(string mail, string roleName)
         {
             try
@@ -93,7 +122,10 @@ namespace CarRental.BLL
                 throw;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<RoleDTO> List()
         {
             try
@@ -106,6 +138,11 @@ namespace CarRental.BLL
                 throw;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleDTOs"></param>
+        /// <returns></returns>
         public string[] Convert_List_Roles_To_String_Array(List<RoleDTO> roleDTOs)
         {
             List<string> array = new List<string>();
@@ -115,7 +152,11 @@ namespace CarRental.BLL
             }
             return array.ToArray();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTOs"></param>
+        /// <returns></returns>
         public string[] Convert_List_Users_To_String_Array(List<UserDTO> userDTOs)
         {
             List<string> array = new List<string>();

@@ -16,6 +16,11 @@ namespace CarRental.DAL
         {
             actionMapping = new ActionMapping();
         }
+        /// <summary>
+        /// Retourne les Actions d'un utilisateur à partir de son email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>Retourne les Actions d'un utilisateur à partir de son email.</returns>
         public List<ActionDTO> Get_User_Actions(string email)
         {
             using (CarRentalEntities context = new CarRentalEntities())

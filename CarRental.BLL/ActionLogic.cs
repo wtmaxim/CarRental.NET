@@ -15,7 +15,12 @@ namespace CarRental.BLL
         {
             actionEngine = new ActionEngine();
         }
-        public List<ActionDTO> get_User_Actions(string email)
+        /// <summary>
+        /// Permet d'obtenir toutes les actions d'un utilisateur.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>liste d'action</returns>
+        public List<ActionDTO> Get_User_Actions(string email)
         {
             try
             {
@@ -27,7 +32,11 @@ namespace CarRental.BLL
                 throw;
             }
         }
-
+        /// <summary>
+        /// Convertit une liste d'action en tableau de chaine de caractères contenant les libellé de chaque action.
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <returns>tableau de libelle d'action.</returns>
         public string[] Convert_List_Action_To_String_Array(List<ActionDTO> actions)
         {
             List<string> array = new List<string>();

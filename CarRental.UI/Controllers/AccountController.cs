@@ -22,12 +22,20 @@ namespace CarRental.UI.Controllers
             passwordResetTokenLogic = new PasswordResetTokenLogic();
             roleLogic = new RoleLogic();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             return View();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <param name="ReturnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(UserDTO userDTO, string ReturnUrl)
         {
@@ -54,18 +62,29 @@ namespace CarRental.UI.Controllers
                 return Redirect("/");
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
             return RedirectToAction("Login", "Account");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PasswordReset()
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult PasswordReset(UserDTO userDTO)
         {
@@ -96,6 +115,11 @@ namespace CarRental.UI.Controllers
             ViewBag.Status = status;
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult ChangePassword(string id)
         {
@@ -134,6 +158,12 @@ namespace CarRental.UI.Controllers
             ViewBag.Status = status;
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ChangePassword(UserDTO user, string guid)
         {
@@ -160,6 +190,10 @@ namespace CarRental.UI.Controllers
 
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userDTO"></param>
         [NonAction]
         public void UpdatePassword(UserDTO userDTO)
         {
@@ -168,6 +202,11 @@ namespace CarRental.UI.Controllers
                 utilisateurLogic.UpdatePasswordByMail(userDTO);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailTarget"></param>
+        /// <param name="passwordResetTokenDTO"></param>
         [NonAction]
         public void SendPasswordResetLinkEmail(string emailTarget, PasswordResetTokenDTO passwordResetTokenDTO)
         {
@@ -178,6 +217,10 @@ namespace CarRental.UI.Controllers
                 "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande";
             SendEMail(emailTarget, subject, body);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailTarget"></param>
         [NonAction]
         public void SendPasswordChangedMail(string emailTarget)
         {
@@ -185,13 +228,18 @@ namespace CarRental.UI.Controllers
             string body = "Bonjour, nous vous confirmons le changement de votre mot de passe.";
             SendEMail(emailTarget, subject, body);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailTarget"></param>
+        /// <param name="subject"></param>
+        /// <param name="body"></param>
         [NonAction]
         public void SendEMail(string emailTarget, string subject, string body)
         {
             var fromEmail = new MailAddress("mywebprocarental@gmail.com", "CarRental");
             var toEmail = new MailAddress(emailTarget);
             var fromEmailPassword = "@DminMsii";
-
             var smtpClient = new SmtpClient
             {
                 Host = "smtp.gmail.com",

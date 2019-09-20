@@ -52,7 +52,7 @@ namespace CarRental.UI.Provider
 
         public override string[] GetRolesForUser(string email)
         {
-            return actionLogic.Convert_List_Action_To_String_Array(actionLogic.get_User_Actions(email));
+            return actionLogic.Convert_List_Action_To_String_Array(actionLogic.Get_User_Actions(email));
         }
 
         public override string[] GetUsersInRole(string roleName)
