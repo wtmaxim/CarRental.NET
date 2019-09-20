@@ -78,7 +78,7 @@
                                         </li>
                                         <li class="user-footer">
                                             <div class="pull-left">
-                                                <a href="pages/profile/profile.html" class="btn btn-default btn-flat">Profile</a>
+                                                <a href="@Url.Action("Index", "Profile")" class="btn btn-default btn-flat">Profile</a>
                                             </div>
                                             <div class="pull-right">
                                                 <a href="@Url.Action("LogOut","Account")" class="btn btn-default btn-flat">Déconnexion</a>
@@ -118,7 +118,7 @@
                             <!-- my customer area-->
                             <li class="header">MON ESPACE</li>
                             <li>
-                                <a href="pages/profile/profile.html">
+                                <a href="@Url.Action("Index", "Profile")">
                                     <i class="fa fa-user"></i> <span>Mon profil</span>
                                     <span class="pull-right-container">
                                     </span>

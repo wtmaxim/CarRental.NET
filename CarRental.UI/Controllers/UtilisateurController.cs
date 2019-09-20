@@ -38,7 +38,7 @@ namespace CarRental.UI.Controllers
             if (TempData["userToEdit"] != null)
             {
                 int userId = (int)TempData["UserToEdit"];
-                UserDTO usr = users.Find(u => u.Id == userId);
+                UserDTO usr = userLogic.Get(userId);
                 RoleDTO rle = roles.Find(r => r.Id == usr.Id_Role);
                 CompanyDTO cmp = companies.Find(c => c.Id == usr.Id_Company);
                 userToEdit = new Tuple<UserDTO, CompanyDTO, RoleDTO>(usr, cmp, rle);
@@ -60,6 +60,10 @@ namespace CarRental.UI.Controllers
             if (TempData["SuccessModal"] != null)
             {
                 ViewBag.SuccessModal = TempData["SuccessModal"].ToString();
+            }
+            if (TempData["ErrorModal"] != null)
+            {
+                ViewBag.ErrorModal = TempData["ErrorModal"].ToString();
             }
 
             return View("Index", vm);
@@ -257,7 +261,8 @@ namespace CarRental.UI.Controllers
                 errorMessage = errorMessage + "Poste non défini. ";
             }
 
-            if (cellphone.Trim() != "" && !(cellphone is int))
+            int resPhone = 0;
+            if (cellphone.Trim() != "" && !(Int32.TryParse(cellphone, out resPhone)))
             {
                 isFormValid = false;
                 errorMessage = errorMessage + "Le numéro de téléphone doit être composé de chiffres.";

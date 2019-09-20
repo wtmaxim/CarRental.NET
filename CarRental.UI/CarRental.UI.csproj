@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UtilisateurController.cs" />
     <Compile Include="Controllers\CarController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
+    <Compile Include="ViewsModels\Profile\ProfileIndexViewModel.cs" />
     <Compile Include="ViewsModels\Utilisateur\UtilisateurIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1607,6 +1609,7 @@
     <Content Include="Images\logoCarMake\Volkswagen.png" />
     <Content Include="Images\logoCarMake\Volvo.png" />
     <Content Include="Images\logoCarMake\Zastava.png" />
+    <Content Include="Images\Utilisateur\default.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome\.bower.json" />
@@ -2062,6 +2065,7 @@
     <Content Include="Views\Account\PasswordReset.cshtml" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
     <Content Include="Views\Utilisateur\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
