@@ -1,12 +1,5 @@
 ﻿@model CarRental.Model.UserDTO
 @{
-    Layout = null;
-    if (Session["userID"] != null)
-    {
-        Response.Redirect("~/Home/Index");
-    }
-    else
-    {
         <!DOCTYPE html>
         <html>
         <head>
@@ -36,5 +29,4 @@
             <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
         </body>
     </html>
-}
 }

@@ -442,4 +442,13 @@ BEGIN
 Select * from [Role]
 Where Id=@Id
 END
+GO
+
+-- Company - List
+CREATE PROCEDURE usp_Company_List
+AS
+BEGIN
+	SELECT *
+	FROM Company
+END
 
