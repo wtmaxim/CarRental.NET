@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Configuration;
-
+using System.Drawing;
 
 namespace CarRental.UI.Controllers
 {
@@ -17,12 +17,19 @@ namespace CarRental.UI.Controllers
         private readonly UtilisateurLogic userLogic;
         private readonly CompanyLogic companyLogic;
         private readonly RoleLogic roleLogic;
+        private readonly PasswordResetTokenLogic passwordResetTokenLogic;
+
+        // Constantes des images définies dans les formulaires
+        public const string DRIVING_LICENCE_RECTO = "UtilisateurImageRecto";
+        public const string DRIVING_LICENCE_VERSO = "UtilisateurImageVerso";
+        public const string PROFILE_PICTURE = "UtilisateurProfilePicture";
 
         public ProfileController ()
         {
             userLogic = new UtilisateurLogic();
             companyLogic = new CompanyLogic();
             roleLogic = new RoleLogic();
+            passwordResetTokenLogic = new PasswordResetTokenLogic();
         }
 
         /**
@@ -50,6 +57,16 @@ namespace CarRental.UI.Controllers
             {
                 ViewBag.EditDrivingLicence = TempData["EditDrivingLicence"].ToString();
             }
+            ViewBag.RenderContactForm = "off";
+            if (TempData["RenderContactForm"] != null)
+            {
+                ViewBag.RenderContactForm = TempData["RenderContactForm"].ToString();
+            }
+            ViewBag.RenderInformationsForm = "off";
+            if (TempData["RenderInformationsForm"] != null)
+            {
+                ViewBag.RenderInformationsForm = TempData["RenderInformationsForm"].ToString();
+            }
             return View(vm);
         }
 
@@ -60,7 +77,7 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult AddDrivingLicence(object sender, System.EventArgs e)
         {
-            string[] images = { "UtilisateurImageRecto", "UtilisateurImageVerso" };
+            string[] images = { DRIVING_LICENCE_RECTO, DRIVING_LICENCE_VERSO };
             foreach (string image in images)
             {
                 HttpPostedFileBase postedFile = Request.Files[image];
@@ -70,7 +87,7 @@ namespace CarRental.UI.Controllers
                     {
                         DeletePreviousFile(image);
                         string baseUserImagesUrl = ConfigurationManager.AppSettings["UtilisateurImageURL"];
-                        string newFileName = image.Equals("UtilisateurImageRecto") ? Session["userId"] + "-DLRecto" : Session["userId"] + "-DLVerso";
+                        string newFileName = image.Equals(DRIVING_LICENCE_RECTO) ? Session["userId"] + "-DLRecto" : Session["userId"] + "-DLVerso";
                         string filePath = Server.MapPath(baseUserImagesUrl) + newFileName + Path.GetExtension(postedFile.FileName).ToLower();
                         postedFile.SaveAs(filePath);
                     }
@@ -89,21 +106,28 @@ namespace CarRental.UI.Controllers
          * Cherche s'il existe une capture déjà enregistré pour le permis de l'utilisateur (recto ou verso)
          * Puis supprime la capture qu'elle soit en png ou jpg
          */
-        private void DeletePreviousFile(string rectoOrVerso)
+        private void DeletePreviousFile(string fileType)
         {
             string[] filePossibilities = new string[3];
-            if (rectoOrVerso.Equals("UtilisateurImageRecto"))
+            switch (fileType)
             {
-                filePossibilities[0] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLRecto.jpg";
-                filePossibilities[1] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLRecto.jpeg";
-                filePossibilities[2] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLRecto.png";
+                case DRIVING_LICENCE_RECTO:
+                    filePossibilities[0] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLRecto.jpg";
+                    filePossibilities[1] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLRecto.jpeg";
+                    filePossibilities[2] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLRecto.png";
+                    break;
+                case DRIVING_LICENCE_VERSO:
+                    filePossibilities[0] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLVerso.jpg";
+                    filePossibilities[1] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLVerso.jpeg";
+                    filePossibilities[2] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLVerso.png";
+                    break;
+                case PROFILE_PICTURE:
+                    filePossibilities[0] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-PP.jpg";
+                    filePossibilities[1] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-PP.jpeg";
+                    filePossibilities[2] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-PP.png";
+                    break;
             }
-            else
-            {
-                filePossibilities[0] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLVerso.jpg";
-                filePossibilities[1] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLVerso.jpeg";
-                filePossibilities[2] = ConfigurationManager.AppSettings["UtilisateurImageURL"] + Session["userId"] + "-DLVerso.png";
-            }
+
             try
             {
                 foreach (string filePossibility in filePossibilities)
@@ -122,7 +146,6 @@ namespace CarRental.UI.Controllers
 
         /**
          * ToggleDrivingLicenceEditForm
-         * param : toggleValue = "on" || "off"
          * Affiche ou non affiche l'édition du permis de conduire
          */
         [HttpGet]
@@ -130,6 +153,136 @@ namespace CarRental.UI.Controllers
         {
             TempData["EditDrivingLicence"] = toggleVal;
             return RedirectToAction("Index");
+        }
+
+        /**
+         * POST : UpdateProfilePicture
+         * EMet à jour la photo de profil de l'utilisateur
+         */
+        [HttpPost]
+        public ActionResult UpdateProfilePicture()
+        {
+            HttpPostedFileBase postedFile = Request.Files["UtilisateurProfilePicture"];
+            if (postedFile != null && postedFile.ContentLength > 0)
+            {
+                try
+                {
+                    DeletePreviousFile(PROFILE_PICTURE);
+                    Bitmap file = MakeSquarePhoto(postedFile);
+
+                    string baseUserImagesUrl = ConfigurationManager.AppSettings["UtilisateurImageURL"];
+                    string newFileName = Session["userId"] + "-PP";
+                    string filePath = Server.MapPath(baseUserImagesUrl) + newFileName + Path.GetExtension(postedFile.FileName).ToLower();
+                    file.Save(filePath);
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorModal"] = "Erreur lors de l'ajout de la photo de profil.";
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        /**
+         * MakeSquarePhoto
+         * Coupe la photo de profile pour qu'elle soit carré
+         */
+        public Bitmap MakeSquarePhoto(HttpPostedFileBase postedFile)
+        {
+            try
+            {
+                Bitmap bmp = new Bitmap(postedFile.InputStream);
+                int size = bmp.Height;
+
+                Bitmap res = new Bitmap(size, size);
+                Graphics g = Graphics.FromImage(res);
+                g.FillRectangle(new SolidBrush(Color.White), 0, 0, size, size);
+                int t = 0, l = 0;
+                if (bmp.Height > bmp.Width)
+                    t = (bmp.Height - bmp.Width) / 2;
+                else
+                    l = (bmp.Width - bmp.Height) / 2;
+                g.DrawImage(bmp, new Rectangle(0, 0, size, size), new Rectangle(l, t, bmp.Width - l * 2, bmp.Height - t * 2), GraphicsUnit.Pixel);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /**
+         * GET : ToggleContactForm
+         * Affiche ou non les formulaires dans "Contact"
+         */
+        [HttpGet]
+        public ActionResult ToggleContactForm(string toggleVal)
+        {
+            TempData["RenderContactForm"] = toggleVal;
+            return RedirectToAction("Index");
+        }
+
+        /**
+         * POST : UpdateContactForm
+         *Met à jour le numéro de téléphone du profile
+         */
+        [HttpPost]
+        public ActionResult UpdateContactForm(string cellphone, string email)
+        {
+            int idCurrentUser = (int)Session["userId"];
+            UserDTO user = userLogic.Get(idCurrentUser);
+
+            int resPhone = 0;
+            if (cellphone.Trim() != "" && !(Int32.TryParse(cellphone, out resPhone)))
+            {
+                TempData["ErrorModal"] = "Le numéro de téléphone doit être composé de chiffres.";
+            }
+            else
+            {
+                user.Phone_Number = cellphone;
+                userLogic.Update(user);
+            }
+            
+            return RedirectToAction("Index");
+        }
+
+        /**
+         * GET: ToggleInformationsForm
+         * Affiche ou non les formulaires dans "Informations"
+         */
+        [HttpGet]
+        public ActionResult ToggleInformationsForm(string toggleVal)
+        {
+            TempData["RenderInformationsForm"] = toggleVal;
+            return RedirectToAction("Index");
+        }
+
+        /**
+         * POST : UpdateInformationsForm
+         * Met à jour la note du profile
+         */
+        [HttpPost]
+        public ActionResult UpdateInformationsForm(string note)
+        {
+            int idCurrentUser = (int)Session["userId"];
+            UserDTO user = userLogic.Get(idCurrentUser);
+            user.Note = note;
+            userLogic.Update(user);
+            return RedirectToAction("Index");
+        }
+
+        /**
+         * GET : EditPassword
+         * Crée un PasswordResetTokenDTO, l'enregistre en base et redirige vers la méthode de changement de mot de passe avec token en param
+         */
+        [HttpGet]
+        public ActionResult EditPassword()
+        {
+            int idCurrentUser = (int)Session["userId"];
+            PasswordResetTokenDTO passwordResetTokenDTO = new PasswordResetTokenDTO(idCurrentUser);
+            passwordResetTokenLogic.Insert(passwordResetTokenDTO);
+            return RedirectToAction("ChangePassword", "Account", new { id = passwordResetTokenDTO.Token });
         }
 
 
