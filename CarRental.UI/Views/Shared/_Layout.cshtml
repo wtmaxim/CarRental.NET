@@ -1,4 +1,10 @@
 ﻿@{
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else
+    {
         <!DOCTYPE html>
         <html>
         <head>
@@ -178,4 +184,5 @@
             @RenderSection("scripts", required: false)
         </body>
     </html>
+}
 }
