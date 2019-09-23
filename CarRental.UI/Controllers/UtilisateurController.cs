@@ -11,12 +11,12 @@ namespace CarRental.UI.Controllers
 {
     public class UtilisateurController : Controller
     {
-       /**
-         
+
+
         private readonly UtilisateurLogic userLogic;
         private readonly CompanyLogic companyLogic;
         private readonly RoleLogic roleLogic;
-        
+
         public UtilisateurController()
         {
             userLogic = new UtilisateurLogic();
@@ -34,19 +34,17 @@ namespace CarRental.UI.Controllers
             List<CompanyDTO> companies = companyLogic.List();
             List<RoleDTO> roles = roleLogic.List();
 
-            Tuple<UserDTO, CompanyDTO, RoleDTO> userToEdit = null;
+            Tuple<UserDTO, CompanyDTO, List<RoleDTO>> userToEdit = null;
             if (TempData["userToEdit"] != null)
             {
                 int userId = (int)TempData["UserToEdit"];
                 UserDTO usr = userLogic.Get(userId);
-                RoleDTO rle = roles.Find(r => r.Id == usr.Id_Role);
-                CompanyDTO cmp = companies.Find(c => c.Id == usr.Id_Company);
-                userToEdit = new Tuple<UserDTO, CompanyDTO, RoleDTO>(usr, cmp, rle);
+                userToEdit = UserDTOTOTuple(usr);
             }
 
             UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
             {
-                Users = UserDTOToTuple(users),
+                Users = UsersDTOToTuple(users),
                 Companies = companies,
                 Roles = roles,
                 UserToEdit = userToEdit
@@ -75,23 +73,31 @@ namespace CarRental.UI.Controllers
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
-        private List<Tuple<UserDTO, CompanyDTO, RoleDTO>> UserDTOToTuple(List<UserDTO> users)
+        private List<Tuple<UserDTO, CompanyDTO, List<RoleDTO>>> UsersDTOToTuple(List<UserDTO> users)
         {
-            var tupleList = new List<Tuple<UserDTO, CompanyDTO, RoleDTO>>();
+            var tupleList = new List<Tuple<UserDTO, CompanyDTO, List<RoleDTO>>>();
             foreach (UserDTO user in users)
             {
-                var company = companyLogic.List().Find(c => c.Id == user.Id_Company);
-                var role = roleLogic.List().Find(r => r.Id == user.Id_Role);
-                var tupleData = new Tuple<UserDTO, CompanyDTO, RoleDTO>(user, company, role);
-                tupleList.Add(tupleData);
+                UserDTOTOTuple(user);
             }
             return tupleList;
         }
+        /// <summary>
+        /// Transforme un utilisateur en tuple pour l'affichage
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private Tuple<UserDTO, CompanyDTO, List<RoleDTO>> UserDTOTOTuple(UserDTO user)
+        {
+            var company = companyLogic.List().Find(c => c.Id == user.Id_Company);
+            var roles = roleLogic.GetUserRoles(user.Email);
+            return new Tuple<UserDTO, CompanyDTO, List<RoleDTO>>(user, company, roles);
+        }
 
-       
-         ///<summary>
-         ///POST : SearchUser  Recherche des utilisateurs(par nom et prénom) en fonction de la valeur fournie
-         ///</summary>
+
+        ///<summary>
+        ///POST : SearchUser  Recherche des utilisateurs(par nom et prénom) en fonction de la valeur fournie
+        ///</summary>
         [HttpPost]
         public ActionResult SearchUser(string searchVal)
         {
@@ -100,7 +106,7 @@ namespace CarRental.UI.Controllers
                 List<UserDTO> users = userLogic.Search(searchVal);
                 UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
                 {
-                    Users = UserDTOToTuple(users),
+                    Users = UsersDTOToTuple(users),
                     Companies = companyLogic.List(),
                     Roles = roleLogic.List(),
                     UserToEdit = null
@@ -146,7 +152,7 @@ namespace CarRental.UI.Controllers
 
             UtilisateurIndexViewModel vm = new UtilisateurIndexViewModel
             {
-                Users = UserDTOToTuple(users),
+                Users = UsersDTOToTuple(users),
                 Companies = companyLogic.List(),
                 Roles = roleLogic.List(),
                 FilterUserByActiveVal = activeFilterVal,
@@ -172,29 +178,19 @@ namespace CarRental.UI.Controllers
             string mail, string phone, string idRole, string job
             )
         {
-            
-            UserDTO user = new UserDTO();
-            user.Lastname = lastname;
-             user.Firstname = firstname;
             int resCompany = 0;
             Int32.TryParse(idCompany, out resCompany);
-            user.Id_Company = resCompany;
-            user.Email = mail;
             int resRole = 0;
             Int32.TryParse(idRole, out resRole);
-            user.Id_Role = resRole;
-            user.Job = job;
-            user.Password = "Motdepasse1";
-            user.Is_Active = 1;
-            user.Note = "";
-            user.Is_Address_Private = 1;
-            user.Phone_Number = phone;
+            UserDTO user = new UserDTO() { Lastname = lastname, Firstname = firstname, Id_Company = resCompany, Email = mail, Job = job, Password = "Motdepasse1", Is_Active = 1, Note = "", Is_Address_Private = 1, Phone_Number = phone };
+
 
             Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, idRole, job);
 
             if (res.Item1)
             {
                 userLogic.InsertOrUpdateUser(user);
+                roleLogic.Add_User_Role(user.Id, resRole);
                 TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " ajouté avec succès";
             }
             else
@@ -279,9 +275,9 @@ namespace CarRental.UI.Controllers
         [HttpGet]
         public ActionResult ArchiveUnarchiveUser(int IdUser)
         {
-            if (IdUser != null)
+            if (IdUser != 0)
             {
-                
+
                 UserDTO user = userLogic.Get(IdUser);
                 if (user.Is_Active == 0)
                 {
@@ -293,7 +289,7 @@ namespace CarRental.UI.Controllers
                     userLogic.Archive(IdUser);
                     TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " désactivé avec succès";
                 }
-                
+
             }
             else
             {
@@ -315,18 +311,18 @@ namespace CarRental.UI.Controllers
             return RedirectToAction("Index");
         }
 
-       /// <summary>
-       ///  POST : UpdateUser Met à jour l'utilisateur dans la base
-       /// </summary>
-       /// <param name="id"></param>
-       /// <param name="lastname"></param>
-       /// <param name="firstname"></param>
-       /// <param name="idCompany"></param>
-       /// <param name="mail"></param>
-       /// <param name="phone"></param>
-       /// <param name="idRole"></param>
-       /// <param name="job"></param>
-       /// <returns></returns>
+        /// <summary>
+        ///  POST : UpdateUser Met à jour l'utilisateur dans la base
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="lastname"></param>
+        /// <param name="firstname"></param>
+        /// <param name="idCompany"></param>
+        /// <param name="mail"></param>
+        /// <param name="phone"></param>
+        /// <param name="idRole"></param>
+        /// <param name="job"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UpdateUser(
             int id, string lastname, string firstname, string idCompany,
@@ -335,6 +331,7 @@ namespace CarRental.UI.Controllers
         {
             if (id != -1)
             {
+
                 UserDTO user = new UserDTO();
                 user.Id = id;
                 user.Lastname = lastname;
@@ -346,7 +343,6 @@ namespace CarRental.UI.Controllers
                 int resRole = 0;
                 Int32.TryParse(idRole, out resRole);
                 user.Phone_Number = phone;
-                user.Id_Role = resRole;
                 user.Job = job;
                 user.Password = "Motdepasse1";
                 user.Is_Active = 1;
@@ -366,10 +362,10 @@ namespace CarRental.UI.Controllers
                     TempData["FormError"] = res.Item2;
                 }
             }
-            
+
             return RedirectToAction("Index");
         }
-    */
+
 
     }
 }

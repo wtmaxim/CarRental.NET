@@ -63,12 +63,17 @@ namespace CarRental.BLL
             {
                 RoleDTO role = Get(roleName);
                 UserDTO user = utilisateurLogic.GetUserByMail(email);
-                roleEngine.Add_User_Role(role.Id, user.Id);
+               Add_User_Role(role.Id, user.Id);
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+        public void Add_User_Role(int userId, int roleId)
+        {
+            roleEngine.Add_User_Role(roleId, userId);
         }
         /// <summary>
         /// 

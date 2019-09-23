@@ -526,7 +526,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Id", mergeOption, idParameter);
         }
     
-        public virtual int usp_User_Insert(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        public virtual int usp_User_Insert(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
         {
             var firstnameParameter = firstname != null ?
                 new ObjectParameter("firstname", firstname) :
@@ -568,11 +568,7 @@ namespace CarRental.DAL
                 new ObjectParameter("idCompany", idCompany) :
                 new ObjectParameter("idCompany", typeof(int));
     
-            var idRoleParameter = idRole.HasValue ?
-                new ObjectParameter("idRole", idRole) :
-                new ObjectParameter("idRole", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
     
         public virtual int usp_User_Update(Nullable<int> id, string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
@@ -637,7 +633,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_GET1_Result>("usp_User_GET1", idParameter);
         }
     
-        public virtual int usp_User_Insert_Or_Update(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
+        public virtual int usp_User_Insert_Or_Update(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
         {
             var firstnameParameter = firstname != null ?
                 new ObjectParameter("firstname", firstname) :
@@ -679,11 +675,7 @@ namespace CarRental.DAL
                 new ObjectParameter("idCompany", idCompany) :
                 new ObjectParameter("idCompany", typeof(int));
     
-            var idRoleParameter = idRole.HasValue ?
-                new ObjectParameter("idRole", idRole) :
-                new ObjectParameter("idRole", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert_Or_Update", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert_Or_Update", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
     
         public virtual ObjectResult<User> usp_User_List_Active()
