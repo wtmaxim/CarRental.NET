@@ -348,7 +348,7 @@ CREATE PROCEDURE [dbo].[usp_UserRole_INSERT]
 	@RoleID int
 AS
 BEGIN
-Insert into user_role (id_role, id_user) values (@userId, @RoleID)
+Insert into user_role (id_role, id_user) values (@RoleId, @userID)
 END
 GO
 

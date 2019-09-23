@@ -166,7 +166,7 @@
                                         {
                                             Text = role.Libelle,
                                             Value = role.Id.ToString(),
-                                            Selected = Model.UserToEdit != null && Model.UserToEdit.Item3 != null ? (Model.UserToEdit.Item3.Id == role.Id) : (i.Equals(0) ? true : false)
+                                            Selected = Model.UserToEdit != null && Model.UserToEdit.Item3 != null ? (Model.UserToEdit.Item3.First().Id == role.Id) : (i.Equals(0) ? true : false)
                                         }
                                         );
                                         i++;
@@ -355,22 +355,22 @@
                                     }
                                 </td>
                                 <td>
-                                    @if (user.Item3 != null && user.Item3.Libelle != null)
+                                    @if (user.Item3 != null && user.Item3.Count != 0)
                                     {
                                         if (user.Item1.Is_Active == 1)
                                         {
-                                            if (user.Item3.Libelle.ToLower().Replace(" ", "") == "admin")
+                                            foreach (var role in user.Item3)
                                             {
-                                                <span class="label label-primary">@user.Item3.Libelle</span>
+                                                <span class="label label-default">@role.Libelle</span>
                                             }
-                                            else
-                                            {
-                                                <span class="label label-default">@user.Item3.Libelle</span>
-                                            }
+
                                         }
                                         else
                                         {
-                                            <span class="label label-default" style="color: white">@user.Item3.Libelle</span>
+                                            foreach (var role in user.Item3)
+                                            {
+                                                <span class="label label-default">@role.Libelle</span>
+                                            }
                                         }
 
                                     }

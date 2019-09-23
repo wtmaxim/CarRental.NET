@@ -208,6 +208,9 @@
     <Compile Include="usp_Company_List1_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Company_List1_Result1.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Company_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -248,6 +251,9 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_Get_By_Email_And_Password1_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_User_Get_By_Email_And_Password2_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_Get_By_Email_And_Password_Result.cs">

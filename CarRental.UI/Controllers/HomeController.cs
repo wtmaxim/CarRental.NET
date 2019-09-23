@@ -19,7 +19,7 @@ namespace CarRental.UI.Controllers
         /// Get : Affiche le dashboard aux utilisateur connecté qui ont un role disposant de l'action dashboard
         /// </summary>
         /// <returns></returns>
-        // [Authorize (Roles="dashboard")]
+        [Authorize]
         public ActionResult Index()
         {
          

@@ -1,4 +1,5 @@
 ﻿using CarRental.BLL;
+using CarRental.Common;
 using CarRental.Model;
 using CarRental.UI.ViewsModels.Utilisateur;
 using System;
@@ -189,8 +190,8 @@ namespace CarRental.UI.Controllers
 
             if (res.Item1)
             {
-                userLogic.InsertOrUpdateUser(user);
-                roleLogic.Add_User_Role(user.Id, resRole);
+                userLogic.InsertOrUpdateUser(user);               
+                roleLogic.Add_User_Role(userLogic.GetUserByMail(user.Email).Id, resRole);
                 TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " ajouté avec succès";
             }
             else
@@ -344,7 +345,7 @@ namespace CarRental.UI.Controllers
                 Int32.TryParse(idRole, out resRole);
                 user.Phone_Number = phone;
                 user.Job = job;
-                user.Password = "Motdepasse1";
+                user.Password = SecurePasswordHasherHelper.Hash("Motdepasse1");
                 user.Is_Active = 1;
                 user.Note = "";
                 user.Is_Address_Private = 1;

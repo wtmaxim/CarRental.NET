@@ -911,5 +911,18 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update1", idParameter, firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
         }
+    
+        public virtual ObjectResult<usp_User_Get_By_Email_And_Password2_Result> usp_User_Get_By_Email_And_Password2(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_Get_By_Email_And_Password2_Result>("usp_User_Get_By_Email_And_Password2", emailParameter, passwordParameter);
+        }
     }
 }

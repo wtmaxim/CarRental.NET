@@ -567,6 +567,7 @@
         <Function Name="usp_CarModel_List_idMake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMake" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_Company_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
@@ -611,6 +612,10 @@
         </Function>
         <Function Name="usp_User_GET_By_EMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_User_Get_By_Email_And_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_User_Get_Fistname_Lastname_Email" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="searchValue" Type="varchar" Mode="In" />
@@ -1564,6 +1569,10 @@
             <Parameter Name="idCompany" Mode="In" Type="Int32" />
             <Parameter Name="idRole" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_User_Get_By_Email_And_Password2" ReturnType="Collection(CarRental.DAL.usp_User_Get_By_Email_And_Password2_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1941,6 +1950,24 @@
           <Property Type="Int32" Name="Id_Company" Nullable="true" />
           <Property Type="Int32" Name="Id_Role" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="usp_Company_List1_Result1">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="id_Address" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_By_Email_And_Password2_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2271,6 +2298,24 @@
           <FunctionImportMapping FunctionImportName="usp_UserRole_GET_USER_IN_ROLE" FunctionName="CarRentalModel.Store.usp_UserRole_GET_USER_IN_ROLE">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_UserRole_INSERT" FunctionName="CarRentalModel.Store.usp_UserRole_INSERT" />
+          <FunctionImportMapping FunctionImportName="usp_User_Get_By_Email_And_Password2" FunctionName="CarRentalModel.Store.usp_User_Get_By_Email_And_Password">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRental.DAL.usp_User_Get_By_Email_And_Password2_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="is_Active" ColumnName="is_Active" />
+                <ScalarProperty Name="Job" ColumnName="Job" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="is_Address_Private" ColumnName="is_Address_Private" />
+                <ScalarProperty Name="Id_Company" ColumnName="Id_Company" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Company_List" FunctionName="CarRentalModel.Store.usp_Company_List" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
