@@ -71,6 +71,7 @@
     <Compile Include="Interface\IEventEngine.cs" />
     <Compile Include="Interface\IPasswordResetTokenEngine.cs" />
     <Compile Include="Interface\IRequestBookingEngine.cs" />
+    <Compile Include="Interface\IUserBookingEngine.cs" />
     <Compile Include="Interface\IUtilisateurEngine.cs" />
     <Compile Include="Interface\IRoleEngine.cs" />
     <Compile Include="Mapping\ActionMapping.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="UserBooking.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserBookingEngine.cs" />
     <Compile Include="user_address.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
