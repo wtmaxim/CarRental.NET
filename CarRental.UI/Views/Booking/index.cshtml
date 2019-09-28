@@ -1,4 +1,5 @@
-﻿
+﻿@model CarRental.UI.ViewsModels.Booking.BookingIndexViewsModel
+
 @{
     ViewBag.Title = "index";
 }
@@ -119,13 +120,14 @@
                     <br>
 
                     <div class="form-group" id="DropDownListAddressDeparture">
-                        <select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
+                        @Html.DropDownListFor(m => m.AddressDepartureId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" } )
+                        @*<select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
                             <option value="1">Campus de Nantes</option>
                             <option value="2">Campus de Nantes Faraday</option>
                             <option value="3">Campus de Rennes</option>
                             <option value="4">Campus de Niort</option>
                             <option>Autre</option>
-                        </select>
+                        </select>*@
                     </div>
 
                     <div class="form-group" id="manAddressDepTxt">
@@ -159,13 +161,15 @@
                     </div>
 
                     <div class="form-group" id="DropDownListAddressArrival">
-                        <select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
+                        @Html.DropDownListFor(m => m.AddressArrivalId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" })
+
+                        @*<select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
                             <option value="1">Campus de Nantes</option>
                             <option value="2">Campus de Nantes Faraday</option>
                             <option value="3">Campus de Rennes</option>
                             <option value="4">Campus de Niort</option>
                             <option>Autre</option>
-                        </select>
+                        </select>*@
                     </div>
 
                     <div class="form-group" id="InputAddressArrival">
