@@ -41,17 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionLogic.cs" />
     <Compile Include="AdressLogic.cs" />
     <Compile Include="BookingLogic.cs" />
     <Compile Include="CarLogic.cs" />
     <Compile Include="CarMakeLogic.cs" />
     <Compile Include="CarModelLogic.cs" />
+    <Compile Include="CompanyLogic.cs" />
     <Compile Include="EventLogic.cs" />
+    <Compile Include="NotificationLogic.cs" />
+    <Compile Include="PasswordResetTokenLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBookingLogic.cs" />
-    <Compile Include="UserBookingLogic.cs" />
+    <Compile Include="RoleLogic.cs" />
+    <Compile Include="UtilisateurLogic.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarRental.Common\CarRental.Common.csproj">
+      <Project>{27C4E0B4-CA96-4E2E-A700-FCA3FA97EEAE}</Project>
+      <Name>CarRental.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CarRental.DAL\CarRental.DAL.csproj">
       <Project>{8543063E-8947-4FB9-A082-E1159BD64007}</Project>
       <Name>CarRental.DAL</Name>

@@ -10,13 +10,11 @@
 namespace CarRental.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class persistent_logins
+    public partial class usp_Company_List1_Result
     {
-        public string username { get; set; }
-        public string series { get; set; }
-        public string token { get; set; }
-        public System.DateTime last_used { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int id_Address { get; set; }
     }
 }

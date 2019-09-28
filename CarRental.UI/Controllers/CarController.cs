@@ -41,7 +41,6 @@ namespace CarRental.UI.Controllers
         public ActionResult SearchCar(string searchWord)
         {
 
-            var po = 2;
             return null;
         }
 

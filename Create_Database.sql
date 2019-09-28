@@ -232,8 +232,15 @@ CREATE TABLE PasswordResetToken (
     CONSTRAINT [FK_PasswordResetToken_UserID] FOREIGN KEY (user_id) REFERENCES [User] (Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
--- Utilisateur - ajout idRole
-ALTER TABLE [User] ADD Id_Role INT NOT NULL DEFAULT 0;
-ALTER TABLE [User] ADD CONSTRAINT fk_Id_Role FOREIGN KEY (Id_Role) REFERENCES [Role](Id);
-GO
+CREATE TABLE [Notification]
+(
+  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  IdUser INT NOT NULL,
+  IsRead TINYINT NOT NULL,
+  CreationDateTimestamp DATETIME NOT NULL DEFAULT GETDATE(),
+  IsForAdmin TINYINT NOT NULL,
+  IsForNewRequest TINYINT  NOT NULL DEFAULT 0,
+  IdBooking INT NOT NULL,
+  FOREIGN KEY (IdUser) REFERENCES [User](Id),
+  FOREIGN KEY (IdBooking) REFERENCES [Booking](Id),
+);

@@ -129,9 +129,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookingController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestBookingController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UtilisateurController.cs" />
     <Compile Include="Controllers\CarController.cs" />
@@ -139,11 +142,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\CustomRoleProvider.cs" />
     <Compile Include="ViewsModels\Booking\BookingIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
+    <Compile Include="ViewsModels\Notification\NotificationIndexViewModel.cs" />
+    <Compile Include="ViewsModels\Profile\ProfileIndexViewModel.cs" />
+    <Compile Include="ViewsModels\Utilisateur\UtilisateurIndexViewModel.cs" />
     <Compile Include="ViewsModels\RequestBooking\RequestBookingInsertViewsModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1610,6 +1617,7 @@
     <Content Include="Images\logoCarMake\Volkswagen.png" />
     <Content Include="Images\logoCarMake\Volvo.png" />
     <Content Include="Images\logoCarMake\Zastava.png" />
+    <Content Include="Images\Utilisateur\default.png" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -2056,8 +2064,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Car\Index.cshtml" />
     <Content Include="Views\Car\Detail.cshtml" />
@@ -2071,11 +2077,19 @@
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\_FormAddStopOver.cshtml" />
     <Content Include="Views\RequestBooking\Insert.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\PasswordReset.cshtml" />
+    <Content Include="Views\Shared\LoginLayout.cshtml" />
+    <Content Include="Views\Utilisateur\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ViewsModels\Reservation\" />
     <Folder Include="Views\Configuration\" />
+    <Folder Include="Views\Reservation\" />
     <Folder Include="Views\Utilisateurs\" />
   </ItemGroup>
   <ItemGroup>
@@ -2095,6 +2109,10 @@
     <ProjectReference Include="..\CarRental.BLL\CarRental.BLL.csproj">
       <Project>{9D45D39D-AF79-4004-AB62-6007A0D6E3A3}</Project>
       <Name>CarRental.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarRental.Common\CarRental.Common.csproj">
+      <Project>{27C4E0B4-CA96-4E2E-A700-FCA3FA97EEAE}</Project>
+      <Name>CarRental.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\CarRental.Model\CarRental.Model.csproj">
       <Project>{F59490EF-AFF5-4BD4-A715-1838DED831EC}</Project>

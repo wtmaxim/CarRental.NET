@@ -111,19 +111,19 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Libelle" Type="varchar(max)" Nullable="false" />
+          <Property Name="Libelle" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
-        <EntityType Name="persistent_logins">
+        <EntityType Name="PasswordResetToken">
           <Key>
-            <PropertyRef Name="series" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="username" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="series" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="token" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="last_used" Type="datetime" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="expiry_date" Type="datetime" />
+          <Property Name="token" Type="varchar" MaxLength="255" />
+          <Property Name="user_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestBooking">
           <Key>
@@ -219,7 +219,7 @@
           <Property Name="Id_Booking" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ActionRol__Id_Ac__36B12243">
+        <Association Name="FK__ActionRol__Id_Ac__5629CD9C">
           <End Role="Action" Type="Self.Action" Multiplicity="1" />
           <End Role="ActionRole" Type="Self.ActionRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,7 +231,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ActionRol__Id_Ro__35BCFE0A">
+        <Association Name="FK__ActionRol__Id_Ro__571DF1D5">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="ActionRole" Type="Self.ActionRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -243,7 +243,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Booking__id_Requ__5FB337D6">
+        <Association Name="FK__Booking__id_Requ__5812160E">
           <End Role="RequestBooking" Type="Self.RequestBooking" Multiplicity="1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -255,7 +255,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Booking__Licence__5EBF139D">
+        <Association Name="FK__Booking__Licence__59063A47">
           <End Role="Car" Type="Self.Car" Multiplicity="1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -267,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__id_Car_Mode__5BE2A6F2">
+        <Association Name="FK__Car__id_Car_Mode__59FA5E80">
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -279,7 +279,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__Id_Company__59FA5E80">
+        <Association Name="FK__Car__Id_Company__5AEE82B9">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -291,7 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__Id_User__5AEE82B9">
+        <Association Name="FK__Car__Id_User__5BE2A6F2">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -303,7 +303,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CarModel__id_Car__47DBAE45">
+        <Association Name="FK__CarModel__id_Car__5CD6CB2B">
           <End Role="CarMake" Type="Self.CarMake" Multiplicity="1" />
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -315,7 +315,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CarReport__Id_Bo__74AE54BC">
+        <Association Name="FK__CarReport__Id_Bo__5DCAEF64">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="CarReport" Type="Self.CarReport" Multiplicity="*" />
           <ReferentialConstraint>
@@ -327,7 +327,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Company__id_Addr__4BAC3F29">
+        <Association Name="FK__Company__id_Addr__5EBF139D">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="Company" Type="Self.Company" Multiplicity="*" />
           <ReferentialConstraint>
@@ -339,7 +339,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cost__Id_Booking__66603565">
+        <Association Name="FK__Cost__Id_Booking__5FB337D6">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="Cost" Type="Self.Cost" Multiplicity="*" />
           <ReferentialConstraint>
@@ -351,7 +351,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cost__Id_Categor__6754599E">
+        <Association Name="FK__Cost__Id_Categor__60A75C0F">
           <End Role="CategoryCost" Type="Self.CategoryCost" Multiplicity="1" />
           <End Role="Cost" Type="Self.Cost" Multiplicity="*" />
           <ReferentialConstraint>
@@ -363,7 +363,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__Licence_P__54CB950F">
+        <Association Name="FK__Event__Licence_P__619B8048">
           <End Role="Car" Type="Self.Car" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -375,7 +375,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RequestBo__Id_St__3E52440B">
+        <Association Name="FK__RequestBo__Id_St__6383C8BA">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="RequestBooking" Type="Self.RequestBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -387,7 +387,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOver__Id_Boo__6D0D32F4">
+        <Association Name="FK__StopOver__Id_Boo__6477ECF3">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="StopOver" Type="Self.StopOver" Multiplicity="*" />
           <ReferentialConstraint>
@@ -399,7 +399,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOver__Id_Sto__6E01572D">
+        <Association Name="FK__StopOver__Id_Sto__656C112C">
           <End Role="StopOverType" Type="Self.StopOverType" Multiplicity="1" />
           <End Role="StopOver" Type="Self.StopOver" Multiplicity="*" />
           <ReferentialConstraint>
@@ -411,7 +411,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOverA__id_Ad__71D1E811">
+        <Association Name="FK__StopOverA__id_Ad__66603565">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="StopOverAddress" Type="Self.StopOverAddress" Multiplicity="*" />
           <ReferentialConstraint>
@@ -423,7 +423,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOverA__Id_St__70DDC3D8">
+        <Association Name="FK__StopOverA__Id_St__6754599E">
           <End Role="StopOver" Type="Self.StopOver" Multiplicity="1" />
           <End Role="StopOverAddress" Type="Self.StopOverAddress" Multiplicity="*" />
           <ReferentialConstraint>
@@ -435,7 +435,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__Id_Company__4F7CD00D">
+        <Association Name="FK__User__Id_Company__68487DD7">
           <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -447,7 +447,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_addr__id_ad__571DF1D5">
+        <Association Name="FK__user_addr__id_ad__693CA210">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="user_address" Type="Self.user_address" Multiplicity="*" />
           <ReferentialConstraint>
@@ -459,7 +459,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_addr__id_us__5629CD9C">
+        <Association Name="FK__user_addr__id_us__6A30C649">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="user_address" Type="Self.user_address" Multiplicity="*" />
           <ReferentialConstraint>
@@ -471,7 +471,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_role__id_ro__534D60F1">
+        <Association Name="FK__user_role__id_ro__6B24EA82">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="user_role" Type="Self.user_role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -483,7 +483,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_role__id_us__52593CB8">
+        <Association Name="FK__user_role__id_us__6C190EBB">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="user_role" Type="Self.user_role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -495,7 +495,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserBooki__Id_Bo__628FA481">
+        <Association Name="FK__UserBooki__Id_Bo__6D0D32F4">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="UserBooking" Type="Self.UserBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -507,7 +507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserBooki__Id_Us__6383C8BA">
+        <Association Name="FK__UserBooki__Id_Us__6E01572D">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserBooking" Type="Self.UserBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -519,6 +519,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PasswordResetToken_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PasswordResetToken" Type="Self.PasswordResetToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordResetToken">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_Action_List_By_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_Adress_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Booking_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -540,9 +557,6 @@
           <Parameter Name="id_Car_Model" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_Car_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="usp_Car_List_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="searchWord" Type="varchar(max)" Mode="In" />
-        </Function>
         <Function Name="usp_CarMake_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -553,17 +567,34 @@
         <Function Name="usp_CarModel_List_idMake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMake" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_Company_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="usp_RequestBooking_Get_IdBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdBooking" Type="int" Mode="In" />
+        <Function Name="usp_PasswordResetToken_DELETE_BY_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
-        <Function Name="usp_RequestBooking_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="isPersonalCarAvailable" Type="tinyint" Mode="In" />
-          <Parameter Name="Reason" Type="varchar" Mode="In" />
-          <Parameter Name="idStatut" Type="int" Mode="In" />
+        <Function Name="usp_PasswordResetToken_get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="token" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_PasswordResetToken_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="token" Type="varchar" Mode="In" />
+          <Parameter Name="expiry_date" Type="datetime" Mode="In" />
+          <Parameter Name="user_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Role_GET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_Role_Get_By_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Role_GET_List_Users_BY_Libelle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_Role_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="libelle" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_Role_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
         </Function>
@@ -573,11 +604,66 @@
         <Function Name="usp_StopOverType_Get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="usp_UserBooking_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="isDriver" Type="tinyint" Mode="In" />
-          <Parameter Name="isGoing" Type="tinyint" Mode="In" />
-          <Parameter Name="idBooking" Type="int" Mode="In" />
-          <Parameter Name="idUser" Type="int" Mode="In" />
+        <Function Name="usp_User_Archive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_User_GET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_User_GET_By_EMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_User_Get_By_Email_And_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_User_Get_Fistname_Lastname_Email" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchValue" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_User_GET_List_Roles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_User_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="tinyint" Mode="In" />
+          <Parameter Name="job" Type="varchar" Mode="In" />
+          <Parameter Name="note" Type="text" Mode="In" />
+          <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="isAddressPrivate" Type="tinyint" Mode="In" />
+          <Parameter Name="idCompany" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_User_Insert_Or_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="tinyint" Mode="In" />
+          <Parameter Name="job" Type="varchar" Mode="In" />
+          <Parameter Name="note" Type="text" Mode="In" />
+          <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="isAddressPrivate" Type="tinyint" Mode="In" />
+          <Parameter Name="idCompany" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_User_List_Active" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_List_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_List_Unactive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_User_Unarchive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_User_Update_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_UserRole_GET_USER_IN_ROLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_UserRole_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="RoleID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="CarRentalModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
@@ -592,7 +678,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cost" EntityType="Self.Cost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="persistent_logins" EntityType="Self.persistent_logins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PasswordResetToken" EntityType="Self.PasswordResetToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestBooking" EntityType="Self.RequestBooking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
@@ -603,105 +689,109 @@
           <EntitySet Name="user_address" EntityType="Self.user_address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBooking" EntityType="Self.UserBooking" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ActionRol__Id_Ac__36B12243" Association="Self.FK__ActionRol__Id_Ac__36B12243">
+          <AssociationSet Name="FK__ActionRol__Id_Ac__5629CD9C" Association="Self.FK__ActionRol__Id_Ac__5629CD9C">
             <End Role="Action" EntitySet="Action" />
             <End Role="ActionRole" EntitySet="ActionRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__ActionRol__Id_Ro__35BCFE0A" Association="Self.FK__ActionRol__Id_Ro__35BCFE0A">
+          <AssociationSet Name="FK__ActionRol__Id_Ro__571DF1D5" Association="Self.FK__ActionRol__Id_Ro__571DF1D5">
             <End Role="Role" EntitySet="Role" />
             <End Role="ActionRole" EntitySet="ActionRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__Booking__id_Requ__5FB337D6" Association="Self.FK__Booking__id_Requ__5FB337D6">
+          <AssociationSet Name="FK__Booking__id_Requ__5812160E" Association="Self.FK__Booking__id_Requ__5812160E">
             <End Role="RequestBooking" EntitySet="RequestBooking" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
-          <AssociationSet Name="FK__Booking__Licence__5EBF139D" Association="Self.FK__Booking__Licence__5EBF139D">
+          <AssociationSet Name="FK__Booking__Licence__59063A47" Association="Self.FK__Booking__Licence__59063A47">
             <End Role="Car" EntitySet="Car" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__id_Car_Mode__5BE2A6F2" Association="Self.FK__Car__id_Car_Mode__5BE2A6F2">
+          <AssociationSet Name="FK__Car__id_Car_Mode__59FA5E80" Association="Self.FK__Car__id_Car_Mode__59FA5E80">
             <End Role="CarModel" EntitySet="CarModel" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_Company__59FA5E80" Association="Self.FK__Car__Id_Company__59FA5E80">
+          <AssociationSet Name="FK__Car__Id_Company__5AEE82B9" Association="Self.FK__Car__Id_Company__5AEE82B9">
             <End Role="Company" EntitySet="Company" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_User__5AEE82B9" Association="Self.FK__Car__Id_User__5AEE82B9">
+          <AssociationSet Name="FK__Car__Id_User__5BE2A6F2" Association="Self.FK__Car__Id_User__5BE2A6F2">
             <End Role="User" EntitySet="User" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__CarModel__id_Car__47DBAE45" Association="Self.FK__CarModel__id_Car__47DBAE45">
+          <AssociationSet Name="FK__CarModel__id_Car__5CD6CB2B" Association="Self.FK__CarModel__id_Car__5CD6CB2B">
             <End Role="CarMake" EntitySet="CarMake" />
             <End Role="CarModel" EntitySet="CarModel" />
           </AssociationSet>
-          <AssociationSet Name="FK__CarReport__Id_Bo__74AE54BC" Association="Self.FK__CarReport__Id_Bo__74AE54BC">
+          <AssociationSet Name="FK__CarReport__Id_Bo__5DCAEF64" Association="Self.FK__CarReport__Id_Bo__5DCAEF64">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="CarReport" EntitySet="CarReport" />
           </AssociationSet>
-          <AssociationSet Name="FK__Company__id_Addr__4BAC3F29" Association="Self.FK__Company__id_Addr__4BAC3F29">
+          <AssociationSet Name="FK__Company__id_Addr__5EBF139D" Association="Self.FK__Company__id_Addr__5EBF139D">
             <End Role="Address" EntitySet="Address" />
             <End Role="Company" EntitySet="Company" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cost__Id_Booking__66603565" Association="Self.FK__Cost__Id_Booking__66603565">
+          <AssociationSet Name="FK__Cost__Id_Booking__5FB337D6" Association="Self.FK__Cost__Id_Booking__5FB337D6">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Cost" EntitySet="Cost" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cost__Id_Categor__6754599E" Association="Self.FK__Cost__Id_Categor__6754599E">
+          <AssociationSet Name="FK__Cost__Id_Categor__60A75C0F" Association="Self.FK__Cost__Id_Categor__60A75C0F">
             <End Role="CategoryCost" EntitySet="CategoryCost" />
             <End Role="Cost" EntitySet="Cost" />
           </AssociationSet>
-          <AssociationSet Name="FK__Event__Licence_P__54CB950F" Association="Self.FK__Event__Licence_P__54CB950F">
+          <AssociationSet Name="FK__Event__Licence_P__619B8048" Association="Self.FK__Event__Licence_P__619B8048">
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <AssociationSet Name="FK__RequestBo__Id_St__3E52440B" Association="Self.FK__RequestBo__Id_St__3E52440B">
+          <AssociationSet Name="FK__RequestBo__Id_St__6383C8BA" Association="Self.FK__RequestBo__Id_St__6383C8BA">
             <End Role="Status" EntitySet="Status" />
             <End Role="RequestBooking" EntitySet="RequestBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOver__Id_Boo__6D0D32F4" Association="Self.FK__StopOver__Id_Boo__6D0D32F4">
+          <AssociationSet Name="FK__StopOver__Id_Boo__6477ECF3" Association="Self.FK__StopOver__Id_Boo__6477ECF3">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="StopOver" EntitySet="StopOver" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOver__Id_Sto__6E01572D" Association="Self.FK__StopOver__Id_Sto__6E01572D">
+          <AssociationSet Name="FK__StopOver__Id_Sto__656C112C" Association="Self.FK__StopOver__Id_Sto__656C112C">
             <End Role="StopOverType" EntitySet="StopOverType" />
             <End Role="StopOver" EntitySet="StopOver" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOverA__id_Ad__71D1E811" Association="Self.FK__StopOverA__id_Ad__71D1E811">
+          <AssociationSet Name="FK__StopOverA__id_Ad__66603565" Association="Self.FK__StopOverA__id_Ad__66603565">
             <End Role="Address" EntitySet="Address" />
             <End Role="StopOverAddress" EntitySet="StopOverAddress" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOverA__Id_St__70DDC3D8" Association="Self.FK__StopOverA__Id_St__70DDC3D8">
+          <AssociationSet Name="FK__StopOverA__Id_St__6754599E" Association="Self.FK__StopOverA__Id_St__6754599E">
             <End Role="StopOver" EntitySet="StopOver" />
             <End Role="StopOverAddress" EntitySet="StopOverAddress" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__Id_Company__4F7CD00D" Association="Self.FK__User__Id_Company__4F7CD00D">
+          <AssociationSet Name="FK__User__Id_Company__68487DD7" Association="Self.FK__User__Id_Company__68487DD7">
             <End Role="Company" EntitySet="Company" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_addr__id_ad__571DF1D5" Association="Self.FK__user_addr__id_ad__571DF1D5">
+          <AssociationSet Name="FK__user_addr__id_ad__693CA210" Association="Self.FK__user_addr__id_ad__693CA210">
             <End Role="Address" EntitySet="Address" />
             <End Role="user_address" EntitySet="user_address" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_addr__id_us__5629CD9C" Association="Self.FK__user_addr__id_us__5629CD9C">
+          <AssociationSet Name="FK__user_addr__id_us__6A30C649" Association="Self.FK__user_addr__id_us__6A30C649">
             <End Role="User" EntitySet="User" />
             <End Role="user_address" EntitySet="user_address" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_role__id_ro__534D60F1" Association="Self.FK__user_role__id_ro__534D60F1">
+          <AssociationSet Name="FK__user_role__id_ro__6B24EA82" Association="Self.FK__user_role__id_ro__6B24EA82">
             <End Role="Role" EntitySet="Role" />
             <End Role="user_role" EntitySet="user_role" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_role__id_us__52593CB8" Association="Self.FK__user_role__id_us__52593CB8">
+          <AssociationSet Name="FK__user_role__id_us__6C190EBB" Association="Self.FK__user_role__id_us__6C190EBB">
             <End Role="User" EntitySet="User" />
             <End Role="user_role" EntitySet="user_role" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserBooki__Id_Bo__628FA481" Association="Self.FK__UserBooki__Id_Bo__628FA481">
+          <AssociationSet Name="FK__UserBooki__Id_Bo__6D0D32F4" Association="Self.FK__UserBooki__Id_Bo__6D0D32F4">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="UserBooking" EntitySet="UserBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserBooki__Id_Us__6383C8BA" Association="Self.FK__UserBooki__Id_Us__6383C8BA">
+          <AssociationSet Name="FK__UserBooki__Id_Us__6E01572D" Association="Self.FK__UserBooki__Id_Us__6E01572D">
             <End Role="User" EntitySet="User" />
             <End Role="UserBooking" EntitySet="UserBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PasswordResetToken_UserID" Association="Self.FK_PasswordResetToken_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="PasswordResetToken" EntitySet="PasswordResetToken" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -826,15 +916,6 @@
           <NavigationProperty Name="Booking" Relationship="Self.FK__Cost__Id_Booking__66603565" FromRole="Cost" ToRole="Booking" />
           <NavigationProperty Name="CategoryCost" Relationship="Self.FK__Cost__Id_Categor__6754599E" FromRole="Cost" ToRole="CategoryCost" />
         </EntityType>
-        <EntityType Name="persistent_logins">
-          <Key>
-            <PropertyRef Name="series" />
-          </Key>
-          <Property Name="username" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="series" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="token" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="last_used" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="RequestBooking">
           <Key>
             <PropertyRef Name="id" />
@@ -917,6 +998,7 @@
           <NavigationProperty Name="user_address" Relationship="Self.FK__user_addr__id_us__5629CD9C" FromRole="User" ToRole="user_address" />
           <NavigationProperty Name="UserBooking" Relationship="Self.FK__UserBooki__Id_Us__6383C8BA" FromRole="User" ToRole="UserBooking" />
           <NavigationProperty Name="Role" Relationship="Self.user_role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="PasswordResetToken" Relationship="CarRental.DAL.FK_PasswordResetToken_UserID" FromRole="User" ToRole="PasswordResetToken" />
         </EntityType>
         <EntityType Name="user_address">
           <Key>
@@ -1200,7 +1282,6 @@
           <EntitySet Name="CategoryCost" EntityType="Self.CategoryCost" />
           <EntitySet Name="Company" EntityType="Self.Company" />
           <EntitySet Name="Cost" EntityType="Self.Cost" />
-          <EntitySet Name="persistent_logins" EntityType="Self.persistent_logins" />
           <EntitySet Name="RequestBooking" EntityType="Self.RequestBooking" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Status" EntityType="Self.Status" />
@@ -1350,18 +1431,147 @@
           <Parameter Name="searchWord" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_RequestBooking_Get_IdBooking" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
-          <Parameter Name="IdBooking" Mode="In" Type="Int32" />
+            <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_RequestBooking_Insert" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
-            <Parameter Name="isPersonalCarAvailable" Mode="In" Type="Byte" />
-            <Parameter Name="Reason" Mode="In" Type="String" />
-            <Parameter Name="idStatut" Mode="In" Type="Int32" />
+          <EntitySet Name="PasswordResetToken" EntityType="CarRental.DAL.PasswordResetToken" />
+          <AssociationSet Name="FK_PasswordResetToken_UserID" Association="CarRental.DAL.FK_PasswordResetToken_UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="PasswordResetToken" EntitySet="PasswordResetToken" />
+          </AssociationSet>
+          <FunctionImport Name="usp_PasswordResetToken_get" EntitySet="PasswordResetToken" ReturnType="Collection(CarRental.DAL.PasswordResetToken)">
+          <Parameter Name="token" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_UserBooking_Insert">
-            <Parameter Name="isDriver" Mode="In" Type="Byte" />
-            <Parameter Name="isGoing" Mode="In" Type="Byte" />
-            <Parameter Name="idBooking" Mode="In" Type="Int32" />
-            <Parameter Name="idUser" Mode="In" Type="Int32" />
+          <FunctionImport Name="usp_PasswordResetToken_Insert">
+            <Parameter Name="token" Mode="In" Type="String" />
+            <Parameter Name="expiry_date" Mode="In" Type="DateTime" />
+            <Parameter Name="user_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_GET" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_GET_By_EMail" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Get_By_Email_And_Password" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_List" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_Update_Password">
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PasswordResetToken_DELETE_BY_ID">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Company_List" EntitySet="Company" ReturnType="Collection(CarRental.DAL.Company)" />
+          <FunctionImport Name="usp_Role_List" EntitySet="Role" ReturnType="Collection(CarRental.DAL.Role)" />
+          <FunctionImport Name="usp_User_Archive">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Get_Fistname_Lastname_Email" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+          <Parameter Name="searchValue" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Get_Id" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Insert">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Byte" />
+            <Parameter Name="job" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
+            <Parameter Name="idCompany" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Update">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Byte" />
+            <Parameter Name="job" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
+            <Parameter Name="idCompany" Mode="In" Type="Int32" />
+            <Parameter Name="idRole" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_GET1" ReturnType="Collection(CarRental.DAL.usp_User_GET1_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Insert_Or_Update">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Byte" />
+            <Parameter Name="job" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
+            <Parameter Name="idCompany" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_List_Active" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_List_All" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_List_Unactive" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)" />
+          <FunctionImport Name="usp_User_Unarchive">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Action_List_By_User" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Role_GET" EntitySet="Role" ReturnType="Collection(CarRental.DAL.Role)">
+          <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Role_Get_By_ID" ReturnType="Collection(CarRental.DAL.usp_Role_Get_By_ID_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Role_GET_List_Users_BY_Libelle" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+          <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Role_Insert">
+          <Parameter Name="libelle" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Get_By_Email_And_Password1" ReturnType="Collection(CarRental.DAL.usp_User_Get_By_Email_And_Password1_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_GET_List_Roles" ReturnType="Collection(CarRental.DAL.usp_User_GET_List_Roles_Result)">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UserRole_GET_USER_IN_ROLE" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UserRole_INSERT">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Get_Id1" ReturnType="Collection(CarRental.DAL.usp_User_Get_Id1_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Update1">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Byte" />
+            <Parameter Name="job" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
+            <Parameter Name="idCompany" Mode="In" Type="Int32" />
+            <Parameter Name="idRole" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_User_Get_By_Email_And_Password2" ReturnType="Collection(CarRental.DAL.usp_User_Get_By_Email_And_Password2_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1456,7 +1666,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
@@ -1490,6 +1700,273 @@
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <Property Type="Byte" Name="is_Personal_Car_Available" Nullable="false" />
           <Property Type="String" Name="Reason" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="PasswordResetToken">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="expiry_date" Type="DateTime" Precision="3" />
+          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CarRental.DAL.FK_PasswordResetToken_UserID" FromRole="PasswordResetToken" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_PasswordResetToken_UserID">
+          <End Type="CarRental.DAL.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CarRental.DAL.PasswordResetToken" Role="PasswordResetToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordResetToken">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_PasswordResetToken_get_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="expiry_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="token" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_GET_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_User_GET_By_EMail_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_By_Email_And_Password_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Company_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="id_Address" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Role_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Libelle" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_Fistname_Lastname_Email_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_Id_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_GET1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_Active_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_All_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_List_Unactive_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Action_List_By_User_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Libelle" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_Role_GET_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Libelle" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_Role_Get_By_ID_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Libelle" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_Role_GET_List_Users_BY_Libelle_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_By_Email_And_Password1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_User_GET_List_Roles_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Libelle" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_UserRole_GET_USER_IN_ROLE_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="usp_Company_List1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="id_Address" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_Id1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Company_List1_Result1">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="id_Address" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_User_Get_By_Email_And_Password2_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Byte" Name="is_Active" Nullable="false" />
+          <Property Type="String" Name="Job" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="13" />
+          <Property Type="Byte" Name="is_Address_Private" Nullable="false" />
+          <Property Type="Int32" Name="Id_Company" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1597,16 +2074,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Id_Booking" ColumnName="Id_Booking" />
                 <ScalarProperty Name="Id_Category_Cost" ColumnName="Id_Category_Cost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="persistent_logins">
-            <EntityTypeMapping TypeName="CarRental.DAL.persistent_logins">
-              <MappingFragment StoreEntitySet="persistent_logins">
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="series" ColumnName="series" />
-                <ScalarProperty Name="token" ColumnName="token" />
-                <ScalarProperty Name="last_used" ColumnName="last_used" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1755,13 +2222,101 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_Car_List_Search" FunctionName="CarRentalModel.Store.usp_Car_List_Search">
+          <EntitySetMapping Name="PasswordResetToken">
+            <EntityTypeMapping TypeName="CarRental.DAL.PasswordResetToken">
+              <MappingFragment StoreEntitySet="PasswordResetToken">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_get" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_get">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_RequestBooking_Get_IdBooking" FunctionName="CarRentalModel.Store.usp_RequestBooking_Get_IdBooking">
+          <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_Insert" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_User_GET_By_EMail" FunctionName="CarRentalModel.Store.usp_User_GET_By_EMail">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_RequestBooking_Insert" FunctionName="CarRentalModel.Store.usp_RequestBooking_Insert" />
-          <FunctionImportMapping FunctionImportName="usp_UserBooking_Insert" FunctionName="CarRentalModel.Store.usp_UserBooking_Insert" />
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="usp_PasswordResetToken_DELETE_BY_ID" FunctionName="CarRentalModel.Store.usp_PasswordResetToken_DELETE_BY_ID" />
+          <FunctionImportMapping FunctionImportName="usp_Role_List" FunctionName="CarRentalModel.Store.usp_Role_List">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_Archive" FunctionName="CarRentalModel.Store.usp_User_Archive" />
+          <FunctionImportMapping FunctionImportName="usp_User_Get_Fistname_Lastname_Email" FunctionName="CarRentalModel.Store.usp_User_Get_Fistname_Lastname_Email">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_Insert" FunctionName="CarRentalModel.Store.usp_User_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_User_GET1" FunctionName="CarRentalModel.Store.usp_User_GET">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRental.DAL.usp_User_GET1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="is_Active" ColumnName="is_Active" />
+                <ScalarProperty Name="Job" ColumnName="Job" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="is_Address_Private" ColumnName="is_Address_Private" />
+                <ScalarProperty Name="Id_Company" ColumnName="Id_Company" />
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_GET" FunctionName="CarRentalModel.Store.usp_User_GET" />
+          <FunctionImportMapping FunctionImportName="usp_User_Update_Password" FunctionName="CarRentalModel.Store.usp_User_Update_Password" />
+          <FunctionImportMapping FunctionImportName="usp_User_Insert_Or_Update" FunctionName="CarRentalModel.Store.usp_User_Insert_Or_Update" />
+          <FunctionImportMapping FunctionImportName="usp_User_List_Active" FunctionName="CarRentalModel.Store.usp_User_List_Active">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_List_All" FunctionName="CarRentalModel.Store.usp_User_List_All">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_List_Unactive" FunctionName="CarRentalModel.Store.usp_User_List_Unactive">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_User_Unarchive" FunctionName="CarRentalModel.Store.usp_User_Unarchive" />
+          <FunctionImportMapping FunctionImportName="usp_Action_List_By_User" FunctionName="CarRentalModel.Store.usp_Action_List_By_User">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Role_GET" FunctionName="CarRentalModel.Store.usp_Role_GET">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Role_Get_By_ID" FunctionName="CarRentalModel.Store.usp_Role_Get_By_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRental.DAL.usp_Role_Get_By_ID_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Role_GET_List_Users_BY_Libelle" FunctionName="CarRentalModel.Store.usp_Role_GET_List_Users_BY_Libelle">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Role_Insert" FunctionName="CarRentalModel.Store.usp_Role_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_User_GET_List_Roles" FunctionName="CarRentalModel.Store.usp_User_GET_List_Roles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRental.DAL.usp_User_GET_List_Roles_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_UserRole_GET_USER_IN_ROLE" FunctionName="CarRentalModel.Store.usp_UserRole_GET_USER_IN_ROLE">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_UserRole_INSERT" FunctionName="CarRentalModel.Store.usp_UserRole_INSERT" />
+          <FunctionImportMapping FunctionImportName="usp_User_Get_By_Email_And_Password2" FunctionName="CarRentalModel.Store.usp_User_Get_By_Email_And_Password">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRental.DAL.usp_User_Get_By_Email_And_Password2_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="is_Active" ColumnName="is_Active" />
+                <ScalarProperty Name="Job" ColumnName="Job" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="is_Address_Private" ColumnName="is_Address_Private" />
+                <ScalarProperty Name="Id_Company" ColumnName="Id_Company" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Company_List" FunctionName="CarRentalModel.Store.usp_Company_List" />
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
