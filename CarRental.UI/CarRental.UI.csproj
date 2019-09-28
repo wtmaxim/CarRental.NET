@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UtilisateurController.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
+    <Compile Include="ViewsModels\Notification\NotificationIndexViewModel.cs" />
     <Compile Include="ViewsModels\Profile\ProfileIndexViewModel.cs" />
     <Compile Include="ViewsModels\Utilisateur\UtilisateurIndexViewModel.cs" />
   </ItemGroup>
@@ -2066,6 +2068,7 @@
     <Content Include="Views\Shared\LoginLayout.cshtml" />
     <Content Include="Views\Utilisateur\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

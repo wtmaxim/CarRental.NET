@@ -51,6 +51,7 @@
     <Compile Include="CategoryCostDTO.cs" />
     <Compile Include="CompanyDTO.cs" />
     <Compile Include="CostDTO.cs" />
+    <Compile Include="NotificationDTO.cs" />
     <Compile Include="EventDTO.cs" />
     <Compile Include="FullCalendarDTO.cs" />
     <Compile Include="PasswordResetTokenDTO.cs" />

@@ -73,11 +73,17 @@
 
 }
 
-<section class="content-header">
-    <h1>
-        Mon profil
-    </h1>
-</section>
+    <section class="content-header">
+        @if (Model.isSessionUserProfile)
+        {
+            <h1>Mon profil</h1>
+        }
+        else
+        {
+            <h1>Profil de l'utilisateur</h1>
+        }
+
+    </section>
 
 <!-- Main content -->
 <section class="content">
@@ -89,16 +95,26 @@
             <h3 class="widget-user-username">@Model.CurrentUser.Item1.Lastname @Model.CurrentUser.Item1.Firstname</h3>
             <h5 class="widget-user-desc">@Model.CurrentUser.Item1.Job</h5>
         </div>
-        <form action="@Url.Action("UpdateProfilePicture", "Profile")" method="post" enctype="multipart/form-data" runat="server">
-            <label for="profile-image">
-                <div class="widget-user-image">
-                    <img class="img-circle" src="@Url.Content(profilePath)" alt="User Avatar">
-                </div>
+        @if (Model.isSessionUserProfile)
+        {
+            <form action="@Url.Action("UpdateProfilePicture", "Profile")" method="post" enctype="multipart/form-data" runat="server">
+                <label for="profile-image">
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="@Url.Content(profilePath)" alt="User Avatar">
+                    </div>
 
-            </label>
-            <input id="profile-image" type="file" style="display: none" onchange="this.form.submit()"
-                   accept="image/png, image/jpeg" name="UtilisateurProfilePicture" />
-        </form>
+                </label>
+                <input id="profile-image" type="file" style="display: none" onchange="this.form.submit()"
+                       accept="image/png, image/jpeg" name="UtilisateurProfilePicture" />
+            </form>
+        }
+        else
+        {
+            <div class="widget-user-image">
+                <img class="img-circle" src="@Url.Content(profilePath)" alt="User Avatar">
+            </div>
+        }
+
 
         <div class="box-footer">
             <div class="row">
@@ -147,17 +163,19 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Mes informations</h3>
                     <div class="pull-right box-tools">
-                        @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on")
-                        {
-                            <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "off" })">
-                                <i class="fa fa-close text-red"></i>
-                            </a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "on" })">
-                                <i class="fa fa-pencil"></i>
-                            </a>
+                        @if (Model.isSessionUserProfile) {
+                            if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on")
+                            {
+                                <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "off" })">
+                                    <i class="fa fa-close text-red"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "on" })">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            }
                         }
                     </div>
                 </div>
@@ -176,7 +194,7 @@
                     <hr>
 
                     <strong><i class="fa fa-pencil margin-r-5"></i> Mot de passe</strong>
-                    @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on")
+                    @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
                     {
                         <br />
                         <a href="@Url.Action("EditPassword", "Profile")">
@@ -191,7 +209,7 @@
                     <hr>
 
                     <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                    @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on")
+                    @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
                     {
                         <form action="@Url.Action("UpdateInformationsForm", "Profile")" method="post">
                             <textarea class="form-control" rows="3" value="@(Model.CurrentUser.Item1.Note ?? String.Empty)" placeholder=""></textarea>
@@ -224,18 +242,20 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Contact</h3>
                     <div class="pull-right box-tools">
-                        @if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on")
-                        {
-                            <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "off" })">
-                                <i class="fa fa-close text-red"></i>
-                            </a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "on" })">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                        }
+                        @if (Model.isSessionUserProfile) { 
+                            if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on")
+                            {
+                                <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "off" })">
+                                    <i class="fa fa-close text-red"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "on" })">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            }
+                         }
                     </div>
                 </div>
 
@@ -243,7 +263,7 @@
 
                     <strong><i class="fa fa-pencil margin-r-5"></i> Telephone</strong>
                     <p>
-                        @if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on")
+                        @if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on" && Model.isSessionUserProfile)
                         {
                             <form action="@Url.Action("UpdateContactForm", "Profile")" method="post">
                                 <div class="input-group">
@@ -256,7 +276,7 @@
                                 </div>
                             </form>
                         }
-                        else if (Model.CurrentUser.Item1.Phone_Number.Length > 0)
+                        else if (Model.CurrentUser.Item1.Phone_Number != null && Model.CurrentUser.Item1.Phone_Number.Length > 0)
                         {
                             <a href="tel:@Model.CurrentUser.Item1.Phone_Number">@Model.CurrentUser.Item1.Phone_Number</a>
                         }
@@ -270,7 +290,7 @@
 
                         <strong><i class="fa fa-pencil margin-r-5"></i> Email</strong>
                         <p>
-                            <a href="maito:@Model.CurrentUser.Item1.Email">@Model.CurrentUser.Item1.Email</a>
+                            <a href="mailto:@Model.CurrentUser.Item1.Email">@Model.CurrentUser.Item1.Email</a>
                         </p>
 
                     </div>
@@ -285,17 +305,20 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Mon permis de conduire</h3>
                         <div class="pull-right box-tools">
-                            @if (!(renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm))
+                            @if (Model.isSessionUserProfile)
                             {
-                                <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "on" })">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                            }
-                            @if (renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm)
-                            {
-                                <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "off" })">
-                                    <i class="fa fa-close text-red"></i>
-                                </a>
+                                if (!(renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm))
+                                {
+                                    <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "on" })">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                }
+                                if (renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm)
+                                {
+                                    <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "off" })">
+                                        <i class="fa fa-close text-red"></i>
+                                    </a>
+                                }
                             }
                         </div>
                     </div>
@@ -303,7 +326,7 @@
                     <div class="box-body">
                         <div class="col-md-6" style="margin-top: 10px">
                             @{
-                                if (renderDrivingLicenceRectoForm)
+                                if (renderDrivingLicenceRectoForm && Model.isSessionUserProfile)
                                 {
                                     <form action="@Url.Action("AddDrivingLicence", "Profile")" method="post" enctype="multipart/form-data" runat="server">
                                         <div class="form-group">
@@ -327,7 +350,7 @@
                         </div>
                         <div class="col-md-6" style="margin-top: 10px">
                             @{
-                                if (renderDrivingLicenceVersoForm)
+                                if (renderDrivingLicenceVersoForm && Model.isSessionUserProfile)
                                 {
                                     <form action="@Url.Action("AddDrivingLicence", "Profile")" method="post" enctype="multipart/form-data" runat="server">
                                         <div class="form-group">
@@ -362,9 +385,12 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Mon véhicule personnel</h3>
                         <div class="pull-right box-tools">
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            @if (Model.isSessionUserProfile)
+                            {
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            }
                         </div>
                     </div>
 

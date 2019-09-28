@@ -66,6 +66,7 @@
     <Compile Include="CompanyMapping.cs" />
     <Compile Include="EventEngine.cs" />
     <Compile Include="ICompanyEngine.cs" />
+    <Compile Include="INotificationEngine.cs" />
     <Compile Include="Interface\IActionEngine.cs" />
     <Compile Include="Interface\IEventEngine.cs" />
     <Compile Include="Interface\IPasswordResetTokenEngine.cs" />
@@ -128,10 +129,15 @@
     <Compile Include="Interface\IStopOverTypeEngine.cs" />
     <Compile Include="Interface\ICarEngine.cs" />
     <Compile Include="Mapping\EventMapping.cs" />
+    <Compile Include="Mapping\NotificationMapping.cs" />
     <Compile Include="Mapping\PasswordResetTokenMapping.cs" />
     <Compile Include="Mapping\RequestBookingMapping.cs" />
     <Compile Include="Mapping\StopOverTypeMapping.cs" />
     <Compile Include="Mapping\UserMapping.cs" />
+    <Compile Include="Notification.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationEngine.cs" />
     <Compile Include="PasswordResetToken.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -215,6 +221,9 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Event_List_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Notification_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_PasswordResetToken_get_Result.cs">

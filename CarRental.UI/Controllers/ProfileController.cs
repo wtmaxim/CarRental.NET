@@ -36,9 +36,10 @@ namespace CarRental.UI.Controllers
          * GET: Profile
          * Page d'index du profile de l'utilisateur
          */
-        public ActionResult Index()
+        public ActionResult Index(int? idUser)
         {
-            int idCurrentUser = (int)Session["userId"];
+            int idCurrentUser = idUser == null ? (int)Session["userId"] : (int)idUser;
+            bool isMyProfile = idUser == null ? true : false;
             UserDTO user = userLogic.Get(idCurrentUser);
             // RoleDTO role = roleLogic.List().Find(r => r.Id == user.Id_Role);
             RoleDTO role = new RoleDTO();
@@ -46,7 +47,8 @@ namespace CarRental.UI.Controllers
 
             ProfileIndexViewModel vm = new ProfileIndexViewModel
             {
-                CurrentUser = new Tuple<UserDTO, CompanyDTO, RoleDTO>(user, company, role)
+                CurrentUser = new Tuple<UserDTO, CompanyDTO, RoleDTO>(user, company, role),
+                isSessionUserProfile = isMyProfile
             };
 
             if (TempData["ErrorModal"] != null)

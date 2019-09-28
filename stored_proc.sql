@@ -451,4 +451,27 @@ BEGIN
 	SELECT *
 	FROM Company
 END
+GO
 
+-- Notification - List
+CREATE PROCEDURE usp_Notification_List
+AS
+BEGIN
+select * from [Notification]
+order by CreationDate desc
+END
+GO
+
+-- Ajout d'une notification
+CREATE PROCEDURE usp_Notification_Insert
+	@IdUser int,
+	@IsRead tinyint,
+	@IsForAdmin tinyint,
+	@IsForNewRequest tinyint,
+	@IdBooking int
+AS
+BEGIN
+	INSERT INTO [Notification] (IdUser, IsRead, IsForAdmin, IsForNewRequest, IdBooking) 
+	VALUES (@IdUser, @IsRead, @IsForAdmin, @IsForNewRequest, @IdBooking)
+END
+GO

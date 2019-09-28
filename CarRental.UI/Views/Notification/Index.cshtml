@@ -1,0 +1,148 @@
+﻿@model CarRental.UI.ViewsModels.Notification.NotificationIndexViewModel
+@{
+    ViewBag.Title = "Index";
+
+    @functions{
+        string displayTime(DateTime notifCreationDate)
+        {
+            var retour = "";
+            var diff = DateTime.Now.Subtract(notifCreationDate);
+            if (diff.Days != 0)
+            {
+                retour = diff.Days == 1 ? diff.Days + " jour" : diff.Days + " jours";
+            }
+            else if (diff.Hours != 0)
+            {
+                retour = diff.Hours + "h" + diff.Minutes;
+            }
+            else
+            {
+                retour = diff.Minutes + " mins";
+            }
+            return retour;
+        }
+    }
+}
+
+<section class="content-header">
+    <h1>
+        Vos notifications
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="timeline">
+
+                @if (Model.Notifications != null && Model.Notifications.Count > 0)
+                {
+                    // Initialisation de l'entête
+                    bool wasForUser = Model.Notifications.First().notification.IsForAdmin == 0;
+                    if (wasForUser)
+                    {
+                        <li class="time-label">
+                            <span>Utilisateur</span>
+                        </li>
+                    }
+                    else if (!wasForUser)
+                    {
+                        <li class="time-label">
+                            <span>Administrateur</span>
+                        </li>
+                    }
+
+                    // Affichage pour chacune des notifications
+                    int i = 0;
+                    foreach (var notifTuple in Model.Notifications)
+                    {
+                        // Initialisation et affichage de l'entête
+                        if (notifTuple.notification.IsForAdmin == 0 && !wasForUser && i > 0)
+                        {
+                            wasForUser = true;
+                            <li class="time-label">
+                                <span>Utilisateur</span>
+                            </li>
+                        }
+                        else if (notifTuple.notification.IsForAdmin == 1 && wasForUser && i > 0)
+                        {
+                            wasForUser = false;
+                            <li class="time-label">
+                                <span>Administrateur</span>
+                            </li>
+                        }
+
+                        // Cas Administrateur : pour une nouvelle demande de déplacement
+                        if (notifTuple.notification.IsForNewRequest == 1 && notifTuple.notification.IsForAdmin == 1)
+                        {
+                            <li>
+                                <i class="fa fa-check bg-yellow"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <h3 class="timeline-header no-border">
+                                        Nouvelle <a href="">demande de déplacement</a> de
+                                        <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
+                                        pour @notifTuple.departureCity vous incluant a été enregistrée
+                                    </h3>
+                                </div>
+                            </li>
+                        }
+                        // Cas Utilisateur : pour une nouvelle demande de déplacement
+                        else if (notifTuple.notification.IsForNewRequest == 1 && notifTuple.notification.IsForAdmin == 0)
+                        {
+                            <li>
+                                <i class="fa fa-check bg-yellow"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <h3 class="timeline-header no-border">
+                                        Nouvelle <a href="#">demande de déplacement</a> de
+                                        <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
+                                        pour @notifTuple.departureCity
+                                    </h3>
+                                </div>
+                            </li>
+                        }
+                        // Cas Utilisateur : pour une personne ajoutée à une demande de déplacement
+                        else if (notifTuple.notification.IsForNewRequest == 0 && notifTuple.notification.IsForAdmin == 0)
+                        {
+                            <li>
+                                <i class="fa fa-map-pin bg-green"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <h3 class="timeline-header no-border">
+                                        <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
+                                        s'est ajouté à votre <a href="#">demande de déplacement sur @notifTuple.departureCity</a>
+                                    </h3>
+                                </div>
+                            </li>
+                        }
+                        // Cas Utilisateur : pour une personne ajoutée à une demande de déplacement
+                        else if (notifTuple.notification.IsForNewRequest == 0 && notifTuple.notification.IsForAdmin == 1)
+                        {
+                            <li>
+                                <i class="fa fa-map-pin bg-green"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <h3 class="timeline-header no-border">
+                                        <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
+                                        s'est ajouté à votre <a href="#">demande de déplacement sur @notifTuple.departureCity</a>
+                                    </h3>
+                                </div>
+                            </li>
+                        }
+
+                        i++;
+                    }
+
+                }
+                else
+                {
+                    <span>Aucune notification pour l'instant.</span>
+                }
+
+            </ul>
+        </div>
+    </div>
+</section>
