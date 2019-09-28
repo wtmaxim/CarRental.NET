@@ -34,8 +34,8 @@ namespace CarRental.DAL
         public virtual ICollection<Booking> Booking { get; set; }
         public virtual CarModel CarModel { get; set; }
         public virtual Company Company { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Event { get; set; }
+        public virtual User User { get; set; }
     }
 }
