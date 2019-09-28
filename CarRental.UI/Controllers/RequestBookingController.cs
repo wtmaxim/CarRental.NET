@@ -1,5 +1,6 @@
 ﻿using CarRental.BLL;
 using CarRental.Model;
+using CarRental.UI.ViewsModels.RequestBooking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,25 @@ namespace CarRental.UI.Controllers
             userBookingLogic = new UserBookingLogic();
         }
 
-        [HttpPost]
-        public ActionResult AddRequestBooking(RequestBookingDTO _requestBooking, int[] passagers, int driver, int driver2, StopOverDTO stopOver)
+        [HttpGet]
+        public ActionResult Insert(RequestBookingDTO _requestBooking, int[] passagers, int? driver, int? driver2, StopOverDTO stopOver)
         {
-            RequestBookingDTO requestBooking = requestBookingLogic.Insert(_requestBooking);
-            BookingDTO booking = bookingLogic.Insert(null, null, requestBooking.id);
+            RequestBookingInsertViewsModel vm = new RequestBookingInsertViewsModel();
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult Insert()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddRequestBooking(RequestBookingDTO requestBooking, int[] passagers, int driver, int driver2, StopOverDTO stopOver, int addressDeparture, int addressArrival)
+        {
+            RequestBookingDTO requestBooking2 = requestBookingLogic.Insert(requestBooking);
+            BookingDTO booking = bookingLogic.Insert(null, null, requestBooking2.id);
 
             // Ajout des passagers
             for (int i = 0; i < passagers.Length; i++)

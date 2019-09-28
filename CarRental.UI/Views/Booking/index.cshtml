@@ -76,8 +76,7 @@
                     </div>
 
                     <div class="form-group">
-                        <select class="form-control select2" multiple="multiple"
-                                data-placeholder="Catégorie du déplacement" style="width: 100%;">
+                        <select class="form-control select2" multiple="multiple" data-placeholder="Catégorie du déplacement" style="width: 100%;">
                             <option>Technique</option>
                             <option>Formation</option>
                             <option>Evenement</option>
@@ -107,12 +106,12 @@
 
                     <div class="row">
                         <div class="col-xs-6">
-                            <button id="defAddressDepBtn" type="button" class="btn btn-block btn-default">
+                            <button id="buttonAddressAutoDeparture" type="button" class="btn btn-block btn-default">
                                 Adresse prédéfinie
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button id="manAddressDepBtn" type="button" class="btn btn-block btn-default link">
+                            <button id="buttonAddressManualDeparture" type="button" class="btn btn-block btn-default link">
                                 Adresse manuelle
                             </button>
                         </div>
@@ -120,8 +119,7 @@
                     <br>
 
                     <div class="form-group" id="DropDownListAddressDeparture">
-                        <select class="form-control select2" multiple="multiple"
-                                data-placeholder="Adresse prédéfinie" style="width: 100%;">
+                        <select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
                             <option value="1">Campus de Nantes</option>
                             <option value="2">Campus de Nantes Faraday</option>
                             <option value="3">Campus de Rennes</option>
@@ -149,20 +147,19 @@
 
                     <div class="row form-group">
                         <div class="col-xs-6">
-                            <button id="buttonAddressAuto" type="button" class="btn btn-block btn-default">
+                            <button id="buttonAddressAutoArrival" type="button" class="btn btn-block btn-default">
                                 Adresse prédéfinie
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button id="buttonAddressMan" type="button" class="btn btn-block btn-default link">
+                            <button id="buttonAddressManualArrival" type="button" class="btn btn-block btn-default link">
                                 Adresse manuelle
                             </button>
                         </div>
                     </div>
 
                     <div class="form-group" id="DropDownListAddressArrival">
-                        <select class="form-control select2" multiple="multiple"
-                                data-placeholder="Adresse prédéfinie" style="width: 100%;">
+                        <select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
                             <option value="1">Campus de Nantes</option>
                             <option value="2">Campus de Nantes Faraday</option>
                             <option value="3">Campus de Rennes</option>
@@ -171,7 +168,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group" id="manAddressRetTxt">
+                    <div class="form-group" id="InputAddressArrival">
                         <input id="InputAddressArrival" type="text" class="form-control">
                     </div>
 
@@ -182,7 +179,7 @@
                 <a class="btn btn-app">
                     <i class="fa fa-mail-reply"></i> Annuler
                 </a>
-                <a class="btn btn-app" href="./my_rents_AllOptions.html">
+                <a class="btn btn-app" href="@Url.Action("Insert", "RequestBooking")">
                     <i class="fa fa-edit"></i> Plus d'options
                 </a>
                 <a class="btn btn-app bg-olive">
@@ -196,6 +193,10 @@
 @section Scripts {
     <script>
         $(function () {
+
+            toogleClickAutoAddressDeparture();
+            toogleClickAutoAddressArrival();
+
             $('#datetimepicker1').datetimepicker({
                 locale: 'fr'
             });
@@ -233,9 +234,8 @@
             stopOver.Departure_Date = new Date($('#Departure_Date').val());
             stopOver.Arrival_Date = new Date($('#Arrival_Date').val());
 
-            var addressDeparture = $("DropDownListAddressDeparture > option:selected").attr("value");
-            var addressArrival = $("DropDownListAddressArrival > option:selected").attr("value");
-
+            var addressDeparture = $("#DropDownListAddressDeparture option:selected").val();
+            var addressArrival = $("#DropDownListAddressArrival option:selected").val();
             var passagers = $('#DropDownListPassagers').val();
 
             return { requestBooking: requestBooking, passagers: passagers, driver: driver, driver2: driver2, stopOver: stopOver, addressDeparture: addressDeparture, addressArrival: addressArrival };
@@ -253,10 +253,12 @@
             console.log("Date Depart : " + data.stopOver.Departure_Date + " Address depart : " + data.addressDeparture + " Date retour : " + data.stopOver.Arrival_Date + " Address Retour : " + data.addressArrival);
             console.log("Conducteur : " + data.driver + " Conducteur retour " + data.driver2  + " Raison " + data.requestBooking.reason + " Véhicule perso dispo : " + data.requestBooking.isPersonalCarAvailable);
 
-            @*$.ajax({
+            
+
+            $.ajax({
                 type: "POST",
                 url: '@Url.Action("AddRequestBooking", "RequestBooking")',
-                data: '{requestBooking: ' + JSON.stringify(requestBooking) + ', passagers: ' + JSON.stringify(passagers) + ', driver: ' + JSON.stringify(driver) +', driver2: ' + JSON.stringify(driver2) +', stopOver: ' + JSON.stringify(stopOver) +'}',
+                data: '{requestBooking: ' + JSON.stringify(data.requestBooking) + ', passagers: ' + JSON.stringify(data.passagers) + ', driver: ' + JSON.stringify(data.driver) + ', driver2: ' + JSON.stringify(data.driver2) + ', stopOver: ' + JSON.stringify(data.stopOver) + ', addressDeparture: ' + JSON.stringify(data.addressDeparture) + ', addressArrival: ' + JSON.stringify(data.addressArrival)+'}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -268,7 +270,41 @@
                 error: function (response) {
                     alert(response.responseText);
                 }
-            });*@
+            });
+        }
+
+        $(document)
+            .on('click', "#buttonAddressAutoDeparture", toogleClickAutoAddressDeparture)
+            .on('click', "#buttonAddressManualDeparture", toogleClickManualAddressDeparture)
+            .on('click', "#buttonAddressAutoArrival", toogleClickAutoAddressArrival)
+            .on('click', "#buttonAddressManualArrival", toogleClickManualAddressArrival)
+
+        function toogleClickAutoAddressDeparture() {
+            $("#InputAddressDeparture").hide();
+            $("#DropDownListAddressDeparture").show();
+            $("#buttonAddressAutoDeparture").prop('disabled', true);
+            $("#buttonAddressManualDeparture").prop('disabled', false);
+        }
+
+        function toogleClickManualAddressDeparture() {
+            $("#DropDownListAddressDeparture").hide();
+            $("#InputAddressDeparture").show();
+            $("#buttonAddressAutoDeparture").prop('disabled', false);
+            $("#buttonAddressManualDeparture").prop('disabled', true);
+        }
+
+        function toogleClickAutoAddressArrival() {
+            $("#InputAddressArrival").hide();
+            $("#DropDownListAddressArrival").show();
+            $("#buttonAddressAutoArrival").prop('disabled', true);
+            $("#buttonAddressManualArrival").prop('disabled', false);
+        }
+
+        function toogleClickManualAddressArrival() {
+            $("#DropDownListAddressArrival").hide();
+            $("#InputAddressArrival").show();
+            $("#buttonAddressAutoArrival").prop('disabled', false);
+            $("#buttonAddressManualArrival").prop('disabled', true);
         }
 
         function handleStatusChanged() {

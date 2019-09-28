@@ -144,6 +144,7 @@
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
+    <Compile Include="ViewsModels\RequestBooking\RequestBookingInsertViewsModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE.min.css" />
@@ -2069,12 +2070,12 @@
     <Content Include="Views\Car\_ListCars.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\_FormAddStopOver.cshtml" />
+    <Content Include="Views\RequestBooking\Insert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ViewsModels\Reservation\" />
     <Folder Include="Views\Configuration\" />
-    <Folder Include="Views\RequestBooking\" />
     <Folder Include="Views\Utilisateurs\" />
   </ItemGroup>
   <ItemGroup>
