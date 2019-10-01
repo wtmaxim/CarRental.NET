@@ -22,7 +22,6 @@ namespace CarRental.DAL
             this.UserBooking = new HashSet<UserBooking>();
             this.Role = new HashSet<Role>();
             this.PasswordResetToken = new HashSet<PasswordResetToken>();
-            this.Notification = new HashSet<Notification>();
         }
     
         public int Id { get; set; }
@@ -48,7 +47,5 @@ namespace CarRental.DAL
         public virtual ICollection<Role> Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PasswordResetToken> PasswordResetToken { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification { get; set; }
     }
 }
