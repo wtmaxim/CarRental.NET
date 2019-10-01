@@ -134,9 +134,6 @@
     <Compile Include="Mapping\RequestBookingMapping.cs" />
     <Compile Include="Mapping\StopOverTypeMapping.cs" />
     <Compile Include="Mapping\UserMapping.cs" />
-    <Compile Include="Notification.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="NotificationEngine.cs" />
     <Compile Include="PasswordResetToken.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
@@ -221,9 +218,6 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Event_List_Result.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="usp_Notification_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_PasswordResetToken_get_Result.cs">
