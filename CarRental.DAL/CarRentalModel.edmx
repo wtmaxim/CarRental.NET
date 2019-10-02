@@ -1651,7 +1651,6 @@
             <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Notification_List" EntitySet="Notification" ReturnType="Collection(CarRental.DAL.Notification)" />
-          <FunctionImport Name="usp_Company_List1" ReturnType="Collection(CarRental.DAL.usp_Company_List1_Result2)" />
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -2486,16 +2485,8 @@
           <FunctionImportMapping FunctionImportName="usp_Notification_Insert" FunctionName="CarRentalModel.Store.usp_Notification_Insert" />
           <FunctionImportMapping FunctionImportName="usp_Notification_List" FunctionName="CarRentalModel.Store.usp_Notification_List">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Company_List1" FunctionName="CarRentalModel.Store.usp_Company_List">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CarRental.DAL.usp_Company_List1_Result2">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="id_Address" ColumnName="id_Address" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Action_List_By_Role" FunctionName="CarRentalModel.Store.usp_Action_List_By_Role" />
+          <FunctionImportMapping FunctionImportName="usp_Company_List" FunctionName="CarRentalModel.Store.usp_Company_List" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

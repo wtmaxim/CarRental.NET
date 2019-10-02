@@ -149,6 +149,7 @@
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
     <Compile Include="ViewsModels\Notification\NotificationIndexViewModel.cs" />
     <Compile Include="ViewsModels\Profile\ProfileIndexViewModel.cs" />
+    <Compile Include="ViewsModels\Role\RoleEditViewModel.cs" />
     <Compile Include="ViewsModels\Utilisateur\UtilisateurIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
