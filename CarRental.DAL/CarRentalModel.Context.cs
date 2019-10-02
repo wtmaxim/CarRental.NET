@@ -48,6 +48,7 @@ namespace CarRental.DAL
         public virtual DbSet<UserBooking> UserBooking { get; set; }
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -941,6 +942,41 @@ namespace CarRental.DAL
                 new ObjectParameter("roleId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", mergeOption, roleIdParameter);
+        }
+    
+        public virtual int usp_Notification_Insert(Nullable<int> idUser, Nullable<byte> isRead, Nullable<byte> isForAdmin, Nullable<byte> isForNewRequest, Nullable<int> idBooking)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            var isReadParameter = isRead.HasValue ?
+                new ObjectParameter("IsRead", isRead) :
+                new ObjectParameter("IsRead", typeof(byte));
+    
+            var isForAdminParameter = isForAdmin.HasValue ?
+                new ObjectParameter("IsForAdmin", isForAdmin) :
+                new ObjectParameter("IsForAdmin", typeof(byte));
+    
+            var isForNewRequestParameter = isForNewRequest.HasValue ?
+                new ObjectParameter("IsForNewRequest", isForNewRequest) :
+                new ObjectParameter("IsForNewRequest", typeof(byte));
+    
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idBookingParameter);
+        }
+    
+        public virtual ObjectResult<Notification> usp_Notification_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List");
+        }
+    
+        public virtual ObjectResult<Notification> usp_Notification_List(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
         }
     }
 }

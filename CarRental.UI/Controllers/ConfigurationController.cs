@@ -21,28 +21,45 @@ namespace CarRental.UI.Controllers
         }
 
         /// <summary>
-        /// GET: Configuration
+        /// Affiche la page de configuration
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
         {
-            List <Tuple<RoleDTO, List<ActionDTO>>> RoleActionTupleList = new List<Tuple<RoleDTO, List<ActionDTO>>>();
-
-            List<RoleDTO> roles = roleLogic.List();
-
-            foreach(RoleDTO role in roles)
-            {
-                List<ActionDTO> actions = actionLogic.get_Role_Actions(role);
-
-                RoleActionTupleList.Add(new Tuple<RoleDTO, List<ActionDTO>>(role, actions));
-            }
-
+            
             ConfigurationIndexViewModel Civm = new ConfigurationIndexViewModel()
             {
-                RoleWithActionTuple = RoleActionTupleList
+                RoleWithActionTuple = GetListTupleRoleAction(roleLogic.List())
             };
             
             return View(Civm);
+        }
+        /// <summary>
+        /// Crée un Tuple contenant le role et sa liste d'action.
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        [NonAction]        
+        public Tuple <RoleDTO, List<ActionDTO>> GetTupleRoleAction(RoleDTO role)
+        {
+            List<ActionDTO> actions = actionLogic.get_Role_Actions(role);
+            return new Tuple<RoleDTO, List<ActionDTO>>(role, actions);
+        }
+        /// <summary>
+        /// Crée une liste de tuple contenant les roles et leurs actions.
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        [NonAction]
+        public List<Tuple<RoleDTO, List<ActionDTO>>> GetListTupleRoleAction(List<RoleDTO> roles)
+        {
+            List<Tuple<RoleDTO, List<ActionDTO>>> RoleActionTupleList = new List<Tuple<RoleDTO, List<ActionDTO>>>();
+            foreach(RoleDTO role in roles)
+            {
+              RoleActionTupleList.Add(  GetTupleRoleAction(role));
+            }
+
+            return RoleActionTupleList;
         }
     }
 }

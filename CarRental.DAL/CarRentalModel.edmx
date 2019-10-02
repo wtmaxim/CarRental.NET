@@ -116,6 +116,18 @@
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IsRead" Type="tinyint" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsForAdmin" Type="tinyint" Nullable="false" />
+          <Property Name="IsForNewRequest" Type="tinyint" Nullable="false" />
+          <Property Name="IdBooking" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PasswordResetToken">
           <Key>
             <PropertyRef Name="Id" />
@@ -375,6 +387,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Notificat__IdBoo__23F3538A">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="IdBooking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__IdUse__22FF2F51">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__RequestBo__Id_St__34C8D9D1">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="RequestBooking" Type="Self.RequestBooking" Multiplicity="*" />
@@ -573,6 +609,14 @@
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_Notification_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUser" Type="int" Mode="In" />
+          <Parameter Name="IsRead" Type="tinyint" Mode="In" />
+          <Parameter Name="IsForAdmin" Type="tinyint" Mode="In" />
+          <Parameter Name="IsForNewRequest" Type="tinyint" Mode="In" />
+          <Parameter Name="IdBooking" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Notification_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_PasswordResetToken_DELETE_BY_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
@@ -680,6 +724,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cost" EntityType="Self.Cost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PasswordResetToken" EntityType="Self.PasswordResetToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestBooking" EntityType="Self.RequestBooking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -742,6 +787,14 @@
           <AssociationSet Name="FK__Event__Licence_P__60A75C0F" Association="Self.FK__Event__Licence_P__60A75C0F">
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__IdBoo__23F3538A" Association="Self.FK__Notificat__IdBoo__23F3538A">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__IdUse__22FF2F51" Association="Self.FK__Notificat__IdUse__22FF2F51">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
           <AssociationSet Name="FK__RequestBo__Id_St__34C8D9D1" Association="Self.FK__RequestBo__Id_St__34C8D9D1">
             <End Role="Status" EntitySet="Status" />
@@ -838,6 +891,7 @@
           <NavigationProperty Name="Cost" Relationship="Self.FK__Cost__Id_Booking__66603565" FromRole="Booking" ToRole="Cost" />
           <NavigationProperty Name="StopOver" Relationship="Self.FK__StopOver__Id_Boo__6D0D32F4" FromRole="Booking" ToRole="StopOver" />
           <NavigationProperty Name="UserBooking" Relationship="Self.FK__UserBooki__Id_Bo__628FA481" FromRole="Booking" ToRole="UserBooking" />
+          <NavigationProperty Name="Notification" Relationship="CarRental.DAL.FK__Notificat__IdBoo__23F3538A" FromRole="Booking" ToRole="Notification" />
         </EntityType>
         <EntityType Name="Car">
           <Key>
@@ -1001,6 +1055,7 @@
           <NavigationProperty Name="UserBooking" Relationship="Self.FK__UserBooki__Id_Us__6383C8BA" FromRole="User" ToRole="UserBooking" />
           <NavigationProperty Name="Role" Relationship="Self.user_role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="PasswordResetToken" Relationship="CarRental.DAL.FK_PasswordResetToken_UserID" FromRole="User" ToRole="PasswordResetToken" />
+          <NavigationProperty Name="Notification" Relationship="CarRental.DAL.FK__Notificat__IdUse__22FF2F51" FromRole="User" ToRole="Notification" />
         </EntityType>
         <EntityType Name="user_address">
           <Key>
@@ -1576,8 +1631,25 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_Action_List_By_Role" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)">
-            <Parameter Name="roleId" Mode="In" Type="Int32" />
+          <Parameter Name="roleId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Notification" EntityType="CarRental.DAL.Notification" />
+          <AssociationSet Name="FK__Notificat__IdBoo__23F3538A" Association="CarRental.DAL.FK__Notificat__IdBoo__23F3538A">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__IdUse__22FF2F51" Association="CarRental.DAL.FK__Notificat__IdUse__22FF2F51">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <FunctionImport Name="usp_Notification_Insert">
+            <Parameter Name="IdUser" Mode="In" Type="Int32" />
+            <Parameter Name="IsRead" Mode="In" Type="Byte" />
+            <Parameter Name="IsForAdmin" Mode="In" Type="Byte" />
+            <Parameter Name="IsForNewRequest" Mode="In" Type="Byte" />
+            <Parameter Name="IdBooking" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Notification_List" EntitySet="Notification" ReturnType="Collection(CarRental.DAL.Notification)" />
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1981,6 +2053,53 @@
           <Property Type="Int32" Name="Id1" Nullable="false" />
           <Property Type="String" Name="Libelle1" Nullable="false" MaxLength="255" />
         </ComplexType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="IsRead" Type="Byte" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsForAdmin" Type="Byte" Nullable="false" />
+          <Property Name="IsForNewRequest" Type="Byte" Nullable="false" />
+          <Property Name="IdBooking" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="CarRental.DAL.FK__Notificat__IdBoo__23F3538A" FromRole="Notification" ToRole="Booking" />
+          <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__Notificat__IdUse__22FF2F51" FromRole="Notification" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Notificat__IdBoo__23F3538A">
+          <End Type="CarRental.DAL.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="CarRental.DAL.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="IdBooking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__IdUse__22FF2F51">
+          <End Type="CarRental.DAL.User" Role="User" Multiplicity="1" />
+          <End Type="CarRental.DAL.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_Notification_List_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="IdUser" Nullable="false" />
+          <Property Type="Byte" Name="IsRead" Nullable="false" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="IsForAdmin" Nullable="false" />
+          <Property Type="Byte" Name="IsForNewRequest" Nullable="false" />
+          <Property Type="Int32" Name="IdBooking" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2329,6 +2448,22 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Action_List_By_Role" FunctionName="CarRentalModel.Store.usp_Action_List_By_Role">
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Notification">
+            <EntityTypeMapping TypeName="CarRental.DAL.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="IdBooking" ColumnName="IdBooking" />
+                <ScalarProperty Name="IsForNewRequest" ColumnName="IsForNewRequest" />
+                <ScalarProperty Name="IsForAdmin" ColumnName="IsForAdmin" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Notification_Insert" FunctionName="CarRentalModel.Store.usp_Notification_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Notification_List" FunctionName="CarRentalModel.Store.usp_Notification_List">
           </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>

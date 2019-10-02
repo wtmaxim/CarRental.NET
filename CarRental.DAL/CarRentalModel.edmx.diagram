@@ -50,6 +50,9 @@
         <AssociationConnector Association="CarRental.DAL.FK__Event__Licence_P__54CB950F" />
         <EntityTypeShape EntityType="CarRental.DAL.PasswordResetToken" Width="1.5" PointX="10.5" PointY="14.375" />
         <AssociationConnector Association="CarRental.DAL.FK_PasswordResetToken_UserID" />
+        <EntityTypeShape EntityType="CarRental.DAL.Notification" Width="1.5" PointX="15.75" PointY="14.125" />
+        <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdBoo__23F3538A" />
+        <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdUse__22FF2F51" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
