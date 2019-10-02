@@ -475,3 +475,14 @@ BEGIN
 	VALUES (@IdUser, @IsRead, @IsForAdmin, @IsForNewRequest, @IdBooking)
 END
 GO
+-- récupère les actions selon l'id du role
+Create procedure usp_Action_List_By_Role 
+@roleId int
+as
+BEGIN
+Select * from action
+Inner join ActionRole on Action.Id= ActionRole.Id_Action
+Inner join [Role] on  ActionRole.Id_Role = Role.Id
+where Role.Id=@roleId;
+END
+GO
