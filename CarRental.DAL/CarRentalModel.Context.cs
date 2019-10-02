@@ -978,5 +978,10 @@ namespace CarRental.DAL
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
         }
+    
+        public virtual ObjectResult<usp_Company_List1_Result2> usp_Company_List1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Company_List1_Result2>("usp_Company_List1");
+        }
     }
 }

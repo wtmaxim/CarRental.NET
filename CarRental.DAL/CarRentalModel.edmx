@@ -111,7 +111,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Libelle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Libelle" Type="char" MaxLength="255" Nullable="false" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
@@ -387,7 +387,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdBoo__23F3538A">
+        <Association Name="FK__Notificat__IdBoo__370627FE">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -399,7 +399,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__22FF2F51">
+        <Association Name="FK__Notificat__IdUse__361203C5">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -606,6 +606,7 @@
         <Function Name="usp_CarModel_List_idMake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMake" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_Company_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Event_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
         </Function>
@@ -788,11 +789,11 @@
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdBoo__23F3538A" Association="Self.FK__Notificat__IdBoo__23F3538A">
+          <AssociationSet Name="FK__Notificat__IdBoo__370627FE" Association="Self.FK__Notificat__IdBoo__370627FE">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__22FF2F51" Association="Self.FK__Notificat__IdUse__22FF2F51">
+          <AssociationSet Name="FK__Notificat__IdUse__361203C5" Association="Self.FK__Notificat__IdUse__361203C5">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
@@ -1650,6 +1651,7 @@
             <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Notification_List" EntitySet="Notification" ReturnType="Collection(CarRental.DAL.Notification)" />
+          <FunctionImport Name="usp_Company_List1" ReturnType="Collection(CarRental.DAL.usp_Company_List1_Result2)" />
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1743,7 +1745,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="true" />
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
@@ -2100,6 +2102,27 @@
           <Property Type="Byte" Name="IsForNewRequest" Nullable="false" />
           <Property Type="Int32" Name="IdBooking" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="usp_Company_List1_Result2">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="id_Address" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_Action_List_By_Role1_Result">
+          <Property Type="String" Name="Libelle" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+          <Property Type="Int32" Name="Id_Action" Nullable="false" />
+          <Property Type="Int32" Name="Id1" Nullable="false" />
+          <Property Type="String" Name="Libelle1" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_Action_List_By_Role1_Result1">
+          <Property Type="String" Name="Libelle" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Id_Role" Nullable="false" />
+          <Property Type="Int32" Name="Id_Action" Nullable="false" />
+          <Property Type="Int32" Name="Id1" Nullable="false" />
+          <Property Type="String" Name="Libelle1" Nullable="false" MaxLength="255" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2447,8 +2470,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Action_List_By_Role" FunctionName="CarRentalModel.Store.usp_Action_List_By_Role">
-          </FunctionImportMapping>
           <EntitySetMapping Name="Notification">
             <EntityTypeMapping TypeName="CarRental.DAL.Notification">
               <MappingFragment StoreEntitySet="Notification">
@@ -2465,6 +2486,16 @@
           <FunctionImportMapping FunctionImportName="usp_Notification_Insert" FunctionName="CarRentalModel.Store.usp_Notification_Insert" />
           <FunctionImportMapping FunctionImportName="usp_Notification_List" FunctionName="CarRentalModel.Store.usp_Notification_List">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Company_List1" FunctionName="CarRentalModel.Store.usp_Company_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRental.DAL.usp_Company_List1_Result2">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id_Address" ColumnName="id_Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Action_List_By_Role" FunctionName="CarRentalModel.Store.usp_Action_List_By_Role" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

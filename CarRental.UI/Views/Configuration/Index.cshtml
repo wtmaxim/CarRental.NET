@@ -1,11 +1,12 @@
-﻿
+﻿@model CarRental.UI.ViewsModels.Configuration.ConfigurationIndexViewModel
 @{
     ViewBag.Title = "Configuration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!-- Main content -->
 <section class="content">
+   <h1> Page de configuration </h1>
+  
 
     <!-- Roles config -->
     <div class="box box-primary collapsed-box">
@@ -26,48 +27,28 @@
                     <th>Droits</th>
                     <th class="col-md-1">Actions</th>
                 </tr>
+
+                @foreach (var tuple in Model.ListRoleWithActionTuple)
+                {
                 <tr>
-                    <td>Administrateur</td>
+                    <td>@Html.Raw(tuple.Item1.Libelle)</td>
                     <td>
-                        Lecture des Utilisateurs,
-                        Ecriture des Utilisateurs,
-                        Lecture des réservations,
-                        Ecriture des réservations
+                        @foreach (var action in tuple.Item2)
+                        {
+                            @Html.Raw(action.Libelle+",")
+                        }
                     </td>
                     <td class="actionsBtn">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Collaborateur</td>
-                    <td>
-                        Lecture des réservations,
-                        Ecriture des réservations,
-                        Lecture des utilisateurs
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="./editRole.html">
+                        <a href="@Url.Action("Edit", "Role", new { id = tuple.Item1.Id })">
                             <i class="fa fa-edit text-info"></i>
                         </a>
-                        <a href="#">
+                        <a href="@Url.Action("Delete", "Role", new { id = tuple.Item1.Id })">
                             <i class="fa fa-trash text-danger"></i>
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <td>Autre role</td>
-                    <td>
-                        Lecture des réservations,
-                        Ecriture des réservations
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
+                }
+                
             </table>
 
         </div>
@@ -331,3 +312,4 @@
 
         </div>
     </div>
+</section>

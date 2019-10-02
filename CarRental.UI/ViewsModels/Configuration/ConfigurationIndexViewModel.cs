@@ -9,7 +9,7 @@ namespace CarRental.UI.ViewsModels.Configuration
     public class ConfigurationIndexViewModel
     {
        
-       public List<Tuple<RoleDTO, List<ActionDTO>>> RoleWithActionTuple {get; set;}
+       public List<Tuple<RoleDTO, List<ActionDTO>>> ListRoleWithActionTuple {get; set;}
 
     }
 }

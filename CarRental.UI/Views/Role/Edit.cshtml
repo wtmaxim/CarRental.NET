@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Edition d'un role";
+}
+
+<section class="content-header">
+    <h1>
+        Modifier un role
+    </h1>
+</section>
+
+<section class="content">
+
+    <div class="row">
+
+        <!-- role -->
+        <div class="col-sm-12">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Collaborateur</h3>
+                </div>
+                <div class="box-body">
+
+                    <div class="actionsChangedTxt">
+                        <p class="text-center">
+                            <span class="title">Elements modifiés</span>
+                            <br><br>
+
+                            <b>Lecture des utilisateurs</b>
+                            <span>Non</span>
+
+                            <br>
+
+                            <b>Ecriture des utilisateurs</b>
+                            <span>Oui</span>
+                        </p>
+                    </div>
+
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="workPlace" class="col-sm-3 control-label">Action</label>
+
+                            <div class="col-sm-9">
+                                <select class="form-control select2" id="workPlace" multiple="multiple"
+                                        data-placeholder="Action" style="width: 100%;">
+                                    <option>Lecture des utilisateurs</option>
+                                    <option>Ecriture des utilisateurs</option>
+                                    <option>Lecture des réservations</option>
+                                    <option>Ecriture des réservations</option>
+                                    <option>Validation des réservations</option>
+                                    <option>Lecture des configurations</option>
+                                    <option>Ecriture des configurations</option>
+                                    <option>Lecture des véhicules</option>
+                                    <option>Ecriture des véhicules</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-9">
+                                <label class="radio-inline"> <input type="radio" name="radio" id="yes" value="y" checked> Oui </label>
+                                <label class="radio-inline"> <input type="radio" name="radio" id="no" value="n"> Non </label>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- bottom buttons 1 -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box-footer text-center">
+                <div class="col-sm-6">
+                    <br>
+                    <a class="btn btn-default btn-block" href="./config.html">
+                        <i class="fa fa-mail-reply"></i> Annuler
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <br>
+                    <a class="btn bg-olive btn-block" href="#">
+                        <i class="fa fa-check"></i> Valider
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
