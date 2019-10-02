@@ -924,5 +924,23 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_Get_By_Email_And_Password2_Result>("usp_User_Get_By_Email_And_Password2", emailParameter, passwordParameter);
         }
+    
+        public virtual ObjectResult<Action> usp_Action_List_By_Role(Nullable<int> roleId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", roleIdParameter);
+        }
+    
+        public virtual ObjectResult<Action> usp_Action_List_By_Role(Nullable<int> roleId, MergeOption mergeOption)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", mergeOption, roleIdParameter);
+        }
     }
 }

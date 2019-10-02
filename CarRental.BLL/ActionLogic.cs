@@ -46,5 +46,22 @@ namespace CarRental.BLL
             }
             return array.ToArray();
         }
+        /// <summary>
+        /// Retourne la liste des action d'un role.
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public List<ActionDTO> get_Role_Actions(RoleDTO role)
+        {
+            try
+            {
+                return actionEngine.Get_Role_Actions(role.Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

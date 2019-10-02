@@ -13,7 +13,13 @@ namespace CarRental.DAL.Interface
         /// Retourne les Actions d'un utilisateur à partir de son email.
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>Retourne les Actions d'un utilisateur à partir de son email.</returns>
+        /// <returns></returns>
         List<ActionDTO> Get_User_Actions(string email);
+        /// <summary>
+        /// Retourne la liste des action selon l'id du role.
+        /// </summary>
+        /// <param name="idRole"></param>
+        /// <returns></returns>
+        List<ActionDTO> Get_Role_Actions(int idRole);
     }
 }

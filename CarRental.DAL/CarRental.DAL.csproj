@@ -175,6 +175,9 @@
     <Compile Include="user_address.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Action_List_By_Role_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Action_List_By_User_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

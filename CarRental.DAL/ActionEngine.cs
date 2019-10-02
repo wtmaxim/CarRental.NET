@@ -16,6 +16,28 @@ namespace CarRental.DAL
         {
             actionMapping = new ActionMapping();
         }
+
+        /// <summary>
+        /// Retourne la liste d'actions d'un role
+        /// </summary>
+        /// <param name="idRole"></param>
+        /// <returns></returns>
+        public List<ActionDTO> Get_Role_Actions(int idRole)
+        {
+            try
+            {
+                using(CarRentalEntities context = new CarRentalEntities())
+                {
+                    return actionMapping.MapToListActionDTO(context.usp_Action_List_By_Role(idRole).ToList());
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Retourne les Actions d'un utilisateur à partir de son email.
         /// </summary>
