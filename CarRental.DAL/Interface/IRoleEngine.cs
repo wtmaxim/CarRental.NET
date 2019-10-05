@@ -21,6 +21,12 @@ namespace CarRental.DAL
         /// <returns></returns>
         RoleDTO Get(string roleName);
         /// <summary>
+        /// Obtient une role selon son id depuis la base de données.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        RoleDTO Get_By_ID(int id);
+        /// <summary>
         /// Permet d'obtenir tout les rôles d'un utilisateur.
         /// </summary>
         /// <param name="mail"></param>

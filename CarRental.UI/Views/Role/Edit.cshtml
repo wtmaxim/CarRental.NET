@@ -1,4 +1,4 @@
-﻿
+﻿@model CarRental.UI.ViewsModels.Role.RoleEditViewModel
 @{
     ViewBag.Title = "Edition d'un role";
 }
@@ -17,53 +17,33 @@
         <div class="col-sm-12">
             <div class="box box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Collaborateur</h3>
+                    <h3 class="box-title">Edition du role : @Html.Raw(Model.RoleWithActionTuple.Item1.Libelle)</h3>
                 </div>
                 <div class="box-body">
+                    @foreach (var action in Model.allActions)
+                    {
+                        foreach (var thisRoleAction in Model.RoleWithActionTuple.Item2)
+                        {
+                            if (action.Id == thisRoleAction.Id)
 
-                    <div class="actionsChangedTxt">
-                        <p class="text-center">
-                            <span class="title">Elements modifiés</span>
-                            <br><br>
-
-                            <b>Lecture des utilisateurs</b>
-                            <span>Non</span>
-
-                            <br>
-
-                            <b>Ecriture des utilisateurs</b>
-                            <span>Oui</span>
-                        </p>
-                    </div>
-
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="workPlace" class="col-sm-3 control-label">Action</label>
-
-                            <div class="col-sm-9">
-                                <select class="form-control select2" id="workPlace" multiple="multiple"
-                                        data-placeholder="Action" style="width: 100%;">
-                                    <option>Lecture des utilisateurs</option>
-                                    <option>Ecriture des utilisateurs</option>
-                                    <option>Lecture des réservations</option>
-                                    <option>Ecriture des réservations</option>
-                                    <option>Validation des réservations</option>
-                                    <option>Lecture des configurations</option>
-                                    <option>Ecriture des configurations</option>
-                                    <option>Lecture des véhicules</option>
-                                    <option>Ecriture des véhicules</option>
-                                </select>
+                            {
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)" checked>
+                                    <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
+                                </div>
+                            }
+                            else
+                            {
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)">
+                                <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
                             </div>
-                        </div>
+                                }
+                            }
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-sm-9">
-                                <label class="radio-inline"> <input type="radio" name="radio" id="yes" value="y" checked> Oui </label>
-                                <label class="radio-inline"> <input type="radio" name="radio" id="no" value="n"> Non </label>
-                            </div>
-                        </div>
-                    </form>
+                        }
+
+                    
 
                 </div>
             </div>

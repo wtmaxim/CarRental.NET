@@ -110,6 +110,23 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
+        /// Obtien un role selon son id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public RoleDTO Get_By_Id(int id)
+        {
+            try
+            {
+                return roleEngine.Get_By_ID(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="mail"></param>

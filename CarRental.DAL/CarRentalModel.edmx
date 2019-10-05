@@ -111,7 +111,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Libelle" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="Libelle" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
@@ -387,7 +387,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdBoo__370627FE">
+        <Association Name="FK__Notificat__IdBoo__23F3538A">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -399,7 +399,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__361203C5">
+        <Association Name="FK__Notificat__IdUse__22FF2F51">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -569,6 +569,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_Action_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Action_List_By_Role" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="roleId" Type="int" Mode="In" />
         </Function>
@@ -789,11 +790,11 @@
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdBoo__370627FE" Association="Self.FK__Notificat__IdBoo__370627FE">
+          <AssociationSet Name="FK__Notificat__IdBoo__23F3538A" Association="Self.FK__Notificat__IdBoo__23F3538A">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__361203C5" Association="Self.FK__Notificat__IdUse__361203C5">
+          <AssociationSet Name="FK__Notificat__IdUse__22FF2F51" Association="Self.FK__Notificat__IdUse__22FF2F51">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
@@ -1586,7 +1587,7 @@
           <FunctionImport Name="usp_Role_GET" EntitySet="Role" ReturnType="Collection(CarRental.DAL.Role)">
           <Parameter Name="roleName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="usp_Role_Get_By_ID" ReturnType="Collection(CarRental.DAL.usp_Role_Get_By_ID_Result)">
+          <FunctionImport Name="usp_Role_Get_By_ID" EntitySet="Role" ReturnType="Collection(CarRental.DAL.Role)">
           <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Role_GET_List_Users_BY_Libelle" EntitySet="User" ReturnType="Collection(CarRental.DAL.User)">
@@ -1651,6 +1652,7 @@
             <Parameter Name="IdBooking" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Notification_List" EntitySet="Notification" ReturnType="Collection(CarRental.DAL.Notification)" />
+          <FunctionImport Name="usp_Action_List" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)" />
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1744,7 +1746,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="true" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
@@ -2122,6 +2124,10 @@
           <Property Type="Int32" Name="Id1" Nullable="false" />
           <Property Type="String" Name="Libelle1" Nullable="false" MaxLength="255" />
         </ComplexType>
+        <ComplexType Name="usp_Action_List_Result">
+          <Property Type="String" Name="Libelle" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2431,12 +2437,6 @@
           <FunctionImportMapping FunctionImportName="usp_Role_GET" FunctionName="CarRentalModel.Store.usp_Role_GET">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Role_Get_By_ID" FunctionName="CarRentalModel.Store.usp_Role_Get_By_ID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CarRental.DAL.usp_Role_Get_By_ID_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Role_GET_List_Users_BY_Libelle" FunctionName="CarRentalModel.Store.usp_Role_GET_List_Users_BY_Libelle">
           </FunctionImportMapping>
@@ -2487,6 +2487,8 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Action_List_By_Role" FunctionName="CarRentalModel.Store.usp_Action_List_By_Role" />
           <FunctionImportMapping FunctionImportName="usp_Company_List" FunctionName="CarRentalModel.Store.usp_Company_List" />
+          <FunctionImportMapping FunctionImportName="usp_Action_List" FunctionName="CarRentalModel.Store.usp_Action_List">
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

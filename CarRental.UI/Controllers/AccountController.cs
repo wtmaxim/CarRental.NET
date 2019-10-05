@@ -53,7 +53,6 @@ namespace CarRental.UI.Controllers
             }
             else
             {
-                userDetails.Role = roleLogic.GetUserRoles(userDetails.Email);
                 Session["userID"] = userDetails.Id;
                 Session["firstname"] = userDetails.Firstname;
                 Session["lastName"] = userDetails.Lastname;

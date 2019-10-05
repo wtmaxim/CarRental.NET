@@ -17,6 +17,23 @@ namespace CarRental.DAL
             userMapping = new UserMapping();
         }
 
+        public RoleDTO Get_By_ID(int id)
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                   return roleMapping.MapToRoleDTO(context.usp_Role_Get_By_ID(id).FirstOrDefault());
+                }
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         void IRoleEngine.Add(string roleName)
         {
@@ -78,6 +95,7 @@ namespace CarRental.DAL
                 }
             }
         }
+ 
 
         List<RoleDTO> IRoleEngine.Get_User_Roles(string mail)
         {

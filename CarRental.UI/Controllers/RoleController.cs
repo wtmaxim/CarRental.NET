@@ -1,4 +1,5 @@
 ﻿using CarRental.BLL;
+using CarRental.Model;
 using CarRental.UI.ViewsModels.Role;
 using System;
 using System.Collections.Generic;
@@ -26,13 +27,17 @@ namespace CarRental.UI.Controllers
         {
             if (id != 0)
             {
-             
+                RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
+                List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
+                RoleEditViewModel REVM = new RoleEditViewModel()
+                {
+                    RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
+                    allActions = actionLogic.List()
+                };
 
+                return View(REVM);
             }
-            RoleEditViewModel REVM = new RoleEditViewModel()
-            {
-
-            };
+            
             return View();
         }
 

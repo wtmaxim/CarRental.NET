@@ -24,7 +24,6 @@ namespace CarRental.Model
         [Compare("Password", ErrorMessage = "Les mots de passe ne correspondent pas")]
         public string confirmPassword { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RoleDTO> Role { get; set; }
         public byte Is_Active { get; set; }
         public string Job { get; set; }
         public string Note { get; set; }

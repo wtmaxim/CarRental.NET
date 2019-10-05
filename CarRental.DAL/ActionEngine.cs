@@ -58,5 +58,23 @@ namespace CarRental.DAL
                 }
             }
         }
+
+        public List<ActionDTO> List()
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                    return actionMapping.MapToListActionDTO(context.usp_Action_List().ToList());
+                }
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -754,13 +754,22 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_GET", mergeOption, roleNameParameter);
         }
     
-        public virtual ObjectResult<usp_Role_Get_By_ID_Result> usp_Role_Get_By_ID(Nullable<int> id)
+        public virtual ObjectResult<Role> usp_Role_Get_By_ID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
                 new ObjectParameter("Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Role_Get_By_ID_Result>("usp_Role_Get_By_ID", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_Get_By_ID", idParameter);
+        }
+    
+        public virtual ObjectResult<Role> usp_Role_Get_By_ID(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Role>("usp_Role_Get_By_ID", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<User> usp_Role_GET_List_Users_BY_Libelle(string roleName)
@@ -977,6 +986,16 @@ namespace CarRental.DAL
         public virtual ObjectResult<Notification> usp_Notification_List(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
+        }
+    
+        public virtual ObjectResult<Action> usp_Action_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List");
+        }
+    
+        public virtual ObjectResult<Action> usp_Action_List(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List", mergeOption);
         }
     }
 }

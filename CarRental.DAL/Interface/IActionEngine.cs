@@ -21,5 +21,10 @@ namespace CarRental.DAL.Interface
         /// <param name="idRole"></param>
         /// <returns></returns>
         List<ActionDTO> Get_Role_Actions(int idRole);
+        /// <summary>
+        /// Retourne la liste des actions de l'application.
+        /// </summary>
+        /// <returns></returns>
+        List<ActionDTO> List();
     }
 }

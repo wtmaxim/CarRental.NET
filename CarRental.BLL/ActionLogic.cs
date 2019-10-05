@@ -33,6 +33,24 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
+        /// Retourne la liste de toute les actions
+        /// </summary>
+        /// <returns></returns>
+        public List<ActionDTO> List()
+        {
+            try
+            {
+                return actionEngine.List();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        /// <summary>
         /// Convertit une liste d'action en tableau de chaine de caractères contenant les libellé de chaque action.
         /// </summary>
         /// <param name="actions"></param>
