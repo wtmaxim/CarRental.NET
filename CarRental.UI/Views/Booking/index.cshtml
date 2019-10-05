@@ -26,12 +26,7 @@
 
                     <!-- driver column -->
                     <div class="form-group">
-                        <select class="form-control select2" id="SelectedDriverId" data-placeholder="Entrez le conducteur" style="width: 100%;">
-                            <option value="1">Paul Martin</option>
-                            <option value="2">Blanche Denis</option>
-                            <option value="3">Frédéric Veilleux</option>
-                            <option value="4">Paul Raymond</option>
-                        </select>
+                        @Html.DropDownListFor(m => m.userIdDriver, Model.Users, new { id = "SelectedDriverId", @class = "form-control select2" })
                     </div>
 
                     <div class="form-group">
@@ -50,12 +45,7 @@
                     </div>
 
                     <div class="form-group" id="driverChange">
-                        <select class="form-control select2" id="DropDownListDriverChange" data-placeholder="Conducteur retour" style="width: 100%;">
-                            <option value="1">Paul Martin</option>
-                            <option value="2">Blanche Denis</option>
-                            <option value="3">Frédéric Veilleux</option>
-                            <option value="4">Paul Raymond</option>
-                        </select>
+                        @Html.DropDownListFor(m => m.userIdDriver2, Model.Users, new { id = "DropDownListDriverChange", @class = "form-control select2" })
                     </div>
 
                     <div class="form-group">
@@ -68,12 +58,7 @@
                     </div>
 
                     <div class="form-group">
-                        <select class="form-control select2" id="DropDownListPassagers" multiple="multiple" data-placeholder="Entrez les passagers" style="width: 100%;">
-                            <option value="1">Paul Martin</option>
-                            <option value="2">Blanche Denis</option>
-                            <option value="3">Frédéric Veilleux</option>
-                            <option value="4">Paul Raymond</option>
-                        </select>
+                        @Html.ListBoxFor(m => m.userIdPassagers, Model.Users, new { id = "DropDownListPassagers", @class = "form-control select2" })
                     </div>
 
                     <div class="form-group">
@@ -86,6 +71,7 @@
 
                     <div class="form-group">
                         <input type="text" class="form-control" id="reason" placeholder="Raison du déplacement">
+                        <div class="callout callout-danger" id="error-reason">La raison du déplacement est obligatoire</div>
                     </div>
 
                 </div>
@@ -101,6 +87,7 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="callout callout-danger" id="error-Departure_Date">La date de départ est obligatoire</div>
                     </div>
 
                     <p id="link"></p>
@@ -120,14 +107,9 @@
                     <br>
 
                     <div class="form-group" id="DropDownListAddressDeparture">
-                        @Html.DropDownListFor(m => m.AddressDepartureId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" } )
-                        @*<select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
-                            <option value="1">Campus de Nantes</option>
-                            <option value="2">Campus de Nantes Faraday</option>
-                            <option value="3">Campus de Rennes</option>
-                            <option value="4">Campus de Niort</option>
-                            <option>Autre</option>
-                        </select>*@
+                        @Html.DropDownListFor(m => m.AddressDepartureId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" })
+                        <div class="callout callout-danger" id="error-DropDownListAddressDeparture">L'addresse de départ est obligatoire</div>
+
                     </div>
 
                     <div class="form-group" id="manAddressDepTxt">
@@ -144,8 +126,9 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
+                        <div class="callout callout-danger" id="error-Arrival_Date">La date de retour est obligatoire</div>
+
                     </div>
-                    
 
                     <div class="row form-group">
                         <div class="col-xs-6">
@@ -162,14 +145,8 @@
 
                     <div class="form-group" id="DropDownListAddressArrival">
                         @Html.DropDownListFor(m => m.AddressArrivalId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" })
+                        <div class="callout callout-danger" id="error-DropDownListAddressArrival">L'addresse de retour est obligatoire</div>
 
-                        @*<select class="form-control select2" data-placeholder="Adresse prédéfinie" style="width: 100%;">
-                            <option value="1">Campus de Nantes</option>
-                            <option value="2">Campus de Nantes Faraday</option>
-                            <option value="3">Campus de Rennes</option>
-                            <option value="4">Campus de Niort</option>
-                            <option>Autre</option>
-                        </select>*@
                     </div>
 
                     <div class="form-group" id="InputAddressArrival">
@@ -192,10 +169,101 @@
             </div>
         </div>
     </div>
+
+    <div id="tempaltediv">
+        @Html.Action("PartialListBooking", "Booking")
+    </div>
+
+
 </section>
+
+
+<div style="display: none" id="template" class="box ">
+    <div class="box-header with-border">
+        <strong><i class="fa fa-arrow-right margin-r-5"></i></strong> &nbsp;
+        <span class="label label-danger" id="statusLibelle"></span>
+        <p class="text-muted" id="stopOverDatesAddressesLocality"></p>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Départ</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Chauffeur</dt>
+                        <dd>
+                            <a href="#" class="profile" id="driver1Profil"></a>
+                        </dd>
+                        <dt>Passagers</dt>
+                        <dd id="ddPasagers">
+                        </dd>
+                        <dt>Adresse</dt>
+                        <dd id="ddAddressDeparture">
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-left"></i>
+
+                    <h3 class="box-title">Arrivée</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Chauffeur</dt>
+                        <dd>
+                            <a href="#" class="profile" id="driver2Profil"></a>
+                        </dd>
+                        <dt>Passagers</dt>
+                        <dd id="ddPasagers">
+                        </dd>
+                        <dt>Adresse</dt>
+                        <dd id="ddAddressArrival">
+                            
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrows-h"></i>
+                    <h3 class="box-title">General</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Raison du déplacement</dt>
+                        <dd>Devfest de Nantes 2019</dd>
+                        <dt>Catégorie</dt>
+                        <dd>Evenement</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
     <script>
+        var isValidForm = false;
+        var i = 0;
         $(function () {
 
             toogleClickAutoAddressDeparture();
@@ -211,14 +279,80 @@
 
             handleStatusChanged();
 
+            handleErrorMessage();
+
             $("#DemanderReservation").on('click', function () {
+                validationForm();
                 addRequestBooking();
             });
 
             $(".select2").select2({
                 theme: "bootstrap"
-            });            
+            });
         });
+
+        function handleErrorMessage() {
+            $("#error-reason").hide();
+            $("#error-DropDownListAddressArrival").hide();
+            $("#error-DropDownListAddressDeparture").hide();
+            $("#error-Departure_Date").hide();
+            $("#error-Arrival_Date").hide();
+        }
+
+        function validationForm() {
+            var errorReason = 1;
+            var errorDropDownListAddressArrival = 1;
+            var errorDropDownListAddressDeparture = 1;
+            var errorDepartureDate = 1;
+            var errorArrivalDate = 1;
+
+            if ($("#reason").val() == "") {
+                errorReason = 1;
+                $("#error-reason").show();
+            } else {
+                errorReason = 0;
+                $("#error-reason").hide();
+            }
+
+            if ($("#DropDownListAddressArrival option:selected").val() == "") {
+                errorDropDownListAddressArrival = 1;
+                $("#error-DropDownListAddressArrival").show();
+            } else {
+                errorDropDownListAddressArrival = 0;
+                $("#error-DropDownListAddressArrival").hide();
+            }
+
+            if ($("#DropDownListAddressDeparture option:selected").val() == "") {
+                errorDropDownListAddressDeparture = 1;
+                $("#error-DropDownListAddressDeparture").show();
+            } else {
+                errorDropDownListAddressDeparture = 0;
+                $("#error-DropDownListAddressDeparture").hide();
+            }
+
+            if ($("#Departure_Date").val() == "") {
+                errorDepartureDate = 1;
+                $("#error-Departure_Date").show();
+            } else {
+                errorDepartureDate = 0;
+                $("#error-Departure_Date").hide();
+            }
+
+            if ($("#Arrival_Date").val() == "") {
+                errorArrivalDate = 1;
+                $("#error-Arrival_Date").show();
+            } else {
+                errorArrivalDate = 0;
+                $("#error-Arrival_Date").hide();
+            }
+
+            if (errorReason == 1 || errorDropDownListAddressArrival == 1 || errorDropDownListAddressDeparture == 1 || errorDepartureDate == 1 || errorArrivalDate == 1) {
+                isValidForm = false;
+            } else {
+                isValidForm = true;
+            }
+
+        }
 
         function getValues() {
 
@@ -249,32 +383,60 @@
 
         }
 
+         function getDateFromAspNetFormat(date){
+            const re = /-?\d+/;
+            const m = re.exec(date);
+            return parseInt(m[0], 10);
+        }
+
         function addRequestBooking() {
 
-            var data = getValues();
+            if (isValidForm == true) {
+                var data = getValues();
 
-            console.log("Passager : " + data.passagers);
-            console.log("Date Depart : " + data.stopOver.Departure_Date + " Address depart : " + data.addressDeparture + " Date retour : " + data.stopOver.Arrival_Date + " Address Retour : " + data.addressArrival);
-            console.log("Conducteur : " + data.driver + " Conducteur retour " + data.driver2  + " Raison " + data.requestBooking.reason + " Véhicule perso dispo : " + data.requestBooking.isPersonalCarAvailable);
+                console.log("valideFOrm " + isValidForm);
 
-            
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddRequestBooking", "RequestBooking")',
+                    data: '{requestBooking: ' + JSON.stringify(data.requestBooking) + ', _passagers: ' + JSON.stringify(data.passagers) + ', driver: ' + JSON.stringify(data.driver) + ', driver2: ' + JSON.stringify(data.driver2) + ', stopOver: ' + JSON.stringify(data.stopOver) + ', addressDeparture: ' + JSON.stringify(data.addressDeparture) + ', addressArrival: ' + JSON.stringify(data.addressArrival)+'}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
 
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("AddRequestBooking", "RequestBooking")',
-                data: '{requestBooking: ' + JSON.stringify(data.requestBooking) + ', passagers: ' + JSON.stringify(data.passagers) + ', driver: ' + JSON.stringify(data.driver) + ', driver2: ' + JSON.stringify(data.driver2) + ', stopOver: ' + JSON.stringify(data.stopOver) + ', addressDeparture: ' + JSON.stringify(data.addressDeparture) + ', addressArrival: ' + JSON.stringify(data.addressArrival)+'}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert("Ajoutée");
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            });
+                        console.log(response);
+
+                        var dateDeparture = new Date(getDateFromAspNetFormat(response.stopOver.Departure_Date));
+                        var dateArrival = new Date(getDateFromAspNetFormat(response.stopOver.Arrival_Date));
+
+                        i = i + 1;
+
+                        $tmc = $("#template").clone().prop('id', 'template-' + i).removeAttr('style');
+                        $("#statusLibelle", $tmc).text(response.status.Libelle);
+                        $("#stopOverDatesAddressesLocality", $tmc).text(moment(dateDeparture).format("DD/MM/YYYY") + " au " + moment(dateArrival).format("DD/MM/YYYY") + " - " + response.addressAller.Locality + " à " + response.addressRetour.Locality);
+                        $("#driver1Profil", $tmc).text(response.driverAller.Firstname + " " + response.driverAller.Lastname);
+                        $("#driver2Profil", $tmc).text(response.driverRetour.Firstname + " " + response.driverRetour.Lastname);
+
+                        
+                        for (var i = 0; i < response.passagers.length; i++) {
+                            $("#ddPasagers", $tmc).append("<a href='#' class='profile'>" + response.passagers[i].Firstname + " " + response.passagers[i].Lastname+"</a>");
+                        }
+
+                        $("#ddAddressArrival", $tmc).append("<a href='#'>" + response.addressRetour.Name + ", " + response.addressRetour.Route + " " + response.addressRetour.Postal_Code + " " + response.addressRetour.Locality);
+                        $("#ddAddressDeparture", $tmc).append("<a href='#'>" + response.addressAller.Name + ", " + response.addressAller.Route + " " + response.addressAller.Postal_Code + " " + response.addressAller.Locality);
+
+                        $tmc.appendTo("#tempaltediv");
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+            }
+
+
         }
 
         $(document)
@@ -313,7 +475,7 @@
 
         function handleStatusChanged() {
             $('#checkBoxDriverChange').on('change', function () {
-                toggleChangeConducteur();   
+                toggleChangeConducteur();
             });
             $('#checkBoxCoVoiturage').on('change', function () {
                 toggleChangeCoVoiturage();
@@ -325,7 +487,7 @@
                 $('#DropDownListPassagers').attr('disabled', true);
             } else {
                 $('#DropDownListPassagers').removeAttr('disabled');
-            }   
+            }
         }
 
         function toggleChangeConducteur() {
@@ -333,7 +495,7 @@
                 $('#DropDownListDriverChange').attr('disabled', true);
             } else {
                 $('#DropDownListDriverChange').removeAttr('disabled');
-            }   
+            }
         }
     </script>
 }

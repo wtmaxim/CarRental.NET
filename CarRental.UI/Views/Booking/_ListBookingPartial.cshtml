@@ -1,0 +1,105 @@
+﻿@model CarRental.UI.ViewsModels.Booking.BookingIndexViewsModel
+@using CarRental.Model;
+
+
+@foreach (Booking booking in Model.Bookings)
+{
+    <div class="box collapsed-box">
+        <div class="box-header with-border">
+            <strong><i class="fa fa-arrow-right margin-r-5"></i> @booking.requestBooking.CreateBy</strong> &nbsp;
+            <span class="label label-danger">@booking.status.Libelle</span>
+            <p class="text-muted">@booking.stopOver.Departure_Date au @booking.stopOver.Arrival_Date - @booking.addressAller.Locality à @booking.addressRetour.Locality</p>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <div class="col-sm-6">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+
+                        <i class="fa fa-arrow-right"></i>
+                        <h3 class="box-title">Départ</h3>
+                    </div>
+                    <div class="box-body">
+                        <dl class="dl-horizontal">
+                            <dt>Chauffeur</dt>
+                            <dd>
+                                <a href="#" class="profile">@booking.driverAller.Firstname @booking.driverAller.Lastname</a>
+                            </dd>
+                            <dt>Passagers</dt>
+                            <dd>
+                                @foreach (UserDTO user in booking.passagers)
+                                {
+                                    <a href="#" class="profile">@user.Firstname  @user.Lastname</a>
+                                }
+                            </dd>
+                            <dt>Adresse</dt>
+                            <dd>
+
+                                <a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">
+                                    @booking.addressAller.Name , @booking.addressAller.Route
+                                    @booking.addressAller.Postal_Code @booking.addressAller.Locality
+                                </a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-arrow-left"></i>
+
+                        <h3 class="box-title">Arrivée</h3>
+                    </div>
+                    <div class="box-body">
+                        <dl class="dl-horizontal">
+                            <dt>Chauffeur</dt>
+                            <dd>
+                                <a href="#" class="profile">@booking.driverRetour.Firstname @booking.driverRetour.Lastname</a>
+                            </dd>
+                            <dt>Passagers</dt>
+                            <dd>
+                                @foreach (UserDTO user in booking.passagers)
+                                {
+                                    <a href="#" class="profile">@user.Firstname  @user.Lastname</a>
+                                }
+                            </dd>
+                            <dt>Adresse</dt>
+                            <dd>
+                                <a href="https://www.google.com/maps/search/?api=1&query=eni+nantes" target="_blank">
+                                    @booking.addressRetour.Name , @booking.addressRetour.Route
+                                    @booking.addressRetour.Postal_Code @booking.addressRetour.Locality
+                                </a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-arrows-h"></i>
+                        <h3 class="box-title">General</h3>
+                    </div>
+                    <div class="box-body">
+                        <dl class="dl-horizontal">
+                            <dt>Raison du déplacement</dt>
+                            <dd>Devfest de Nantes 2019</dd>
+                            <dt>Catégorie</dt>
+                            <dd>Evenement</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

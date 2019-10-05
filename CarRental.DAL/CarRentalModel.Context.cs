@@ -37,18 +37,18 @@ namespace CarRental.DAL
         public virtual DbSet<CategoryCost> CategoryCost { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Cost> Cost { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
         public virtual DbSet<RequestBooking> RequestBooking { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StopOver> StopOver { get; set; }
         public virtual DbSet<StopOverAddress> StopOverAddress { get; set; }
         public virtual DbSet<StopOverType> StopOverType { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
-        public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
-        public virtual DbSet<User> User { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -430,9 +430,14 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_By_Email_And_Password", mergeOption, emailParameter, passwordParameter);
         }
     
-        public virtual int usp_User_List()
+        public virtual ObjectResult<User> usp_User_List()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_List");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List");
+        }
+    
+        public virtual ObjectResult<User> usp_User_List(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_List", mergeOption);
         }
     
         public virtual int usp_User_Update_Password(string password, string email)
@@ -850,7 +855,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
         }
     
-        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut)
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, Nullable<int> createBy)
         {
             var isPersonalCarAvailableParameter = isPersonalCarAvailable.HasValue ?
                 new ObjectParameter("isPersonalCarAvailable", isPersonalCarAvailable) :
@@ -864,10 +869,14 @@ namespace CarRental.DAL
                 new ObjectParameter("idStatut", idStatut) :
                 new ObjectParameter("idStatut", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Insert", isPersonalCarAvailableParameter, reasonParameter, idStatutParameter);
+            var createByParameter = createBy.HasValue ?
+                new ObjectParameter("createBy", createBy) :
+                new ObjectParameter("createBy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Insert", isPersonalCarAvailableParameter, reasonParameter, idStatutParameter, createByParameter);
         }
     
-        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, MergeOption mergeOption)
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, Nullable<int> createBy, MergeOption mergeOption)
         {
             var isPersonalCarAvailableParameter = isPersonalCarAvailable.HasValue ?
                 new ObjectParameter("isPersonalCarAvailable", isPersonalCarAvailable) :
@@ -881,7 +890,11 @@ namespace CarRental.DAL
                 new ObjectParameter("idStatut", idStatut) :
                 new ObjectParameter("idStatut", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Insert", mergeOption, isPersonalCarAvailableParameter, reasonParameter, idStatutParameter);
+            var createByParameter = createBy.HasValue ?
+                new ObjectParameter("createBy", createBy) :
+                new ObjectParameter("createBy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Insert", mergeOption, isPersonalCarAvailableParameter, reasonParameter, idStatutParameter, createByParameter);
         }
     
         public virtual int usp_UserBooking_Insert(Nullable<byte> isDriver, Nullable<byte> isGoing, Nullable<int> idBooking, Nullable<int> idUser)
@@ -903,6 +916,269 @@ namespace CarRental.DAL
                 new ObjectParameter("idUser", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UserBooking_Insert", isDriverParameter, isGoingParameter, idBookingParameter, idUserParameter);
+        }
+    
+        public virtual int usp_StopOverAddress_Insert(Nullable<int> idAddress, Nullable<int> idStopOver, Nullable<byte> isDeparture)
+        {
+            var idAddressParameter = idAddress.HasValue ?
+                new ObjectParameter("idAddress", idAddress) :
+                new ObjectParameter("idAddress", typeof(int));
+    
+            var idStopOverParameter = idStopOver.HasValue ?
+                new ObjectParameter("idStopOver", idStopOver) :
+                new ObjectParameter("idStopOver", typeof(int));
+    
+            var isDepartureParameter = isDeparture.HasValue ?
+                new ObjectParameter("isDeparture", isDeparture) :
+                new ObjectParameter("isDeparture", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_StopOverAddress_Insert", idAddressParameter, idStopOverParameter, isDepartureParameter);
+        }
+    
+        public virtual ObjectResult<StopOver> usp_StopOver_Insert(Nullable<System.DateTime> arrivalDate, Nullable<System.DateTime> departureDate, Nullable<int> idBooking, Nullable<int> idStopOverType)
+        {
+            var arrivalDateParameter = arrivalDate.HasValue ?
+                new ObjectParameter("ArrivalDate", arrivalDate) :
+                new ObjectParameter("ArrivalDate", typeof(System.DateTime));
+    
+            var departureDateParameter = departureDate.HasValue ?
+                new ObjectParameter("DepartureDate", departureDate) :
+                new ObjectParameter("DepartureDate", typeof(System.DateTime));
+    
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            var idStopOverTypeParameter = idStopOverType.HasValue ?
+                new ObjectParameter("IdStopOverType", idStopOverType) :
+                new ObjectParameter("IdStopOverType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOver>("usp_StopOver_Insert", arrivalDateParameter, departureDateParameter, idBookingParameter, idStopOverTypeParameter);
+        }
+    
+        public virtual ObjectResult<StopOver> usp_StopOver_Insert(Nullable<System.DateTime> arrivalDate, Nullable<System.DateTime> departureDate, Nullable<int> idBooking, Nullable<int> idStopOverType, MergeOption mergeOption)
+        {
+            var arrivalDateParameter = arrivalDate.HasValue ?
+                new ObjectParameter("ArrivalDate", arrivalDate) :
+                new ObjectParameter("ArrivalDate", typeof(System.DateTime));
+    
+            var departureDateParameter = departureDate.HasValue ?
+                new ObjectParameter("DepartureDate", departureDate) :
+                new ObjectParameter("DepartureDate", typeof(System.DateTime));
+    
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            var idStopOverTypeParameter = idStopOverType.HasValue ?
+                new ObjectParameter("IdStopOverType", idStopOverType) :
+                new ObjectParameter("IdStopOverType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOver>("usp_StopOver_Insert", mergeOption, arrivalDateParameter, departureDateParameter, idBookingParameter, idStopOverTypeParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_Insert(Nullable<byte> isPersonalCarUsed, Nullable<int> idRequestBooking, string licencePlate)
+        {
+            var isPersonalCarUsedParameter = isPersonalCarUsed.HasValue ?
+                new ObjectParameter("isPersonalCarUsed", isPersonalCarUsed) :
+                new ObjectParameter("isPersonalCarUsed", typeof(byte));
+    
+            var idRequestBookingParameter = idRequestBooking.HasValue ?
+                new ObjectParameter("idRequestBooking", idRequestBooking) :
+                new ObjectParameter("idRequestBooking", typeof(int));
+    
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_Insert", isPersonalCarUsedParameter, idRequestBookingParameter, licencePlateParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_Insert(Nullable<byte> isPersonalCarUsed, Nullable<int> idRequestBooking, string licencePlate, MergeOption mergeOption)
+        {
+            var isPersonalCarUsedParameter = isPersonalCarUsed.HasValue ?
+                new ObjectParameter("isPersonalCarUsed", isPersonalCarUsed) :
+                new ObjectParameter("isPersonalCarUsed", typeof(byte));
+    
+            var idRequestBookingParameter = idRequestBooking.HasValue ?
+                new ObjectParameter("idRequestBooking", idRequestBooking) :
+                new ObjectParameter("idRequestBooking", typeof(int));
+    
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_Insert", mergeOption, isPersonalCarUsedParameter, idRequestBookingParameter, licencePlateParameter);
+        }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_List_IdUser(Nullable<int> idUser)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List_IdUser", idUserParameter);
+        }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_List_IdUser(Nullable<int> idUser, MergeOption mergeOption)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List_IdUser", mergeOption, idUserParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_Get_idRequestBooking(Nullable<int> idRequestBooking)
+        {
+            var idRequestBookingParameter = idRequestBooking.HasValue ?
+                new ObjectParameter("idRequestBooking", idRequestBooking) :
+                new ObjectParameter("idRequestBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_Get_idRequestBooking", idRequestBookingParameter);
+        }
+    
+        public virtual ObjectResult<Booking> usp_Booking_Get_idRequestBooking(Nullable<int> idRequestBooking, MergeOption mergeOption)
+        {
+            var idRequestBookingParameter = idRequestBooking.HasValue ?
+                new ObjectParameter("idRequestBooking", idRequestBooking) :
+                new ObjectParameter("idRequestBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Booking>("usp_Booking_Get_idRequestBooking", mergeOption, idRequestBookingParameter);
+        }
+    
+        public virtual ObjectResult<StopOver> usp_StopOver_Get_idBooking(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOver>("usp_StopOver_Get_idBooking", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<StopOver> usp_StopOver_Get_idBooking(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StopOver>("usp_StopOver_Get_idBooking", mergeOption, idBookingParameter);
+        }
+    
+        public virtual ObjectResult<UserBooking> usp_UserBooking_ListPassagers_IdBooking(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserBooking>("usp_UserBooking_ListPassagers_IdBooking", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<UserBooking> usp_UserBooking_ListPassagers_IdBooking(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserBooking>("usp_UserBooking_ListPassagers_IdBooking", mergeOption, idBookingParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_ListDrivers(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_ListDrivers", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_ListDrivers(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_ListDrivers", mergeOption, idBookingParameter);
+        }
+    
+        public virtual ObjectResult<Status> usp_Status_Get(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Status>("usp_Status_Get", idParameter);
+        }
+    
+        public virtual ObjectResult<Status> usp_Status_Get(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Status>("usp_Status_Get", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_ListPassagers(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_ListPassagers", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_ListPassagers(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_ListPassagers", mergeOption, idBookingParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_GetDriver(Nullable<int> idBooking, Nullable<byte> isGoing)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            var isGoingParameter = isGoing.HasValue ?
+                new ObjectParameter("isGoing", isGoing) :
+                new ObjectParameter("isGoing", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GetDriver", idBookingParameter, isGoingParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_GetDriver(Nullable<int> idBooking, Nullable<byte> isGoing, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            var isGoingParameter = isGoing.HasValue ?
+                new ObjectParameter("isGoing", isGoing) :
+                new ObjectParameter("isGoing", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_GetDriver", mergeOption, idBookingParameter, isGoingParameter);
+        }
+    
+        public virtual ObjectResult<Address> usp_Address_GetAddress(Nullable<int> idBooking)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Address>("usp_Address_GetAddress", idBookingParameter);
+        }
+    
+        public virtual ObjectResult<Address> usp_Address_GetAddress(Nullable<int> idBooking, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Address>("usp_Address_GetAddress", mergeOption, idBookingParameter);
         }
     }
 }

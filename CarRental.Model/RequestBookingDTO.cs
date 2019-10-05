@@ -9,5 +9,6 @@ namespace CarRental.Model
         public DateTime Date { get; set; }
         public string Reason { get; set; }
         public int Id_Status { get; set; }
+        public int CreateBy { get; set; }
     }
 }

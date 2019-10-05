@@ -16,11 +16,12 @@ namespace CarRental.DAL
             bookingMapping = new BookingMapping();
         }
 
-        public void Insert(BookingDTO booking)
+        public BookingDTO Insert(BookingDTO _booking)
         {
             using (CarRentalEntities context = new CarRentalEntities())
             {
-                //context.usp_Booking_Insert(booking.Id, booking.id_Request_Booking, booking.is_Personal_Car_Used, booking.Licence_Plate);
+                Booking booking = context.usp_Booking_Insert(_booking.is_Personal_Car_Used, _booking.id_Request_Booking, _booking.Licence_Plate).FirstOrDefault();
+                return bookingMapping.MapToBookingDTO(booking);
             }
         }
 
@@ -42,5 +43,13 @@ namespace CarRental.DAL
             }
         }
 
+        public BookingDTO GetByRequestBooking(int idRequestBooking)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                Booking booking = context.usp_Booking_Get_idRequestBooking(idRequestBooking).FirstOrDefault();
+                return bookingMapping.MapToBookingDTO(booking);
+            }
+        }
     }
 }

@@ -197,5 +197,32 @@ namespace CarRental.DAL
             }
             */
         }
+
+        public List<UserDTO> ListDrivers(int idBooking)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                List<User> users = context.usp_User_ListDrivers(idBooking).ToList();
+                return UserMapping.MapToListUserDTO(users);
+            }
+        }
+
+        public List<UserDTO> ListPassagers(int idBooking)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                List<User> users = context.usp_User_ListPassagers(idBooking).ToList();
+                return UserMapping.MapToListUserDTO(users);
+            }
+        }
+
+        public UserDTO GetDriverByBooking(int idBooking, byte isGoing)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                User user = context.usp_User_GetDriver(idBooking, isGoing).FirstOrDefault();
+                return UserMapping.MapToUserDto(user);
+            }
+        }
     }
 }

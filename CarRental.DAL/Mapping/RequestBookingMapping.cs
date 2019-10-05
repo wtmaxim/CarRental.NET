@@ -17,7 +17,8 @@ namespace CarRental.DAL.Mapping
                 id = requestBooking.id,
                 Id_Status = requestBooking.Id_Status,
                 is_Personal_Car_Available = requestBooking.is_Personal_Car_Available,
-                Reason = requestBooking.Reason
+                Reason = requestBooking.Reason,
+                CreateBy = (int)requestBooking.CreateBy
             };
         }
 
@@ -33,7 +34,8 @@ namespace CarRental.DAL.Mapping
                     id = requestBooking.id,
                     Id_Status = requestBooking.Id_Status,
                     is_Personal_Car_Available = requestBooking.is_Personal_Car_Available,
-                    Reason = requestBooking.Reason
+                    Reason = requestBooking.Reason,
+                    CreateBy = (int)requestBooking.CreateBy
                 };
 
                 retour.Add(newRequestBooking);

@@ -12,20 +12,37 @@ namespace CarRental.UI.Controllers
     public class BookingController : Controller
     {
         private readonly BookingLogic bookingLogic;
+        private readonly RequestBookingLogic requestBookingLogic;
+        private readonly StopOverAddressLogic stopOverAddressLogic;
+        private readonly UserBookingLogic userBookingLogic;
+        private readonly StopOverLogic stopOverLogic;
         private readonly AdressLogic addressLogic;
+        private readonly UtilisateurLogic utilisateurLogic;
+        private readonly StatusLogic statusLogic;
 
         public BookingController()
         {
             bookingLogic = new BookingLogic();
+            requestBookingLogic = new RequestBookingLogic();
+            stopOverAddressLogic = new StopOverAddressLogic();
+            userBookingLogic = new UserBookingLogic();
+            stopOverLogic = new StopOverLogic();
             addressLogic = new AdressLogic();
+            utilisateurLogic = new UtilisateurLogic();
+            statusLogic = new StatusLogic();
         }
 
+        /// <summary>
+        /// - Récupérer STOPOverAddress
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
         public ActionResult Index()
         {
-
             BookingIndexViewsModel vm = new BookingIndexViewsModel();
 
             vm.Addresses = PopulateAddress();
+            vm.Users = PopulateUsers();
 
             return View(vm);
         }
@@ -45,6 +62,64 @@ namespace CarRental.UI.Controllers
             }
 
             return items;
+        }
+
+        private List<SelectListItem> PopulateUsers()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            List<UserDTO> users = utilisateurLogic.ListAll();
+
+            foreach (UserDTO user in users)
+            {
+                string fullName = user.Firstname + ' ' + user.Lastname;
+                items.Add(new SelectListItem
+                {
+                    Text = fullName,
+                    Value = user.Id.ToString()
+                }) ;
+            }
+
+            return items;
+        }
+
+        [ChildActionOnly]
+        public ActionResult PartialListBooking()
+        {
+            int id = (int)Session["userID"];
+            BookingIndexViewsModel vm = new BookingIndexViewsModel();
+            List<Booking> bookings = new List<Booking>();
+
+            foreach (RequestBookingDTO requestBooking in requestBookingLogic.List(id))
+            {
+                BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
+                StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
+                List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+                StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
+                StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
+                UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
+                UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
+                AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
+                AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+
+
+                bookings.Add(new Booking
+                {
+                    booking = booking,
+                    requestBooking = requestBooking,
+                    stopOver = stopOver,
+                    passagers = passagers,
+                    status = status,
+                    stopOverAddress = stopOverAddress,
+                    driverAller = driverAller,
+                    driverRetour = driverRetour,
+                    addressRetour = addressRetour,
+                    addressAller = addressAller
+                });
+            }
+
+            vm.Bookings = bookings;
+
+            return PartialView("_ListBookingPartial", vm);
         }
     }
 }

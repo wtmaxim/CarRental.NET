@@ -1,4 +1,6 @@
-﻿using CarRental.DAL;
+﻿using System;
+using System.Collections.Generic;
+using CarRental.DAL;
 using CarRental.DAL.Interface;
 using CarRental.Model;
 
@@ -22,6 +24,11 @@ namespace CarRental.BLL
         public RequestBookingDTO Get(int idBooking)
         {
             return requestBookingEngine.Get(idBooking);
+        }
+
+        public List<RequestBookingDTO> List(int idUser)
+        {
+            return requestBookingEngine.List(idUser);
         }
     }
 }

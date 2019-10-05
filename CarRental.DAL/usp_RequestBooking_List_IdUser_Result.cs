@@ -10,25 +10,14 @@
 namespace CarRental.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class RequestBooking
+    public partial class usp_RequestBooking_List_IdUser_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RequestBooking()
-        {
-            this.Booking = new HashSet<Booking>();
-        }
-    
         public int id { get; set; }
         public byte is_Personal_Car_Available { get; set; }
         public System.DateTime Date { get; set; }
         public string Reason { get; set; }
         public int Id_Status { get; set; }
         public Nullable<int> CreateBy { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Booking> Booking { get; set; }
-        public virtual Status Status { get; set; }
     }
 }

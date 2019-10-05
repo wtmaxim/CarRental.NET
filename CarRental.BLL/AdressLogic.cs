@@ -10,7 +10,7 @@ namespace CarRental.BLL
 {
     public class AdressLogic
     {
-        private readonly AdressEngine adressEngine;
+        private readonly IAdressEngine adressEngine;
         public AdressLogic()
         {
             adressEngine = new AdressEngine();
@@ -19,6 +19,11 @@ namespace CarRental.BLL
         public List<AddressDTO> List()
         {
             return adressEngine.List();
+        }
+
+        public AddressDTO GetAddress(int idBooking)
+        {
+            return adressEngine.GetAddress(idBooking);
         }
     }
 }

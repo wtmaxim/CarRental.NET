@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.DAL
+namespace CarRental.DAL.Interface
 {
-    public interface IAdressEngine
+    public interface IStatusEngine
     {
-        List<AddressDTO> List();
-        AddressDTO GetAddress(int idBooking);
+        StatusDTO Get(int id);
     }
 }

@@ -24,5 +24,14 @@ namespace CarRental.DAL
                 return addressMapping.MapToListAddressDTO(adresses);
             }
         }
+
+        public AddressDTO GetAddress(int idBooking)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                Address address = context.usp_Address_GetAddress(idBooking).FirstOrDefault();
+                return addressMapping.MapToAdddressDTO(address);
+            }
+        }
     }
 }

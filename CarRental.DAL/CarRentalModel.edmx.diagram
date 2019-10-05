@@ -4,56 +4,56 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1" ZoomLevel="78">
-        <EntityTypeShape EntityType="CarRental.DAL.Action" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Address" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Booking" Width="1.5" PointX="10.5" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Car" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.CarMake" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.CarModel" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.CarReport" Width="1.5" PointX="12.75" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.CategoryCost" Width="1.5" PointX="10.5" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Company" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Cost" Width="1.5" PointX="12.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.RequestBooking" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Role" Width="1.5" PointX="4.875" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.Status" Width="1.5" PointX="9.5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.StopOver" Width="1.5" PointX="15.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.StopOverAddress" Width="1.5" PointX="18" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.StopOverType" Width="1.5" PointX="13.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.user_address" Width="1.5" PointX="13.5" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarRental.DAL.UserBooking" Width="1.5" PointX="15.75" PointY="6.25" IsExpanded="true" />
-        <AssociationConnector Association="CarRental.DAL.FK__Company__id_Addr__4BAC3F29" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__StopOverA__id_Ad__71D1E811" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_ad__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__Booking__id_Requ__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__Booking__Licence__5EBF139D" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__CarReport__Id_Bo__74AE54BC" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__Cost__Id_Booking__66603565" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__StopOver__Id_Boo__6D0D32F4" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Bo__628FA481" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__Car__id_Car_Mode__5BE2A6F2" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_Company__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__CarModel__id_Car__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__Cost__Id_Categor__6754599E" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__RequestBo__Id_St__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__StopOver__Id_Sto__6E01572D" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.FK__StopOverA__Id_St__70DDC3D8" ManuallyRouted="false" />
-        <AssociationConnector Association="CarRental.DAL.ActionRole" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CarRental.DAL.Event" Width="1.5" PointX="5.125" PointY="14.125" />
-        <AssociationConnector Association="CarRental.DAL.FK__Event__Licence_P__54CB950F" />
-        <EntityTypeShape EntityType="CarRental.DAL.PasswordResetToken" Width="1.5" PointX="10.5" PointY="14.375" />
-        <EntityTypeShape EntityType="CarRental.DAL.Notification" Width="1.5" PointX="15.75" PointY="13.25" />
-        <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdBoo__18EBB532" />
-        <EntityTypeShape EntityType="CarRental.DAL.User" Width="1.5" PointX="8.125" PointY="9.25" />
-        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_User__5165187F" />
-        <AssociationConnector Association="CarRental.DAL.FK__User__Id_Company__45F365D3" />
-        <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdUse__17F790F9" />
+      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="CarRental.DAL.Action" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="CarRental.DAL.Address" Width="1.5" PointX="0.75" PointY="12" />
+        <EntityTypeShape EntityType="CarRental.DAL.Booking" Width="1.5" PointX="9.75" PointY="12" />
+        <EntityTypeShape EntityType="CarRental.DAL.Car" Width="1.5" PointX="7.5" PointY="11.875" />
+        <EntityTypeShape EntityType="CarRental.DAL.CarMake" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="CarRental.DAL.CarModel" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="CarRental.DAL.CarReport" Width="1.5" PointX="12" PointY="25.5" />
+        <EntityTypeShape EntityType="CarRental.DAL.CategoryCost" Width="1.5" PointX="9.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CarRental.DAL.Company" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="CarRental.DAL.Cost" Width="1.5" PointX="12" PointY="12.375" />
+        <EntityTypeShape EntityType="CarRental.DAL.Event" Width="1.5" PointX="9.75" PointY="16.375" />
+        <EntityTypeShape EntityType="CarRental.DAL.Notification" Width="1.5" PointX="15" PointY="12.25" />
+        <EntityTypeShape EntityType="CarRental.DAL.PasswordResetToken" Width="1.5" PointX="7.5" PointY="16.375" />
+        <EntityTypeShape EntityType="CarRental.DAL.RequestBooking" Width="1.5" PointX="7.5" PointY="19.375" />
+        <EntityTypeShape EntityType="CarRental.DAL.Role" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="CarRental.DAL.Status" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="CarRental.DAL.StopOver" Width="1.5" PointX="12" PointY="16.25" />
+        <EntityTypeShape EntityType="CarRental.DAL.StopOverAddress" Width="1.5" PointX="14.25" PointY="16.5" />
+        <EntityTypeShape EntityType="CarRental.DAL.StopOverType" Width="1.5" PointX="9.75" PointY="19.75" />
+        <EntityTypeShape EntityType="CarRental.DAL.User" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="CarRental.DAL.user_address" Width="1.5" PointX="7.5" PointY="8.625" />
+        <EntityTypeShape EntityType="CarRental.DAL.UserBooking" Width="1.5" PointX="12" PointY="9.5" />
+        <AssociationConnector Association="CarRental.DAL.FK__Company__id_Addr__5E8A0973" />
+        <AssociationConnector Association="CarRental.DAL.FK__StopOverA__id_Ad__04AFB25B" />
+        <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_ad__69FBBC1F" />
+        <AssociationConnector Association="CarRental.DAL.FK__Booking__id_Requ__72910220" />
+        <AssociationConnector Association="CarRental.DAL.FK__Booking__Licence__719CDDE7" />
+        <AssociationConnector Association="CarRental.DAL.FK__CarReport__Id_Bo__078C1F06" />
+        <AssociationConnector Association="CarRental.DAL.FK__Cost__Id_Booking__793DFFAF" />
+        <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdBoo__10216507" />
+        <AssociationConnector Association="CarRental.DAL.FK__StopOver__Id_Boo__7FEAFD3E" />
+        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Bo__756D6ECB" />
+        <AssociationConnector Association="CarRental.DAL.FK__Car__id_Car_Mode__6EC0713C" />
+        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_Company__6CD828CA" />
+        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_User__6DCC4D03" />
+        <AssociationConnector Association="CarRental.DAL.FK__Event__Licence_P__7D0E9093" />
+        <AssociationConnector Association="CarRental.DAL.FK__CarModel__id_Car__5AB9788F" />
+        <AssociationConnector Association="CarRental.DAL.FK__Cost__Id_Categor__7A3223E8" />
+        <AssociationConnector Association="CarRental.DAL.FK__User__Id_Company__625A9A57" />
+        <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdUse__0F2D40CE" />
         <AssociationConnector Association="CarRental.DAL.FK_PasswordResetToken_UserID" />
-        <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_us__4CA06362" />
-        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Us__59FA5E80" />
+        <AssociationConnector Association="CarRental.DAL.FK__RequestBo__Id_St__51300E55" />
+        <AssociationConnector Association="CarRental.DAL.FK__StopOver__Id_Sto__00DF2177" />
+        <AssociationConnector Association="CarRental.DAL.FK__StopOverA__Id_St__03BB8E22" />
+        <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_us__690797E6" />
+        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Us__76619304" />
+        <AssociationConnector Association="CarRental.DAL.ActionRole" />
         <AssociationConnector Association="CarRental.DAL.user_role" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
