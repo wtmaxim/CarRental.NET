@@ -22,33 +22,36 @@
                 <div class="box-body">
                     @foreach (var action in Model.allActions)
                     {
+                        bool isChecked = false;
                         foreach (var thisRoleAction in Model.RoleWithActionTuple.Item2)
                         {
                             if (action.Id == thisRoleAction.Id)
 
                             {
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)" checked>
-                                    <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
-                                </div>
+                                isChecked = true;
+
                             }
-                            else
-                            {
+                            
+                        }
+                        if (isChecked == true)
+                        {
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)" checked>
+                                <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
+                            </div>
+                        }
+                        else
+                        {
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)">
                                 <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
                             </div>
-                                }
-                            }
-
                         }
 
-                    
-
+                    }                                                         
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- bottom buttons 1 -->
@@ -57,7 +60,7 @@
             <div class="box-footer text-center">
                 <div class="col-sm-6">
                     <br>
-                    <a class="btn btn-default btn-block" href="./config.html">
+                    <a class="btn btn-default btn-block" href="@Url.Action("Index", "Configuration")">
                         <i class="fa fa-mail-reply"></i> Annuler
                     </a>
                 </div>
