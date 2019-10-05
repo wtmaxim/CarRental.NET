@@ -486,3 +486,10 @@ Inner join [Role] on  ActionRole.Id_Role = Role.Id
 where Role.Id=@roleId;
 END
 GO
+-- Liste de toutes les actions
+Create procedure usp_Action_List
+AS
+BEGIN
+Select *
+From [Action]
+END
