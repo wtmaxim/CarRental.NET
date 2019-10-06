@@ -2,7 +2,7 @@
 @{
     int userId = Session["userId"] != null ? Int32.Parse(Session["userId"].ToString()) : -1;
     var profilePath = ImageHelper.GetProfileImagePath(userId, Server);
-
+}
     <!DOCTYPE html>
     <html>
     <head>
