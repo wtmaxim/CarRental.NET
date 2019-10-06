@@ -1,63 +1,16 @@
 ﻿@model CarRental.UI.ViewsModels.Profile.ProfileIndexViewModel
+@using CarRental.Common
 @using System.Configuration
 
 @{
     ViewBag.Title = "Index";
-    // ViewBag.ErrorModal = "test modal d'erreur";
 
-    var userImagesUrl = ConfigurationManager.AppSettings["UtilisateurImageURL"];
+    // On récupère les path des images : photo de profil, permis de conduire recto, permis de conduire verso
+    var profilePath = ImageHelper.GetProfileImagePath(Model.CurrentUser.Item1.Id, Server);
+    var driverLicenceRectoPath = ImageHelper.GetDriverLicenceRectoPath(Model.CurrentUser.Item1.Id, Server);
+    var driverLicenceVersoPath = ImageHelper.GetDriverLicenceVersoPath(Model.CurrentUser.Item1.Id, Server);
 
-    /*
-     * On cherche l'url de la photo de profil (jpg ou png)
-     * Si elle n'existe pas, on affiche la default
-     */
-    var profilePath = userImagesUrl + "default.png";
-    string[] profilePathPossibilities = {
-            userImagesUrl + Model.CurrentUser.Item1.Id + "-PP.jpg",
-            userImagesUrl + Model.CurrentUser.Item1.Id + "-PP.jpeg",
-            userImagesUrl + Model.CurrentUser.Item1.Id + "-PP.png",
-    };
-    foreach (string profilePathPossibility in profilePathPossibilities)
-    {
-        if (File.Exists(Server.MapPath(profilePathPossibility)))
-        {
-            profilePath = profilePathPossibility;
-        }
-    }
-
-    /*
-     * On cherche l'url du permis de conduire (jpg ou png)
-     * S'il existe un recto (DL1), on cherche à savoir s'il existe un verso (DL2)
-     */
-    var driverLicenceRectoPath = "";
-    var driverLicenceVersoPath = "";
-
-    string[] rectoPossibilities = {
-        userImagesUrl + Model.CurrentUser.Item1.Id + "-DLRecto.jpg",
-        userImagesUrl + Model.CurrentUser.Item1.Id + "-DLRecto.jpeg",
-        userImagesUrl + Model.CurrentUser.Item1.Id + "-DLRecto.png",
-    };
-    foreach (string rectoPossibility in rectoPossibilities)
-    {
-        if (File.Exists(Server.MapPath(rectoPossibility)))
-        {
-            driverLicenceRectoPath = rectoPossibility;
-        }
-    }
-
-    string[] versoPossibilities = {
-        userImagesUrl + Model.CurrentUser.Item1.Id + "-DLVerso.jpg",
-        userImagesUrl + Model.CurrentUser.Item1.Id + "-DLVerso.jpeg",
-        userImagesUrl + Model.CurrentUser.Item1.Id + "-DLVerso.png",
-    };
-    foreach (string versoPossibility in versoPossibilities)
-    {
-        if (File.Exists(Server.MapPath(versoPossibility)))
-        {
-            driverLicenceVersoPath = versoPossibility;
-        }
-    }
-
+    // Affichage des images
     var renderDrivingLicenceRectoForm = false;
     var renderDrivingLicenceVersoForm = false;
     if (ViewBag.EditDrivingLicence != null && ViewBag.EditDrivingLicence == "on")
