@@ -10,19 +10,19 @@
 namespace CarRental.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Notification
+    public partial class usp_User_List1_Result
     {
         public int Id { get; set; }
-        public int IdUser { get; set; }
-        public byte IsRead { get; set; }
-        public System.DateTime CreationDateTimestamp { get; set; }
-        public byte IsForAdmin { get; set; }
-        public byte IsForNewRequest { get; set; }
-        public int IdBooking { get; set; }
-    
-        public virtual Booking Booking { get; set; }
-        public virtual User User { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public byte is_Active { get; set; }
+        public string Job { get; set; }
+        public string Note { get; set; }
+        public string Phone_Number { get; set; }
+        public byte is_Address_Private { get; set; }
+        public Nullable<int> Id_Company { get; set; }
     }
 }

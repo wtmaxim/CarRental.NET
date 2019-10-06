@@ -10,19 +10,10 @@
 namespace CarRental.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Notification
+    public partial class usp_Status_Get_Result
     {
         public int Id { get; set; }
-        public int IdUser { get; set; }
-        public byte IsRead { get; set; }
-        public System.DateTime CreationDateTimestamp { get; set; }
-        public byte IsForAdmin { get; set; }
-        public byte IsForNewRequest { get; set; }
-        public int IdBooking { get; set; }
-    
-        public virtual Booking Booking { get; set; }
-        public virtual User User { get; set; }
+        public string Libelle { get; set; }
     }
 }

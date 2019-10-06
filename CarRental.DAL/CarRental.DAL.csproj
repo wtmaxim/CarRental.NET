@@ -62,8 +62,32 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BookingEngine.cs" />
+    <Compile Include="Car.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarMake.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarModel.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarReport.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryCost.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CompanyEngine.cs" />
     <Compile Include="CompanyMapping.cs" />
+    <Compile Include="Cost.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EventEngine.cs" />
     <Compile Include="ICompanyEngine.cs" />
     <Compile Include="INotificationEngine.cs" />
@@ -75,19 +99,10 @@
     <Compile Include="Interface\IRoleEngine.cs" />
     <Compile Include="Mapping\ActionMapping.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
-    <Compile Include="Car.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CarMake.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Mapping\AdressMapping.cs" />
     <Compile Include="CarMakeEngine.cs" />
     <Compile Include="Mapping\CarMakeMapping.cs" />
     <Compile Include="Mapping\CarMapping.cs" />
-    <Compile Include="CarModel.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="CarModelEngine.cs" />
     <Compile Include="Mapping\CarModelMapping.cs" />
     <Compile Include="CarRentalModel.Context.cs">
@@ -104,21 +119,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CarRentalModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="CarReport.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CategoryCost.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Company.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Cost.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Event.cs">
-      <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IAdressEngine.cs" />
     <Compile Include="Interface\IBookingEngine.cs" />
@@ -181,10 +181,19 @@
     <Compile Include="usp_Action_List_By_User_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Address_GetAddress_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Adress_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Booking_Get_idRequestBooking_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Booking_Get_Id_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Booking_Insert_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Booking_List_LicencePlate_Result.cs">
@@ -208,6 +217,9 @@
     <Compile Include="usp_Car_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Car_List_Search1_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Car_List_Search_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -229,7 +241,22 @@
     <Compile Include="usp_PasswordResetToken_get_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_RequestBooking_Get_IdBooking1_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_RequestBooking_Get_IdBooking_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_RequestBooking_Get_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_RequestBooking_Insert_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_RequestBooking_List_IdUser_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_RequestBooking_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Role_Get_By_ID_Result.cs">
@@ -244,19 +271,34 @@
     <Compile Include="usp_Role_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Status_Get_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_StopOverAddress_Get_idStopOver_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_StopOverType_Get_id_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_StopOver_Get_idBooking_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_StopOver_Insert_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_StopOver_List_idBooking_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_UserBooking_ListPassagers_IdBooking_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_UserRole_GET_USER_IN_ROLE_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_GET1_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_User_GetDriver_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_Get_By_Email_And_Password1_Result.cs">
@@ -284,6 +326,15 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_GET_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_User_List1_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_User_ListDrivers_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_User_ListPassagers_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_List_Active_Result.cs">
