@@ -1,22 +1,8 @@
-﻿CREATE TABLE Role
+﻿CREATE TABLE Action
 (
   Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  Libelle VARCHAR(255) NOT NULL,
-  CONSTRAINT AK_LibelleRole UNIQUE(Libelle)  
-);
-
-CREATE TABLE Action
-(
   Libelle VARCHAR(255),
-  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   CONSTRAINT AK_LibelleAction UNIQUE(Libelle)
-);
-
-CREATE TABLE Status
-(
-  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  Libelle VARCHAR(255) NOT NULL,
-  CONSTRAINT AK_LibelleStatus UNIQUE(Libelle)
 );
 
 CREATE TABLE ActionRole
@@ -41,95 +27,17 @@ CREATE TABLE Address
   PRIMARY KEY (id)
 );
 
-CREATE TABLE StopOverType
+CREATE TABLE Booking
 (
   Id INT NOT NULL IDENTITY(1,1),
-  Libelle VARCHAR(255) NOT NULL,
+  is_Personal_Car_Used TINYINT NOT NULL,
+  Licence_Plate VARCHAR(25) NOT NULL,
+  id_Request_Booking INT NOT NULL,
   PRIMARY KEY (Id),
-  CONSTRAINT AK_LibelleStopOverType UNIQUE(Libelle)
+  FOREIGN KEY (Licence_Plate) REFERENCES Car(Licence_Plate),
+  FOREIGN KEY (id_Request_Booking) REFERENCES RequestBooking(id)
 );
 
-CREATE TABLE RequestBooking
-(
-  id INT NOT NULL IDENTITY(1,1),
-  is_Personal_Car_Available TINYINT NOT NULL,
-  Date DATE NOT NULL,
-  Reason VARCHAR(255) NOT NULL,
-  Id_Status INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (Id_Status) REFERENCES Status(Id)
-);
-
-CREATE TABLE CategoryCost
-(
-  Id INT NOT NULL IDENTITY(1,1),
-  Libelle VARCHAR(255) NOT NULL,
-  PRIMARY KEY (Id),
-  CONSTRAINT AK_LibelleCategoryCost UNIQUE(Libelle)
-);
-
-CREATE TABLE CarMake
-(
-  id INT NOT NULL IDENTITY(1,1),
-  Make VARCHAR(50) NOT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT AK_MakeCarMake UNIQUE(Make)
-);
-
-CREATE TABLE CarModel
-(
-  id INT NOT NULL IDENTITY(1,1),
-  Model VARCHAR(255) NOT NULL,
-  Places INT,
-  Energy VARCHAR(15),
-  id_Car_Make INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (id_Car_Make) REFERENCES CarMake(id),
-  CONSTRAINT AK_ModelCarModel UNIQUE(Model)
-);
-
-CREATE TABLE Company
-(
-  Id INT NOT NULL IDENTITY(1,1),
-  Name VARCHAR(255) NOT NULL,
-  id_Address INT NOT NULL,
-  PRIMARY KEY (Id),
-  FOREIGN KEY (id_Address) REFERENCES Address(id),
-  CONSTRAINT AK_NameCompany UNIQUE(Name)
-);
-
-CREATE TABLE [User]
-(
-  Id INT NOT NULL IDENTITY(1,1),
-  Firstname VARCHAR(255) NOT NULL,
-  Lastname VARCHAR(255) NOT NULL,
-  Email VARCHAR(255) NOT NULL,
-  Password VARCHAR(255) NOT NULL,
-  is_Active TINYINT NOT NULL,
-  Job VARCHAR(255) NOT NULL,
-  Note TEXT,
-  Phone_Number VARCHAR(13),
-  is_Address_Private TINYINT NOT NULL,
-  Id_Company INT, 
-  PRIMARY KEY (Id),  
-  FOREIGN KEY (Id_Company) REFERENCES Company(Id),  
-  CONSTRAINT AK_EmailUser UNIQUE(Email)
-);
-CREATE TABLE user_role(
-id_user int not null,
-id_role int not null,
-primary key(id_user,id_role),
-foreign key (id_user) references [User](id),
-foreign key (id_role) references role(id)
-);
-Create Table user_address(
-id_user int not null,
-id_address int not null,
-address_Name varchar(50),
-primary key(id_user, id_address),
-foreign key (id_user) references [User](id),
-foreign key (id_address) references address(id)
-);
 CREATE TABLE Car
 (
   is_Available TINYINT NOT NULL,
@@ -146,26 +54,52 @@ CREATE TABLE Car
   FOREIGN KEY (id_Car_Model) REFERENCES CarModel(id)
 );
 
-CREATE TABLE Booking
+CREATE TABLE CarModel
 (
-  Id INT NOT NULL IDENTITY(1,1),
-  is_Personal_Car_Used TINYINT NOT NULL,
-  Licence_Plate VARCHAR(25) NOT NULL,
-  id_Request_Booking INT NOT NULL,
-  PRIMARY KEY (Id),
-  FOREIGN KEY (Licence_Plate) REFERENCES Car(Licence_Plate),
-  FOREIGN KEY (id_Request_Booking) REFERENCES RequestBooking(id)
+  id INT NOT NULL IDENTITY(1,1),
+  Model VARCHAR(255) NOT NULL,
+  Places INT,
+  Energy VARCHAR(15),
+  id_Car_Make INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_Car_Make) REFERENCES CarMake(id),
+  CONSTRAINT AK_ModelCarModel UNIQUE(Model)
 );
 
-CREATE TABLE UserBooking
+CREATE TABLE CarMake
 (
-  is_Driver TINYINT NOT NULL,
-  is_Going TINYINT NOT NULL,
+  id INT NOT NULL IDENTITY(1,1),
+  Make VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT AK_MakeCarMake UNIQUE(Make)
+);
+
+CREATE TABLE CarReport
+(
+  id INT NOT NULL IDENTITY(1,1),
+  Information TEXT,
+  Libelle varchar(255) NOT NULL,
   Id_Booking INT NOT NULL,
-  Id_User INT NOT NULL,
-  PRIMARY KEY (Id_Booking, Id_User),
-  FOREIGN KEY (Id_Booking) REFERENCES Booking(Id),
-  FOREIGN KEY (Id_User) REFERENCES [User](Id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (Id_Booking) REFERENCES Booking(Id)
+);
+
+CREATE TABLE CategoryCost
+(
+  Id INT NOT NULL IDENTITY(1,1),
+  Libelle VARCHAR(255) NOT NULL,
+  PRIMARY KEY (Id),
+  CONSTRAINT AK_LibelleCategoryCost UNIQUE(Libelle)
+);
+
+CREATE TABLE Company
+(
+  Id INT NOT NULL IDENTITY(1,1),
+  Name VARCHAR(255) NOT NULL,
+  id_Address INT NOT NULL,
+  PRIMARY KEY (Id),
+  FOREIGN KEY (id_Address) REFERENCES Address(id),
+  CONSTRAINT AK_NameCompany UNIQUE(Name)
 );
 
 CREATE TABLE Cost
@@ -191,6 +125,53 @@ CREATE TABLE Event
   FOREIGN KEY (Licence_Plate) REFERENCES Car(Licence_Plate)
 );
 
+CREATE TABLE [Notification]
+(
+  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  IdUser INT NOT NULL,
+  IsRead TINYINT NOT NULL,
+  CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
+  IsForAdmin TINYINT NOT NULL,
+  IsForNewRequest TINYINT  NOT NULL DEFAULT 0,
+  IdBooking INT NOT NULL,
+  FOREIGN KEY (IdUser) REFERENCES [User](Id),
+  FOREIGN KEY (IdBooking) REFERENCES [Booking](Id),
+);
+
+CREATE TABLE PasswordResetToken (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [expiry_date] DATETIME      NULL,
+    [token]       VARCHAR (255) NULL,
+    [user_id]     INT           NOT NULL,
+    CONSTRAINT [PK_ID] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_PasswordResetToken_UserID] FOREIGN KEY (user_id) REFERENCES [User] (Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE RequestBooking
+(
+  id INT NOT NULL IDENTITY(1,1),
+  is_Personal_Car_Available TINYINT NOT NULL,
+  Date DATE NOT NULL,
+  Reason VARCHAR(255) NOT NULL,
+  Id_Status INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (Id_Status) REFERENCES Status(Id)
+);
+
+CREATE TABLE Role
+(
+  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  Libelle VARCHAR(255) NOT NULL,
+  CONSTRAINT AK_LibelleRole UNIQUE(Libelle)  
+);
+
+CREATE TABLE Status
+(
+  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  Libelle VARCHAR(255) NOT NULL,
+  CONSTRAINT AK_LibelleStatus UNIQUE(Libelle)
+);
+
 CREATE TABLE StopOver
 (
   Id INT NOT NULL IDENTITY(1,1),
@@ -213,34 +194,56 @@ CREATE TABLE StopOverAddress
   FOREIGN KEY (id_Address) REFERENCES Address(id)
 );
 
-CREATE TABLE CarReport
+CREATE TABLE StopOverType
 (
-  id INT NOT NULL IDENTITY(1,1),
-  Information TEXT,
-  Libelle varchar(255) NOT NULL,
+  Id INT NOT NULL IDENTITY(1,1),
+  Libelle VARCHAR(255) NOT NULL,
+  PRIMARY KEY (Id),
+  CONSTRAINT AK_LibelleStopOverType UNIQUE(Libelle)
+);
+
+CREATE TABLE [User]
+(
+  Id INT NOT NULL IDENTITY(1,1),
+  Firstname VARCHAR(255) NOT NULL,
+  Lastname VARCHAR(255) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  Password VARCHAR(255) NOT NULL,
+  is_Active TINYINT NOT NULL,
+  Job VARCHAR(255) NOT NULL,
+  Note TEXT,
+  Phone_Number VARCHAR(13),
+  is_Address_Private TINYINT NOT NULL,
+  Id_Company INT, 
+  PRIMARY KEY (Id),  
+  FOREIGN KEY (Id_Company) REFERENCES Company(Id),  
+  CONSTRAINT AK_EmailUser UNIQUE(Email)
+);
+
+CREATE TABLE user_role(
+id_user int not null,
+id_role int not null,
+primary key(id_user,id_role),
+foreign key (id_user) references [User](id),
+foreign key (id_role) references role(id)
+);
+
+Create Table user_address(
+id_user int not null,
+id_address int not null,
+address_Name varchar(50),
+primary key(id_user, id_address),
+foreign key (id_user) references [User](id),
+foreign key (id_address) references address(id)
+);
+
+CREATE TABLE UserBooking
+(
+  is_Driver TINYINT NOT NULL,
+  is_Going TINYINT NOT NULL,
   Id_Booking INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (Id_Booking) REFERENCES Booking(Id)
-);
-
-CREATE TABLE PasswordResetToken (
-    [Id]          INT           IDENTITY (1, 1) NOT NULL,
-    [expiry_date] DATETIME      NULL,
-    [token]       VARCHAR (255) NULL,
-    [user_id]     INT           NOT NULL,
-    CONSTRAINT [PK_ID] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_PasswordResetToken_UserID] FOREIGN KEY (user_id) REFERENCES [User] (Id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE [Notification]
-(
-  Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  IdUser INT NOT NULL,
-  IsRead TINYINT NOT NULL,
-  CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
-  IsForAdmin TINYINT NOT NULL,
-  IsForNewRequest TINYINT  NOT NULL DEFAULT 0,
-  IdBooking INT NOT NULL,
-  FOREIGN KEY (IdUser) REFERENCES [User](Id),
-  FOREIGN KEY (IdBooking) REFERENCES [Booking](Id),
+  Id_User INT NOT NULL,
+  PRIMARY KEY (Id_Booking, Id_User),
+  FOREIGN KEY (Id_Booking) REFERENCES Booking(Id),
+  FOREIGN KEY (Id_User) REFERENCES [User](Id)
 );
