@@ -51,7 +51,7 @@ namespace CarRental.UI.Controllers
         {
             requestBooking.CreateBy = (int)Session["userID"];
             RequestBookingDTO requestBooking2 = requestBookingLogic.Insert(requestBooking);
-            BookingDTO booking = bookingLogic.Insert(0, "AA00AA", requestBooking2.id);
+            BookingDTO booking = bookingLogic.Insert(0, null, requestBooking2.id);
 
 
             // Ajout des passagers

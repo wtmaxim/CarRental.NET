@@ -24,6 +24,15 @@ namespace CarRental.DAL
             }
         }
 
+        public RequestBookingDTO GetByRequestBooking(int idRequestBooking)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                RequestBooking requestBooking = context.usp_RequestBooking_Get(idRequestBooking).FirstOrDefault();
+                return requestBookingMapping.MapToRequestBookingDTO(requestBooking);
+            }
+        }
+
         public RequestBookingDTO Insert(RequestBookingDTO _requestBooking)
         {
             using (CarRentalEntities context = new CarRentalEntities())
@@ -38,6 +47,15 @@ namespace CarRental.DAL
             using (CarRentalEntities context = new CarRentalEntities())
             {
                 List<RequestBooking> requestBookings = context.usp_RequestBooking_List_IdUser(idUser).ToList();
+                return requestBookingMapping.MapToListRequestBookingDTO(requestBookings);
+            }
+        }
+
+        public IEnumerable<RequestBookingDTO> List()
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                List<RequestBooking> requestBookings = context.usp_RequestBooking_List().ToList();
                 return requestBookingMapping.MapToListRequestBookingDTO(requestBookings);
             }
         }

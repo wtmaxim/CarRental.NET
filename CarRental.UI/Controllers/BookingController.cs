@@ -15,6 +15,9 @@ namespace CarRental.UI.Controllers
         private readonly RequestBookingLogic requestBookingLogic;
         private readonly StopOverAddressLogic stopOverAddressLogic;
         private readonly UserBookingLogic userBookingLogic;
+        private readonly CarLogic carLogic;
+        private readonly CarModelLogic carModelLogic;
+        private readonly CarMakeLogic carMakeLogic;
         private readonly StopOverLogic stopOverLogic;
         private readonly AdressLogic addressLogic;
         private readonly UtilisateurLogic utilisateurLogic;
@@ -26,6 +29,9 @@ namespace CarRental.UI.Controllers
             requestBookingLogic = new RequestBookingLogic();
             stopOverAddressLogic = new StopOverAddressLogic();
             userBookingLogic = new UserBookingLogic();
+            carLogic = new CarLogic();
+            carModelLogic = new CarModelLogic();
+            carMakeLogic = new CarMakeLogic();
             stopOverLogic = new StopOverLogic();
             addressLogic = new AdressLogic();
             utilisateurLogic = new UtilisateurLogic();
@@ -45,6 +51,107 @@ namespace CarRental.UI.Controllers
             vm.Users = PopulateUsers();
 
             return View(vm);
+        }
+
+        [Authorize]
+        public ActionResult Validations()
+        {
+            BookingValidationsViewsModel vm = new BookingValidationsViewsModel();
+            List<Booking> bookings = new List<Booking>();
+
+            foreach (RequestBookingDTO requestBooking in requestBookingLogic.List())
+            {
+                BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
+                StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
+                List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+                StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
+                StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
+                UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
+                UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
+                AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
+                AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+
+
+                bookings.Add(new Booking
+                {
+                    booking = booking,
+                    requestBooking = requestBooking,
+                    stopOver = stopOver,
+                    passagers = passagers,
+                    status = status,
+                    stopOverAddress = stopOverAddress,
+                    driverAller = driverAller,
+                    driverRetour = driverRetour,
+                    addressRetour = addressRetour,
+                    addressAller = addressAller
+                });
+            }
+
+            vm.Bookings = bookings;
+
+            return View(vm);
+        }
+
+        public ActionResult Validation(int id)
+        {
+            BookingValidationViewsModel vm = new BookingValidationViewsModel();
+            
+            RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(id);
+
+            BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
+            StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
+            List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+            StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
+            StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
+            UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
+            UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
+            AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
+            AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+
+            Booking _booking = new Booking
+            {
+                booking = booking,
+                requestBooking = requestBooking,
+                stopOver = stopOver,
+                passagers = passagers,
+                status = status,
+                stopOverAddress = stopOverAddress,
+                driverAller = driverAller,
+                driverRetour = driverRetour,
+                addressRetour = addressRetour,
+                addressAller = addressAller
+            };
+
+            vm.Booking = _booking;
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult AssignationCar(int id)
+        {
+            BookingAssignationViewsModel vm = new BookingAssignationViewsModel();
+            List<CarDTO> _cars = carLogic.List();
+            List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>> cars = new List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>>();
+
+            foreach (CarDTO car in _cars)
+            {
+                CarModelDTO carModel = carModelLogic.Get(car.id_Car_Model);
+                CarMakeDTO carMake = carMakeLogic.Get(carModel.id_Car_Make);
+
+                cars.Add(new Tuple<CarDTO, CarModelDTO, CarMakeDTO>(car, carModel, carMake));
+            }
+
+            vm.Cars = cars;
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult AssignationCar(string CarValue)
+        {
+            var po = CarValue;
+            return null;
         }
 
         private List<SelectListItem> PopulateAddress()

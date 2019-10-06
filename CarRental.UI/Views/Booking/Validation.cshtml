@@ -1,0 +1,160 @@
+﻿@model CarRental.UI.ViewsModels.Booking.BookingValidationViewsModel
+@using CarRental.Model
+
+@{
+    ViewBag.Title = "Validation";
+}
+
+<section class="content">
+
+    <div class="row">
+
+        <!-- reservation -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Reservation</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Demande de</dt>
+                        <dd>John Doe</dd>
+                        <dt>Date</dt>
+                        <dd>@Model.Booking.stopOver.Departure_Date au @Model.Booking.stopOver.Arrival_Date</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- general -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">General</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Raison du déplacement</dt>
+                        <dd>Devfest de Nantes 2019</dd>
+                        <dt>Catégorie</dt>
+                        <dd>Evenement</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <!-- departure -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Départ</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Chauffeur</dt>
+                        <dd>
+                            <a href="#" class="profile">@Model.Booking.driverAller.Firstname @Model.Booking.driverAller.Lastname</a>
+                        </dd>
+                        <dt>Passagers</dt>
+                        <dd>
+                            @foreach (UserDTO user in Model.Booking.passagers)
+                            {
+                                <a href="#" class="profile">@user.Firstname @user.Lastname</a>
+                            }
+                        </dd>
+                        <dt>Adresse</dt>
+                        <dd>
+                            <a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">
+                                @Model.Booking.addressAller.Name , @Model.Booking.addressAller.Route
+                                @Model.Booking.addressAller.Postal_Code @Model.Booking.addressAller.Locality
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- return -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Arrivée</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Chauffeur</dt>
+                        <dd>
+                            <a href="../profile/profile.html" class="profile">@Model.Booking.driverRetour.Firstname @Model.Booking.driverRetour.Lastname</a>
+                        </dd>
+                        <dt>Passagers</dt>
+                        <dd>
+                            @foreach (UserDTO user in Model.Booking.passagers)
+                            {
+                                <a href="#" class="profile">@user.Firstname @user.Lastname</a>
+                            }
+                        </dd>
+                        <dt>Adresse</dt>
+                        <dd>
+                            <a href="https://www.google.com/maps/search/?api=1&query=eni+nantes" target="_blank">
+                                @Model.Booking.addressRetour.Name , @Model.Booking.addressRetour.Route
+                                @Model.Booking.addressRetour.Postal_Code @Model.Booking.addressRetour.Locality
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- bottom buttons 1 -->
+    <div class="row">
+        <div class="box-footer text-center">
+            <div class="col-sm-6">
+                <br>
+                <a class="btn btn-default btn-block" href="./rents_validation.html">
+                    <i class="fa fa-mail-reply"></i> Annuler
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <br>
+                <a class="btn bg-olive btn-block" href="@Url.Action("AssignationCar", "Booking", new { id = Model.Booking.requestBooking.id })">
+                    <i class="fa fa-check"></i> Assigner une voiture
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- bottom buttons 2 -->
+    <div class="row">
+        <div class="box-footer text-center">
+            <div class="col-sm-4">
+                <br>
+                <a class="btn btn-default btn-block" href="./rents_validation.html">
+                    <i class="fa fa-mail-reply"></i> Annuler
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <br>
+                <a class="btn bg-olive btn-block" disabled>
+                    <i class="fa fa-check"></i> Assigner une voiture
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <br>
+                <a class="btn btn-info btn-block" href="./rents_validation.html">
+                    <i class="fa fa-check"></i> Valider sa voiture perso
+                </a>
+            </div>
+        </div>
+    </div>
+
+</section>
+

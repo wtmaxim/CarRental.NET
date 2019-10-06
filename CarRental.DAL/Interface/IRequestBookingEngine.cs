@@ -12,5 +12,7 @@ namespace CarRental.DAL.Interface
         RequestBookingDTO Insert(RequestBookingDTO requestBooking);
         RequestBookingDTO Get(int idBooking);
         List<RequestBookingDTO> List(int idUser);
+        IEnumerable<RequestBookingDTO> List();
+        RequestBookingDTO GetByRequestBooking(int idRequestBooking);
     }
 }

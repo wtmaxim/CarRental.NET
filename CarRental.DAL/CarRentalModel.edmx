@@ -642,6 +642,9 @@
           <Parameter Name="expiry_date" Type="datetime" Mode="In" />
           <Parameter Name="user_Id" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_RequestBooking_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_RequestBooking_Get_IdBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdBooking" Type="int" Mode="In" />
         </Function>
@@ -651,6 +654,7 @@
           <Parameter Name="idStatut" Type="int" Mode="In" />
           <Parameter Name="createBy" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_RequestBooking_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_RequestBooking_List_IdUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUser" Type="int" Mode="In" />
         </Function>
@@ -1245,7 +1249,11 @@
             <Parameter Name="isGoing" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="usp_Address_GetAddress" EntitySet="Address" ReturnType="Collection(CarRental.DAL.Address)">
-            <Parameter Name="IdBooking" Mode="In" Type="Int32" />
+          <Parameter Name="IdBooking" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RequestBooking_List" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)" />
+          <FunctionImport Name="usp_RequestBooking_Get" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -2382,6 +2390,22 @@
           <Property Type="String" Name="Route" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Street_Number" Nullable="true" MaxLength="7" />
         </ComplexType>
+        <ComplexType Name="usp_RequestBooking_List_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Byte" Name="is_Personal_Car_Available" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Id_Status" Nullable="false" />
+          <Property Type="Int32" Name="CreateBy" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_RequestBooking_Get_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Id_Status" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Byte" Name="is_Personal_Car_Available" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="CreateBy" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2721,6 +2745,10 @@
           <FunctionImportMapping FunctionImportName="usp_User_GetDriver" FunctionName="CarRentalModel.Store.usp_User_GetDriver">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Address_GetAddress" FunctionName="CarRentalModel.Store.usp_Address_GetAddress">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RequestBooking_List" FunctionName="CarRentalModel.Store.usp_RequestBooking_List">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RequestBooking_Get" FunctionName="CarRentalModel.Store.usp_RequestBooking_Get">
           </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>

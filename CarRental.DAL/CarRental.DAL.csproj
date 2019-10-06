@@ -259,10 +259,16 @@
     <Compile Include="usp_RequestBooking_Get_IdBooking_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_RequestBooking_Get_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_RequestBooking_Insert_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_RequestBooking_List_IdUser_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_RequestBooking_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_Role_GET1_Result.cs">
