@@ -81,6 +81,22 @@ namespace CarRental.BLL
                 throw;
             }
         }
+        /// <summary>
+        /// Obtien une action selon son id.
+        /// </summary>
+        /// <returns></returns>
+        internal ActionDTO Get_By_Id(int id)
+        {
+            try
+            {
+                return actionEngine.Get_By_iD(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// Crée un Tuple contenant le role et sa liste d'action.

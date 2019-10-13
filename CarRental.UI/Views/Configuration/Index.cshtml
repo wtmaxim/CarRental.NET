@@ -38,38 +38,39 @@
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
-
-                    <table class="table">
-                        <tr>
-                            <th>Role</th>
-                            <th>Droits</th>
-                            <th class="col-md-1">Actions</th>
-                        </tr>
-
-                        @foreach (var tuple in Model.ListRoleWithActionTuple)
-                        {
+                   
+                        <table class="table">
                             <tr>
-                                <td>@Html.Raw(tuple.Item1.Libelle)</td>
-                                <td>
-                                    @foreach (var action in tuple.Item2)
-                                    {
-                                        @Html.Raw(action.Libelle + ",")
-                                    }
-                                </td>
-                                <td class="actionsBtn">
-                                    <a href="@Url.Action("Edit", "Role", new { id = tuple.Item1.Id })">
-                                        <i class="fa fa-edit text-info"></i>
-                                    </a>
-                                    <a href="@Url.Action("Delete", "Role", new { id = tuple.Item1.Id })" class="deleteElement">
-                                        <i class="fa fa-trash text-danger"></i>
-                                    </a>
-                                </td>
+                                <th>Role</th>
+                                <th>Droits</th>
+                                <th class="col-md-1">Actions</th>
                             </tr>
-                        }
 
-                    </table>
+                            @foreach (var tuple in Model.ListRoleWithActionTuple)
+                            {
+                                <tr>
+                                    <td>@Html.Raw(tuple.Item1.Libelle)</td>
+                                    <td>
+                                        @foreach (var action in tuple.Item2)
+                            {
+                                            @Html.Raw(action.Libelle + ",")
+                            }
+                                    </td>
+                                    <td class="actionsBtn">
+                                        <a href="@Url.Action("Edit", "Role", new { id = tuple.Item1.Id })">
+                                            <i class="fa fa-edit text-info"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Role", new { id = tuple.Item1.Id })" class="deleteElement">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
 
-                </div>
+                        </table>
+                   
+
+                    </div>
             </div>
 
             <!-- Adress config -->

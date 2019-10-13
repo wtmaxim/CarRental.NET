@@ -17,6 +17,22 @@ namespace CarRental.DAL
             actionMapping = new ActionMapping();
         }
 
+        public ActionDTO Get_By_iD(int id)
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                    return actionMapping.MapToActionDTO(context.usp_Action_Get_By_Id(id).FirstOrDefault());
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Retourne la liste d'actions d'un role
         /// </summary>

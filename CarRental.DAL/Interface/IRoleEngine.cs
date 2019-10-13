@@ -66,6 +66,16 @@ namespace CarRental.DAL
         /// </summary>
         /// <param name="roleId"></param>
         void Delete(int roleId);
-
+        /// <summary>
+        /// Supprimes toutes les actions d'un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        void Remove_All_Actions(int roleId);
+        /// <summary>
+        /// Ajoute une action à un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="ActionId"></param>
+        void Add_Role_Action(int roleId, int ActionId);
     }
 }

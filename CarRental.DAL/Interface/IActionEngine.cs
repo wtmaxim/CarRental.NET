@@ -26,5 +26,6 @@ namespace CarRental.DAL.Interface
         /// </summary>
         /// <returns></returns>
         List<ActionDTO> List();
+        ActionDTO Get_By_iD(int id);
     }
 }

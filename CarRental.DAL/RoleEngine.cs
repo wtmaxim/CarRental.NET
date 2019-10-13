@@ -20,6 +20,24 @@ namespace CarRental.DAL
             userMapping = new UserMapping();
         }
 
+        public void Add_Role_Action(int roleId, int actionId)
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                    context.usp_Role_Action_Insert(roleId, actionId);
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Supprime un role.
         /// </summary>
@@ -52,13 +70,29 @@ namespace CarRental.DAL
                 using (CarRentalEntities context = new CarRentalEntities())
                 {
                    return roleMapping.MapToRoleDTO(context.usp_Role_Get_By_ID(id).FirstOrDefault());
-                }
-                
-
+                }                
             }
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+        /// <summary>
+        /// Supprime toute les actions d'un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        public void Remove_All_Actions(int roleId)
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                    context.usp_Role_Action_Delete_By_Role(roleId);
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

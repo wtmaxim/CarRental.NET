@@ -569,6 +569,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_Action_Get_By_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_Action_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_Action_List_By_Role" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="roleId" Type="int" Mode="In" />
@@ -632,6 +635,10 @@
         </Function>
         <Function Name="usp_Role_Action_Delete_By_Role" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleiD" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Role_Action_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleId" Type="int" Mode="In" />
+          <Parameter Name="actionId" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_Role_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleId" Type="int" Mode="In" />
@@ -1663,13 +1670,20 @@
           <FunctionImport Name="usp_Notification_List" EntitySet="Notification" ReturnType="Collection(CarRental.DAL.Notification)" />
           <FunctionImport Name="usp_Action_List" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)" />
           <FunctionImport Name="usp_Role_Action_Delete_By_Role">
-            <Parameter Name="RoleiD" Mode="In" Type="Int32" />
+          <Parameter Name="RoleiD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Role_Delete">
-            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_User_Role_Delete_By_Role">
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+          <Parameter Name="RoleID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Action_Get_By_Id" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Role_Action_Insert">
+            <Parameter Name="roleId" Mode="In" Type="Int32" />
+            <Parameter Name="actionId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -2146,6 +2160,10 @@
           <Property Type="String" Name="Libelle" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Id" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="usp_Action_Get_By_Id_Result">
+          <Property Type="String" Name="Libelle" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2510,6 +2528,9 @@
           <FunctionImportMapping FunctionImportName="usp_Role_Action_Delete_By_Role" FunctionName="CarRentalModel.Store.usp_Role_Action_Delete_By_Role" />
           <FunctionImportMapping FunctionImportName="usp_Role_Delete" FunctionName="CarRentalModel.Store.usp_Role_Delete" />
           <FunctionImportMapping FunctionImportName="usp_User_Role_Delete_By_Role" FunctionName="CarRentalModel.Store.usp_User_Role_Delete_By_Role" />
+          <FunctionImportMapping FunctionImportName="usp_Action_Get_By_Id" FunctionName="CarRentalModel.Store.usp_Action_Get_By_Id">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Role_Action_Insert" FunctionName="CarRentalModel.Store.usp_Role_Action_Insert" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -10,68 +10,72 @@
 </section>
 
 <section class="content">
+    @using (Html.BeginForm("Edit", "Role", FormMethod.Post))
 
-    <div class="row">
+    {
+        <div class="row">
 
-        <!-- role -->
-        <div class="col-sm-12">
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Edition du role : @Html.Raw(Model.RoleWithActionTuple.Item1.Libelle)</h3>
-                </div>
-                <div class="box-body">
-                    @foreach (var action in Model.allActions)
-                    {
-                        bool isChecked = false;
-                        foreach (var thisRoleAction in Model.RoleWithActionTuple.Item2)
+            <!-- role -->
+            <div class="col-sm-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edition du role : @Html.Raw(Model.RoleWithActionTuple.Item1.Libelle)</h3>
+                    </div>
+                    <div class="box-body">
+
+                        @foreach (var action in Model.allActions)
                         {
-                            if (action.Id == thisRoleAction.Id)
-
+                            bool isChecked = false;
+                            foreach (var thisRoleAction in Model.RoleWithActionTuple.Item2)
                             {
-                                isChecked = true;
+                                if (action.Id == thisRoleAction.Id)
+
+                                {
+                                    isChecked = true;
+
+                                }
 
                             }
+                            if (isChecked == true)
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)" name="roles"  value="@Html.Raw(action.Id)" checked>
+                                    <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)" name="roles" value="@Html.Raw(action.Id)">
+                                    <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
+                                </div>
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- bottom buttons 1 -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box-footer text-center">
+                    <div class="col-sm-6">
+                        <br>
+                        <a class="btn btn-default btn-block" href="@Url.Action("Index", "Configuration")">
+                            <i class="fa fa-mail-reply"></i> Annuler
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <br>
+                        <input type="submit" class="btn bg-olive btn-block" value="Valider"/>
                             
-                        }
-                        if (isChecked == true)
-                        {
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)" checked>
-                                <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="@Html.Raw(action.Id)">
-                                <label class="custom-control-label" for="@Html.Raw(action.Id)">@Html.Raw(action.Libelle)</label>
-                            </div>
-                        }
-
-                    }                                                         
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 
-    <!-- bottom buttons 1 -->
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="box-footer text-center">
-                <div class="col-sm-6">
-                    <br>
-                    <a class="btn btn-default btn-block" href="@Url.Action("Index", "Configuration")">
-                        <i class="fa fa-mail-reply"></i> Annuler
-                    </a>
-                </div>
-                <div class="col-sm-6">
-                    <br>
-                    <a class="btn bg-olive btn-block" href="#">
-                        <i class="fa fa-check"></i> Valider
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
+    </section>

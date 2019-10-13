@@ -41,6 +41,13 @@ namespace CarRental.UI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Edit(int id, string[] roles)
+        {
+            roleLogic.Set_Role_Actions(roleLogic.Get_Role_And_Actions_By_Ids(id, roles));            
+            return RedirectToAction("Index","Configuration");
+        }
+
         /// <summary>
         /// Supprime un role
         /// </summary>

@@ -1024,5 +1024,36 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Role_Delete_By_Role", roleIDParameter);
         }
+    
+        public virtual ObjectResult<Action> usp_Action_Get_By_Id(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_Get_By_Id", idParameter);
+        }
+    
+        public virtual ObjectResult<Action> usp_Action_Get_By_Id(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_Get_By_Id", mergeOption, idParameter);
+        }
+    
+        public virtual int usp_Role_Action_Insert(Nullable<int> roleId, Nullable<int> actionId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(int));
+    
+            var actionIdParameter = actionId.HasValue ?
+                new ObjectParameter("actionId", actionId) :
+                new ObjectParameter("actionId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Action_Insert", roleIdParameter, actionIdParameter);
+        }
     }
 }

@@ -12,10 +12,12 @@ namespace CarRental.BLL
     {
         private readonly IRoleEngine roleEngine;
         private readonly UtilisateurLogic utilisateurLogic;
+        private readonly ActionLogic actionLogic;
         public RoleLogic()
         {
             roleEngine = new RoleEngine();
             utilisateurLogic = new UtilisateurLogic();
+            actionLogic = new ActionLogic();
         }
         /// <summary>
         /// 
@@ -52,6 +54,59 @@ namespace CarRental.BLL
             }
 
         }
+        /// <summary>
+        /// Récupère un role et une liste d'action selon leurs id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roles"></param>
+        public Tuple<RoleDTO,List<ActionDTO>> Get_Role_And_Actions_By_Ids(int id, string[] actions)
+        {
+            RoleDTO role = roleEngine.Get_By_ID(id);
+            if (actions!= null)
+            {           
+                try
+                {
+                   
+                    List<ActionDTO> roleActions = new List<ActionDTO>();
+                
+                        foreach (string stringIdAction in actions)
+                        {
+                            int idAction;
+                            if (int.TryParse(stringIdAction, out idAction))
+                            {
+                                ActionDTO action = actionLogic.Get_By_Id(idAction);
+                                roleActions.Add(action);
+                            }
+                        }
+                        return new Tuple<RoleDTO, List<ActionDTO>>(role, roleActions);
+                                
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }else
+            {
+                return new Tuple<RoleDTO, List<ActionDTO>>(role, null);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        public void Set_Role_Actions(Tuple<RoleDTO, List<ActionDTO>> tuple)
+        {
+            roleEngine.Remove_All_Actions(tuple.Item1.Id);
+            if (tuple.Item2 != null)
+            {  
+                foreach(ActionDTO action in tuple.Item2)
+                {
+                    roleEngine.Add_Role_Action(tuple.Item1.Id, action.Id);
+                 }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -93,7 +148,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Récupère un role selon son nom.
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>
