@@ -42,8 +42,12 @@ namespace CarRental.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, string[] roles)
+        public ActionResult Edit(int id, string[] roles,string roleName)
         {
+            if (roleName != null)
+            {
+                roleLogic.update(id, roleName);
+            }
             roleLogic.Set_Role_Actions(roleLogic.Get_Role_And_Actions_By_Ids(id, roles));            
             return RedirectToAction("Index","Configuration");
         }

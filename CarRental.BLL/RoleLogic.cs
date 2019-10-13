@@ -54,6 +54,13 @@ namespace CarRental.BLL
             }
 
         }
+
+        public void update(int id, string roleName)
+        {
+            RoleDTO role = Get_By_Id(id);            
+            roleEngine.update(role.Id,roleName);
+        }
+
         /// <summary>
         /// Récupère un role et une liste d'action selon leurs id.
         /// </summary>

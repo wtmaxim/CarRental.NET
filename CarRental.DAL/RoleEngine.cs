@@ -96,6 +96,26 @@ namespace CarRental.DAL
                 throw;
             }
         }
+        /// <summary>
+        /// Met a jour le libelle d'un role selon son id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="libelle"></param>
+        public void update(int id, string libelle)
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                    context.usp_Role_Update(id, libelle);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// Ajoute un role.
@@ -248,13 +268,5 @@ namespace CarRental.DAL
             }
         }
 
-        /// <summary>
-        /// Permet de mettre a jout un role.
-        /// </summary>
-        /// <param name="role"></param>
-        void IRoleEngine.Update(RoleDTO role)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

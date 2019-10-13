@@ -1055,5 +1055,18 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Action_Insert", roleIdParameter, actionIdParameter);
         }
+    
+        public virtual int usp_Role_Update(Nullable<int> id, string libelle)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("libelle", libelle) :
+                new ObjectParameter("libelle", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Update", idParameter, libelleParameter);
+        }
     }
 }

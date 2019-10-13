@@ -32,11 +32,7 @@ namespace CarRental.DAL
         /// <param name="mail"></param>
         /// <returns></returns>
         List<RoleDTO> Get_User_Roles(string mail);
-        /// <summary>
-        /// Permet de mettre à jour un role.
-        /// </summary>
-        /// <param name="role"></param>
-        void Update(RoleDTO role);
+       
         /// <summary>
         /// Permet d'obtenir tout les utilisateurs pour disposant du role selon son nom.
         /// </summary>
@@ -77,5 +73,11 @@ namespace CarRental.DAL
         /// <param name="roleId"></param>
         /// <param name="ActionId"></param>
         void Add_Role_Action(int roleId, int ActionId);
+        /// <summary>
+        /// Met a jour le libelle d'un role selon son id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="libelle"></param>
+        void update(int id, string libelle);
     }
 }

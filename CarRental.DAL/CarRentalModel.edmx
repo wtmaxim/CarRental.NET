@@ -656,6 +656,10 @@
           <Parameter Name="libelle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_Role_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_Role_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="libelle" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_StopOver_List_idBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idBooking" Type="int" Mode="In" />
         </Function>
@@ -1685,6 +1689,10 @@
             <Parameter Name="roleId" Mode="In" Type="Int32" />
             <Parameter Name="actionId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_Role_Update">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="libelle" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -2531,6 +2539,7 @@
           <FunctionImportMapping FunctionImportName="usp_Action_Get_By_Id" FunctionName="CarRentalModel.Store.usp_Action_Get_By_Id">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Role_Action_Insert" FunctionName="CarRentalModel.Store.usp_Role_Action_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Role_Update" FunctionName="CarRentalModel.Store.usp_Role_Update" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -10,7 +10,9 @@
             @Styles.Render("~/Content/css")
             @Styles.Render("~/Content/fullcalendar")
             @Styles.Render("~/Content/select2")
+            @Styles.Render("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css")
             @Scripts.Render("~/bundles/modernizr")
+            
         </head>
         <body class="hold-transition skin-blue sidebar-mini">
 
@@ -175,6 +177,9 @@
             @Scripts.Render("~/bundles/bootstrap")
             @Scripts.Render("~/bundles/fullcalendar")
             @Scripts.Render("~/bundles/select2")
+            @Scripts.Render("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")          
+           
+
             @RenderSection("scripts", required: false)
         </body>
     </html>
