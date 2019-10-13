@@ -61,6 +61,11 @@ namespace CarRental.DAL
         /// </summary>
         /// <param name="roleName"></param>
         void Add(string roleName);
+        /// <summary>
+        /// Permet la suppression d'un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        void Delete(int roleId);
 
     }
 }

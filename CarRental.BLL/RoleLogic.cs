@@ -188,6 +188,30 @@ namespace CarRental.BLL
             }
             return array.ToArray();
         }
+        /// <summary>
+        /// Vérifie l'existence d'un role en base de donnés puis le supprime.
+        /// </summary>
+        /// <param name="roleId"></param>
+        public void DeleteRole(int roleId)
+        {
+            try
+            {
+                RoleDTO roleToDelete = Get_By_Id(roleId);
+                if (roleToDelete != null)
+                {
+                    roleEngine.Delete(roleToDelete.Id);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+            
+
+        }
                 
     }
 }

@@ -997,5 +997,32 @@ namespace CarRental.DAL
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List", mergeOption);
         }
+    
+        public virtual int usp_Role_Action_Delete_By_Role(Nullable<int> roleiD)
+        {
+            var roleiDParameter = roleiD.HasValue ?
+                new ObjectParameter("RoleiD", roleiD) :
+                new ObjectParameter("RoleiD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Action_Delete_By_Role", roleiDParameter);
+        }
+    
+        public virtual int usp_Role_Delete(Nullable<int> roleId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Delete", roleIdParameter);
+        }
+    
+        public virtual int usp_User_Role_Delete_By_Role(Nullable<int> roleID)
+        {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Role_Delete_By_Role", roleIDParameter);
+        }
     }
 }

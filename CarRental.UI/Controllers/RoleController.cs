@@ -48,8 +48,11 @@ namespace CarRental.UI.Controllers
         /// <returns></returns>
         public ActionResult Delete(int id)
         {
-           
-            return View();
+            roleLogic.DeleteRole(id);
+
+            return RedirectToAction("Index","Configuration");
         }
+
+        
     }
 }

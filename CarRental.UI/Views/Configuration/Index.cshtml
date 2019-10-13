@@ -2,314 +2,359 @@
 @{
     ViewBag.Title = "Configuration";
 }
-
-<!-- Main content -->
-<section class="content">
-   <h1> Page de configuration </h1>
-  
-
-    <!-- Roles config -->
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Gestion des rôles</h3>
-            <div class="box-tools">
-                <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"
-                        data-toggle="tooltip" title="Collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
+<!-- Modal -->
+    <div class="modal fade" id="confirmModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Confirmation de la suppression</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Etes-vous sûr de vouloir supprimer cet élément ?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" id="confirmModalNo">Non</a>
+                    <a href="#" class="btn btn-primary" id="confirmModalYes">Oui</a>
+                </div>
             </div>
+          </div>
         </div>
-        <div class="box-body table-responsive no-padding">
+        
+        <!-- Main content -->
+        <section class="content">
+            <h1> Page de configuration </h1>
 
-            <table class="table">
-                <tr>
-                    <th>Role</th>
-                    <th>Droits</th>
-                    <th class="col-md-1">Actions</th>
-                </tr>
 
-                @foreach (var tuple in Model.ListRoleWithActionTuple)
-                {
-                <tr>
-                    <td>@Html.Raw(tuple.Item1.Libelle)</td>
-                    <td>
-                        @foreach (var action in tuple.Item2)
+            <!-- Roles config -->
+            <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Gestion des rôles</h3>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"
+                                data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+
+                    <table class="table">
+                        <tr>
+                            <th>Role</th>
+                            <th>Droits</th>
+                            <th class="col-md-1">Actions</th>
+                        </tr>
+
+                        @foreach (var tuple in Model.ListRoleWithActionTuple)
                         {
-                            @Html.Raw(action.Libelle+",")
+                            <tr>
+                                <td>@Html.Raw(tuple.Item1.Libelle)</td>
+                                <td>
+                                    @foreach (var action in tuple.Item2)
+                                    {
+                                        @Html.Raw(action.Libelle + ",")
+                                    }
+                                </td>
+                                <td class="actionsBtn">
+                                    <a href="@Url.Action("Edit", "Role", new { id = tuple.Item1.Id })">
+                                        <i class="fa fa-edit text-info"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", "Role", new { id = tuple.Item1.Id })" class="deleteElement">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         }
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="@Url.Action("Edit", "Role", new { id = tuple.Item1.Id })">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="@Url.Action("Delete", "Role", new { id = tuple.Item1.Id })">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
+
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Adress config -->
+            <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Gestion des adresses</h3>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+
+                    <table class="table">
+                        <tr>
+                            <th>Titre</th>
+                            <th>Addresse</th>
+                            <th class="col-md-1">Actions</th>
+                        </tr>
+                        <tr>
+                            <td>Campus de Nantes</td>
+                            <td>
+                                <a href="https://www.google.com/maps/search/?api=1&query=eni+nantes" target="_blank">
+                                    2B Rue Benjamin Franklin, Rue Benjamin Franklin, 44800 Saint-Herblain
+                                </a>
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="./editAddress.html">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Campus de Rennes</td>
+                            <td>
+                                <a href="https://www.google.com/maps/search/?api=1&query=eni+informatique+rennes" target="_blank">
+                                    ZAC de, La Conterie, 8 Rue Léo Lagrange, 35131 Chartres-de-Bretagne
+                                </a>
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Reservations reasons config -->
+            <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Gestion des motifs de déplacements</h3>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+
+                    <table class="table">
+                        <tr>
+                            <th>Libelle</th>
+                            <th>Explication</th>
+                            <th class="col-md-1">Actions</th>
+                        </tr>
+                        <tr>
+                            <td>Technique</td>
+                            <td>
+                                Reservations pour des services techniques
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="./editAddress.html">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Formation</td>
+                            <td>
+                                Reservations pour des formations externes
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Evenement</td>
+                            <td>
+                                Reservations pour des évènements
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Expenses reasons config -->
+            <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Gestion des catégories de frais</h3>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+
+                    <table class="table">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Explication</th>
+                            <th class="col-md-1">Actions</th>
+                        </tr>
+                        <tr>
+                            <td>Carburant</td>
+                            <td>
+                                Frais incluant tous carburants
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="./editExpense.html">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Voiture</td>
+                            <td>
+                                Frais incluant toutes dépenses pour les voitures ENI (autres que carburants)
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pénalités</td>
+                            <td>
+                                Dépenses incluant les pénalités recues sur les routes
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nourriture</td>
+                            <td>
+                                Frais incluant les dépenses de nourritures prises en charge
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Logement</td>
+                            <td>
+                                Frais incluant les dépenses liées au logements (hotel, etc)
+                            </td>
+                            <td class="actionsBtn">
+                                <a href="#">
+                                    <i class="fa fa-edit text-info"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Car brands & models config -->
+            <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Marques et modèles de voiture</h3>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+
+                    <form class="form-horizontal">
+                        <div class="form-group col-sm-6">
+                            <label for="workPlace" class="col-sm-3 control-label">Marque</label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" id="workPlace" multiple="multiple"
+                                        data-placeholder="Action" style="width: 100%;">
+                                    <option>Nissan</option>
+                                    <option>Renault</option>
+                                    <option>Peugeot</option>
+                                    <option>Citroën</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="workPlace" class="col-sm-3 control-label">Modèle</label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" id="workPlace" multiple="multiple"
+                                        data-placeholder="Action" style="width: 100%;">
+                                    <option>206</option>
+                                    <option>205</option>
+                                    <option>306</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+        @section scripts
+{
+            <script>
+
+                function AfficherModal(link) {
+                    console.log(link)
                 }
-                
-            </table>
+                $(document).ready(function () {
+                    var theHREF;
 
-        </div>
-    </div>
+                    $(".deleteElement").click(function (e) {
+                        e.preventDefault();
+                        theHREF = $(this).attr("href");
+                        $("#confirmModal").modal("show");
+                    });
 
-    <!-- Adress config -->
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Gestion des adresses</h3>
-            <div class="box-tools">
-                <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body table-responsive no-padding">
+                    $("#confirmModalNo").click(function (e) {
+                        $("#confirmModal").modal("hide");
+                    });
 
-            <table class="table">
-                <tr>
-                    <th>Titre</th>
-                    <th>Addresse</th>
-                    <th class="col-md-1">Actions</th>
-                </tr>
-                <tr>
-                    <td>Campus de Nantes</td>
-                    <td>
-                        <a href="https://www.google.com/maps/search/?api=1&query=eni+nantes" target="_blank">
-                            2B Rue Benjamin Franklin, Rue Benjamin Franklin, 44800 Saint-Herblain
-                        </a>
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="./editAddress.html">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Campus de Rennes</td>
-                    <td>
-                        <a href="https://www.google.com/maps/search/?api=1&query=eni+informatique+rennes" target="_blank">
-                            ZAC de, La Conterie, 8 Rue Léo Lagrange, 35131 Chartres-de-Bretagne
-                        </a>
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    </div>
-
-    <!-- Reservations reasons config -->
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Gestion des motifs de déplacements</h3>
-            <div class="box-tools">
-                <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body table-responsive no-padding">
-
-            <table class="table">
-                <tr>
-                    <th>Libelle</th>
-                    <th>Explication</th>
-                    <th class="col-md-1">Actions</th>
-                </tr>
-                <tr>
-                    <td>Technique</td>
-                    <td>
-                        Reservations pour des services techniques
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="./editAddress.html">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Formation</td>
-                    <td>
-                        Reservations pour des formations externes
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Evenement</td>
-                    <td>
-                        Reservations pour des évènements
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    </div>
-
-    <!-- Expenses reasons config -->
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Gestion des catégories de frais</h3>
-            <div class="box-tools">
-                <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body table-responsive no-padding">
-
-            <table class="table">
-                <tr>
-                    <th>Nom</th>
-                    <th>Explication</th>
-                    <th class="col-md-1">Actions</th>
-                </tr>
-                <tr>
-                    <td>Carburant</td>
-                    <td>
-                        Frais incluant tous carburants
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="./editExpense.html">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Voiture</td>
-                    <td>
-                        Frais incluant toutes dépenses pour les voitures ENI (autres que carburants)
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pénalités</td>
-                    <td>
-                        Dépenses incluant les pénalités recues sur les routes
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nourriture</td>
-                    <td>
-                        Frais incluant les dépenses de nourritures prises en charge
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Logement</td>
-                    <td>
-                        Frais incluant les dépenses liées au logements (hotel, etc)
-                    </td>
-                    <td class="actionsBtn">
-                        <a href="#">
-                            <i class="fa fa-edit text-info"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-trash text-danger"></i>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    </div>
-
-    <!-- Car brands & models config -->
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Marques et modèles de voiture</h3>
-            <div class="box-tools">
-                <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body table-responsive no-padding">
-
-            <form class="form-horizontal">
-                <div class="form-group col-sm-6">
-                    <label for="workPlace" class="col-sm-3 control-label">Marque</label>
-                    <div class="col-sm-9">
-                        <select class="form-control select2" id="workPlace" multiple="multiple"
-                                data-placeholder="Action" style="width: 100%;">
-                            <option>Nissan</option>
-                            <option>Renault</option>
-                            <option>Peugeot</option>
-                            <option>Citroën</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-6">
-                    <label for="workPlace" class="col-sm-3 control-label">Modèle</label>
-                    <div class="col-sm-9">
-                        <select class="form-control select2" id="workPlace" multiple="multiple"
-                                data-placeholder="Action" style="width: 100%;">
-                            <option>206</option>
-                            <option>205</option>
-                            <option>306</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</section>
+                    $("#confirmModalYes").click(function (e) {
+                        window.location.href = theHREF;
+                    });
+                });
+            </script>
+        }
