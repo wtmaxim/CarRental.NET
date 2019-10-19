@@ -80,7 +80,7 @@
                             <li>
                                 <i class="fa fa-check bg-yellow"></i>
                                 <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
                                         Nouvelle <a href="">demande de déplacement</a> de
                                         <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
@@ -95,7 +95,7 @@
                             <li>
                                 <i class="fa fa-check bg-yellow"></i>
                                 <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
                                         Nouvelle <a href="#">demande de déplacement</a> de
                                         <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
@@ -110,7 +110,7 @@
                             <li>
                                 <i class="fa fa-map-pin bg-green"></i>
                                 <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
                                         <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
                                         s'est ajouté à votre <a href="#">demande de déplacement sur @notifTuple.departureCity</a>
@@ -124,7 +124,7 @@
                             <li>
                                 <i class="fa fa-map-pin bg-green"></i>
                                 <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDate)</span>
+                                    <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
                                         <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
                                         s'est ajouté à votre <a href="#">demande de déplacement sur @notifTuple.departureCity</a>
