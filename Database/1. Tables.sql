@@ -56,6 +56,7 @@ CREATE TABLE RequestBooking
   Date DATE NOT NULL,
   Reason VARCHAR(255) NOT NULL,
   Id_Status INT NOT NULL,
+  CreatedBy INT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (Id_Status) REFERENCES Status(Id)
 );
