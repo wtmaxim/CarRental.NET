@@ -47,13 +47,36 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult Edit(int id, string[] actions,string roleName)
         {
-            if (roleName != null)
-            {
-                roleLogic.update(id, roleName);
-            }
-            roleLogic.Set_Role_Actions(roleLogic.Get_Role_And_Actions_By_Ids(id, actions));            
-            return RedirectToAction("Index","Configuration");
+
+           
+                // Si aucune role avec ce nom n'existe, je l'ajoute en base.
+                if (roleLogic.List().Find(u => u.Libelle == roleName) == null)
+                {
+                    roleLogic.update(id, roleName);
+                    roleLogic.Set_Role_Actions(roleLogic.Get_Role_And_Actions_By_Ids(id, actions));
+                    return RedirectToAction("Index", "Configuration");
+                }
+                else
+                {
+                ViewBag.Status = true;
+                ViewBag.message = "Il existe déjà un role disposant de son libellé.";
+                RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
+                List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
+                RoleEditViewModel REVM = new RoleEditViewModel()
+                {
+                    RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
+                    allActions = actionLogic.List()
+                };
+
+                return View(REVM);
+                
+                }
+
+                
+           
+           
         }
+
         [HttpGet]
         public ActionResult Add()
         {
@@ -70,9 +93,7 @@ namespace CarRental.UI.Controllers
 
         [HttpPost]
         public ActionResult Add (string[] actions, string roleName)
-        {
-            
-           
+        {    
              // Si aucune role avec ce nom n'existe, je l'ajoute en base.
             if(roleLogic.List().Find(u => u.Libelle == roleName) == null)
             {
@@ -93,9 +114,7 @@ namespace CarRental.UI.Controllers
                 };
                 return View(REVM);
 
-            }           
-
-          
+            }
         }
 
 
