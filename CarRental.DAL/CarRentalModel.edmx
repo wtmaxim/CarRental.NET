@@ -224,7 +224,6 @@
         </EntityType>
         <EntityType Name="UserBooking">
           <Key>
-            <PropertyRef Name="is_Going" />
             <PropertyRef Name="Id_Booking" />
             <PropertyRef Name="Id_User" />
           </Key>
@@ -233,7 +232,7 @@
           <Property Name="Id_Booking" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ActionRol__Id_Ac__498EEC8D">
+        <Association Name="FK__ActionRol__Id_Ac__5669C4BE">
           <End Role="Action" Type="Self.Action" Multiplicity="1" />
           <End Role="ActionRole" Type="Self.ActionRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,7 +244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ActionRol__Id_Ro__489AC854">
+        <Association Name="FK__ActionRol__Id_Ro__5575A085">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="ActionRole" Type="Self.ActionRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -257,7 +256,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Booking__id_Requ__72910220">
+        <Association Name="FK__Booking__id_Requ__7F6BDA51">
           <End Role="RequestBooking" Type="Self.RequestBooking" Multiplicity="1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,7 +268,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Booking__Licence__719CDDE7">
+        <Association Name="FK__Booking__Licence__7E77B618">
           <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,7 +280,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__id_Car_Mode__6EC0713C">
+        <Association Name="FK__Car__id_Car_Mode__7B9B496D">
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +292,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__Id_Company__6CD828CA">
+        <Association Name="FK__Car__Id_Company__79B300FB">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -305,7 +304,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__Id_User__6DCC4D03">
+        <Association Name="FK__Car__Id_User__7AA72534">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,7 +316,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CarModel__id_Car__5AB9788F">
+        <Association Name="FK__CarModel__id_Car__679450C0">
           <End Role="CarMake" Type="Self.CarMake" Multiplicity="1" />
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -329,7 +328,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CarReport__Id_Bo__078C1F06">
+        <Association Name="FK__CarReport__Id_Bo__1466F737">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="CarReport" Type="Self.CarReport" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,7 +340,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Company__id_Addr__5E8A0973">
+        <Association Name="FK__Company__id_Addr__6B64E1A4">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="Company" Type="Self.Company" Multiplicity="*" />
           <ReferentialConstraint>
@@ -353,7 +352,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cost__Id_Booking__793DFFAF">
+        <Association Name="FK__Cost__Id_Booking__0618D7E0">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="Cost" Type="Self.Cost" Multiplicity="*" />
           <ReferentialConstraint>
@@ -365,7 +364,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cost__Id_Categor__7A3223E8">
+        <Association Name="FK__Cost__Id_Categor__070CFC19">
           <End Role="CategoryCost" Type="Self.CategoryCost" Multiplicity="1" />
           <End Role="Cost" Type="Self.Cost" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,7 +376,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Event__Licence_P__7D0E9093">
+        <Association Name="FK__Event__Licence_P__09E968C4">
           <End Role="Car" Type="Self.Car" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -389,7 +388,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdBoo__10216507">
+        <Association Name="FK__Notificat__IdBoo__1CFC3D38">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -401,7 +400,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__0F2D40CE">
+        <Association Name="FK__Notificat__IdUse__1C0818FF">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -413,7 +412,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RequestBo__Id_St__51300E55">
+        <Association Name="FK__RequestBo__Id_St__5E0AE686">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="RequestBooking" Type="Self.RequestBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -425,7 +424,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOver__Id_Boo__7FEAFD3E">
+        <Association Name="FK__StopOver__Id_Boo__0CC5D56F">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="StopOver" Type="Self.StopOver" Multiplicity="*" />
           <ReferentialConstraint>
@@ -437,7 +436,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOver__Id_Sto__00DF2177">
+        <Association Name="FK__StopOver__Id_Sto__0DB9F9A8">
           <End Role="StopOverType" Type="Self.StopOverType" Multiplicity="1" />
           <End Role="StopOver" Type="Self.StopOver" Multiplicity="*" />
           <ReferentialConstraint>
@@ -449,7 +448,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOverA__id_Ad__04AFB25B">
+        <Association Name="FK__StopOverA__id_Ad__118A8A8C">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="StopOverAddress" Type="Self.StopOverAddress" Multiplicity="*" />
           <ReferentialConstraint>
@@ -461,7 +460,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StopOverA__Id_St__03BB8E22">
+        <Association Name="FK__StopOverA__Id_St__10966653">
           <End Role="StopOver" Type="Self.StopOver" Multiplicity="1" />
           <End Role="StopOverAddress" Type="Self.StopOverAddress" Multiplicity="*" />
           <ReferentialConstraint>
@@ -473,7 +472,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__Id_Company__625A9A57">
+        <Association Name="FK__User__Id_Company__6F357288">
           <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -485,7 +484,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_addr__id_ad__69FBBC1F">
+        <Association Name="FK__user_addr__id_ad__76D69450">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="user_address" Type="Self.user_address" Multiplicity="*" />
           <ReferentialConstraint>
@@ -497,7 +496,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_addr__id_us__690797E6">
+        <Association Name="FK__user_addr__id_us__75E27017">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="user_address" Type="Self.user_address" Multiplicity="*" />
           <ReferentialConstraint>
@@ -509,7 +508,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_role__id_ro__662B2B3B">
+        <Association Name="FK__user_role__id_ro__7306036C">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="user_role" Type="Self.user_role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -521,7 +520,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_role__id_us__65370702">
+        <Association Name="FK__user_role__id_us__7211DF33">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="user_role" Type="Self.user_role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -533,7 +532,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserBooki__Id_Bo__756D6ECB">
+        <Association Name="FK__UserBooki__Id_Bo__024846FC">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="UserBooking" Type="Self.UserBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -545,7 +544,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserBooki__Id_Us__76619304">
+        <Association Name="FK__UserBooki__Id_Us__033C6B35">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserBooking" Type="Self.UserBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -787,111 +786,111 @@
           <EntitySet Name="user_address" EntityType="Self.user_address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBooking" EntityType="Self.UserBooking" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ActionRol__Id_Ac__498EEC8D" Association="Self.FK__ActionRol__Id_Ac__498EEC8D">
+          <AssociationSet Name="FK__ActionRol__Id_Ac__5669C4BE" Association="Self.FK__ActionRol__Id_Ac__5669C4BE">
             <End Role="Action" EntitySet="Action" />
             <End Role="ActionRole" EntitySet="ActionRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__ActionRol__Id_Ro__489AC854" Association="Self.FK__ActionRol__Id_Ro__489AC854">
+          <AssociationSet Name="FK__ActionRol__Id_Ro__5575A085" Association="Self.FK__ActionRol__Id_Ro__5575A085">
             <End Role="Role" EntitySet="Role" />
             <End Role="ActionRole" EntitySet="ActionRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__Booking__id_Requ__72910220" Association="Self.FK__Booking__id_Requ__72910220">
+          <AssociationSet Name="FK__Booking__id_Requ__7F6BDA51" Association="Self.FK__Booking__id_Requ__7F6BDA51">
             <End Role="RequestBooking" EntitySet="RequestBooking" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
-          <AssociationSet Name="FK__Booking__Licence__719CDDE7" Association="Self.FK__Booking__Licence__719CDDE7">
+          <AssociationSet Name="FK__Booking__Licence__7E77B618" Association="Self.FK__Booking__Licence__7E77B618">
             <End Role="Car" EntitySet="Car" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__id_Car_Mode__6EC0713C" Association="Self.FK__Car__id_Car_Mode__6EC0713C">
+          <AssociationSet Name="FK__Car__id_Car_Mode__7B9B496D" Association="Self.FK__Car__id_Car_Mode__7B9B496D">
             <End Role="CarModel" EntitySet="CarModel" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_Company__6CD828CA" Association="Self.FK__Car__Id_Company__6CD828CA">
+          <AssociationSet Name="FK__Car__Id_Company__79B300FB" Association="Self.FK__Car__Id_Company__79B300FB">
             <End Role="Company" EntitySet="Company" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_User__6DCC4D03" Association="Self.FK__Car__Id_User__6DCC4D03">
+          <AssociationSet Name="FK__Car__Id_User__7AA72534" Association="Self.FK__Car__Id_User__7AA72534">
             <End Role="User" EntitySet="User" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__CarModel__id_Car__5AB9788F" Association="Self.FK__CarModel__id_Car__5AB9788F">
+          <AssociationSet Name="FK__CarModel__id_Car__679450C0" Association="Self.FK__CarModel__id_Car__679450C0">
             <End Role="CarMake" EntitySet="CarMake" />
             <End Role="CarModel" EntitySet="CarModel" />
           </AssociationSet>
-          <AssociationSet Name="FK__CarReport__Id_Bo__078C1F06" Association="Self.FK__CarReport__Id_Bo__078C1F06">
+          <AssociationSet Name="FK__CarReport__Id_Bo__1466F737" Association="Self.FK__CarReport__Id_Bo__1466F737">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="CarReport" EntitySet="CarReport" />
           </AssociationSet>
-          <AssociationSet Name="FK__Company__id_Addr__5E8A0973" Association="Self.FK__Company__id_Addr__5E8A0973">
+          <AssociationSet Name="FK__Company__id_Addr__6B64E1A4" Association="Self.FK__Company__id_Addr__6B64E1A4">
             <End Role="Address" EntitySet="Address" />
             <End Role="Company" EntitySet="Company" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cost__Id_Booking__793DFFAF" Association="Self.FK__Cost__Id_Booking__793DFFAF">
+          <AssociationSet Name="FK__Cost__Id_Booking__0618D7E0" Association="Self.FK__Cost__Id_Booking__0618D7E0">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Cost" EntitySet="Cost" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cost__Id_Categor__7A3223E8" Association="Self.FK__Cost__Id_Categor__7A3223E8">
+          <AssociationSet Name="FK__Cost__Id_Categor__070CFC19" Association="Self.FK__Cost__Id_Categor__070CFC19">
             <End Role="CategoryCost" EntitySet="CategoryCost" />
             <End Role="Cost" EntitySet="Cost" />
           </AssociationSet>
-          <AssociationSet Name="FK__Event__Licence_P__7D0E9093" Association="Self.FK__Event__Licence_P__7D0E9093">
+          <AssociationSet Name="FK__Event__Licence_P__09E968C4" Association="Self.FK__Event__Licence_P__09E968C4">
             <End Role="Car" EntitySet="Car" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdBoo__10216507" Association="Self.FK__Notificat__IdBoo__10216507">
+          <AssociationSet Name="FK__Notificat__IdBoo__1CFC3D38" Association="Self.FK__Notificat__IdBoo__1CFC3D38">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__0F2D40CE" Association="Self.FK__Notificat__IdUse__0F2D40CE">
+          <AssociationSet Name="FK__Notificat__IdUse__1C0818FF" Association="Self.FK__Notificat__IdUse__1C0818FF">
             <End Role="User" EntitySet="User" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__RequestBo__Id_St__51300E55" Association="Self.FK__RequestBo__Id_St__51300E55">
+          <AssociationSet Name="FK__RequestBo__Id_St__5E0AE686" Association="Self.FK__RequestBo__Id_St__5E0AE686">
             <End Role="Status" EntitySet="Status" />
             <End Role="RequestBooking" EntitySet="RequestBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOver__Id_Boo__7FEAFD3E" Association="Self.FK__StopOver__Id_Boo__7FEAFD3E">
+          <AssociationSet Name="FK__StopOver__Id_Boo__0CC5D56F" Association="Self.FK__StopOver__Id_Boo__0CC5D56F">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="StopOver" EntitySet="StopOver" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOver__Id_Sto__00DF2177" Association="Self.FK__StopOver__Id_Sto__00DF2177">
+          <AssociationSet Name="FK__StopOver__Id_Sto__0DB9F9A8" Association="Self.FK__StopOver__Id_Sto__0DB9F9A8">
             <End Role="StopOverType" EntitySet="StopOverType" />
             <End Role="StopOver" EntitySet="StopOver" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOverA__id_Ad__04AFB25B" Association="Self.FK__StopOverA__id_Ad__04AFB25B">
+          <AssociationSet Name="FK__StopOverA__id_Ad__118A8A8C" Association="Self.FK__StopOverA__id_Ad__118A8A8C">
             <End Role="Address" EntitySet="Address" />
             <End Role="StopOverAddress" EntitySet="StopOverAddress" />
           </AssociationSet>
-          <AssociationSet Name="FK__StopOverA__Id_St__03BB8E22" Association="Self.FK__StopOverA__Id_St__03BB8E22">
+          <AssociationSet Name="FK__StopOverA__Id_St__10966653" Association="Self.FK__StopOverA__Id_St__10966653">
             <End Role="StopOver" EntitySet="StopOver" />
             <End Role="StopOverAddress" EntitySet="StopOverAddress" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__Id_Company__625A9A57" Association="Self.FK__User__Id_Company__625A9A57">
+          <AssociationSet Name="FK__User__Id_Company__6F357288" Association="Self.FK__User__Id_Company__6F357288">
             <End Role="Company" EntitySet="Company" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_addr__id_ad__69FBBC1F" Association="Self.FK__user_addr__id_ad__69FBBC1F">
+          <AssociationSet Name="FK__user_addr__id_ad__76D69450" Association="Self.FK__user_addr__id_ad__76D69450">
             <End Role="Address" EntitySet="Address" />
             <End Role="user_address" EntitySet="user_address" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_addr__id_us__690797E6" Association="Self.FK__user_addr__id_us__690797E6">
+          <AssociationSet Name="FK__user_addr__id_us__75E27017" Association="Self.FK__user_addr__id_us__75E27017">
             <End Role="User" EntitySet="User" />
             <End Role="user_address" EntitySet="user_address" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_role__id_ro__662B2B3B" Association="Self.FK__user_role__id_ro__662B2B3B">
+          <AssociationSet Name="FK__user_role__id_ro__7306036C" Association="Self.FK__user_role__id_ro__7306036C">
             <End Role="Role" EntitySet="Role" />
             <End Role="user_role" EntitySet="user_role" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_role__id_us__65370702" Association="Self.FK__user_role__id_us__65370702">
+          <AssociationSet Name="FK__user_role__id_us__7211DF33" Association="Self.FK__user_role__id_us__7211DF33">
             <End Role="User" EntitySet="User" />
             <End Role="user_role" EntitySet="user_role" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserBooki__Id_Bo__756D6ECB" Association="Self.FK__UserBooki__Id_Bo__756D6ECB">
+          <AssociationSet Name="FK__UserBooki__Id_Bo__024846FC" Association="Self.FK__UserBooki__Id_Bo__024846FC">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="UserBooking" EntitySet="UserBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserBooki__Id_Us__76619304" Association="Self.FK__UserBooki__Id_Us__76619304">
+          <AssociationSet Name="FK__UserBooki__Id_Us__033C6B35" Association="Self.FK__UserBooki__Id_Us__033C6B35">
             <End Role="User" EntitySet="User" />
             <End Role="UserBooking" EntitySet="UserBooking" />
           </AssociationSet>
@@ -1253,7 +1252,7 @@
           </FunctionImport>
           <FunctionImport Name="usp_RequestBooking_List" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)" />
           <FunctionImport Name="usp_RequestBooking_Get" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
