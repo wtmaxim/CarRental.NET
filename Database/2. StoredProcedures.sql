@@ -606,7 +606,7 @@ CREATE PROCEDURE [dbo].[usp_User_Get_Fistname_Lastname_Email]
 	@searchValue varchar(255)
 AS
 BEGIN
-	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, Job, Note, Phone_Number, is_Address_Private, Id_Company, Id_Role
+	SELECT Id, Firstname, Lastname, Email, [Password], is_Active, Job, Note, Phone_Number, is_Address_Private, Id_Company
 	FROM [User]
 	WHERE 
 		(
