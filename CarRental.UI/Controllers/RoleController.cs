@@ -47,25 +47,25 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult Edit(int id, string[] actions,string roleName)
         {
+            RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
+            
 
-           if(roleName == null || roleName.Trim() == "")
+            if (roleName == null || roleName.Trim() == "")
             {
                 ViewBag.Status = true;
                 ViewBag.message = "Veuillez saisir un nom";
-                RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
                 List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
                 RoleEditViewModel REVM = new RoleEditViewModel()
                 {
                     RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
                     allActions = actionLogic.List()
                 };
-
                 return View(REVM);
             }
             else
             {            
                 // Si aucune role avec ce nom n'existe, je l'ajoute en base.
-                if (roleLogic.List().Find(u => u.Libelle == roleName) == null)
+                if (roleLogic.List().Find(u => u.Libelle == roleName && u.Id!=id) == null)
                 {
                     roleLogic.update(id, roleName);
                     roleLogic.Set_Role_Actions(roleLogic.Get_Role_And_Actions_By_Ids(id, actions));
@@ -73,16 +73,16 @@ namespace CarRental.UI.Controllers
                 }
                 else
                 {
-                ViewBag.Status = true;
+                    roleLogic.Set_Role_Actions(roleLogic.Get_Role_And_Actions_By_Ids(id, actions));
+                    ViewBag.Status = true;
                 ViewBag.message = "Il existe déjà un role disposant de son libellé.";
-                RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
-                List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
-                RoleEditViewModel REVM = new RoleEditViewModel()
-                {
-                    RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
-                    allActions = actionLogic.List()
-                };
-                return View(REVM);
+                    List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
+                    RoleEditViewModel REVM = new RoleEditViewModel()
+                    {
+                        RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
+                        allActions = actionLogic.List()
+                    };
+                    return View(REVM);
                 }
             }
 
