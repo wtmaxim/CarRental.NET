@@ -20,7 +20,7 @@ namespace CarRental.BLL
             actionLogic = new ActionLogic();
         }
         /// <summary>
-        /// 
+        /// Récupère la liste de role d'un utilisateur.
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Ajoute un role en base de données.
         /// </summary>
         /// <param name="roleName"></param>
         public void AddRole(string roleName)
@@ -54,7 +54,11 @@ namespace CarRental.BLL
             }
 
         }
-
+        /// <summary>
+        /// Met à jour le libellé d'un role.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roleName"></param>
         public void update(int id, string roleName)
         {
             RoleDTO role = Get_By_Id(id);            
@@ -99,7 +103,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Supprimes toutes les actions d'un role avant de lui ajouter de nouvelles.
         /// </summary>
         /// <param name="tuple"></param>
         public void Set_Role_Actions(Tuple<RoleDTO, List<ActionDTO>> tuple)
@@ -115,7 +119,7 @@ namespace CarRental.BLL
         }
 
         /// <summary>
-        /// 
+        /// Ajoute un role à un utilisateur.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="roleName"></param>
@@ -138,7 +142,7 @@ namespace CarRental.BLL
             roleEngine.Add_User_Role(roleId, userId);
         }
         /// <summary>
-        /// 
+        /// Récupère une liste d'utilisateur selon un nom de role.
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>
@@ -189,7 +193,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Vérifie qu'un utilisateur possède un role précis.
         /// </summary>
         /// <param name="mail"></param>
         /// <param name="roleName"></param>
@@ -207,7 +211,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Liste de tout les roles.
         /// </summary>
         /// <returns></returns>
         public List<RoleDTO> List()
@@ -223,7 +227,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Converti un liste de role en tableau
         /// </summary>
         /// <param name="roleDTOs"></param>
         /// <returns></returns>
@@ -237,7 +241,7 @@ namespace CarRental.BLL
             return array.ToArray();
         }
         /// <summary>
-        /// 
+        /// Converti une liste d'utilisateurs en tableau.
         /// </summary>
         /// <param name="userDTOs"></param>
         /// <returns></returns>

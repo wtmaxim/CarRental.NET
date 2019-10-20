@@ -48,7 +48,22 @@ namespace CarRental.UI.Controllers
         public ActionResult Edit(int id, string[] actions,string roleName)
         {
 
-           
+           if(roleName == null || roleName.Trim() == "")
+            {
+                ViewBag.Status = true;
+                ViewBag.message = "Veuillez saisir un nom";
+                RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
+                List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
+                RoleEditViewModel REVM = new RoleEditViewModel()
+                {
+                    RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
+                    allActions = actionLogic.List()
+                };
+
+                return View(REVM);
+            }
+            else
+            {            
                 // Si aucune role avec ce nom n'existe, je l'ajoute en base.
                 if (roleLogic.List().Find(u => u.Libelle == roleName) == null)
                 {
@@ -67,10 +82,9 @@ namespace CarRental.UI.Controllers
                     RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
                     allActions = actionLogic.List()
                 };
-
                 return View(REVM);
-                
                 }
+            }
 
                 
            
