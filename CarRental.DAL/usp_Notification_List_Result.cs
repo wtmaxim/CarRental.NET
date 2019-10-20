@@ -16,7 +16,7 @@ namespace CarRental.DAL
         public int Id { get; set; }
         public int IdUser { get; set; }
         public byte IsRead { get; set; }
-        public System.DateTime CreationDate { get; set; }
+        public System.DateTime CreationDateTimestamp { get; set; }
         public byte IsForAdmin { get; set; }
         public byte IsForNewRequest { get; set; }
         public int IdBooking { get; set; }

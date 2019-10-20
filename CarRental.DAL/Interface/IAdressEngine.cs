@@ -10,5 +10,6 @@ namespace CarRental.DAL
     public interface IAdressEngine
     {
         List<AddressDTO> List();
+        AddressDTO GetAddress(int idBooking);
     }
 }

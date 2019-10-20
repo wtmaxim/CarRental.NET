@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace CarRental.Model
 {
@@ -6,8 +6,9 @@ namespace CarRental.Model
     {
         public int id { get; set; }
         public byte is_Personal_Car_Available { get; set; }
-        public System.DateTime Date { get; set; }
+        public DateTime Date { get; set; }
         public string Reason { get; set; }
         public int Id_Status { get; set; }
+        public int CreateBy { get; set; }
     }
 }

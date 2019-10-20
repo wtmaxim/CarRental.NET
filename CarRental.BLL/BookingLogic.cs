@@ -22,9 +22,26 @@ namespace CarRental.BLL
             return bookingEngine.Get(id);
         }
 
+        public BookingDTO GetByRequestBooking(int idRequestBooking)
+        {
+            return bookingEngine.GetByRequestBooking(idRequestBooking);
+        }
+
         public List<BookingDTO> List(string licence_plate)
         {
             return bookingEngine.List(licence_plate);
+        }
+
+        public BookingDTO Insert(byte isPersonalCarUsed, string licencePlate, int idRequestBooking)
+        {
+            BookingDTO booking = new BookingDTO
+            {
+                id_Request_Booking = idRequestBooking,
+                is_Personal_Car_Used = isPersonalCarUsed,
+                Licence_Plate = licencePlate
+            };
+
+            return bookingEngine.Insert(booking);
         }
     }
 }

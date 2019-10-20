@@ -56,6 +56,12 @@ namespace CarRental.BLL
             }
 
         }
+
+        public List<UserDTO> ListDrivers(int idBooking)
+        {
+            return utilisateurEngine.ListDrivers(idBooking);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -64,6 +70,12 @@ namespace CarRental.BLL
         {
             return utilisateurEngine.ListAll();
         }
+
+        public List<UserDTO> ListPassagers(int idBooking)
+        {
+            return utilisateurEngine.ListPassagers(idBooking);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -72,6 +84,12 @@ namespace CarRental.BLL
         {
             return utilisateurEngine.ListActive();
         }
+
+        public UserDTO GetDriver(int idBooking, byte isGoing)
+        {
+            return utilisateurEngine.GetDriverByBooking(idBooking, isGoing);
+        }
+
         /// <summary>
         /// 
         /// </summary>

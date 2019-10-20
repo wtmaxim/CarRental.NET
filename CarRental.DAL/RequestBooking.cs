@@ -25,6 +25,7 @@ namespace CarRental.DAL
         public System.DateTime Date { get; set; }
         public string Reason { get; set; }
         public int Id_Status { get; set; }
+        public Nullable<int> CreateBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Booking { get; set; }

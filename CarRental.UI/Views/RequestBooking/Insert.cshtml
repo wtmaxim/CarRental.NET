@@ -1,0 +1,522 @@
+﻿<section class="content-header">
+    <h1>
+        Faire une demande
+    </h1>
+</section>
+
+<!-- Current request section -->
+<section class="content">
+
+
+    <!-- New request form -->
+
+    <form>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <h4 class="text-light-blue">
+                            General
+                        </h4>
+
+                        <!-- driver column -->
+                        <div class="form-group">
+                            <select class="form-control select2" id="SelectedDriverId" data-placeholder="Entrez le conducteur" style="width: 100%;">
+                                <option value="1">Paul Martin</option>
+                                <option value="2">Blanche Denis</option>
+                                <option value="3">Frédéric Veilleux</option>
+                                <option value="4">Paul Raymond</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <!--personnal vehicle checkbox -->
+                            <div class="checkbox">
+                                <label class="col-sm-6">
+                                    <input type="checkbox" id="checkBoxIsPersonalCarAvailable">
+                                    Véhicule personnel disponible
+                                </label>
+                                <label class="col-sm-6">
+                                    <input type="checkbox" id="checkBoxDriverChange">
+                                    Changement de conducteur
+                                </label>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="form-group" id="driverChange">
+                            <select class="form-control select2" id="DropDownListDriverChange" data-placeholder="Conducteur retour" style="width: 100%;">
+                                <option value="1">Paul Martin</option>
+                                <option value="2">Blanche Denis</option>
+                                <option value="3">Frédéric Veilleux</option>
+                                <option value="4">Paul Raymond</option>
+                            </select>
+                        </div>
+                        <br>
+
+                        <!--carpool not accepted checkbox -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="checkBoxCoVoiturage">
+                                    Co-voiturage non accepté
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- passengers column -->
+                        <div class="form-group">
+                            <select class="form-control select2" id="DropDownListPassagers" multiple="multiple" data-placeholder="Entrez les passagers" style="width: 100%;">
+                                <option value="1">Paul Martin</option>
+                                <option value="2">Blanche Denis</option>
+                                <option value="3">Frédéric Veilleux</option>
+                                <option value="4">Paul Raymond</option>
+                            </select>
+                        </div>
+
+                        <!-- reservation cat -->
+                        <div class="form-group">
+                            <select class="form-control select2" multiple="multiple"
+                                    data-placeholder="Catégorie du déplacement" style="width: 100%;">
+                                <option>Technique</option>
+                                <option>Formation</option>
+                                <option>Evenement</option>
+                            </select>
+                        </div>
+
+                        <!-- reservation reason -->
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Raison du déplacement">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <h4 class="text-light-blue">Ajouter une étape</h4>
+
+                        <h5 class="text-light-blue">Choix de l'étape</h5>
+                        <div class="form-group">
+                            <select class="form-control" id="StopOverType">
+                                <option value="1">Principal</option>
+                                <option value="2">Quotidien</option>
+                                <option value="3">Ponctuel</option>
+                            </select>
+                        </div>
+
+                        <!-- departure date -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="text-light-blue">Point de départ</h5>
+                                <div class="noPadding form-group ">
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="date" class="form-control" id="Departure_Date">
+                                    </div>
+                                </div>
+                                <div class="noPadding form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control timepicker">
+                                    </div>
+                                </div>
+
+                                <!-- departure address -->
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button id="buttonAddressAutoDeparture" type="button"
+                                                class="btn btn-block btn-default">
+                                            Adresse définie
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button id="buttonAddressManualDeparture" type="button"
+                                                class="btn btn-block btn-default link">
+                                            Adresse manuelle
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group" id="DropDownListAddressDeparture">
+                                    <select class="form-control select2" data-placeholder="Adresse définie" style="width: 100%;">
+                                        <option>Campus de Nantes</option>
+                                        <option>Campus de Nantes Faraday</option>
+                                        <option>Campus de Rennes</option>
+                                        <option>Campus de Niort</option>
+                                        <option>Autre</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" id="manAddressDepTxt">
+                                    <input id="InputAddressDeparture" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- return -->
+                            <!-- return date -->
+                            <div class="col-sm-6">
+                                <h5 class="text-light-blue">Destination</h5>
+                                <div class="noPadding form-group">
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="date" class="form-control" id="Arrival_Date">
+                                    </div>
+                                </div>
+                                <div class="noPadding form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control timepicker">
+                                    </div>
+                                </div>
+
+                                <!-- return address -->
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button id="buttonAddressAutoArrival" type="button"
+                                                class="btn btn-block btn-default">
+                                            Adresse définie
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button id="buttonAddressManualArrival" type="button"
+                                                class="btn btn-block btn-default link">
+                                            Adresse manuelle
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group" id="DropDownListAddressArrival">
+                                    <select class="form-control select2" data-placeholder="Adresse définie" style="width: 100%;">
+                                        <option>Campus de Nantes</option>
+                                        <option>Campus de Nantes Faraday</option>
+                                        <option>Campus de Rennes</option>
+                                        <option>Campus de Niort</option>
+                                        <option>Autre</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" id="manAddressRetTxt">
+                                    <input id="InputAddressArrival" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <button type="button" id="btnAddStopOver" class="btn btn-block btn-primary">
+                                Ajouter étape
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-12">
+                <div class="box box-solid">
+                    <div class="box-body table-responsive">
+                        <h4 class="text-light-blue">Itineraire</h4>
+                        <table class="table table-hover" id="tableStopOver">
+                            <thead>
+                                <tr>
+                                    <th>Etape</th>
+                                    <th>Date(s)</th>
+                                    <th>Adresse départ</th>
+                                    <th>Adresse arrivée</th>
+                                    <th>Plus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="tdSelected">Principal</td>
+                                    <td class="tdSelected">11/07/2019 - 15/07/2019</td>
+                                    <td class="tdSelected">
+                                        @*<a href="https://www.google.com/maps/search/?api=1&query=eni+nantes" target="_blank">*@
+                                            Campus de Nantes
+                                        @*</a>*@
+                                    </td>
+                                    <td class="tdSelected">
+                                        @*<a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">*@
+                                            Cité des Congrès, 5 Rue de Valmy
+                                            44000 Nantes
+                                        @*</a>*@
+                                    </td>
+                                    <td>
+                                        <a href="">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSelected">Quotidien</td>
+                                    <td class="tdSelected">11/07/2019 - 13/07/2019</td>
+                                    <td class="tdSelected">Hôtel Mercure Nantes Saint Herblain
+                                        @*<a href="https://www.google.com/maps/search/?api=1&query=hotel+mercure+nantes+saint+herblain" target="_blank">*@
+                                        @*</a>*@
+                                    </td>
+                                    <td class="tdSelected">
+                                        @*<a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">*@
+                                            Cité des Congrès, 5 Rue de Valmy
+                                            44000 Nantes
+                                        @*</a>*@
+                                    </td>
+                                    <td>
+                                        <a href="">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSelected">Ponctuel</td>
+                                    <td class="tdSelected">14/07/2019</td>
+                                    <td class="tdSelected">
+                                        @*<a href="https://www.google.com/maps/search/?api=1&query=hotel+mercure+nantes+saint+herblain" target="_blank">*@
+                                            Hôtel Mercure Nantes Saint Herblain
+                                        @*</a>*@
+                                    </td>
+                                    <td class="tdSelected">
+                                        @*<a href="https://www.google.com/maps/search/?api=1&query=asi+informatique" target="_blank">*@
+                                            ASI Informatique
+                                        @*</a>*@
+                                    </td>
+                                    <td>
+                                        <a href="">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box-footer text-center">
+                <div class="col-sm-6">
+                    <br>
+                    <a class="btn btn-default btn-block" href="./my_rents.2.html">
+                        <i class="fa fa-mail-reply"></i> Annuler
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <br>
+                    <a class="btn bg-olive btn-block" id="DemanderReservation">
+                        <i class="fa fa-check"></i> Assigner une voiture
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</section>
+
+@section Scripts {
+    <script>
+        var idItineraire;
+
+        $(function ()
+        {
+            idItineraire = 0;
+
+            toogleClickAutoAddressDeparture();
+            toogleClickAutoAddressArrival();
+
+            $('#datetimepicker1').datetimepicker({
+                locale: 'fr'
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                locale: 'fr'
+            });
+
+            handleStatusChanged();
+
+            $("#DemanderReservation").on('click', function () {
+                addRequestBooking();
+            });
+
+            $(".select2").select2({
+                theme: "bootstrap"
+            });   
+
+
+        });
+
+        $('#btnAddStopOver').on('click', function () {
+            getStopOverValues();
+        });
+
+        function addRequestBooking()
+        {
+            var generalValues = getGeneralValues();
+            var data = Array();
+
+            $("#tableStopOver tbody tr").each(function(i, v){
+                data[i] = Array();
+                $(this).children(".tdSelected").each(function(ii, vv){
+                    data[i][ii] = $(this).text();
+                }); 
+            })
+
+            console.log(data);
+            console.log(generalValues);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddRequestBooking", "RequestBooking")',
+                data: '{requestBooking: ' + JSON.stringify(requestBooking) + ', passagers: ' + JSON.stringify(passagers) + ', driver: ' + JSON.stringify(driver) +', driver2: ' + JSON.stringify(driver2) +', stopOver: ' + JSON.stringify(stopOver) +'}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("Ajoutée");
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function getGeneralValues()
+        {
+            var requestBooking = {};
+            var driver = $("#SelectedDriverId > option:selected").attr("value");
+
+            if ($("#DropDownListDriverChange").is(":disabled")) {
+                driver2 = driver;
+            } else {
+                driver2 = $("#DropDownListDriverChange > option:selected").attr("value");
+            }
+
+            requestBooking.reason = $("#reason").val();
+            requestBooking.isPersonalCarAvailable = $("#checkBoxIsPersonalCarAvailable").is(":checked");
+ 
+            var passagers = $('#DropDownListPassagers').val();
+
+            return { requestBooking: requestBooking, passagers: passagers, driver: driver, driver2: driver2 };
+        }
+
+        function getStopOverValues()
+        {
+            idItineraire = idItineraire + 1;
+            var stopOver = {};
+
+            stopOver.Id_Stop_Over_Type = $("#StopOverType > option:selected").attr("value");
+            var dateDeparture = new Date($('#Departure_Date').val());
+            var dayDeparture = dateDeparture.getDate();
+            var monthDeparture = dateDeparture.getMonth();
+            var yearsDeparture = dateDeparture.getFullYear();
+            var dateFinalDeparture = dayDeparture + '/' + monthDeparture + '/' + yearsDeparture;
+            stopOver.Departure_Date = dateFinalDeparture;
+
+            var dateArrival = new Date($('#Arrival_Date').val());
+            var dayArrival = dateArrival.getDate();
+            var monthArrival = dateArrival.getMonth();
+            var yearsArrival = dateArrival.getFullYear();
+            var dateFinalArrival = dayArrival + '/' + monthArrival + '/' + yearsArrival;
+            stopOver.Arrival_Date = dateFinalArrival;
+
+            var addressAutoDeparture = $("#DropDownListAddressDeparture option:selected").text();
+            var addressAutoArrival = $("#DropDownListAddressArrival option:selected").text();
+
+            $("#tableStopOver").find('tbody').append($('<tr class="' + idItineraire+'">')
+                .append($('<td class="tdSelected">').append(stopOver.Id_Stop_Over_Type))
+                .append($('<td class="tdSelected">').append(stopOver.Departure_Date + ' - ' + stopOver.Arrival_Date))
+                .append($('<td class="tdSelected">').append(addressAutoDeparture))
+                .append($('<td class="tdSelected">').append(addressAutoArrival))
+                .append($('<td>').append($('<a>')).append($('<i>')).addClass('fa fa-trash text-danger deleteTableRow'))
+            );
+        }
+
+        $(document)
+            .on('click', "#buttonAddressAutoDeparture", toogleClickAutoAddressDeparture)
+            .on('click', "#buttonAddressManualDeparture", toogleClickManualAddressDeparture)
+            .on('click', "#buttonAddressAutoArrival", toogleClickAutoAddressArrival)
+            .on('click', "#buttonAddressManualArrival", toogleClickManualAddressArrival)
+            .on('click', ".deleteTableRow", deleteTableRow)
+
+        function deleteTableRow() {
+            $(this).parents('tr').remove();
+        }
+
+        function toogleClickAutoAddressDeparture() {
+            $("#InputAddressDeparture").hide();
+            $("#DropDownListAddressDeparture").show();
+            $("#buttonAddressAutoDeparture").prop('disabled', true);
+            $("#buttonAddressManualDeparture").prop('disabled', false);
+        }
+
+        function toogleClickManualAddressDeparture() {
+            $("#DropDownListAddressDeparture").hide();
+            $("#InputAddressDeparture").show();
+            $("#buttonAddressAutoDeparture").prop('disabled', false);
+            $("#buttonAddressManualDeparture").prop('disabled', true);
+        }
+
+        function toogleClickAutoAddressArrival() {
+            $("#InputAddressArrival").hide();
+            $("#DropDownListAddressArrival").show();
+            $("#buttonAddressAutoArrival").prop('disabled', true);
+            $("#buttonAddressManualArrival").prop('disabled', false);
+        }
+
+        function toogleClickManualAddressArrival() {
+            $("#DropDownListAddressArrival").hide();
+            $("#InputAddressArrival").show();
+            $("#buttonAddressAutoArrival").prop('disabled', false);
+            $("#buttonAddressManualArrival").prop('disabled', true);
+        }
+
+
+        function handleStatusChanged()
+        {
+            $('#checkBoxDriverChange').on('change', function () {
+                toggleChangeConducteur();   
+            });
+            $('#checkBoxCoVoiturage').on('change', function () {
+                toggleChangeCoVoiturage();
+            });
+        }
+
+        function toggleChangeCoVoiturage()
+        {
+            if ($('#checkBoxCoVoiturage').is(':checked')) {
+                $('#DropDownListPassagers').attr('disabled', true);
+            } else {
+                $('#DropDownListPassagers').removeAttr('disabled');
+            }   
+        }
+
+        function toggleChangeConducteur()
+        {
+            if ($('#checkBoxDriverChange').is(':checked')) {
+                $('#DropDownListDriverChange').attr('disabled', true);
+            } else {
+                $('#DropDownListDriverChange').removeAttr('disabled');
+            }   
+        }
+    </script>
+}

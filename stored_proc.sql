@@ -453,7 +453,14 @@ BEGIN
 END
 GO
 
-
+-- Notification - List
+CREATE PROCEDURE usp_Notification_List
+AS
+BEGIN
+select * from [Notification]
+order by CreationDate desc
+END
+GO
 
 -- Ajout d'une notification
 CREATE PROCEDURE usp_Notification_Insert
@@ -468,80 +475,3 @@ BEGIN
 	VALUES (@IdUser, @IsRead, @IsForAdmin, @IsForNewRequest, @IdBooking)
 END
 GO
--- récupère les actions selon l'id du role
-Create procedure usp_Action_List_By_Role 
-@roleId int
-as
-BEGIN
-Select * from action
-Inner join ActionRole on Action.Id= ActionRole.Id_Action
-Inner join [Role] on  ActionRole.Id_Role = Role.Id
-where Role.Id=@roleId;
-END
-GO
--- Liste de toutes les actions
-Create procedure usp_Action_List
-AS
-BEGIN
-Select *
-From [Action]
-END
-Go
--- Récupère une action selon son id
-CREATE PROCEDURE usp_Action_Get_By_Id
-	@id int
-AS
-BEGIN
-	SELECT *
-	FROM [Action]
-	Where Id=@id
-END
-Go
--- Met a jour le libelle d'un role
-CREATE PROCEDURE usp_Role_Update
-	@id int, @libelle varchar(255)	
-AS
-BEGIN
-Update [Role]
-set Libelle=@libelle
-where Id=@id
-END
-Go
--- Ajoute une action à un role
-CREATE PROCEDURE usp_Role_Action_Insert
-	@roleId int,
-	@actionId int
-AS
-BEGIN
-Insert into ActionRole(Id_Action,Id_Role) VALUES(@actionId,@roleId)
-END
-Go
--- Supprime les actionRole selon le roleId
-CREATE PROCEDURE [usp_Role_Action_Delete_By_Role]
-	@RoleiD int	
-AS
-BEGIN
-	Delete From ActionRole
-	Where Id_Role=@RoleiD
-END
-GO
--- suprime les userRole selon le roleId
-CREATE PROCEDURE usp_User_Role_Delete_By_Role
-	@RoleID int	
-AS
-BEGIN
-	Delete From user_role
-	Where Id_Role=@RoleiD
-END
-Go
-
--- Supprime un role et efface les userRole et ActionRole qui y sont lié
-CREATE PROCEDURE usp_Role_Delete
-	@RoleId int	
-AS
-BEGIN
-	EXEC usp_Role_Action_Delete_By_Role @RoleId
-	EXEC usp_User_Role_Delete_By_Role @RoleId
-	Delete FROM [Role]
-	where Id = @RoleId
-END

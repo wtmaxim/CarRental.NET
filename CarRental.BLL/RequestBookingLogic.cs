@@ -1,11 +1,8 @@
-﻿using CarRental.DAL;
+﻿using System;
+using System.Collections.Generic;
+using CarRental.DAL;
 using CarRental.DAL.Interface;
 using CarRental.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarRental.BLL
 {
@@ -18,9 +15,30 @@ namespace CarRental.BLL
             requestBookingEngine = new RequestBookingEngine();
         }
 
+        public RequestBookingDTO Insert(RequestBookingDTO requestBooking)
+        {
+            requestBooking.Id_Status = 1;
+            return requestBookingEngine.Insert(requestBooking);
+        }
+
         public RequestBookingDTO Get(int idBooking)
         {
             return requestBookingEngine.Get(idBooking);
+        }
+
+        public List<RequestBookingDTO> List(int idUser)
+        {
+            return requestBookingEngine.List(idUser);
+        }
+
+        public IEnumerable<RequestBookingDTO> List()
+        {
+            return requestBookingEngine.List();
+        }
+
+        public RequestBookingDTO GetByRequestBooking(int idRequestBooking)
+        {
+            return requestBookingEngine.GetByRequestBooking(idRequestBooking);
         }
     }
 }

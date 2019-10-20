@@ -56,6 +56,7 @@ CREATE TABLE RequestBooking
   Date DATE NOT NULL,
   Reason VARCHAR(255) NOT NULL,
   Id_Status INT NOT NULL,
+  CreateBy INT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (Id_Status) REFERENCES Status(Id)
 );
@@ -150,7 +151,7 @@ CREATE TABLE Booking
 (
   Id INT NOT NULL IDENTITY(1,1),
   is_Personal_Car_Used TINYINT NOT NULL,
-  Licence_Plate VARCHAR(25) NOT NULL,
+  Licence_Plate VARCHAR(25) NULL,
   id_Request_Booking INT NOT NULL,
   PRIMARY KEY (Id),
   FOREIGN KEY (Licence_Plate) REFERENCES Car(Licence_Plate),

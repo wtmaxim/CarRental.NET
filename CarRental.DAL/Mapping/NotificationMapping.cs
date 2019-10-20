@@ -18,7 +18,7 @@ namespace CarRental.DAL.Mapping
                     IsForAdmin = n.IsForAdmin,
                     IsForNewRequest = n.IsForNewRequest,
                     IdBooking = n.IdBooking,
-                    CreationDate = n.CreationDate
+                    CreationDateTimestamp = n.CreationDateTimestamp
                 };
 
                 retour.Add(notif);

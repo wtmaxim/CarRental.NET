@@ -10,5 +10,7 @@ namespace CarRental.DAL
     public interface IStopOverEngine
     {
         List<StopOverDTO> List(int idBooking);
+        StopOverDTO Add(StopOverDTO stopOver);
+        StopOverDTO GetByBooking(int idBooking);
     }
 }

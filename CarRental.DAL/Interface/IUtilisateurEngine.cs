@@ -45,6 +45,8 @@ namespace CarRental.DAL
         /// <param name="id"></param>
         /// <returns></returns>
         UserDTO Get(int id);
+        List<UserDTO> ListDrivers(int idBooking);
+
         /// <summary>
         /// Recherche un utilisateur.
         /// </summary>
@@ -56,6 +58,8 @@ namespace CarRental.DAL
         /// </summary>
         /// <param name="user"></param>
         void Insert(UserDTO user);
+        List<UserDTO> ListPassagers(int idBooking);
+
         /// <summary>
         /// Ajout ou met à jour un utilisateur
         /// </summary>
@@ -66,6 +70,8 @@ namespace CarRental.DAL
         /// </summary>
         /// <param name="userId"></param>
         void Archive(int userId);
+        UserDTO GetDriverByBooking(int idBooking, byte isGoing);
+
         /// <summary>
         /// Réactive le compte d'un utilisateur
         /// </summary>

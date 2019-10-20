@@ -10,5 +10,6 @@ namespace CarRental.DAL
     public interface IStopOverAddressEngine
     {
         StopOverAddressDTO Get(int idStopOver);
+        void Insert(StopOverAddressDTO stopOverAddress);
     }
 }

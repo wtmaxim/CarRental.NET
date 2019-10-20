@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ActionDTO.cs" />
     <Compile Include="AddressDTO.cs" />
+    <Compile Include="Booking.cs" />
     <Compile Include="BookingDTO.cs" />
     <Compile Include="CarMakeDTO.cs" />
     <Compile Include="CarModelDTO.cs" />

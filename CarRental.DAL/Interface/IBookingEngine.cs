@@ -9,7 +9,9 @@ namespace CarRental.DAL
 {
     public interface IBookingEngine
     {
+        BookingDTO Insert(BookingDTO booking);
         BookingDTO Get(int id);
         List<BookingDTO> List(string licence_plate);
+        BookingDTO GetByRequestBooking(int idRequestBooking);
     }
 }

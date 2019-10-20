@@ -128,9 +128,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RequestBookingController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
@@ -142,6 +144,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\CustomRoleProvider.cs" />
+    <Compile Include="ViewsModels\Booking\BookingAssignationViewsModel.cs" />
+    <Compile Include="ViewsModels\Booking\BookingIndexViewsModel.cs" />
+    <Compile Include="ViewsModels\Booking\BookingValidationsViewsModel.cs" />
+    <Compile Include="ViewsModels\Booking\BookingValidationViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
@@ -151,9 +157,12 @@
     <Compile Include="ViewsModels\Profile\ProfileIndexViewModel.cs" />
     <Compile Include="ViewsModels\Role\RoleEditViewModel.cs" />
     <Compile Include="ViewsModels\Utilisateur\UtilisateurIndexViewModel.cs" />
+    <Compile Include="ViewsModels\RequestBooking\RequestBookingInsertViewsModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE.min.css" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1615,6 +1624,8 @@
     <Content Include="Images\logoCarMake\Volvo.png" />
     <Content Include="Images\logoCarMake\Zastava.png" />
     <Content Include="Images\Utilisateur\default.png" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome\.bower.json" />
@@ -1683,6 +1694,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\moment\locale\af.js" />
     <Content Include="Scripts\moment\locale\ar-dz.js" />
     <Content Include="Scripts\moment\locale\ar-kw.js" />
@@ -2065,6 +2080,9 @@
     <Content Include="Scripts\moment\package-lock.json" />
     <Content Include="Scripts\moment\README.md" />
     <Content Include="Views\Car\_ListCars.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
+    <Content Include="Views\Booking\_FormAddStopOver.cshtml" />
+    <Content Include="Views\RequestBooking\Insert.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\PasswordReset.cshtml" />
@@ -2075,11 +2093,16 @@
     <Content Include="Views\Configuration\Index.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Role\Add.cshtml" />
+    <Content Include="Views\Booking\_ListBookingPartial.cshtml" />
+    <Content Include="Views\Booking\Validations.cshtml" />
+    <Content Include="Views\Booking\Validation.cshtml" />
+    <Content Include="Views\Booking\AssignationCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ViewsModels\Reservation\" />
     <Folder Include="Views\Reservation\" />
+    <Folder Include="Views\Utilisateurs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
