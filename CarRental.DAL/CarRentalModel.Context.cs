@@ -49,9 +49,6 @@ namespace CarRental.DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
-        public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -510,15 +507,6 @@ namespace CarRental.DAL
                 new ObjectParameter("searchValue", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_Get_Fistname_Lastname_Email", mergeOption, searchValueParameter);
-        }
-    
-        public virtual int usp_User_Get_Id(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Get_Id", idParameter);
         }
     
         public virtual int usp_User_Insert(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
@@ -1198,67 +1186,27 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List");
         }
     
-        public virtual ObjectResult<Action> usp_Action_List_By_Role(Nullable<int> roleId)
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_List(MergeOption mergeOption)
         {
-            var roleIdParameter = roleId.HasValue ?
-                new ObjectParameter("roleId", roleId) :
-                new ObjectParameter("roleId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", roleIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List", mergeOption);
         }
     
-        public virtual ObjectResult<Action> usp_Action_List_By_Role(Nullable<int> roleId, MergeOption mergeOption)
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Get(Nullable<int> id)
         {
-            var roleIdParameter = roleId.HasValue ?
-                new ObjectParameter("roleId", roleId) :
-                new ObjectParameter("roleId", typeof(int));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", mergeOption, roleIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get", idParameter);
         }
     
-        public virtual int usp_Notification_Insert(Nullable<int> idUser, Nullable<byte> isRead, Nullable<byte> isForAdmin, Nullable<byte> isForNewRequest, Nullable<int> idBooking)
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Get(Nullable<int> id, MergeOption mergeOption)
         {
-            var idUserParameter = idUser.HasValue ?
-                new ObjectParameter("IdUser", idUser) :
-                new ObjectParameter("IdUser", typeof(int));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
     
-            var isReadParameter = isRead.HasValue ?
-                new ObjectParameter("IsRead", isRead) :
-                new ObjectParameter("IsRead", typeof(byte));
-    
-            var isForAdminParameter = isForAdmin.HasValue ?
-                new ObjectParameter("IsForAdmin", isForAdmin) :
-                new ObjectParameter("IsForAdmin", typeof(byte));
-    
-            var isForNewRequestParameter = isForNewRequest.HasValue ?
-                new ObjectParameter("IsForNewRequest", isForNewRequest) :
-                new ObjectParameter("IsForNewRequest", typeof(byte));
-    
-            var idBookingParameter = idBooking.HasValue ?
-                new ObjectParameter("IdBooking", idBooking) :
-                new ObjectParameter("IdBooking", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idBookingParameter);
-        }
-    
-        public virtual ObjectResult<Notification> usp_Notification_List()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List");
-        }
-    
-        public virtual ObjectResult<Notification> usp_Notification_List(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
-        }
-    
-        public virtual ObjectResult<Action> usp_Action_List()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List");
-        }
-    
-        public virtual ObjectResult<Action> usp_Action_List(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get", mergeOption, idParameter);
         }
     
         public virtual int usp_Role_Action_Delete_By_Role(Nullable<int> roleiD)
@@ -1270,6 +1218,19 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Action_Delete_By_Role", roleiDParameter);
         }
     
+        public virtual int usp_Role_Action_Insert(Nullable<int> roleId, Nullable<int> actionId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(int));
+    
+            var actionIdParameter = actionId.HasValue ?
+                new ObjectParameter("actionId", actionId) :
+                new ObjectParameter("actionId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Action_Insert", roleIdParameter, actionIdParameter);
+        }
+    
         public virtual int usp_Role_Delete(Nullable<int> roleId)
         {
             var roleIdParameter = roleId.HasValue ?
@@ -1277,6 +1238,19 @@ namespace CarRental.DAL
                 new ObjectParameter("RoleId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Delete", roleIdParameter);
+        }
+    
+        public virtual int usp_Role_Update(Nullable<int> id, string libelle)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("libelle", libelle) :
+                new ObjectParameter("libelle", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Update", idParameter, libelleParameter);
         }
     
         public virtual int usp_User_Role_Delete_By_Role(Nullable<int> roleID)
@@ -1306,53 +1280,32 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_Get_By_Id", mergeOption, idParameter);
         }
     
-        public virtual int usp_Role_Action_Insert(Nullable<int> roleId, Nullable<int> actionId)
+        public virtual ObjectResult<Action> usp_Action_List_By_Role(Nullable<int> roleId)
         {
             var roleIdParameter = roleId.HasValue ?
                 new ObjectParameter("roleId", roleId) :
                 new ObjectParameter("roleId", typeof(int));
     
-            var actionIdParameter = actionId.HasValue ?
-                new ObjectParameter("actionId", actionId) :
-                new ObjectParameter("actionId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Action_Insert", roleIdParameter, actionIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", roleIdParameter);
         }
     
-        public virtual int usp_Role_Update(Nullable<int> id, string libelle)
+        public virtual ObjectResult<Action> usp_Action_List_By_Role(Nullable<int> roleId, MergeOption mergeOption)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(int));
     
-            var libelleParameter = libelle != null ?
-                new ObjectParameter("libelle", libelle) :
-                new ObjectParameter("libelle", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Update", idParameter, libelleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List_By_Role", mergeOption, roleIdParameter);
         }
     
-        public virtual ObjectResult<RequestBooking> usp_RequestBooking_List(MergeOption mergeOption)
+        public virtual ObjectResult<Action> usp_Action_List()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List");
         }
     
-        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Get(Nullable<int> id)
+        public virtual ObjectResult<Action> usp_Action_List(MergeOption mergeOption)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get", idParameter);
-        }
-    
-        public virtual ObjectResult<RequestBooking> usp_RequestBooking_Get(Nullable<int> id, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_Get", mergeOption, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List", mergeOption);
         }
     }
 }

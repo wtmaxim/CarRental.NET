@@ -11,9 +11,9 @@ namespace CarRental.DAL
 {
     using System;
     
-    public partial class usp_Action_Get_By_Id_Result
+    public partial class usp_Role_Get_By_ID1_Result
     {
-        public string Libelle { get; set; }
         public int Id { get; set; }
+        public string Libelle { get; set; }
     }
 }
