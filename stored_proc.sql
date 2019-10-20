@@ -453,14 +453,7 @@ BEGIN
 END
 GO
 
--- Notification - List
-CREATE PROCEDURE usp_Notification_List
-AS
-BEGIN
-select * from [Notification]
-order by CreationDate desc
-END
-GO
+
 
 -- Ajout d'une notification
 CREATE PROCEDURE usp_Notification_Insert
