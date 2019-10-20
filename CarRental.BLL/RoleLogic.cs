@@ -12,13 +12,15 @@ namespace CarRental.BLL
     {
         private readonly IRoleEngine roleEngine;
         private readonly UtilisateurLogic utilisateurLogic;
+        private readonly ActionLogic actionLogic;
         public RoleLogic()
         {
             roleEngine = new RoleEngine();
             utilisateurLogic = new UtilisateurLogic();
+            actionLogic = new ActionLogic();
         }
         /// <summary>
-        /// 
+        /// Récupère la liste de role d'un utilisateur.
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -34,7 +36,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Ajoute un role en base de données.
         /// </summary>
         /// <param name="roleName"></param>
         public void AddRole(string roleName)
@@ -53,7 +55,71 @@ namespace CarRental.BLL
 
         }
         /// <summary>
-        /// 
+        /// Met à jour le libellé d'un role.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roleName"></param>
+        public void update(int id, string roleName)
+        {
+            RoleDTO role = Get_By_Id(id);            
+            roleEngine.update(role.Id,roleName);
+        }
+
+        /// <summary>
+        /// Récupère un role et une liste d'action selon leurs id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roles"></param>
+        public Tuple<RoleDTO,List<ActionDTO>> Get_Role_And_Actions_By_Ids(int id, string[] actions)
+        {
+            RoleDTO role = roleEngine.Get_By_ID(id);
+            if (actions!= null)
+            {           
+                try
+                {
+                   
+                    List<ActionDTO> roleActions = new List<ActionDTO>();
+                
+                        foreach (string stringIdAction in actions)
+                        {
+                            int idAction;
+                            if (int.TryParse(stringIdAction, out idAction))
+                            {
+                                ActionDTO action = actionLogic.Get_By_Id(idAction);
+                                roleActions.Add(action);
+                            }
+                        }
+                        return new Tuple<RoleDTO, List<ActionDTO>>(role, roleActions);
+                                
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }else
+            {
+                return new Tuple<RoleDTO, List<ActionDTO>>(role, null);
+            }
+        }
+        /// <summary>
+        /// Supprimes toutes les actions d'un role avant de lui ajouter de nouvelles.
+        /// </summary>
+        /// <param name="tuple"></param>
+        public void Set_Role_Actions(Tuple<RoleDTO, List<ActionDTO>> tuple)
+        {
+            roleEngine.Remove_All_Actions(tuple.Item1.Id);
+            if (tuple.Item2 != null)
+            {  
+                foreach(ActionDTO action in tuple.Item2)
+                {
+                    roleEngine.Add_Role_Action(tuple.Item1.Id, action.Id);
+                 }
+            }
+        }
+
+        /// <summary>
+        /// Ajoute un role à un utilisateur.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="roleName"></param>
@@ -76,7 +142,7 @@ namespace CarRental.BLL
             roleEngine.Add_User_Role(roleId, userId);
         }
         /// <summary>
-        /// 
+        /// Récupère une liste d'utilisateur selon un nom de role.
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>
@@ -93,7 +159,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Récupère un role selon son nom.
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>
@@ -110,7 +176,24 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Obtien un role selon son id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public RoleDTO Get_By_Id(int id)
+        {
+            try
+            {
+                return roleEngine.Get_By_ID(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
+        /// Vérifie qu'un utilisateur possède un role précis.
         /// </summary>
         /// <param name="mail"></param>
         /// <param name="roleName"></param>
@@ -128,7 +211,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Liste de tout les roles.
         /// </summary>
         /// <returns></returns>
         public List<RoleDTO> List()
@@ -144,7 +227,7 @@ namespace CarRental.BLL
             }
         }
         /// <summary>
-        /// 
+        /// Converti un liste de role en tableau
         /// </summary>
         /// <param name="roleDTOs"></param>
         /// <returns></returns>
@@ -158,7 +241,7 @@ namespace CarRental.BLL
             return array.ToArray();
         }
         /// <summary>
-        /// 
+        /// Converti une liste d'utilisateurs en tableau.
         /// </summary>
         /// <param name="userDTOs"></param>
         /// <returns></returns>
@@ -171,5 +254,30 @@ namespace CarRental.BLL
             }
             return array.ToArray();
         }
+        /// <summary>
+        /// Vérifie l'existence d'un role en base de donnés puis le supprime.
+        /// </summary>
+        /// <param name="roleId"></param>
+        public void DeleteRole(int roleId)
+        {
+            try
+            {
+                RoleDTO roleToDelete = Get_By_Id(roleId);
+                if (roleToDelete != null)
+                {
+                    roleEngine.Delete(roleToDelete.Id);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+            
+
+        }
+                
     }
 }

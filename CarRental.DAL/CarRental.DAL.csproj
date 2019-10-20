@@ -274,6 +274,9 @@
     <Compile Include="usp_Role_GET1_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Role_Get_By_ID1_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Role_Get_By_ID_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

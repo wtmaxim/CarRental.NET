@@ -6,6 +6,6 @@ namespace CarRental.Model
     {
         public string Libelle { get; set; }
         public int Id { get; set; }
-        public virtual ICollection<RoleDTO> Role { get; set; }
+        
     }
 }

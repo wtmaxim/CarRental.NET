@@ -21,16 +21,18 @@ namespace CarRental.DAL
         /// <returns></returns>
         RoleDTO Get(string roleName);
         /// <summary>
+        /// Obtient une role selon son id depuis la base de données.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        RoleDTO Get_By_ID(int id);
+        /// <summary>
         /// Permet d'obtenir tout les rôles d'un utilisateur.
         /// </summary>
         /// <param name="mail"></param>
         /// <returns></returns>
         List<RoleDTO> Get_User_Roles(string mail);
-        /// <summary>
-        /// Permet de mettre à jour un role.
-        /// </summary>
-        /// <param name="role"></param>
-        void Update(RoleDTO role);
+       
         /// <summary>
         /// Permet d'obtenir tout les utilisateurs pour disposant du role selon son nom.
         /// </summary>
@@ -55,6 +57,27 @@ namespace CarRental.DAL
         /// </summary>
         /// <param name="roleName"></param>
         void Add(string roleName);
-
+        /// <summary>
+        /// Permet la suppression d'un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        void Delete(int roleId);
+        /// <summary>
+        /// Supprimes toutes les actions d'un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        void Remove_All_Actions(int roleId);
+        /// <summary>
+        /// Ajoute une action à un role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="ActionId"></param>
+        void Add_Role_Action(int roleId, int ActionId);
+        /// <summary>
+        /// Met a jour le libelle d'un role selon son id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="libelle"></param>
+        void update(int id, string libelle);
     }
 }

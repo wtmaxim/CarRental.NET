@@ -6,7 +6,6 @@ namespace CarRental.Model
     {
         public int Id { get; set; }
         public string Libelle { get; set; }
-        public virtual ICollection<ActionDTO> Action { get; set; }
-        public virtual ICollection<UserDTO> User { get; set; }
+        
     }
 }

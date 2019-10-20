@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CarRental.BLL;
+using CarRental.Model;
+using CarRental.UI.ViewsModels.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +11,29 @@ namespace CarRental.UI.Controllers
 {
     public class ConfigurationController : Controller
     {
-        // GET: Configuration
+        private readonly RoleLogic roleLogic;
+        private readonly ActionLogic actionLogic;
+
+        public ConfigurationController()
+        {
+            roleLogic = new RoleLogic();
+            actionLogic = new ActionLogic();
+        }
+
+        /// <summary>
+        /// Affiche la page de configuration
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            
+            ConfigurationIndexViewModel Civm = new ConfigurationIndexViewModel()
+            {
+                ListRoleWithActionTuple = actionLogic.GetListTupleRoleAction(roleLogic.List())
+            };
+            
+            return View(Civm);
         }
+        
     }
 }

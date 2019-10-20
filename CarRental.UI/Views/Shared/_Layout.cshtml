@@ -128,7 +128,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Reservation")">
+                            <a href="@Url.Action("Index", "Booking")">
                                 <i class="fa fa-map-pin"></i> <span>Mes réservations</span>
                             </a>
                         </li>
@@ -175,6 +175,7 @@
             </div>
         </div>
 
+            @Scripts.Render("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")          
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/fullcalendar")
