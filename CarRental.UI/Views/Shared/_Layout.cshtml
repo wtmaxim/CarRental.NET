@@ -1,8 +1,16 @@
 ﻿@using CarRental.Common
 @{
-    int userId = Session["userId"] != null ? Int32.Parse(Session["userId"].ToString()) : -1;
-    var profilePath = ImageHelper.GetProfileImagePath(userId, Server);
-}
+    if (Session["firstName"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else
+    {
+
+
+        int userId = Session["userId"] != null ? Int32.Parse(Session["userId"].ToString()) : -1;
+        var profilePath = ImageHelper.GetProfileImagePath(userId, Server);
+
     <!DOCTYPE html>
     <html>
     <head>
@@ -82,7 +90,7 @@
                                             <a href="@Url.Action("Index", "Profile")" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="@Url.Action("LogOut","Account")" class="btn btn-default btn-flat">Déconnexion</a>
+                                            <a href="@Url.Action("LogOut", "Account")" class="btn btn-default btn-flat">Déconnexion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -162,7 +170,7 @@
                         <!-- deconnexion -->
                         <li class="header">PLUS</li>
                         <li>
-                            <a href="@Url.Action("LogOut","Account")">
+                            <a href="@Url.Action("LogOut", "Account")">
                                 <i class="fa fa-sign-out text-red"></i> <span class="text-red">Deconnexion</span>
                                 <span class="pull-right-container">
                                 </span>
@@ -189,3 +197,5 @@
         @RenderSection("scripts", required: false)
     </body>
 </html>
+        }
+    }
