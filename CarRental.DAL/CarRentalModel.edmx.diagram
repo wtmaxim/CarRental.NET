@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1" ZoomLevel="36">
+      <Diagram DiagramId="d39dde7ddad44b7ca1de6636d4d19b9d" Name="Diagram1" ZoomLevel="62">
         <AssociationConnector Association="CarRental.DAL.FK__Company__id_Addr__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="CarRental.DAL.FK__StopOverA__id_Ad__71D1E811" ManuallyRouted="false" />
         <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_ad__571DF1D5" ManuallyRouted="false" />

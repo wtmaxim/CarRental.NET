@@ -196,33 +196,40 @@ namespace CarRental.UI.Controllers
             BookingIndexViewsModel vm = new BookingIndexViewsModel();
             List<Booking> bookings = new List<Booking>();
 
-            foreach (RequestBookingDTO requestBooking in requestBookingLogic.List(id))
+            var requestBookings = requestBookingLogic.List(id);
+
+            if (requestBookings.Count > 0)
             {
-                BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
-                StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
-                List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
-                StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
-                StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
-                UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
-                UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
-                AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
-                AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
-
-
-                bookings.Add(new Booking
+                foreach (RequestBookingDTO requestBooking in requestBookingLogic.List(id))
                 {
-                    booking = booking,
-                    requestBooking = requestBooking,
-                    stopOver = stopOver,
-                    passagers = passagers,
-                    status = status,
-                    stopOverAddress = stopOverAddress,
-                    driverAller = driverAller,
-                    driverRetour = driverRetour,
-                    addressRetour = addressRetour,
-                    addressAller = addressAller
-                });
+                    BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
+                    StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
+                    List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+                    StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
+                    StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
+                    UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
+                    UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
+                    AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
+                    AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+
+
+                    bookings.Add(new Booking
+                    {
+                        booking = booking,
+                        requestBooking = requestBooking,
+                        stopOver = stopOver,
+                        passagers = passagers,
+                        status = status,
+                        stopOverAddress = stopOverAddress,
+                        driverAller = driverAller,
+                        driverRetour = driverRetour,
+                        addressRetour = addressRetour,
+                        addressAller = addressAller
+                    });
+                }
             }
+
+            
 
             vm.Bookings = bookings;
 
