@@ -79,7 +79,7 @@ namespace CarRental.UI.Controllers
             var tupleList = new List<Tuple<UserDTO, CompanyDTO, List<RoleDTO>>>();
             foreach (UserDTO user in users)
             {
-                UserDTOTOTuple(user);
+                tupleList.Add(UserDTOTOTuple(user));
             }
             return tupleList;
         }
