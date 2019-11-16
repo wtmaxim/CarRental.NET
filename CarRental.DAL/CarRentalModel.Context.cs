@@ -1307,5 +1307,14 @@ namespace CarRental.DAL
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Action>("usp_Action_List", mergeOption);
         }
+    
+        public virtual int usp_User_Role_Delete_By_User(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Role_Delete_By_User", userIdParameter);
+        }
     }
 }

@@ -172,7 +172,11 @@
                                         i++;
                                     }
 
-                                    @Html.DropDownList("idRole", rolesListItems, new { @class = "form-control" })
+                                    @Html.DropDownList("selectRole", rolesListItems, new {
+                                                                                        @id="roleSelect",
+                                                                                        @class = "form-control select2",
+                                                                                        multiple = "multiple",
+                                                                                        style = "width: 100%;" })
                                 }
                                 else
                                 {
@@ -426,6 +430,11 @@
             $('.select2').select2({
                 maximumSelectionLength: 1,
                 placeholder: "Choisissez un lieu de travail",
+            })
+
+            //
+             $('#roleSelect').select2({
+                placeholder: "Sélectionner un rôle",
             })
         })
     </script>

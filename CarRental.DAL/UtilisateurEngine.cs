@@ -224,5 +224,23 @@ namespace CarRental.DAL
                 return UserMapping.MapToUserDto(user);
             }
         }
+
+        public void RemoveAllRoles(int id)
+        {
+            try
+            {
+                using (CarRentalEntities context = new CarRentalEntities())
+                {
+                    context.usp_User_Role_Delete_By_User(id);
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
     }
 }

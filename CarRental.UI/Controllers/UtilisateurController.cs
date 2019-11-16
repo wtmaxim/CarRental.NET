@@ -176,29 +176,38 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult AddUser(
             string lastname, string firstname, string idCompany,
-            string mail, string phone, string idRole, string job
+            string mail, string phone, string[] selectRole, string job
             )
         {
+           
             int resCompany = 0;
             Int32.TryParse(idCompany, out resCompany);
             int resRole = 0;
-            Int32.TryParse(idRole, out resRole);
+            
             UserDTO user = new UserDTO() { Lastname = lastname, Firstname = firstname, Id_Company = resCompany, Email = mail, Job = job, Password = "Motdepasse1", Is_Active = 1, Note = "", Is_Address_Private = 1, Phone_Number = phone };
 
 
-            Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, idRole, job);
+            Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, selectRole.GetValue(0).ToString(), job);
 
             if (res.Item1)
             {
-                userLogic.InsertOrUpdateUser(user);               
-                roleLogic.Add_User_Role(userLogic.GetUserByMail(user.Email).Id, resRole);
+                userLogic.InsertOrUpdateUser(user);
+                userLogic.RemoveAllUserRole(userLogic.GetUserByMail(user.Email));
+                foreach ( string idRole in selectRole)
+                {
+                    Int32.TryParse(idRole, out resRole);                    
+                    roleLogic.Add_User_Role(userLogic.GetUserByMail(user.Email).Id, resRole);
+                }
+                
                 TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " ajouté avec succès";
             }
             else
             {
                 TempData["FormError"] = res.Item2;
             }
+    
             return RedirectToAction("Index");
+    
         }
 
         /// <summary>
@@ -327,7 +336,7 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult UpdateUser(
             int id, string lastname, string firstname, string idCompany,
-                string mail, string phone, string idRole, string job
+                string mail, string phone, string[] selectRole, string job
             )
         {
             if (id != -1)
@@ -342,7 +351,7 @@ namespace CarRental.UI.Controllers
                 user.Id_Company = resCompany;
                 user.Email = mail;
                 int resRole = 0;
-                Int32.TryParse(idRole, out resRole);
+                
                 user.Phone_Number = phone;
                 user.Job = job;
                 user.Password = SecurePasswordHasherHelper.Hash("Motdepasse1");
@@ -350,11 +359,17 @@ namespace CarRental.UI.Controllers
                 user.Note = "";
                 user.Is_Address_Private = 1;
 
-                Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, idRole, job);
+                Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, selectRole.GetValue(0).ToString(),job);
 
                 if (res.Item1)
                 {
                     userLogic.Update(user);
+                    userLogic.RemoveAllUserRole(userLogic.GetUserByMail(user.Email));
+                    foreach( string idRole in selectRole)
+                    {
+                        Int32.TryParse(idRole, out resRole);
+                        roleLogic.Add_User_Role(userLogic.GetUserByMail(user.Email).Id, resRole);
+                    }
                     TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " modifié avec succès";
                 }
                 else

@@ -777,6 +777,9 @@
         <Function Name="usp_User_Role_Delete_By_Role" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleID" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_User_Role_Delete_By_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_User_Unarchive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -1292,29 +1295,32 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
           <FunctionImport Name="usp_Role_Action_Delete_By_Role">
-            <Parameter Name="RoleiD" Mode="In" Type="Int32" />
+          <Parameter Name="RoleiD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Role_Action_Insert">
             <Parameter Name="roleId" Mode="In" Type="Int32" />
             <Parameter Name="actionId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Role_Delete">
-            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Role_Update">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="libelle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_User_Role_Delete_By_Role">
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+          <Parameter Name="RoleID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Action_Get_By_Id" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Action_List_By_Role" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)">
-            <Parameter Name="roleId" Mode="In" Type="Int32" />
+          <Parameter Name="roleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_Action_List" EntitySet="Action" ReturnType="Collection(CarRental.DAL.Action)" />
+          <FunctionImport Name="usp_User_Role_Delete_By_User">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -2827,6 +2833,7 @@
           <FunctionImportMapping FunctionImportName="usp_UserRole_INSERT" FunctionName="CarRentalModel.Store.usp_UserRole_INSERT" />
           <FunctionImportMapping FunctionImportName="usp_Action_List_By_Role" FunctionName="CarRentalModel.Store.usp_Action_List_By_Role" />
           <FunctionImportMapping FunctionImportName="usp_Action_List" FunctionName="CarRentalModel.Store.usp_Action_List" />
+          <FunctionImportMapping FunctionImportName="usp_User_Role_Delete_By_User" FunctionName="CarRentalModel.Store.usp_User_Role_Delete_By_User" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -82,5 +82,10 @@ namespace CarRental.DAL
         /// </summary>
         /// <param name="user"></param>
         void Update(UserDTO user);
+        /// <summary>
+        /// Supprimes tout les roles d'un utilisateur selon son id;
+        /// </summary>
+        /// <param name="id"></param>
+        void RemoveAllRoles(int id);
     }
 }

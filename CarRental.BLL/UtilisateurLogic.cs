@@ -147,5 +147,13 @@ namespace CarRental.BLL
         {
             utilisateurEngine.Update(user);
         }
+        /// <summary>
+        /// Supprime tout les rôles d'un utilisateur.
+        /// </summary>
+        /// <param name="user"></param>
+        public void RemoveAllUserRole(UserDTO user)
+        {
+            utilisateurEngine.RemoveAllRoles(user.Id);
+        }
     }
 }
