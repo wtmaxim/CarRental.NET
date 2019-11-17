@@ -994,3 +994,12 @@ BEGIN
 Select * from [Role]
 Where Id=@Id
 END
+GO
+-- Ajout d'un role à un utilisateur à partir à l'aide de leurs id
+CREATE PROCEDURE [dbo].[usp_UserRole_INSERT]
+	@userID int,
+	@RoleID int
+AS
+BEGIN
+Insert into user_role (id_role, id_user) values (@RoleId, @userID)
+END
