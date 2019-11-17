@@ -975,3 +975,12 @@ BEGIN
 DELETE from user_role
 where id_user = @userId
 END
+
+GO
+-- Ajoute un role
+CREATE PROCEDURE [dbo].[usp_Role_Insert]
+	@libelle varchar(255)	
+AS
+BEGIN
+Insert INTO [Role] (Libelle) VALUES (@libelle)
+END
