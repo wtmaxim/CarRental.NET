@@ -984,3 +984,13 @@ AS
 BEGIN
 Insert INTO [Role] (Libelle) VALUES (@libelle)
 END
+
+go
+-- Récupère un role selon id
+Create procedure usp_Role_Get_By_ID
+@Id int
+AS
+BEGIN
+Select * from [Role]
+Where Id=@Id
+END
