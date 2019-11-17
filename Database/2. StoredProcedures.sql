@@ -966,3 +966,12 @@ BEGIN
 	Delete FROM [Role]
 	where Id = @RoleId
 END
+Go
+-- Supprime tout les roles
+CREATE PROCEDURE usp_User_Role_Delete_By_User
+	@userId int
+AS
+BEGIN
+DELETE from user_role
+where id_user = @userId
+END
