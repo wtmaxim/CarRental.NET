@@ -966,3 +966,40 @@ BEGIN
 	Delete FROM [Role]
 	where Id = @RoleId
 END
+Go
+-- Supprime tout les roles
+CREATE PROCEDURE usp_User_Role_Delete_By_User
+	@userId int
+AS
+BEGIN
+DELETE from user_role
+where id_user = @userId
+END
+
+GO
+-- Ajoute un role
+CREATE PROCEDURE [dbo].[usp_Role_Insert]
+	@libelle varchar(255)	
+AS
+BEGIN
+Insert INTO [Role] (Libelle) VALUES (@libelle)
+END
+
+go
+-- Récupère un role selon id
+Create procedure usp_Role_Get_By_ID
+@Id int
+AS
+BEGIN
+Select * from [Role]
+Where Id=@Id
+END
+GO
+-- Ajout d'un role à un utilisateur à partir à l'aide de leurs id
+CREATE PROCEDURE [dbo].[usp_UserRole_INSERT]
+	@userID int,
+	@RoleID int
+AS
+BEGIN
+Insert into user_role (id_role, id_user) values (@RoleId, @userID)
+END
