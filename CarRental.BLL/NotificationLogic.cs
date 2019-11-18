@@ -17,14 +17,19 @@ namespace CarRental.BLL
             notificationEngine = new NotificationEngine();
         }
 
-        public List<NotificationDTO> ListAll()
+        public List<NotificationDTO> ListAllForUser(int IdUser)
         {
-            return notificationEngine.ListAll();
+            return notificationEngine.ListAllForUser(IdUser);
         }
 
         public void Insert(NotificationDTO notification)
         {
             notificationEngine.Insert(notification);
+        }
+
+        public void MarkAsRead(int IdNotification)
+        {
+            notificationEngine.MarkAsRead(IdNotification);
         }
     }
 }

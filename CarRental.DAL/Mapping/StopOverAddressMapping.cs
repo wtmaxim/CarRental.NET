@@ -8,12 +8,20 @@ namespace CarRental.DAL
         
         public StopOverAddressDTO MapToStopOverAddressDTO(StopOverAddress stopOverAddress)
         {
-            return new StopOverAddressDTO
+            if (stopOverAddress != null)
             {
-                id_Address = stopOverAddress.id_Address,
-                Id_Stop_Over = stopOverAddress.Id_Stop_Over,
-                is_Departure = stopOverAddress.is_Departure
-            };
+                return new StopOverAddressDTO
+                {
+                    id_Address = stopOverAddress.id_Address,
+                    Id_Stop_Over = stopOverAddress.Id_Stop_Over,
+                    is_Departure = stopOverAddress.is_Departure
+                };
+            }
+            else
+            {
+                return new StopOverAddressDTO();
+            }
+           
         }
 
         public List<StopOverAddressDTO> MapToListStopOverAddressDTO(List<StopOverAddress> stopOverAddresses)

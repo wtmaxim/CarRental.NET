@@ -79,41 +79,45 @@
                         {
                             <li>
                                 <i class="fa fa-check bg-yellow"></i>
-                                <div class="timeline-item">
+                                <div class="timeline-item" style="@(notifTuple.notification.IsRead == 1 ? "background-color: gainsboro":"")">
                                     <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
-                                        Nouvelle <a href="">demande de déplacement</a> de
+                                        Une nouvelle demande de déplacement a été ajouté par
                                         <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
-                                        pour @notifTuple.departureCity vous incluant a été enregistrée
+                                        pour la destination : @notifTuple.departureCity
                                     </h3>
                                 </div>
                             </li>
+
                         }
                         // Cas Utilisateur : pour une nouvelle demande de déplacement
                         else if (notifTuple.notification.IsForNewRequest == 1 && notifTuple.notification.IsForAdmin == 0)
                         {
                             <li>
                                 <i class="fa fa-check bg-yellow"></i>
-                                <div class="timeline-item">
+                                <div class="timeline-item" style="@(notifTuple.notification.IsRead == 1 ? "background-color: gainsboro":"")">
                                     <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
-                                        Nouvelle <a href="#">demande de déplacement</a> de
-                                        <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
-                                        pour @notifTuple.departureCity
+                                        <span>
+                                            Votre nouvelle demande de déplacement pour @notifTuple.departureCity a bien été enregistrée
+                                        </span>
                                     </h3>
                                 </div>
                             </li>
                         }
-                        // Cas Utilisateur : pour une personne ajoutée à une demande de déplacement
+                        // Cas Utilisateur : pas une nouvelle demande
                         else if (notifTuple.notification.IsForNewRequest == 0 && notifTuple.notification.IsForAdmin == 0)
                         {
                             <li>
                                 <i class="fa fa-map-pin bg-green"></i>
-                                <div class="timeline-item">
+                                <div class="timeline-item" style="@(notifTuple.notification.IsRead == 1 ? "background-color: gainsboro":"")">
                                     <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
-                                        <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
-                                        s'est ajouté à votre <a href="#">demande de déplacement sur @notifTuple.departureCity</a>
+                                        <!--
+                                            <a href="@*Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @ notifTuple.user.Firstname</a>
+                                            s'est ajouté à votre demande de déplacement sur @notifTuple.departureCity *@
+                                        -->
+                                        Votre demande de déplacement pour @notifTuple.departureCity a été validée
                                     </h3>
                                 </div>
                             </li>
@@ -123,11 +127,11 @@
                         {
                             <li>
                                 <i class="fa fa-map-pin bg-green"></i>
-                                <div class="timeline-item">
+                                <div class="timeline-item" style="@(notifTuple.notification.IsRead == 1 ? "background-color: gainsboro":"")">
                                     <span class="time"><i class="fa fa-clock-o"></i> @displayTime(@notifTuple.notification.CreationDateTimestamp)</span>
                                     <h3 class="timeline-header no-border">
                                         <a href="@Url.Action("Index", "Profile", new { idUser = notifTuple.user.Id })">@notifTuple.user.Lastname @notifTuple.user.Firstname</a>
-                                        s'est ajouté à votre <a href="#">demande de déplacement sur @notifTuple.departureCity</a>
+                                        s'est ajouté à votre demande de déplacement sur @notifTuple.departureCity
                                     </h3>
                                 </div>
                             </li>

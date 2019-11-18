@@ -10,6 +10,6 @@ namespace CarRental.Model
         public DateTime CreationDateTimestamp { get; set; }
         public byte IsForAdmin { get; set; }
         public byte IsForNewRequest { get; set; }
-        public int IdBooking { get; set; }
+        public int IdRequestBooking { get; set; }
     }
 }

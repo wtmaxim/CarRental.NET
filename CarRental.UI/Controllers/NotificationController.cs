@@ -14,11 +14,17 @@ namespace CarRental.UI.Controllers
     {
         private readonly NotificationLogic notifLogic;
         private readonly UtilisateurLogic userLogic;
+        private readonly AdressLogic addressLogic;
+        private readonly BookingLogic bookingLogic;
+        private readonly RequestBookingLogic requestBookingLogic;
 
         public NotificationController()
         {
             notifLogic = new NotificationLogic();
             userLogic = new UtilisateurLogic();
+            addressLogic = new AdressLogic();
+            bookingLogic = new BookingLogic();
+            requestBookingLogic = new RequestBookingLogic();
         }
 
         /**
@@ -27,11 +33,13 @@ namespace CarRental.UI.Controllers
          */
         public ActionResult Index()
         {
-            List<NotificationDTO> notifs = notifLogic.ListAll();
+            int idCurrentUser = (int)Session["userId"];
+            List<NotificationDTO> notifs = notifLogic.ListAllForUser(idCurrentUser);
             NotificationIndexViewModel vm = new NotificationIndexViewModel
             {
-                Notifications = GetNotificationsTuples(notifLogic.ListAll())
+                Notifications = GetNotificationsTuples(notifLogic.ListAllForUser(idCurrentUser))
             };
+            Session["notifs"] = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
             return View(vm);
         }
 
@@ -49,9 +57,28 @@ namespace CarRental.UI.Controllers
                 foreach (NotificationDTO notif in list)
                 {
                     RequestBookingDTO reqBooking = new RequestBookingDTO();
-                    UserDTO user = userLogic.Get(1021);
-                    string departureCity = "Nantes";
+                    reqBooking = requestBookingLogic.Get(notif.IdRequestBooking);
+
+                    UserDTO user = new UserDTO();
+                    user = userLogic.Get(reqBooking.CreateBy);
+
+                    int idBooking = bookingLogic.GetByRequestBooking(reqBooking.id).Id;
+                    AddressDTO address = addressLogic.GetAddress(idBooking);
+                    string departureCity = "Non précisé";
+                    if (address.Name != null)
+                    {
+                        departureCity = address.Name;
+                    }
+                    else if (address.Locality != null)
+                    {
+                        departureCity = address.Locality;
+                    }
+
                     newList.Add((notif, reqBooking, user, departureCity));
+                    if (notif.IsRead == 0)
+                    {
+                        notifLogic.MarkAsRead(notif.Id);
+                    }
                 }
             }
             

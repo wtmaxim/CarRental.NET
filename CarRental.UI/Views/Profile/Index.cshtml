@@ -68,7 +68,7 @@
             </div>
         }
 
-
+        <!--
         <div class="box-footer">
             <div class="row">
                 <div class="col-sm-4 border-right">
@@ -91,6 +91,7 @@
                 </div>
             </div>
         </div>
+            -->
     </div>
 
     <!-- Error Modal -->
@@ -173,7 +174,7 @@
                             </div>
                         </form>
                     }
-                    else if (Model.CurrentUser.Item1.Note.Length > 0)
+                    else if (Model.CurrentUser.Item1.Note != null && Model.CurrentUser.Item1.Note.Length > 0)
                     {
                         <p class="text-muted">
                             @Model.CurrentUser.Item1.Note

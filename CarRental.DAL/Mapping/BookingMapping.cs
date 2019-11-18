@@ -7,13 +7,19 @@ namespace CarRental.DAL
     {
         public BookingDTO MapToBookingDTO(Booking booking)
         {
-            return new BookingDTO
+            if (booking != null)
             {
-                Id = booking.Id,
-                id_Request_Booking = booking.id_Request_Booking,
-                is_Personal_Car_Used = booking.is_Personal_Car_Used,
-                Licence_Plate = booking.Licence_Plate,
-            };
+                return new BookingDTO
+                {
+                    Id = booking.Id,
+                    id_Request_Booking = booking.id_Request_Booking,
+                    is_Personal_Car_Used = booking.is_Personal_Car_Used,
+                    Licence_Plate = booking.Licence_Plate,
+                };
+            } else
+            {
+                return new BookingDTO();
+            }
         }
 
         public List<BookingDTO> MapToListBookingDTO(List<Booking> bookings)

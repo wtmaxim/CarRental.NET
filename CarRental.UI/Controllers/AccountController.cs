@@ -15,12 +15,14 @@ namespace CarRental.UI.Controllers
         private readonly UtilisateurLogic utilisateurLogic;
         private readonly RoleLogic roleLogic;
         private readonly PasswordResetTokenLogic passwordResetTokenLogic;
+        private readonly NotificationLogic notifLogic;
 
         public AccountController()
         {
             utilisateurLogic = new UtilisateurLogic();
             passwordResetTokenLogic = new PasswordResetTokenLogic();
             roleLogic = new RoleLogic();
+            notifLogic = new NotificationLogic();
         }
         /// <summary>
         /// 
@@ -57,6 +59,9 @@ namespace CarRental.UI.Controllers
                 Session["firstname"] = userDetails.Firstname;
                 Session["lastName"] = userDetails.Lastname;
                 Session["userJob"] = userDetails.Job;
+
+                Session["notifs"] = notifLogic.ListAllForUser(userDetails.Id).FindAll(n => n.IsRead == 0).Count;
+
                 FormsAuthentication.SetAuthCookie(userDetails.Email, false);
                 return Redirect("/");
             }

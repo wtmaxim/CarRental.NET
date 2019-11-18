@@ -17,7 +17,7 @@ namespace CarRental.DAL.Mapping
                     IsRead = n.IsRead,
                     IsForAdmin = n.IsForAdmin,
                     IsForNewRequest = n.IsForNewRequest,
-                    IdBooking = n.IdBooking,
+                    IdRequestBooking = n.IdRequestBooking,
                     CreationDateTimestamp = n.CreationDateTimestamp
                 };
 

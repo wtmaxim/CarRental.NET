@@ -241,7 +241,7 @@ CREATE TABLE [Notification]
   CreationDateTimestamp DATETIME NOT NULL DEFAULT GETDATE(),
   IsForAdmin TINYINT NOT NULL,
   IsForNewRequest TINYINT  NOT NULL DEFAULT 0,
-  IdBooking INT NOT NULL,
+  IdRequestBooking INT NOT NULL,
   FOREIGN KEY (IdUser) REFERENCES [User](Id),
-  FOREIGN KEY (IdBooking) REFERENCES [Booking](Id),
+  FOREIGN KEY (IdRequestBooking) REFERENCES [RequestBooking](id),
 );

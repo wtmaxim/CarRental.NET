@@ -19,7 +19,6 @@ namespace CarRental.DAL
         {
             this.CarReport = new HashSet<CarReport>();
             this.Cost = new HashSet<Cost>();
-            this.Notification = new HashSet<Notification>();
             this.StopOver = new HashSet<StopOver>();
             this.UserBooking = new HashSet<UserBooking>();
         }
@@ -29,14 +28,11 @@ namespace CarRental.DAL
         public string Licence_Plate { get; set; }
         public int id_Request_Booking { get; set; }
     
-        public virtual RequestBooking RequestBooking { get; set; }
         public virtual Car Car { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarReport> CarReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cost> Cost { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StopOver> StopOver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

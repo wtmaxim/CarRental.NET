@@ -255,31 +255,32 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 -- Ajout d'une notification
-CREATE PROCEDURE [dbo].[usp_Notification_Insert]
+CREATE   PROCEDURE [dbo].[usp_Notification_Insert]
 	@IdUser int,
 	@IsRead tinyint,
 	@IsForAdmin tinyint,
 	@IsForNewRequest tinyint,
-	@IdBooking int
+	@IdRequestBooking int
 AS
 BEGIN
-	INSERT INTO [Notification] (IdUser, IsRead, IsForAdmin, IsForNewRequest, IdBooking) 
-	VALUES (@IdUser, @IsRead, @IsForAdmin, @IsForNewRequest, @IdBooking)
+	INSERT INTO [Notification] (IdUser, IsRead, IsForAdmin, IsForNewRequest, IdRequestBooking) 
+	VALUES (@IdUser, @IsRead, @IsForAdmin, @IsForNewRequest, @IdRequestBooking)
 END
-GO
+
 /****** Object:  StoredProcedure [dbo].[usp_Notification_List]    Script Date: 06/10/2019 14:22:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- Notification - List
-CREATE PROCEDURE [dbo].[usp_Notification_List]
+CREATE   PROCEDURE [dbo].[usp_Notification_List]
+	@IdUser int
 AS
 BEGIN
 select * from [Notification]
+where [Notification].IdUser = @IdUser
 order by CreationDateTimestamp desc
 END
-GO
 /****** Object:  StoredProcedure [dbo].[usp_PasswordResetToken_DELETE_BY_ID]    Script Date: 06/10/2019 14:22:32 ******/
 SET ANSI_NULLS ON
 GO
@@ -1005,6 +1006,17 @@ Insert into user_role (id_role, id_user) values (@RoleId, @userID)
 END
 
 Go
+
+-- Met a jour l'état d'une Notification  à lue
+CREATE PROCEDURE usp_Notification_Update_Read_Status
+	@idNotification int
+AS
+BEGIN
+	update [Notification]
+	set IsRead = 1
+	where Id = @idNotification
+END
+
 
 -- Archivage d'un utilisateur
 CREATE PROCEDURE usp_User_Archive

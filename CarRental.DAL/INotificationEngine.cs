@@ -5,7 +5,8 @@ namespace CarRental.DAL
 {
     public interface INotificationEngine
     {
-        List<NotificationDTO> ListAll();
+        List<NotificationDTO> ListAllForUser(int IdUser);
         void Insert(NotificationDTO notification);
+        void MarkAsRead(int IdNotification);
     }
 }
