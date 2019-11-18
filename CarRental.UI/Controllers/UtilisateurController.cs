@@ -29,6 +29,7 @@ namespace CarRental.UI.Controllers
         /// GET: Utilisateurs
         ///Récupère la liste des utilisateurs et affiche la page d'index
         ///</summary>
+        [Authorize(Roles = "Gestion des utilisateurs")]
         public ActionResult Index()
         {
             List<UserDTO> users = userLogic.ListActive();
@@ -100,6 +101,7 @@ namespace CarRental.UI.Controllers
         ///POST : SearchUser  Recherche des utilisateurs(par nom et prénom) en fonction de la valeur fournie
         ///</summary>
         [HttpPost]
+        [Authorize(Roles = "Gestion des utilisateurs")]
         public ActionResult SearchUser(string searchVal)
         {
             if (searchVal != null)
@@ -127,7 +129,7 @@ namespace CarRental.UI.Controllers
         /// <param name="idCompany"></param>
         /// <param name="activeFilterVal"></param>
         /// <returns></returns>
-
+        [Authorize(Roles = "Gestion des utilisateurs")]
         [HttpPost]
         public ActionResult FilterUsers(int? idCompany, int? activeFilterVal)
         {
@@ -174,6 +176,7 @@ namespace CarRental.UI.Controllers
         /// <param name="job"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Gestion des utilisateurs")]
         public ActionResult AddUser(
             string lastname, string firstname, string idCompany,
             string mail, string phone, string[] selectRole, string job
@@ -283,6 +286,7 @@ namespace CarRental.UI.Controllers
         /// <param name="IdUser"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Désactiver un compte")]
         public ActionResult ArchiveUnarchiveUser(int IdUser)
         {
             if (IdUser != 0)
@@ -315,6 +319,7 @@ namespace CarRental.UI.Controllers
         /// <param name="IdUser"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Mettre à jour un utilisateur")]
         public ActionResult UpdateUserForm(int IdUser)
         {
             TempData["userToEdit"] = IdUser;
@@ -334,6 +339,7 @@ namespace CarRental.UI.Controllers
         /// <param name="job"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Mettre à jour un utilisateur")]
         public ActionResult UpdateUser(
             int id, string lastname, string firstname, string idCompany,
                 string mail, string phone, string[] selectRole, string job
