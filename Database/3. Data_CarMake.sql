@@ -4,6 +4,7 @@ INSERT INTO CarMake (make)
 ('ALPINE'),
 ('ARO'),
 ('AUDI'),
+('AUSTIN'),
 ('AUTOBIANCHI'),
 ('BERTONE'),
 ('BMW'),
