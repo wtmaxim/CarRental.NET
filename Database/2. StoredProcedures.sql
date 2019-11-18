@@ -1003,3 +1003,15 @@ AS
 BEGIN
 Insert into user_role (id_role, id_user) values (@RoleId, @userID)
 END
+
+Go
+
+-- Archivage d'un utilisateur
+CREATE PROCEDURE usp_User_Archive
+	@id INT
+AS
+BEGIN
+	UPDATE [User]
+	SET is_Active = 0
+	WHERE id = @id
+END

@@ -166,7 +166,7 @@
 
                                         if (Model.UserToEdit != null)
                                         {
-                                            foreach(var userRole in Model.UserToEdit.Item3)
+                                            foreach (var userRole in Model.UserToEdit.Item3)
                                             {
                                                 if (role.Libelle == userRole.Libelle) { isSelected = true; }
                                             }
@@ -183,11 +183,13 @@
                                         i++;
                                     }
 
-                                    @Html.DropDownList("selectRole", rolesListItems, new {
-                                                                                        @id="roleSelect",
+                                    @Html.DropDownList("selectRole", rolesListItems, new
+                                    {
+                                                                                        @id = "roleSelect",
                                                                                         @class = "form-control select2",
                                                                                         multiple = "multiple",
-                                                                                        style = "width: 100%;" })
+                                                                                        style = "width: 100%;"
+                                    })
                                 }
                                 else
                                 {
@@ -444,7 +446,7 @@
             })
 
             //
-             $('#roleSelect').select2({
+            $('#roleSelect').select2({
                 placeholder: "Sélectionner un rôle",
             })
         })
