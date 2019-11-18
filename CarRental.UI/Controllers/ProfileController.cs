@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.IO;
 using System.Configuration;
 using System.Drawing;
+using System.Web.Security;
 
 namespace CarRental.UI.Controllers
 {
@@ -36,6 +37,7 @@ namespace CarRental.UI.Controllers
          * GET: Profile
          * Page d'index du profile de l'utilisateur
          */
+         [Authorize (Roles="Consulter son profil")]
         public ActionResult Index(int? idUser)
         {
             int idCurrentUser = idUser == null ? (int)Session["userId"] : (int)idUser;
@@ -77,6 +79,7 @@ namespace CarRental.UI.Controllers
          * Enregistre le permis de conduire de l'utilisateur
          */
         [HttpPost]
+        [Authorize(Roles = "Ajouter son permis de conduire")]
         public ActionResult AddDrivingLicence(object sender, System.EventArgs e)
         {
             string[] images = { "UtilisateurImageRecto", "UtilisateurImageVerso" };
@@ -152,6 +155,7 @@ namespace CarRental.UI.Controllers
          * Affiche ou non affiche l'édition du permis de conduire
          */
         [HttpGet]
+        [Authorize(Roles = "Afficher le formulaire de modification du permis de conduire")]
         public ActionResult ToggleDrivingLicenceEditForm(string toggleVal)
         {
             TempData["EditDrivingLicence"] = toggleVal;
@@ -163,6 +167,7 @@ namespace CarRental.UI.Controllers
          * EMet à jour la photo de profil de l'utilisateur
          */
         [HttpPost]
+        [Authorize(Roles="Modifier sa photo de profil")]
         public ActionResult UpdateProfilePicture()
         {
             HttpPostedFileBase postedFile = Request.Files["UtilisateurProfilePicture"];
@@ -220,6 +225,7 @@ namespace CarRental.UI.Controllers
          * Affiche ou non les formulaires dans "Contact"
          */
         [HttpGet]
+        [Authorize(Roles = "Afficher le formulaire de contact")]
         public ActionResult ToggleContactForm(string toggleVal)
         {
             TempData["RenderContactForm"] = toggleVal;
@@ -231,6 +237,7 @@ namespace CarRental.UI.Controllers
          *Met à jour le numéro de téléphone du profile
          */
         [HttpPost]
+        [Authorize(Roles="Mettre à jour ses coordonées")]
         public ActionResult UpdateContactForm(string cellphone, string email)
         {
             int idCurrentUser = (int)Session["userId"];
@@ -255,6 +262,7 @@ namespace CarRental.UI.Controllers
          * Affiche ou non les formulaires dans "Informations"
          */
         [HttpGet]
+        [Authorize (Roles="Afficher le formulaire des informations")]
         public ActionResult ToggleInformationsForm(string toggleVal)
         {
             TempData["RenderInformationsForm"] = toggleVal;
@@ -266,6 +274,7 @@ namespace CarRental.UI.Controllers
          * Met à jour la note du profile
          */
         [HttpPost]
+        [Authorize(Roles="Mettre à jour le formulaire des informations")]
         public ActionResult UpdateInformationsForm(string note)
         {
             int idCurrentUser = (int)Session["userId"];
@@ -280,11 +289,14 @@ namespace CarRental.UI.Controllers
          * Crée un PasswordResetTokenDTO, l'enregistre en base et redirige vers la méthode de changement de mot de passe avec token en param
          */
         [HttpGet]
+        [Authorize(Roles="Modifier son mot de passe")]
         public ActionResult EditPassword()
         {
             int idCurrentUser = (int)Session["userId"];
             PasswordResetTokenDTO passwordResetTokenDTO = new PasswordResetTokenDTO(idCurrentUser);
             passwordResetTokenLogic.Insert(passwordResetTokenDTO);
+            FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("ChangePassword", "Account", new { id = passwordResetTokenDTO.Token });
         }
 

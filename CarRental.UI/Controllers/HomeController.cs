@@ -9,9 +9,10 @@ using System.Web.Mvc;
 
 namespace CarRental.UI.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
+        
         public HomeController()
         {
         }
