@@ -16,17 +16,24 @@ namespace CarRental.DAL
 
         public AddressDTO MapToAdddressDTO(Address address)
         {
-            return new AddressDTO
+            if (address != null)
             {
-                Id = address.id,
-                Administrative_Area = address.Administrative_Area,
-                Country = address.Country,
-                Locality = address.Locality,
-                Name = address.Name,
-                Postal_Code = address.Postal_Code,
-                Route = address.Route,
-                Street_Number = address.Street_Number
-            };
+                return new AddressDTO
+                {
+                    Id = address.id,
+                    Administrative_Area = address.Administrative_Area,
+                    Country = address.Country,
+                    Locality = address.Locality,
+                    Name = address.Name,
+                    Postal_Code = address.Postal_Code,
+                    Route = address.Route,
+                    Street_Number = address.Street_Number
+                };
+            }
+            else
+            {
+                return new AddressDTO();
+            }
         }
 
         public List<AddressDTO> MapToListAddressDTO(List<Address> adresses)

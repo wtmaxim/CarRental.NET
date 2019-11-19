@@ -19,6 +19,8 @@ namespace CarRental.UI.Controllers
         private UserBookingLogic userBookingLogic;
         private StopOverAddressLogic stopOverAddressLogic;
         private StopOverLogic stopOverLogic;
+        private NotificationLogic notificationLogic;
+        private RoleLogic roleLogic;
 
         public RequestBookingController()
         {
@@ -30,6 +32,8 @@ namespace CarRental.UI.Controllers
             userBookingLogic = new UserBookingLogic();
             stopOverAddressLogic = new StopOverAddressLogic();
             stopOverLogic = new StopOverLogic();
+            notificationLogic = new NotificationLogic();
+            roleLogic = new RoleLogic();
         }
 
         [HttpGet]
@@ -90,15 +94,27 @@ namespace CarRental.UI.Controllers
             requestBooking.CreateBy = (int)Session["userID"];
             RequestBookingDTO requestBooking2 = requestBookingLogic.Insert(requestBooking);
             BookingDTO booking = bookingLogic.Insert(0, null, requestBooking2.id);
+            NotificationDTO notification = new NotificationDTO
+            {
+                // CreationDateTimestamp default getdate en base
+                IdRequestBooking = requestBooking2.id,
+                IsForNewRequest = 1,
+                IsRead = 0,
+                IsForAdmin = 0,
+            };
 
 
             // Ajout des passagers
-            if(_passagers != null )
+            if (_passagers != null )
             {
                 for (int i = 0; i < _passagers.Length; i++)
                 {
                     userBookingLogic.Insert(0, 1, booking.Id, _passagers[i]);
                     userBookingLogic.Insert(0, 0, booking.Id, _passagers[i]);
+
+                    // Ajout des notification pour chaque passager
+                    notification.IdUser = _passagers[i];
+                    notificationLogic.Insert(notification);
                 }
             }
 
@@ -106,6 +122,15 @@ namespace CarRental.UI.Controllers
             // Ajout des conducteurs. Ne pas oublier d'jaouter le driver retour.
             userBookingLogic.Insert(1, 1, booking.Id, driver);
             userBookingLogic.Insert(1, 0, booking.Id, driver2);
+
+            // Ajout des notification pour les conducteurs
+            notification.IdUser = driver;
+            notificationLogic.Insert(notification);
+            if (driver2 != null)
+            {
+                notification.IdUser = driver2;
+                notificationLogic.Insert(notification);
+            }
 
             // Ajout de l'étape de base
             stopOver.Id_Booking = booking.Id;
@@ -136,6 +161,25 @@ namespace CarRental.UI.Controllers
                 addressRetour = addressAller,
                 addressAller = addressRetour
             };
+
+            // Ajout des notifications pour les administrateurs
+            List<UserDTO>  admins = roleLogic.Get_Users_With_Role("Administrateur");
+            List<UserDTO> adminsToAdd = roleLogic.Get_Users_With_Role("Admin");
+            admins.AddRange(adminsToAdd);
+
+            notification.IsForAdmin = 1;
+            if (admins.Count > 0)
+            {
+                foreach (UserDTO admin in admins)
+                {
+                    if (admin.Id != requestBooking.CreateBy)
+                    {
+                        notification.IdUser = admin.Id;
+                        notificationLogic.Insert(notification);
+                    }
+                }
+            }
+            Session["notifs"] = notificationLogic.ListAllForUser((int)Session["userID"]).FindAll(n => n.IsRead == 0).Count;
 
             return Json(_booking);
         }
