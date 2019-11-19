@@ -1027,3 +1027,25 @@ BEGIN
 	SET is_Active = 0
 	WHERE id = @id
 END
+GO
+CREATE PROCEDURE [dbo].[usp_Booking_Update]
+	@idBooking INT,
+	@licencePlate VARCHAR(25)
+AS
+
+BEGIN
+	UPDATE Booking
+	SET Licence_Plate = @licencePlate
+	WHERE Id = @idBooking
+END
+GO
+ALTER PROCEDURE [dbo].[usp_RequestBooking_Update]
+	@idStatus INT,
+	@id INT
+AS
+
+BEGIN
+	UPDATE RequestBooking
+	SET Id_Status = @idStatus
+	WHERE id = @id
+END
