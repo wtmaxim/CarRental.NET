@@ -30,7 +30,10 @@ namespace CarRental.UI
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/Ionicons/css/ionicons.css",
                       "~/Content/AdminLTE.min.css",
-                      "~/Content/skins/_all-skins.min.css"));
+                      "~/Content/skins/_all-skins.min.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/dataTables.bootstrap.min.css"
+                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
                 "~/Scripts/fullcalendar/core/main.js",
