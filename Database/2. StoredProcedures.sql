@@ -1039,7 +1039,7 @@ BEGIN
 	WHERE Id = @idBooking
 END
 GO
-ALTER PROCEDURE [dbo].[usp_RequestBooking_Update]
+CREATE PROCEDURE [dbo].[usp_RequestBooking_Update]
 	@idStatus INT,
 	@id INT
 AS

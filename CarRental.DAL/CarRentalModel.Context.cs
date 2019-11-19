@@ -783,7 +783,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UserRole_INSERT", userIDParameter, roleIDParameter);
         }
     
-        public virtual int usp_Notification_Insert(Nullable<int> idUser, Nullable<byte> isRead, Nullable<byte> isForAdmin, Nullable<byte> isForNewRequest, Nullable<int> idBooking)
+        public virtual int usp_Notification_Insert(Nullable<int> idUser, Nullable<byte> isRead, Nullable<byte> isForAdmin, Nullable<byte> isForNewRequest, Nullable<int> idRequestBooking)
         {
             var idUserParameter = idUser.HasValue ?
                 new ObjectParameter("IdUser", idUser) :
@@ -801,11 +801,11 @@ namespace CarRental.DAL
                 new ObjectParameter("IsForNewRequest", isForNewRequest) :
                 new ObjectParameter("IsForNewRequest", typeof(byte));
     
-            var idBookingParameter = idBooking.HasValue ?
-                new ObjectParameter("IdBooking", idBooking) :
-                new ObjectParameter("IdBooking", typeof(int));
+            var idRequestBookingParameter = idRequestBooking.HasValue ?
+                new ObjectParameter("IdRequestBooking", idRequestBooking) :
+                new ObjectParameter("IdRequestBooking", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idBookingParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idRequestBookingParameter);
         }
     
         public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, Nullable<int> createBy)
