@@ -119,8 +119,6 @@ namespace CarRental.UI.Controllers
             return View(vm);
         }
 
-        
-
         public ActionResult GetCalendarData(string start, string end, string licencePlate)
         {
             List<EventDTO> events = eventLogic.List(licencePlate);
@@ -128,22 +126,27 @@ namespace CarRental.UI.Controllers
 
             List<FullCalendarDTO> fullCalendars = new List<FullCalendarDTO>();
 
-            foreach (EventDTO @event in events)
+            if(events is null)
             {
-                fullCalendars.Add(new FullCalendarDTO { Id = @event.Id, Libelle = @event.Libelle, Start = @event.Start_Date.ToString("yyyy-MM-dd"), End = @event.End_Date.ToString("yyyy-MM-dd") });
+
+            } else
+            {
+                foreach (EventDTO @event in events)
+                {
+                    fullCalendars.Add(new FullCalendarDTO { Id = @event.Id, Libelle = @event.Libelle, Start = @event.Start_Date.ToString("yyyy-MM-dd"), End = @event.End_Date.ToString("yyyy-MM-dd") });
+                }
+
+                foreach (BookingDTO booking in bookings)
+                {
+                    RequestBookingDTO requestBooking = requestBookingLogic.Get(booking.Id);
+
+                    fullCalendars.Add(new FullCalendarDTO { Id = booking.Id, Libelle = requestBooking.Reason });
+                }
             }
 
-            foreach (BookingDTO booking in bookings)
-            {
-                RequestBookingDTO requestBooking = requestBookingLogic.Get(booking.Id);
-
-                fullCalendars.Add(new FullCalendarDTO { Id = booking.Id, Libelle = requestBooking.Reason });
-            }
-
+          
             return Json(fullCalendars.Select(e => new { id = e.Id, title = e.Libelle, start = e.Start, end = e.End }), JsonRequestBehavior.AllowGet);
         }
-
-
 
         [HttpPost]
         public ActionResult AddCar(CarDTO car)
@@ -156,7 +159,9 @@ namespace CarRental.UI.Controllers
 
             string message = "SUCCESS";
 
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            //return RedirectToAction("Index");
+
+           return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
         public JsonResult ListCars()

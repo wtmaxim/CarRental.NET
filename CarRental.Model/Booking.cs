@@ -18,5 +18,6 @@ namespace CarRental.Model
         public UserDTO driverRetour { get; set; }
         public AddressDTO addressAller { get; set; }
         public AddressDTO addressRetour { get; set; }
+        public UserDTO createdBy { get; set; }
     }
 }

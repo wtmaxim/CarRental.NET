@@ -37,7 +37,45 @@ namespace CarRental.UI.Controllers
         {
             RequestBookingInsertViewsModel vm = new RequestBookingInsertViewsModel();
 
+            vm.Addresses = PopulateAddress();
+            vm.Users = PopulateUsers();
+
             return View(vm);
+        }
+
+        private List<SelectListItem> PopulateUsers()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            List<UserDTO> users = utilisateurLogic.ListAll();
+
+            foreach (UserDTO user in users)
+            {
+                string fullName = user.Firstname + ' ' + user.Lastname;
+                items.Add(new SelectListItem
+                {
+                    Text = fullName,
+                    Value = user.Id.ToString()
+                });
+            }
+
+            return items;
+        }
+
+        private List<SelectListItem> PopulateAddress()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            List<AddressDTO> addresses = addressLogic.List();
+
+            foreach (AddressDTO address in addresses)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = address.Name,
+                    Value = address.Id.ToString()
+                });
+            }
+
+            return items;
         }
 
         [HttpPost]

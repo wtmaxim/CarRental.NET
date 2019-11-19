@@ -83,26 +83,17 @@
                     @foreach (Booking booking in Model.Bookings)
                     {
                         <li>
-                            <a href="./rents_validation_card.html">
-                                <h4 class="control-sidebar-subheading">
-                                    <strong>John Doe</strong>
-                                    <span class="text-muted">
-                                        @booking.stopOver.Departure_Date au @booking.stopOver.Arrival_Date - @booking.addressAller.Locality à @booking.addressRetour.Locality<br>
-                                    </span>
-                                    <span class="label label-success pull-right"><a href="@Url.Action("Validation", "Booking", new { id = booking.requestBooking.id })"> EN ACCEPTATION</a></span>
-                                    <span class="label label-success pull-right">2 VOITURE(S)</span>
-                                </h4>
-                            </a>
+                            <p>
+                                @booking.stopOver.Departure_Date au @booking.stopOver.Arrival_Date - @booking.addressAller.Locality à @booking.addressRetour.Locality<br>
+                            </p>
+
+                            <p>
+                                <span class="label label pull-right"><a href="@Url.Action("Validation", "Booking", new { id = booking.requestBooking.id })"> @booking.status.Libelle</a></span>
+                            </p>                            
                         </li>
                     }
 
                     
-                    <li>
-                        <a href="#" class="text-center">
-                            Charger 10 de plus
-                        </a>
-                    </li>
-
                 </ul>
             </div>
         </div>

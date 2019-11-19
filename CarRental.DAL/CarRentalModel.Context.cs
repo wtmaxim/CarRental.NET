@@ -1316,5 +1316,31 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Role_Delete_By_User", userIdParameter);
         }
+    
+        public virtual int usp_Booking_Update(Nullable<int> idBooking, string licencePlate)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Booking_Update", idBookingParameter, licencePlateParameter);
+        }
+    
+        public virtual int usp_RequestBooking_Update(Nullable<int> idStatus, Nullable<int> id)
+        {
+            var idStatusParameter = idStatus.HasValue ?
+                new ObjectParameter("idStatus", idStatus) :
+                new ObjectParameter("idStatus", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_RequestBooking_Update", idStatusParameter, idParameter);
+        }
     }
 }
