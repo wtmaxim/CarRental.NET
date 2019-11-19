@@ -30,7 +30,6 @@ namespace CarRental.DAL
         public virtual DbSet<Action> Action { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Booking> Booking { get; set; }
-        public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<CarMake> CarMake { get; set; }
         public virtual DbSet<CarModel> CarModel { get; set; }
         public virtual DbSet<CarReport> CarReport { get; set; }
@@ -49,6 +48,7 @@ namespace CarRental.DAL
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<Car> Car { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -76,43 +76,6 @@ namespace CarRental.DAL
         public virtual ObjectResult<Car> usp_Car_List(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Car>("usp_Car_List", mergeOption);
-        }
-    
-        public virtual int usp_Car_Insert(Nullable<byte> is_Available, Nullable<int> mileage, string licencePlate, Nullable<int> energy_value, Nullable<byte> is_Active, Nullable<int> id_Company, Nullable<int> id_User, Nullable<int> id_Car_Model)
-        {
-            var is_AvailableParameter = is_Available.HasValue ?
-                new ObjectParameter("is_Available", is_Available) :
-                new ObjectParameter("is_Available", typeof(byte));
-    
-            var mileageParameter = mileage.HasValue ?
-                new ObjectParameter("mileage", mileage) :
-                new ObjectParameter("mileage", typeof(int));
-    
-            var licencePlateParameter = licencePlate != null ?
-                new ObjectParameter("licencePlate", licencePlate) :
-                new ObjectParameter("licencePlate", typeof(string));
-    
-            var energy_valueParameter = energy_value.HasValue ?
-                new ObjectParameter("energy_value", energy_value) :
-                new ObjectParameter("energy_value", typeof(int));
-    
-            var is_ActiveParameter = is_Active.HasValue ?
-                new ObjectParameter("is_Active", is_Active) :
-                new ObjectParameter("is_Active", typeof(byte));
-    
-            var id_CompanyParameter = id_Company.HasValue ?
-                new ObjectParameter("id_Company", id_Company) :
-                new ObjectParameter("id_Company", typeof(int));
-    
-            var id_UserParameter = id_User.HasValue ?
-                new ObjectParameter("id_User", id_User) :
-                new ObjectParameter("id_User", typeof(int));
-    
-            var id_Car_ModelParameter = id_Car_Model.HasValue ?
-                new ObjectParameter("id_Car_Model", id_Car_Model) :
-                new ObjectParameter("id_Car_Model", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Car_Insert", is_AvailableParameter, mileageParameter, licencePlateParameter, energy_valueParameter, is_ActiveParameter, id_CompanyParameter, id_UserParameter, id_Car_ModelParameter);
         }
     
         public virtual ObjectResult<Address> usp_Adress_List()
@@ -1358,6 +1321,43 @@ namespace CarRental.DAL
                 new ObjectParameter("IdUser", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption, idUserParameter);
+        }
+    
+        public virtual int usp_Car_Insert(Nullable<byte> is_Available, Nullable<int> mileage, string licencePlate, string energy_value, Nullable<byte> is_Active, Nullable<int> id_Company, Nullable<int> id_User, Nullable<int> id_Car_Model)
+        {
+            var is_AvailableParameter = is_Available.HasValue ?
+                new ObjectParameter("is_Available", is_Available) :
+                new ObjectParameter("is_Available", typeof(byte));
+    
+            var mileageParameter = mileage.HasValue ?
+                new ObjectParameter("mileage", mileage) :
+                new ObjectParameter("mileage", typeof(int));
+    
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            var energy_valueParameter = energy_value != null ?
+                new ObjectParameter("energy_value", energy_value) :
+                new ObjectParameter("energy_value", typeof(string));
+    
+            var is_ActiveParameter = is_Active.HasValue ?
+                new ObjectParameter("is_Active", is_Active) :
+                new ObjectParameter("is_Active", typeof(byte));
+    
+            var id_CompanyParameter = id_Company.HasValue ?
+                new ObjectParameter("id_Company", id_Company) :
+                new ObjectParameter("id_Company", typeof(int));
+    
+            var id_UserParameter = id_User.HasValue ?
+                new ObjectParameter("id_User", id_User) :
+                new ObjectParameter("id_User", typeof(int));
+    
+            var id_Car_ModelParameter = id_Car_Model.HasValue ?
+                new ObjectParameter("id_Car_Model", id_Car_Model) :
+                new ObjectParameter("id_Car_Model", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Car_Insert", is_AvailableParameter, mileageParameter, licencePlateParameter, energy_valueParameter, is_ActiveParameter, id_CompanyParameter, id_UserParameter, id_Car_ModelParameter);
         }
     }
 }

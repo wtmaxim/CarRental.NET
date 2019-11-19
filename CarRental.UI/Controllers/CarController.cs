@@ -3,7 +3,9 @@ using CarRental.Model;
 using CarRental.UI.ViewsModels.Car;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace CarRental.UI.Controllers
@@ -16,6 +18,7 @@ namespace CarRental.UI.Controllers
         private readonly BookingLogic bookingLogic;
         private readonly RequestBookingLogic requestBookingLogic;
         private readonly EventLogic eventLogic;
+        private readonly AdressLogic addressLogic;
 
         public CarController()
         {
@@ -25,6 +28,7 @@ namespace CarRental.UI.Controllers
             bookingLogic = new BookingLogic();
             requestBookingLogic = new RequestBookingLogic();
             eventLogic = new EventLogic();
+            addressLogic = new AdressLogic();
         }
 
         // GET: Voiture
@@ -32,7 +36,8 @@ namespace CarRental.UI.Controllers
         {
             CarIndexViewsModel vm = new CarIndexViewsModel
             {
-                CarsMakes = GetCarsMakes()
+                CarsMakes = GetCarsMakes(),
+                Addresses = GetAddresses()
             };
 
             return View(vm);
@@ -99,6 +104,20 @@ namespace CarRental.UI.Controllers
             return new SelectList(carsMakes, "Value", "Text");
         }
 
+        private IEnumerable<SelectListItem> GetAddresses()
+        {
+            List<AddressDTO> addresses = addressLogic.List();
+
+            var addressesList = addresses.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
+
+            return new SelectList(addressesList, "Value", "Text");
+        }
+
+
         public ActionResult Detail(string licencePlate)
         {
             CarDTO car = carLogic.Get(licencePlate);
@@ -149,19 +168,44 @@ namespace CarRental.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCar(CarDTO car)
+        public ActionResult AddCar(HttpPostedFileBase CarImage, CarIndexViewsModel vm, int dropdownlistCarsModels, int AddressId, string Licence_Plate, int Mileage, string Energy)
         {
-            car.Energy_Value = 1;
-            car.is_Available = 1;
-            car.is_Active = 1;
-            car.Id_User = 1;
+            CarDTO car = new CarDTO
+            {
+                Energy_Value = Energy,
+                id_Car_Model = dropdownlistCarsModels,
+                is_Active = 1,
+                is_Available = 1,
+                Licence_Plate = Licence_Plate,
+                Mileage = Mileage,
+                Id_User = 1,
+                Id_Company = AddressId
+            };
+
+            if (CarImage != null && CarImage.ContentLength > 0)
+                try
+                {
+                    string extension = Path.GetExtension(CarImage.FileName);
+                    string filename = Licence_Plate;
+
+                    string newFile = filename + extension;
+
+                    string path = Path.Combine(Server.MapPath("~/Images/Cars"), newFile);
+                    CarImage.SaveAs(path);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+
+
             carLogic.AddCar(car);
 
-            string message = "SUCCESS";
-
-            //return RedirectToAction("Index");
-
-           return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            return RedirectToAction("Index");
         }
 
         public JsonResult ListCars()

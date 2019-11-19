@@ -11,100 +11,99 @@
 
 </section>
 <section class="content">
-    <!-- New car form -->
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Ajouter une voiture</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
+    @using (Html.BeginForm("AddCar", "Car", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <!-- New car form -->
+        <div class="box box-primary collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Ajouter une voiture</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="box-body">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Marque</label>
-                        @Html.DropDownListFor(m => m.SelectedCarsMakeId, Model.CarsMakes, "Selectionner la marque d'une voiture", new { @class = "select2CarMake form-control" })
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Marque</label>
+                            @Html.DropDownListFor(m => m.SelectedCarsMakeId, Model.CarsMakes, "Selectionner la marque d'une voiture", new { @class = "select2CarMake form-control" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Modèle</label>
-                        <select id="dropdownlistCarsModels" class="form-control select2CarModel" name="dropdownlistCarsModels"></select>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Modèle</label>
+                            <select id="dropdownlistCarsModels" class="form-control select2CarModel" name="dropdownlistCarsModels"></select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Nombre de place</label>
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 4
-                                    </label>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nombre de place</label>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> 4
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 5
-                                    </label>
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> 5
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 7
-                                    </label>
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> 7
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Energie</label>
-                        <input type="text" name="Energy" id="Energy" class="form-control" placeholder="Carburant de la voiture" required="" />
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Energie</label>
+                            <input type="text" name="Energy" id="Energy" class="form-control" placeholder="Carburant de la voiture" required="" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Plaque d'immatriculation</label>
-                        <input type="text" name="Licence_Plate" id="Licence_Plate" class="form-control" placeholder="Enter Licence_Plate" required="" />
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Plaque d'immatriculation</label>
+                            <input type="text" name="Licence_Plate" id="Licence_Plate" class="form-control" placeholder="Numéro de la plaque d'immatriculation" required="" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Kilométrage</label>
-                        <input type="text" name="Mileage" id="Mileage" class="form-control" placeholder="Enter Mileage" required="" />
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Kilométrage</label>
+                            <input type="text" name="Mileage" id="Mileage" class="form-control" placeholder="Kilométrage" required="" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Entreprise</label>
-                        <select id="dropdownlistCompany" class="form-control">
-                            <option value="1">Campus de Nantes</option>
-                            <option value="2">Campus de Nantes Faraday</option>
-                            <option value="3">Campus de Rennes</option>
-                            <option value="4">Campus de Niort</option>
-                        </select>                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Entreprise</label>
+                            @Html.DropDownListFor(m => m.AddressId, Model.Addresses, "Selectionner l'entreprise où est stocké la voiture", new { @class = "select2CarMake form-control" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" name="CarImage" id="CarImage" class="form-control" />
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Photo</label>
+                            <input type="file" name="CarImage" id="CarImage" class="form-control" />
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-success" name="AjouterCar" value="Ajouter la voiture" id="AjouterCar" />
+            </div>
         </div>
-        <div class="box-footer">
-            <input type="submit" class="btn btn-success" name="AjouterCar" value="Ajouter la voiture" id="AjouterCar" />
-        </div>
-    </div>
+    }
+
 
     <!-- Filters -->
     <div class="box collapsed-box">
@@ -253,7 +252,7 @@
                 });
             });
 
-            $("#AjouterCar").on('click', function () {
+            @*$("#AjouterCar").on('click', function () {
 
                 var car = {};
 
@@ -277,7 +276,7 @@
                         alert(response.responseText);
                     }
                 });
-            });
+            });*@
         });
     </script>
 }

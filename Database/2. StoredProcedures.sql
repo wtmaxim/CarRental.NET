@@ -126,7 +126,7 @@ CREATE PROCEDURE [dbo].[usp_Car_Insert]
 	@is_Available TINYINT,
 	@mileage INT,
 	@licencePlate VARCHAR(25),
-	@energy_value INT,
+	@energy_value VARCHAR(50),
 	@is_Active TINYINT,
 	@id_Company INT,
 	@id_User INT,

@@ -49,7 +49,7 @@
           <Property Name="is_Available" Type="tinyint" Nullable="false" />
           <Property Name="Mileage" Type="int" Nullable="false" />
           <Property Name="Licence_Plate" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="Energy_Value" Type="int" Nullable="false" />
+          <Property Name="Energy_Value" Type="varchar" MaxLength="50" />
           <Property Name="is_Active" Type="tinyint" Nullable="false" />
           <Property Name="Id_Company" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
@@ -281,7 +281,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__id_Car_Mode__6EC0713C">
+        <Association Name="FK__Car__id_Car_Mode__14B10FFA">
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +293,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__Id_Company__6CD828CA">
+        <Association Name="FK__Car__Id_Company__15A53433">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -305,7 +305,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Car__Id_User__6DCC4D03">
+        <Association Name="FK__Car__Id_User__1699586C">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Car" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -610,7 +610,7 @@
           <Parameter Name="is_Available" Type="tinyint" Mode="In" />
           <Parameter Name="mileage" Type="int" Mode="In" />
           <Parameter Name="licencePlate" Type="varchar" Mode="In" />
-          <Parameter Name="energy_value" Type="int" Mode="In" />
+          <Parameter Name="energy_value" Type="varchar" Mode="In" />
           <Parameter Name="is_Active" Type="tinyint" Mode="In" />
           <Parameter Name="id_Company" Type="int" Mode="In" />
           <Parameter Name="id_User" Type="int" Mode="In" />
@@ -847,15 +847,15 @@
             <End Role="Car" EntitySet="Car" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__id_Car_Mode__6EC0713C" Association="Self.FK__Car__id_Car_Mode__6EC0713C">
+          <AssociationSet Name="FK__Car__id_Car_Mode__14B10FFA" Association="Self.FK__Car__id_Car_Mode__14B10FFA">
             <End Role="CarModel" EntitySet="CarModel" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_Company__6CD828CA" Association="Self.FK__Car__Id_Company__6CD828CA">
+          <AssociationSet Name="FK__Car__Id_Company__15A53433" Association="Self.FK__Car__Id_Company__15A53433">
             <End Role="Company" EntitySet="Company" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_User__6DCC4D03" Association="Self.FK__Car__Id_User__6DCC4D03">
+          <AssociationSet Name="FK__Car__Id_User__1699586C" Association="Self.FK__Car__Id_User__1699586C">
             <End Role="User" EntitySet="User" />
             <End Role="Car" EntitySet="Car" />
           </AssociationSet>
@@ -953,16 +953,6 @@
           <Parameter Name="licence_Plate" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_Car_List" EntitySet="Car" ReturnType="Collection(CarRental.DAL.Car)" />
-          <FunctionImport Name="usp_Car_Insert">
-            <Parameter Name="is_Available" Mode="In" Type="Byte" />
-            <Parameter Name="mileage" Mode="In" Type="Int32" />
-            <Parameter Name="licencePlate" Mode="In" Type="String" />
-            <Parameter Name="energy_value" Mode="In" Type="Int32" />
-            <Parameter Name="is_Active" Mode="In" Type="Byte" />
-            <Parameter Name="id_Company" Mode="In" Type="Int32" />
-            <Parameter Name="id_User" Mode="In" Type="Int32" />
-            <Parameter Name="id_Car_Model" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_Adress_List" EntitySet="Address" ReturnType="Collection(CarRental.DAL.Address)" />
           <FunctionImport Name="usp_CarModel_Get_id" EntitySet="CarModel" ReturnType="Collection(CarRental.DAL.CarModel)">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -1172,7 +1162,6 @@
           <EntitySet Name="Action" EntityType="CarRental.DAL.Action" />
           <EntitySet Name="Address" EntityType="CarRental.DAL.Address" />
           <EntitySet Name="Booking" EntityType="CarRental.DAL.Booking" />
-          <EntitySet Name="Car" EntityType="CarRental.DAL.Car" />
           <EntitySet Name="CarMake" EntityType="CarRental.DAL.CarMake" />
           <EntitySet Name="CarModel" EntityType="CarRental.DAL.CarModel" />
           <EntitySet Name="CarReport" EntityType="CarRental.DAL.CarReport" />
@@ -1206,10 +1195,6 @@
             <End Role="RequestBooking" EntitySet="RequestBooking" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
-          <AssociationSet Name="FK__Booking__Licence__7E77B618" Association="CarRental.DAL.FK__Booking__Licence__7E77B618">
-            <End Role="Car" EntitySet="Car" />
-            <End Role="Booking" EntitySet="Booking" />
-          </AssociationSet>
           <AssociationSet Name="FK__CarReport__Id_Bo__1466F737" Association="CarRental.DAL.FK__CarReport__Id_Bo__1466F737">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="CarReport" EntitySet="CarReport" />
@@ -1225,22 +1210,6 @@
           <AssociationSet Name="FK__UserBooki__Id_Bo__024846FC" Association="CarRental.DAL.FK__UserBooki__Id_Bo__024846FC">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="UserBooking" EntitySet="UserBooking" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Car__id_Car_Mode__7B9B496D" Association="CarRental.DAL.FK__Car__id_Car_Mode__7B9B496D">
-            <End Role="CarModel" EntitySet="CarModel" />
-            <End Role="Car" EntitySet="Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_Company__79B300FB" Association="CarRental.DAL.FK__Car__Id_Company__79B300FB">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="Car" EntitySet="Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Car__Id_User__7AA72534" Association="CarRental.DAL.FK__Car__Id_User__7AA72534">
-            <End Role="User" EntitySet="User" />
-            <End Role="Car" EntitySet="Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Event__Licence_P__09E968C4" Association="CarRental.DAL.FK__Event__Licence_P__09E968C4">
-            <End Role="Car" EntitySet="Car" />
-            <End Role="Event" EntitySet="Event" />
           </AssociationSet>
           <AssociationSet Name="FK__CarModel__id_Car__679450C0" Association="CarRental.DAL.FK__CarModel__id_Car__679450C0">
             <End Role="CarMake" EntitySet="CarMake" />
@@ -1334,7 +1303,38 @@
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
           <FunctionImport Name="usp_Notification_List" EntitySet="Notification" ReturnType="Collection(CarRental.DAL.Notification)">
-            <Parameter Name="IdUser" Mode="In" Type="Int32" />
+          <Parameter Name="IdUser" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Car" EntityType="CarRental.DAL.Car" />
+          <AssociationSet Name="FK__Booking__Licence__719CDDE7" Association="CarRental.DAL.FK__Booking__Licence__719CDDE7">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Car__id_Car_Mode__14B10FFA" Association="CarRental.DAL.FK__Car__id_Car_Mode__14B10FFA">
+            <End Role="CarModel" EntitySet="CarModel" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Car__Id_Company__15A53433" Association="CarRental.DAL.FK__Car__Id_Company__15A53433">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Car__Id_User__1699586C" Association="CarRental.DAL.FK__Car__Id_User__1699586C">
+            <End Role="User" EntitySet="User" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event__Licence_P__7D0E9093" Association="CarRental.DAL.FK__Event__Licence_P__7D0E9093">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <FunctionImport Name="usp_Car_Insert">
+            <Parameter Name="is_Available" Mode="In" Type="Byte" />
+            <Parameter Name="mileage" Mode="In" Type="Int32" />
+            <Parameter Name="licencePlate" Mode="In" Type="String" />
+            <Parameter Name="energy_value" Mode="In" Type="String" />
+            <Parameter Name="is_Active" Mode="In" Type="Byte" />
+            <Parameter Name="id_Company" Mode="In" Type="Int32" />
+            <Parameter Name="id_User" Mode="In" Type="Int32" />
+            <Parameter Name="id_Car_Model" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -1959,29 +1959,11 @@
           <Property Name="Licence_Plate" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="id_Request_Booking" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RequestBooking" Relationship="CarRental.DAL.FK__Booking__id_Requ__7F6BDA51" FromRole="Booking" ToRole="RequestBooking" />
-          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Booking__Licence__7E77B618" FromRole="Booking" ToRole="Car" />
           <NavigationProperty Name="CarReport" Relationship="CarRental.DAL.FK__CarReport__Id_Bo__1466F737" FromRole="Booking" ToRole="CarReport" />
           <NavigationProperty Name="Cost" Relationship="CarRental.DAL.FK__Cost__Id_Booking__0618D7E0" FromRole="Booking" ToRole="Cost" />
           <NavigationProperty Name="StopOver" Relationship="CarRental.DAL.FK__StopOver__Id_Boo__0CC5D56F" FromRole="Booking" ToRole="StopOver" />
           <NavigationProperty Name="UserBooking" Relationship="CarRental.DAL.FK__UserBooki__Id_Bo__024846FC" FromRole="Booking" ToRole="UserBooking" />
-        </EntityType>
-        <EntityType Name="Car">
-          <Key>
-            <PropertyRef Name="Licence_Plate" />
-          </Key>
-          <Property Name="is_Available" Type="Byte" Nullable="false" />
-          <Property Name="Mileage" Type="Int32" Nullable="false" />
-          <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Energy_Value" Type="Int32" Nullable="false" />
-          <Property Name="is_Active" Type="Byte" Nullable="false" />
-          <Property Name="Id_Company" Type="Int32" Nullable="false" />
-          <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <Property Name="id_Car_Model" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Booking" Relationship="CarRental.DAL.FK__Booking__Licence__7E77B618" FromRole="Car" ToRole="Booking" />
-          <NavigationProperty Name="CarModel" Relationship="CarRental.DAL.FK__Car__id_Car_Mode__7B9B496D" FromRole="Car" ToRole="CarModel" />
-          <NavigationProperty Name="Company" Relationship="CarRental.DAL.FK__Car__Id_Company__79B300FB" FromRole="Car" ToRole="Company" />
-          <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__Car__Id_User__7AA72534" FromRole="Car" ToRole="User" />
-          <NavigationProperty Name="Event" Relationship="CarRental.DAL.FK__Event__Licence_P__09E968C4" FromRole="Car" ToRole="Event" />
+          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Booking__Licence__719CDDE7" FromRole="Booking" ToRole="Car" />
         </EntityType>
         <EntityType Name="CarMake">
           <Key>
@@ -2000,8 +1982,8 @@
           <Property Name="Places" Type="Int32" />
           <Property Name="Energy" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="id_Car_Make" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__id_Car_Mode__7B9B496D" FromRole="CarModel" ToRole="Car" />
           <NavigationProperty Name="CarMake" Relationship="CarRental.DAL.FK__CarModel__id_Car__679450C0" FromRole="CarModel" ToRole="CarMake" />
+          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__id_Car_Mode__14B10FFA" FromRole="CarModel" ToRole="Car" />
         </EntityType>
         <EntityType Name="CarReport">
           <Key>
@@ -2029,8 +2011,8 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="id_Address" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="CarRental.DAL.FK__Company__id_Addr__6B64E1A4" FromRole="Company" ToRole="Address" />
-          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__Id_Company__79B300FB" FromRole="Company" ToRole="Car" />
           <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__User__Id_Company__6F357288" FromRole="Company" ToRole="User" />
+          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__Id_Company__15A53433" FromRole="Company" ToRole="Car" />
         </EntityType>
         <EntityType Name="Cost">
           <Key>
@@ -2053,7 +2035,7 @@
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Event__Licence_P__09E968C4" FromRole="Event" ToRole="Car" />
+          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Event__Licence_P__7D0E9093" FromRole="Event" ToRole="Car" />
         </EntityType>
         <EntityType Name="PasswordResetToken">
           <Key>
@@ -2144,13 +2126,13 @@
           <Property Name="Phone_Number" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="is_Address_Private" Type="Byte" Nullable="false" />
           <Property Name="Id_Company" Type="Int32" />
-          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__Id_User__7AA72534" FromRole="User" ToRole="Car" />
           <NavigationProperty Name="Company" Relationship="CarRental.DAL.FK__User__Id_Company__6F357288" FromRole="User" ToRole="Company" />
           <NavigationProperty Name="PasswordResetToken" Relationship="CarRental.DAL.FK_PasswordResetToken_UserID" FromRole="User" ToRole="PasswordResetToken" />
           <NavigationProperty Name="user_address" Relationship="CarRental.DAL.FK__user_addr__id_us__75E27017" FromRole="User" ToRole="user_address" />
           <NavigationProperty Name="UserBooking" Relationship="CarRental.DAL.FK__UserBooki__Id_Us__033C6B35" FromRole="User" ToRole="UserBooking" />
           <NavigationProperty Name="Role" Relationship="CarRental.DAL.user_role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="Notification" Relationship="CarRental.DAL.FK__Notificat__IdUse__10E07F16" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__Id_User__1699586C" FromRole="User" ToRole="Car" />
         </EntityType>
         <EntityType Name="user_address">
           <Key>
@@ -2223,18 +2205,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Booking__Licence__7E77B618">
-          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="0..1" />
-          <End Type="CarRental.DAL.Booking" Role="Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Car">
-              <PropertyRef Name="Licence_Plate" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="Licence_Plate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__CarReport__Id_Bo__1466F737">
           <End Type="CarRental.DAL.Booking" Role="Booking" Multiplicity="1" />
           <End Type="CarRental.DAL.CarReport" Role="CarReport" Multiplicity="*" />
@@ -2280,54 +2250,6 @@
             </Principal>
             <Dependent Role="UserBooking">
               <PropertyRef Name="Id_Booking" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Car__id_Car_Mode__7B9B496D">
-          <End Type="CarRental.DAL.CarModel" Role="CarModel" Multiplicity="1" />
-          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CarModel">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Car">
-              <PropertyRef Name="id_Car_Model" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Car__Id_Company__79B300FB">
-          <End Type="CarRental.DAL.Company" Role="Company" Multiplicity="1" />
-          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Car">
-              <PropertyRef Name="Id_Company" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Car__Id_User__7AA72534">
-          <End Type="CarRental.DAL.User" Role="User" Multiplicity="1" />
-          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Car">
-              <PropertyRef Name="Id_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Event__Licence_P__09E968C4">
-          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="1" />
-          <End Type="CarRental.DAL.Event" Role="Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Car">
-              <PropertyRef Name="Licence_Plate" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="Licence_Plate" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2509,6 +2431,84 @@
           <Property Type="Byte" Name="IsForNewRequest" Nullable="false" />
           <Property Type="Int32" Name="IdRequestBooking" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Licence_Plate" />
+          </Key>
+          <Property Name="is_Available" Type="Byte" Nullable="false" />
+          <Property Name="Mileage" Type="Int32" Nullable="false" />
+          <Property Name="Licence_Plate" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Energy_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_Active" Type="Byte" Nullable="false" />
+          <Property Name="Id_Company" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="id_Car_Model" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="CarRental.DAL.FK__Booking__Licence__719CDDE7" FromRole="Car" ToRole="Booking" />
+          <NavigationProperty Name="CarModel" Relationship="CarRental.DAL.FK__Car__id_Car_Mode__14B10FFA" FromRole="Car" ToRole="CarModel" />
+          <NavigationProperty Name="Company" Relationship="CarRental.DAL.FK__Car__Id_Company__15A53433" FromRole="Car" ToRole="Company" />
+          <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__Car__Id_User__1699586C" FromRole="Car" ToRole="User" />
+          <NavigationProperty Name="Event" Relationship="CarRental.DAL.FK__Event__Licence_P__7D0E9093" FromRole="Car" ToRole="Event" />
+        </EntityType>
+        <Association Name="FK__Booking__Licence__719CDDE7">
+          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="0..1" />
+          <End Type="CarRental.DAL.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Licence_Plate" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Licence_Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Car__id_Car_Mode__14B10FFA">
+          <End Type="CarRental.DAL.CarModel" Role="CarModel" Multiplicity="1" />
+          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarModel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="id_Car_Model" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Car__Id_Company__15A53433">
+          <End Type="CarRental.DAL.Company" Role="Company" Multiplicity="1" />
+          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="Id_Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Car__Id_User__1699586C">
+          <End Type="CarRental.DAL.User" Role="User" Multiplicity="1" />
+          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event__Licence_P__7D0E9093">
+          <End Type="CarRental.DAL.Car" Role="Car" Multiplicity="1" />
+          <End Type="CarRental.DAL.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Licence_Plate" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="Licence_Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2519,7 +2519,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Car_List" FunctionName="CarRentalModel.Store.usp_Car_List">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_Car_Insert" FunctionName="CarRentalModel.Store.usp_Car_Insert" />
           <FunctionImportMapping FunctionImportName="usp_Adress_List" FunctionName="CarRentalModel.Store.usp_Adress_List">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_CarModel_Get_id" FunctionName="CarRentalModel.Store.usp_CarModel_Get_id">
@@ -2635,20 +2634,6 @@
                 <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
                 <ScalarProperty Name="is_Personal_Car_Used" ColumnName="is_Personal_Car_Used" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Car">
-            <EntityTypeMapping TypeName="CarRental.DAL.Car">
-              <MappingFragment StoreEntitySet="Car">
-                <ScalarProperty Name="id_Car_Model" ColumnName="id_Car_Model" />
-                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
-                <ScalarProperty Name="Id_Company" ColumnName="Id_Company" />
-                <ScalarProperty Name="is_Active" ColumnName="is_Active" />
-                <ScalarProperty Name="Energy_Value" ColumnName="Energy_Value" />
-                <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
-                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
-                <ScalarProperty Name="is_Available" ColumnName="is_Available" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2866,6 +2851,21 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_Notification_List" FunctionName="CarRentalModel.Store.usp_Notification_List">
           </FunctionImportMapping>
+          <EntitySetMapping Name="Car">
+            <EntityTypeMapping TypeName="CarRental.DAL.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="id_Car_Model" ColumnName="id_Car_Model" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Company" ColumnName="Id_Company" />
+                <ScalarProperty Name="is_Active" ColumnName="is_Active" />
+                <ScalarProperty Name="Energy_Value" ColumnName="Energy_Value" />
+                <ScalarProperty Name="Licence_Plate" ColumnName="Licence_Plate" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="is_Available" ColumnName="is_Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Car_Insert" FunctionName="CarRentalModel.Store.usp_Car_Insert" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
