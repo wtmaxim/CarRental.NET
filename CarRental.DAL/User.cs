@@ -18,11 +18,11 @@ namespace CarRental.DAL
         public User()
         {
             this.Car = new HashSet<Car>();
-            this.Notification = new HashSet<Notification>();
             this.PasswordResetToken = new HashSet<PasswordResetToken>();
             this.user_address = new HashSet<user_address>();
             this.UserBooking = new HashSet<UserBooking>();
             this.Role = new HashSet<Role>();
+            this.Notification = new HashSet<Notification>();
         }
     
         public int Id { get; set; }
@@ -41,8 +41,6 @@ namespace CarRental.DAL
         public virtual ICollection<Car> Car { get; set; }
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PasswordResetToken> PasswordResetToken { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_address> user_address { get; set; }
@@ -50,5 +48,7 @@ namespace CarRental.DAL
         public virtual ICollection<UserBooking> UserBooking { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notification { get; set; }
     }
 }

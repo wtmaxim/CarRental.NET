@@ -38,7 +38,6 @@ namespace CarRental.DAL
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Cost> Cost { get; set; }
         public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
         public virtual DbSet<RequestBooking> RequestBooking { get; set; }
         public virtual DbSet<Role> Role { get; set; }
@@ -49,6 +48,7 @@ namespace CarRental.DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -845,16 +845,6 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idBookingParameter);
         }
     
-        public virtual ObjectResult<Notification> usp_Notification_List()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List");
-        }
-    
-        public virtual ObjectResult<Notification> usp_Notification_List(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
-        }
-    
         public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, Nullable<int> createBy)
         {
             var isPersonalCarAvailableParameter = isPersonalCarAvailable.HasValue ?
@@ -1341,6 +1331,33 @@ namespace CarRental.DAL
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_RequestBooking_Update", idStatusParameter, idParameter);
+        }
+    
+        public virtual int usp_Notification_Update_Read_Status(Nullable<int> idNotification)
+        {
+            var idNotificationParameter = idNotification.HasValue ?
+                new ObjectParameter("idNotification", idNotification) :
+                new ObjectParameter("idNotification", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Update_Read_Status", idNotificationParameter);
+        }
+    
+        public virtual ObjectResult<Notification> usp_Notification_List(Nullable<int> idUser)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", idUserParameter);
+        }
+    
+        public virtual ObjectResult<Notification> usp_Notification_List(Nullable<int> idUser, MergeOption mergeOption)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption, idUserParameter);
         }
     }
 }

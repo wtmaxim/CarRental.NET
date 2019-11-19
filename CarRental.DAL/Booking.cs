@@ -28,6 +28,7 @@ namespace CarRental.DAL
         public string Licence_Plate { get; set; }
         public int id_Request_Booking { get; set; }
     
+        public virtual RequestBooking RequestBooking { get; set; }
         public virtual Car Car { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarReport> CarReport { get; set; }

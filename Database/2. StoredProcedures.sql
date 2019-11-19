@@ -1016,7 +1016,7 @@ BEGIN
 	set IsRead = 1
 	where Id = @idNotification
 END
-
+GO
 
 -- Archivage d'un utilisateur
 CREATE PROCEDURE usp_User_Archive
