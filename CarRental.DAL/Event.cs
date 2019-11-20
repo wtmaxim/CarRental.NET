@@ -19,5 +19,7 @@ namespace CarRental.DAL
         public System.DateTime Start_Date { get; set; }
         public System.DateTime End_Date { get; set; }
         public string Licence_Plate { get; set; }
+    
+        public virtual Car Car { get; set; }
     }
 }

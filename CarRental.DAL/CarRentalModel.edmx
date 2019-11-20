@@ -789,6 +789,19 @@
         <Function Name="usp_User_Role_Delete_By_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="tinyint" Mode="In" />
+          <Parameter Name="job" Type="varchar" Mode="In" />
+          <Parameter Name="note" Type="text" Mode="In" />
+          <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="isAddressPrivate" Type="tinyint" Mode="In" />
+          <Parameter Name="idCompany" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_User_Update_Password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="password" Type="varchar" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -1038,20 +1051,6 @@
             <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
             <Parameter Name="idCompany" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_User_Update">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="firstname" Mode="In" Type="String" />
-            <Parameter Name="lastname" Mode="In" Type="String" />
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="password" Mode="In" Type="String" />
-            <Parameter Name="isActive" Mode="In" Type="Byte" />
-            <Parameter Name="job" Mode="In" Type="String" />
-            <Parameter Name="note" Mode="In" Type="String" />
-            <Parameter Name="phoneNumber" Mode="In" Type="String" />
-            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
-            <Parameter Name="idCompany" Mode="In" Type="Int32" />
-            <Parameter Name="idRole" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_User_Insert_Or_Update">
             <Parameter Name="firstname" Mode="In" Type="String" />
             <Parameter Name="lastname" Mode="In" Type="String" />
@@ -1182,7 +1181,6 @@
           <EntitySet Name="StopOverType" EntityType="CarRental.DAL.StopOverType" />
           <EntitySet Name="User" EntityType="CarRental.DAL.User" />
           <EntitySet Name="user_address" EntityType="CarRental.DAL.user_address" />
-          <EntitySet Name="UserBooking" EntityType="CarRental.DAL.UserBooking" />
           <AssociationSet Name="FK__Company__id_Addr__6B64E1A4" Association="CarRental.DAL.FK__Company__id_Addr__6B64E1A4">
             <End Role="Address" EntitySet="Address" />
             <End Role="Company" EntitySet="Company" />
@@ -1210,10 +1208,6 @@
           <AssociationSet Name="FK__StopOver__Id_Boo__0CC5D56F" Association="CarRental.DAL.FK__StopOver__Id_Boo__0CC5D56F">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="StopOver" EntitySet="StopOver" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserBooki__Id_Bo__024846FC" Association="CarRental.DAL.FK__UserBooki__Id_Bo__024846FC">
-            <End Role="Booking" EntitySet="Booking" />
-            <End Role="UserBooking" EntitySet="UserBooking" />
           </AssociationSet>
           <AssociationSet Name="FK__CarModel__id_Car__679450C0" Association="CarRental.DAL.FK__CarModel__id_Car__679450C0">
             <End Role="CarMake" EntitySet="CarMake" />
@@ -1246,10 +1240,6 @@
           <AssociationSet Name="FK__user_addr__id_us__75E27017" Association="CarRental.DAL.FK__user_addr__id_us__75E27017">
             <End Role="User" EntitySet="User" />
             <End Role="user_address" EntitySet="user_address" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserBooki__Id_Us__033C6B35" Association="CarRental.DAL.FK__UserBooki__Id_Us__033C6B35">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserBooking" EntitySet="UserBooking" />
           </AssociationSet>
           <AssociationSet Name="ActionRole" Association="CarRental.DAL.ActionRole">
             <End Role="Action" EntitySet="Action" />
@@ -1344,6 +1334,28 @@
             <Parameter Name="licencePlate" Mode="In" Type="String" />
             <Parameter Name="kilometrage" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_User_Update">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Byte" />
+            <Parameter Name="job" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="isAddressPrivate" Mode="In" Type="Byte" />
+            <Parameter Name="idCompany" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UserBooking" EntityType="CarRental.DAL.UserBooking" />
+          <AssociationSet Name="FK__UserBooki__Id_Bo__756D6ECB" Association="CarRental.DAL.FK__UserBooki__Id_Bo__756D6ECB">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="UserBooking" EntitySet="UserBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserBooki__Id_Us__76619304" Association="CarRental.DAL.FK__UserBooki__Id_Us__76619304">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserBooking" EntitySet="UserBooking" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
           <Property Type="Byte" Name="is_Available" Nullable="false" />
@@ -1970,8 +1982,8 @@
           <NavigationProperty Name="CarReport" Relationship="CarRental.DAL.FK__CarReport__Id_Bo__1466F737" FromRole="Booking" ToRole="CarReport" />
           <NavigationProperty Name="Cost" Relationship="CarRental.DAL.FK__Cost__Id_Booking__0618D7E0" FromRole="Booking" ToRole="Cost" />
           <NavigationProperty Name="StopOver" Relationship="CarRental.DAL.FK__StopOver__Id_Boo__0CC5D56F" FromRole="Booking" ToRole="StopOver" />
-          <NavigationProperty Name="UserBooking" Relationship="CarRental.DAL.FK__UserBooki__Id_Bo__024846FC" FromRole="Booking" ToRole="UserBooking" />
           <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Booking__Licence__719CDDE7" FromRole="Booking" ToRole="Car" />
+          <NavigationProperty Name="UserBooking" Relationship="CarRental.DAL.FK__UserBooki__Id_Bo__756D6ECB" FromRole="Booking" ToRole="UserBooking" />
         </EntityType>
         <EntityType Name="CarMake">
           <Key>
@@ -2137,10 +2149,10 @@
           <NavigationProperty Name="Company" Relationship="CarRental.DAL.FK__User__Id_Company__6F357288" FromRole="User" ToRole="Company" />
           <NavigationProperty Name="PasswordResetToken" Relationship="CarRental.DAL.FK_PasswordResetToken_UserID" FromRole="User" ToRole="PasswordResetToken" />
           <NavigationProperty Name="user_address" Relationship="CarRental.DAL.FK__user_addr__id_us__75E27017" FromRole="User" ToRole="user_address" />
-          <NavigationProperty Name="UserBooking" Relationship="CarRental.DAL.FK__UserBooki__Id_Us__033C6B35" FromRole="User" ToRole="UserBooking" />
           <NavigationProperty Name="Role" Relationship="CarRental.DAL.user_role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="Notification" Relationship="CarRental.DAL.FK__Notificat__IdUse__10E07F16" FromRole="User" ToRole="Notification" />
           <NavigationProperty Name="Car" Relationship="CarRental.DAL.FK__Car__Id_User__1699586C" FromRole="User" ToRole="Car" />
+          <NavigationProperty Name="UserBooking" Relationship="CarRental.DAL.FK__UserBooki__Id_Us__76619304" FromRole="User" ToRole="UserBooking" />
         </EntityType>
         <EntityType Name="user_address">
           <Key>
@@ -2152,18 +2164,6 @@
           <Property Name="address_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Address" Relationship="CarRental.DAL.FK__user_addr__id_ad__76D69450" FromRole="user_address" ToRole="Address" />
           <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__user_addr__id_us__75E27017" FromRole="user_address" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserBooking">
-          <Key>
-            <PropertyRef Name="Id_Booking" />
-            <PropertyRef Name="Id_User" />
-          </Key>
-          <Property Name="is_Driver" Type="Byte" Nullable="false" />
-          <Property Name="is_Going" Type="Byte" Nullable="false" />
-          <Property Name="Id_Booking" Type="Int32" Nullable="false" />
-          <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Booking" Relationship="CarRental.DAL.FK__UserBooki__Id_Bo__024846FC" FromRole="UserBooking" ToRole="Booking" />
-          <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__UserBooki__Id_Us__033C6B35" FromRole="UserBooking" ToRole="User" />
         </EntityType>
         <Association Name="FK__Company__id_Addr__6B64E1A4">
           <End Type="CarRental.DAL.Address" Role="Address" Multiplicity="1" />
@@ -2245,18 +2245,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="StopOver">
-              <PropertyRef Name="Id_Booking" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserBooki__Id_Bo__024846FC">
-          <End Type="CarRental.DAL.Booking" Role="Booking" Multiplicity="1" />
-          <End Type="CarRental.DAL.UserBooking" Role="UserBooking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Booking">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserBooking">
               <PropertyRef Name="Id_Booking" />
             </Dependent>
           </ReferentialConstraint>
@@ -2356,18 +2344,6 @@
             </Principal>
             <Dependent Role="user_address">
               <PropertyRef Name="id_user" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserBooki__Id_Us__033C6B35">
-          <End Type="CarRental.DAL.User" Role="User" Multiplicity="1" />
-          <End Type="CarRental.DAL.UserBooking" Role="UserBooking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserBooking">
-              <PropertyRef Name="Id_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2514,6 +2490,43 @@
             </Principal>
             <Dependent Role="Event">
               <PropertyRef Name="Licence_Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserBooking">
+          <Key>
+            <PropertyRef Name="is_Going" />
+            <PropertyRef Name="Id_Booking" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="is_Driver" Type="Byte" Nullable="false" />
+          <Property Name="is_Going" Type="Byte" Nullable="false" />
+          <Property Name="Id_Booking" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="CarRental.DAL.FK__UserBooki__Id_Bo__756D6ECB" FromRole="UserBooking" ToRole="Booking" />
+          <NavigationProperty Name="User" Relationship="CarRental.DAL.FK__UserBooki__Id_Us__76619304" FromRole="UserBooking" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__UserBooki__Id_Bo__756D6ECB">
+          <End Type="CarRental.DAL.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="CarRental.DAL.UserBooking" Role="UserBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBooking">
+              <PropertyRef Name="Id_Booking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserBooki__Id_Us__76619304">
+          <End Type="CarRental.DAL.User" Role="User" Multiplicity="1" />
+          <End Type="CarRental.DAL.UserBooking" Role="UserBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBooking">
+              <PropertyRef Name="Id_User" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2805,16 +2818,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserBooking">
-            <EntityTypeMapping TypeName="CarRental.DAL.UserBooking">
-              <MappingFragment StoreEntitySet="UserBooking">
-                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
-                <ScalarProperty Name="Id_Booking" ColumnName="Id_Booking" />
-                <ScalarProperty Name="is_Going" ColumnName="is_Going" />
-                <ScalarProperty Name="is_Driver" ColumnName="is_Driver" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="ActionRole" TypeName="CarRental.DAL.ActionRole" StoreEntitySet="ActionRole">
             <EndProperty Name="Role">
               <ScalarProperty Name="Id" ColumnName="Id_Role" />
@@ -2875,6 +2878,17 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_Car_Insert" FunctionName="CarRentalModel.Store.usp_Car_Insert" />
           <FunctionImportMapping FunctionImportName="usp_Car_Update" FunctionName="CarRentalModel.Store.usp_Car_Update" />
+          <FunctionImportMapping FunctionImportName="usp_User_Update" FunctionName="CarRentalModel.Store.usp_User_Update" />
+          <EntitySetMapping Name="UserBooking">
+            <EntityTypeMapping TypeName="CarRental.DAL.UserBooking">
+              <MappingFragment StoreEntitySet="UserBooking">
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Booking" ColumnName="Id_Booking" />
+                <ScalarProperty Name="is_Going" ColumnName="is_Going" />
+                <ScalarProperty Name="is_Driver" ColumnName="is_Driver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

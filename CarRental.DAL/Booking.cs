@@ -35,8 +35,8 @@ namespace CarRental.DAL
         public virtual ICollection<Cost> Cost { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StopOver> StopOver { get; set; }
+        public virtual Car Car { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBooking> UserBooking { get; set; }
-        public virtual Car Car { get; set; }
     }
 }

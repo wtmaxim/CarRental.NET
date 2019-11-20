@@ -1060,7 +1060,7 @@ BEGIN
 	SET Mileage = @kilometrage
 	WHERE Licence_Plate = @licencePlate
 END
-
+GO
 -- Mise à jour d'un utilisateur
 CREATE PROCEDURE usp_User_Update
 	@id int,

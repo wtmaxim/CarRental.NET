@@ -47,7 +47,6 @@
         <EntityTypeShape EntityType="CarRental.DAL.StopOverType" Width="1.5" PointX="9.75" PointY="8.75" />
         <EntityTypeShape EntityType="CarRental.DAL.User" Width="1.5" PointX="5.25" PointY="11.375" />
         <EntityTypeShape EntityType="CarRental.DAL.user_address" Width="1.5" PointX="7.5" PointY="8.625" />
-        <EntityTypeShape EntityType="CarRental.DAL.UserBooking" Width="1.5" PointX="15" PointY="9.5" />
         <AssociationConnector Association="CarRental.DAL.FK__Company__id_Addr__6B64E1A4" />
         <AssociationConnector Association="CarRental.DAL.FK__StopOverA__id_Ad__118A8A8C" />
         <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_ad__76D69450" />
@@ -55,7 +54,6 @@
         <AssociationConnector Association="CarRental.DAL.FK__CarReport__Id_Bo__1466F737" />
         <AssociationConnector Association="CarRental.DAL.FK__Cost__Id_Booking__0618D7E0" />
         <AssociationConnector Association="CarRental.DAL.FK__StopOver__Id_Boo__0CC5D56F" />
-        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Bo__024846FC" />
         <AssociationConnector Association="CarRental.DAL.FK__CarModel__id_Car__679450C0" />
         <AssociationConnector Association="CarRental.DAL.FK__Cost__Id_Categor__070CFC19" />
         <AssociationConnector Association="CarRental.DAL.FK__User__Id_Company__6F357288" />
@@ -64,7 +62,6 @@
         <AssociationConnector Association="CarRental.DAL.FK__StopOver__Id_Sto__0DB9F9A8" />
         <AssociationConnector Association="CarRental.DAL.FK__StopOverA__Id_St__10966653" />
         <AssociationConnector Association="CarRental.DAL.FK__user_addr__id_us__75E27017" />
-        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Us__033C6B35" />
         <AssociationConnector Association="CarRental.DAL.ActionRole" />
         <AssociationConnector Association="CarRental.DAL.user_role" />
         <EntityTypeShape EntityType="CarRental.DAL.Notification" Width="1.5" PointX="9.75" PointY="19.375" />
@@ -74,6 +71,9 @@
         <AssociationConnector Association="CarRental.DAL.FK__Car__id_Car_Mode__7B4643B2" />
         <AssociationConnector Association="CarRental.DAL.FK__Car__Id_Company__795DFB40" />
         <AssociationConnector Association="CarRental.DAL.FK__Car__Id_User__7A521F79" />
+        <EntityTypeShape EntityType="CarRental.DAL.UserBooking" Width="1.5" PointX="12" PointY="8.5" />
+        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Bo__756D6ECB" />
+        <AssociationConnector Association="CarRental.DAL.FK__UserBooki__Id_Us__76619304" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
