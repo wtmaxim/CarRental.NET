@@ -17,7 +17,7 @@ namespace CarRental.BLL
 
         public RequestBookingDTO Insert(RequestBookingDTO requestBooking)
         {
-            requestBooking.Id_Status = 1;
+            requestBooking.Id_Status = 2;
             return requestBookingEngine.Insert(requestBooking);
         }
 
