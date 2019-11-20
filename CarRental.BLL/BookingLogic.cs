@@ -43,5 +43,10 @@ namespace CarRental.BLL
 
             return bookingEngine.Insert(booking);
         }
+
+        public void Update(int idBooking, string licencePlate)
+        {
+            bookingEngine.Update(idBooking, licencePlate);
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace CarRental.UI.ViewsModels.Booking
     public class BookingAssignationViewsModel
     {
         public List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>> Cars { get; set; }
+        public BookingDTO Booking { get; set; }
     }
 }

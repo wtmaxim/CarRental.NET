@@ -17,6 +17,7 @@ namespace CarRental.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RequestBooking()
         {
+            this.Booking = new HashSet<Booking>();
             this.Notification = new HashSet<Notification>();
         }
     
@@ -28,7 +29,9 @@ namespace CarRental.DAL
         public Nullable<int> CreateBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notification { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
         public virtual Status Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notification { get; set; }
     }
 }

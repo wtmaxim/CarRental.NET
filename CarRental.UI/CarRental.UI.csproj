@@ -167,6 +167,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\font-awesome\.gitignore" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -1557,7 +1558,6 @@
     <Content Include="Images\avatar\avatar3.png" />
     <Content Include="Images\avatar\avatar5.png" />
     <Content Include="Images\Cars\AA00AA.jpg" />
-    <Content Include="Images\Cars\AA00AB.jpg" />
     <Content Include="Images\logoCarMake\Alfa Romeo.png" />
     <Content Include="Images\logoCarMake\Alpine.png" />
     <Content Include="Images\logoCarMake\ARO.png" />

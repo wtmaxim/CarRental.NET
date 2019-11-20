@@ -40,5 +40,10 @@ namespace CarRental.BLL
         {
             return requestBookingEngine.GetByRequestBooking(idRequestBooking);
         }
+
+        public void Update(int idRequestBooking, int idStatus)
+        {
+            requestBookingEngine.Update(idRequestBooking, idStatus);
+        }
     }
 }

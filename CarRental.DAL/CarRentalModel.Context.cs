@@ -30,7 +30,6 @@ namespace CarRental.DAL
         public virtual DbSet<Action> Action { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Booking> Booking { get; set; }
-        public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<CarMake> CarMake { get; set; }
         public virtual DbSet<CarModel> CarModel { get; set; }
         public virtual DbSet<CarReport> CarReport { get; set; }
@@ -38,7 +37,6 @@ namespace CarRental.DAL
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Cost> Cost { get; set; }
         public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<PasswordResetToken> PasswordResetToken { get; set; }
         public virtual DbSet<RequestBooking> RequestBooking { get; set; }
         public virtual DbSet<Role> Role { get; set; }
@@ -49,6 +47,8 @@ namespace CarRental.DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<user_address> user_address { get; set; }
         public virtual DbSet<UserBooking> UserBooking { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<Car> Car { get; set; }
     
         public virtual ObjectResult<Car> usp_Car_Get(string licence_Plate)
         {
@@ -76,43 +76,6 @@ namespace CarRental.DAL
         public virtual ObjectResult<Car> usp_Car_List(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Car>("usp_Car_List", mergeOption);
-        }
-    
-        public virtual int usp_Car_Insert(Nullable<byte> is_Available, Nullable<int> mileage, string licencePlate, Nullable<int> energy_value, Nullable<byte> is_Active, Nullable<int> id_Company, Nullable<int> id_User, Nullable<int> id_Car_Model)
-        {
-            var is_AvailableParameter = is_Available.HasValue ?
-                new ObjectParameter("is_Available", is_Available) :
-                new ObjectParameter("is_Available", typeof(byte));
-    
-            var mileageParameter = mileage.HasValue ?
-                new ObjectParameter("mileage", mileage) :
-                new ObjectParameter("mileage", typeof(int));
-    
-            var licencePlateParameter = licencePlate != null ?
-                new ObjectParameter("licencePlate", licencePlate) :
-                new ObjectParameter("licencePlate", typeof(string));
-    
-            var energy_valueParameter = energy_value.HasValue ?
-                new ObjectParameter("energy_value", energy_value) :
-                new ObjectParameter("energy_value", typeof(int));
-    
-            var is_ActiveParameter = is_Active.HasValue ?
-                new ObjectParameter("is_Active", is_Active) :
-                new ObjectParameter("is_Active", typeof(byte));
-    
-            var id_CompanyParameter = id_Company.HasValue ?
-                new ObjectParameter("id_Company", id_Company) :
-                new ObjectParameter("id_Company", typeof(int));
-    
-            var id_UserParameter = id_User.HasValue ?
-                new ObjectParameter("id_User", id_User) :
-                new ObjectParameter("id_User", typeof(int));
-    
-            var id_Car_ModelParameter = id_Car_Model.HasValue ?
-                new ObjectParameter("id_Car_Model", id_Car_Model) :
-                new ObjectParameter("id_Car_Model", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Car_Insert", is_AvailableParameter, mileageParameter, licencePlateParameter, energy_valueParameter, is_ActiveParameter, id_CompanyParameter, id_UserParameter, id_Car_ModelParameter);
         }
     
         public virtual ObjectResult<Address> usp_Adress_List()
@@ -554,59 +517,6 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Insert", firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
     
-        public virtual int usp_User_Update(Nullable<int> id, string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany, Nullable<int> idRole)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var firstnameParameter = firstname != null ?
-                new ObjectParameter("firstname", firstname) :
-                new ObjectParameter("firstname", typeof(string));
-    
-            var lastnameParameter = lastname != null ?
-                new ObjectParameter("lastname", lastname) :
-                new ObjectParameter("lastname", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("password", password) :
-                new ObjectParameter("password", typeof(string));
-    
-            var isActiveParameter = isActive.HasValue ?
-                new ObjectParameter("isActive", isActive) :
-                new ObjectParameter("isActive", typeof(byte));
-    
-            var jobParameter = job != null ?
-                new ObjectParameter("job", job) :
-                new ObjectParameter("job", typeof(string));
-    
-            var noteParameter = note != null ?
-                new ObjectParameter("note", note) :
-                new ObjectParameter("note", typeof(string));
-    
-            var phoneNumberParameter = phoneNumber != null ?
-                new ObjectParameter("phoneNumber", phoneNumber) :
-                new ObjectParameter("phoneNumber", typeof(string));
-    
-            var isAddressPrivateParameter = isAddressPrivate.HasValue ?
-                new ObjectParameter("isAddressPrivate", isAddressPrivate) :
-                new ObjectParameter("isAddressPrivate", typeof(byte));
-    
-            var idCompanyParameter = idCompany.HasValue ?
-                new ObjectParameter("idCompany", idCompany) :
-                new ObjectParameter("idCompany", typeof(int));
-    
-            var idRoleParameter = idRole.HasValue ?
-                new ObjectParameter("idRole", idRole) :
-                new ObjectParameter("idRole", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update", idParameter, firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter, idRoleParameter);
-        }
-    
         public virtual int usp_User_Insert_Or_Update(string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
         {
             var firstnameParameter = firstname != null ?
@@ -820,7 +730,7 @@ namespace CarRental.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UserRole_INSERT", userIDParameter, roleIDParameter);
         }
     
-        public virtual int usp_Notification_Insert(Nullable<int> idUser, Nullable<byte> isRead, Nullable<byte> isForAdmin, Nullable<byte> isForNewRequest, Nullable<int> idBooking)
+        public virtual int usp_Notification_Insert(Nullable<int> idUser, Nullable<byte> isRead, Nullable<byte> isForAdmin, Nullable<byte> isForNewRequest, Nullable<int> idRequestBooking)
         {
             var idUserParameter = idUser.HasValue ?
                 new ObjectParameter("IdUser", idUser) :
@@ -838,21 +748,11 @@ namespace CarRental.DAL
                 new ObjectParameter("IsForNewRequest", isForNewRequest) :
                 new ObjectParameter("IsForNewRequest", typeof(byte));
     
-            var idBookingParameter = idBooking.HasValue ?
-                new ObjectParameter("IdBooking", idBooking) :
-                new ObjectParameter("IdBooking", typeof(int));
+            var idRequestBookingParameter = idRequestBooking.HasValue ?
+                new ObjectParameter("IdRequestBooking", idRequestBooking) :
+                new ObjectParameter("IdRequestBooking", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idBookingParameter);
-        }
-    
-        public virtual ObjectResult<Notification> usp_Notification_List()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List");
-        }
-    
-        public virtual ObjectResult<Notification> usp_Notification_List(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Insert", idUserParameter, isReadParameter, isForAdminParameter, isForNewRequestParameter, idRequestBookingParameter);
         }
     
         public virtual ObjectResult<RequestBooking> usp_RequestBooking_Insert(Nullable<byte> isPersonalCarAvailable, string reason, Nullable<int> idStatut, Nullable<int> createBy)
@@ -1315,6 +1215,181 @@ namespace CarRental.DAL
                 new ObjectParameter("userId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Role_Delete_By_User", userIdParameter);
+        }
+    
+        public virtual int usp_Booking_Update(Nullable<int> idBooking, string licencePlate)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Booking_Update", idBookingParameter, licencePlateParameter);
+        }
+    
+        public virtual int usp_RequestBooking_Update(Nullable<int> idStatus, Nullable<int> id)
+        {
+            var idStatusParameter = idStatus.HasValue ?
+                new ObjectParameter("idStatus", idStatus) :
+                new ObjectParameter("idStatus", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_RequestBooking_Update", idStatusParameter, idParameter);
+        }
+    
+        public virtual int usp_Notification_Update_Read_Status(Nullable<int> idNotification)
+        {
+            var idNotificationParameter = idNotification.HasValue ?
+                new ObjectParameter("idNotification", idNotification) :
+                new ObjectParameter("idNotification", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Notification_Update_Read_Status", idNotificationParameter);
+        }
+    
+        public virtual ObjectResult<Notification> usp_Notification_List(Nullable<int> idUser)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", idUserParameter);
+        }
+    
+        public virtual ObjectResult<Notification> usp_Notification_List(Nullable<int> idUser, MergeOption mergeOption)
+        {
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notification>("usp_Notification_List", mergeOption, idUserParameter);
+        }
+    
+        public virtual int usp_Car_Insert(Nullable<byte> is_Available, Nullable<int> mileage, string licencePlate, string energy_value, Nullable<byte> is_Active, Nullable<int> id_Company, Nullable<int> id_User, Nullable<int> id_Car_Model)
+        {
+            var is_AvailableParameter = is_Available.HasValue ?
+                new ObjectParameter("is_Available", is_Available) :
+                new ObjectParameter("is_Available", typeof(byte));
+    
+            var mileageParameter = mileage.HasValue ?
+                new ObjectParameter("mileage", mileage) :
+                new ObjectParameter("mileage", typeof(int));
+    
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            var energy_valueParameter = energy_value != null ?
+                new ObjectParameter("energy_value", energy_value) :
+                new ObjectParameter("energy_value", typeof(string));
+    
+            var is_ActiveParameter = is_Active.HasValue ?
+                new ObjectParameter("is_Active", is_Active) :
+                new ObjectParameter("is_Active", typeof(byte));
+    
+            var id_CompanyParameter = id_Company.HasValue ?
+                new ObjectParameter("id_Company", id_Company) :
+                new ObjectParameter("id_Company", typeof(int));
+    
+            var id_UserParameter = id_User.HasValue ?
+                new ObjectParameter("id_User", id_User) :
+                new ObjectParameter("id_User", typeof(int));
+    
+            var id_Car_ModelParameter = id_Car_Model.HasValue ?
+                new ObjectParameter("id_Car_Model", id_Car_Model) :
+                new ObjectParameter("id_Car_Model", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Car_Insert", is_AvailableParameter, mileageParameter, licencePlateParameter, energy_valueParameter, is_ActiveParameter, id_CompanyParameter, id_UserParameter, id_Car_ModelParameter);
+        }
+    
+        public virtual int usp_Role_Delete1(Nullable<int> roleId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Delete1", roleIdParameter);
+        }
+    
+        public virtual int usp_Role_Insert1(string libelle)
+        {
+            var libelleParameter = libelle != null ?
+                new ObjectParameter("libelle", libelle) :
+                new ObjectParameter("libelle", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Role_Insert1", libelleParameter);
+        }
+    
+        public virtual int usp_User_Role_Delete_By_Role1(Nullable<int> roleID)
+        {
+            var roleIDParameter = roleID.HasValue ?
+                new ObjectParameter("RoleID", roleID) :
+                new ObjectParameter("RoleID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Role_Delete_By_Role1", roleIDParameter);
+        }
+    
+        public virtual int usp_User_Unarchive1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Unarchive1", idParameter);
+        }
+    
+        public virtual int usp_User_Update(Nullable<int> id, string firstname, string lastname, string email, string password, Nullable<byte> isActive, string job, string note, string phoneNumber, Nullable<byte> isAddressPrivate, Nullable<int> idCompany)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("firstname", firstname) :
+                new ObjectParameter("firstname", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("isActive", isActive) :
+                new ObjectParameter("isActive", typeof(byte));
+    
+            var jobParameter = job != null ?
+                new ObjectParameter("job", job) :
+                new ObjectParameter("job", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("phoneNumber", phoneNumber) :
+                new ObjectParameter("phoneNumber", typeof(string));
+    
+            var isAddressPrivateParameter = isAddressPrivate.HasValue ?
+                new ObjectParameter("isAddressPrivate", isAddressPrivate) :
+                new ObjectParameter("isAddressPrivate", typeof(byte));
+    
+            var idCompanyParameter = idCompany.HasValue ?
+                new ObjectParameter("idCompany", idCompany) :
+                new ObjectParameter("idCompany", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update", idParameter, firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
     }
 }

@@ -25,9 +25,15 @@ namespace CarRental.UI.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            if(Session["userId"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }else
+            {           
             int idCurrentUser = (int)Session["userId"];
             ViewBag.AdminNotifs = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0 && n.IsForAdmin == 1).Count;
             return View();
+            }
         }
 
     }

@@ -1,4 +1,6 @@
-﻿<section class="content-header">
+﻿@model CarRental.UI.ViewsModels.RequestBooking.RequestBookingInsertViewsModel
+
+<section class="content-header">
     <h1>
         Faire une demande
     </h1>
@@ -21,12 +23,7 @@
 
                         <!-- driver column -->
                         <div class="form-group">
-                            <select class="form-control select2" id="SelectedDriverId" data-placeholder="Entrez le conducteur" style="width: 100%;">
-                                <option value="1">Paul Martin</option>
-                                <option value="2">Blanche Denis</option>
-                                <option value="3">Frédéric Veilleux</option>
-                                <option value="4">Paul Raymond</option>
-                            </select>
+                            @Html.DropDownListFor(m => m.userIdDriver, Model.Users, new { id = "SelectedDriverId", @class = "form-control select2" })
                         </div>
 
                         <div class="form-group">
@@ -45,12 +42,7 @@
                         </div>
 
                         <div class="form-group" id="driverChange">
-                            <select class="form-control select2" id="DropDownListDriverChange" data-placeholder="Conducteur retour" style="width: 100%;">
-                                <option value="1">Paul Martin</option>
-                                <option value="2">Blanche Denis</option>
-                                <option value="3">Frédéric Veilleux</option>
-                                <option value="4">Paul Raymond</option>
-                            </select>
+                            @Html.DropDownListFor(m => m.userIdDriver2, Model.Users, new { id = "DropDownListDriverChange", @class = "form-control select2" })
                         </div>
                         <br>
 
@@ -67,12 +59,9 @@
 
                         <!-- passengers column -->
                         <div class="form-group">
-                            <select class="form-control select2" id="DropDownListPassagers" multiple="multiple" data-placeholder="Entrez les passagers" style="width: 100%;">
-                                <option value="1">Paul Martin</option>
-                                <option value="2">Blanche Denis</option>
-                                <option value="3">Frédéric Veilleux</option>
-                                <option value="4">Paul Raymond</option>
-                            </select>
+                            <div class="form-group">
+                                @Html.ListBoxFor(m => m.userIdPassagers, Model.Users, new { id = "DropDownListPassagers", @class = "form-control select2" })
+                            </div>
                         </div>
 
                         <!-- reservation cat -->
@@ -147,13 +136,8 @@
                                 <br>
 
                                 <div class="form-group" id="DropDownListAddressDeparture">
-                                    <select class="form-control select2" data-placeholder="Adresse définie" style="width: 100%;">
-                                        <option>Campus de Nantes</option>
-                                        <option>Campus de Nantes Faraday</option>
-                                        <option>Campus de Rennes</option>
-                                        <option>Campus de Niort</option>
-                                        <option>Autre</option>
-                                    </select>
+                                    @Html.DropDownListFor(m => m.AddressDepartureId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" })
+                                    @*<div class="callout callout-danger" id="error-DropDownListAddressDeparture">L'addresse de départ est obligatoire</div>*@
                                 </div>
 
                                 <div class="form-group" id="manAddressDepTxt">
@@ -201,13 +185,8 @@
                                 <br>
 
                                 <div class="form-group" id="DropDownListAddressArrival">
-                                    <select class="form-control select2" data-placeholder="Adresse définie" style="width: 100%;">
-                                        <option>Campus de Nantes</option>
-                                        <option>Campus de Nantes Faraday</option>
-                                        <option>Campus de Rennes</option>
-                                        <option>Campus de Niort</option>
-                                        <option>Autre</option>
-                                    </select>
+                                    @Html.DropDownListFor(m => m.AddressArrivalId, Model.Addresses, "Adresse prédéfinie", new { @class = "form-control select2" })
+                                    @*<div class="callout callout-danger" id="error-DropDownListAddressArrival">L'addresse de retour est obligatoire</div>*@
                                 </div>
 
                                 <div class="form-group" id="manAddressRetTxt">
@@ -245,64 +224,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="tdSelected">Principal</td>
-                                    <td class="tdSelected">11/07/2019 - 15/07/2019</td>
-                                    <td class="tdSelected">
-                                        @*<a href="https://www.google.com/maps/search/?api=1&query=eni+nantes" target="_blank">*@
-                                            Campus de Nantes
-                                        @*</a>*@
-                                    </td>
-                                    <td class="tdSelected">
-                                        @*<a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">*@
-                                            Cité des Congrès, 5 Rue de Valmy
-                                            44000 Nantes
-                                        @*</a>*@
-                                    </td>
-                                    <td>
-                                        <a href="">
-                                            <i class="fa fa-trash text-danger"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tdSelected">Quotidien</td>
-                                    <td class="tdSelected">11/07/2019 - 13/07/2019</td>
-                                    <td class="tdSelected">Hôtel Mercure Nantes Saint Herblain
-                                        @*<a href="https://www.google.com/maps/search/?api=1&query=hotel+mercure+nantes+saint+herblain" target="_blank">*@
-                                        @*</a>*@
-                                    </td>
-                                    <td class="tdSelected">
-                                        @*<a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">*@
-                                            Cité des Congrès, 5 Rue de Valmy
-                                            44000 Nantes
-                                        @*</a>*@
-                                    </td>
-                                    <td>
-                                        <a href="">
-                                            <i class="fa fa-trash text-danger"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="tdSelected">Ponctuel</td>
-                                    <td class="tdSelected">14/07/2019</td>
-                                    <td class="tdSelected">
-                                        @*<a href="https://www.google.com/maps/search/?api=1&query=hotel+mercure+nantes+saint+herblain" target="_blank">*@
-                                            Hôtel Mercure Nantes Saint Herblain
-                                        @*</a>*@
-                                    </td>
-                                    <td class="tdSelected">
-                                        @*<a href="https://www.google.com/maps/search/?api=1&query=asi+informatique" target="_blank">*@
-                                            ASI Informatique
-                                        @*</a>*@
-                                    </td>
-                                    <td>
-                                        <a href="">
-                                            <i class="fa fa-trash text-danger"></i>
-                                        </a>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -358,7 +279,7 @@
 
             $(".select2").select2({
                 theme: "bootstrap"
-            });   
+            });
 
 
         });
@@ -376,7 +297,7 @@
                 data[i] = Array();
                 $(this).children(".tdSelected").each(function(ii, vv){
                     data[i][ii] = $(this).text();
-                }); 
+                });
             })
 
             console.log(data);
@@ -413,7 +334,7 @@
 
             requestBooking.reason = $("#reason").val();
             requestBooking.isPersonalCarAvailable = $("#checkBoxIsPersonalCarAvailable").is(":checked");
- 
+
             var passagers = $('#DropDownListPassagers').val();
 
             return { requestBooking: requestBooking, passagers: passagers, driver: driver, driver2: driver2 };
@@ -494,7 +415,7 @@
         function handleStatusChanged()
         {
             $('#checkBoxDriverChange').on('change', function () {
-                toggleChangeConducteur();   
+                toggleChangeConducteur();
             });
             $('#checkBoxCoVoiturage').on('change', function () {
                 toggleChangeCoVoiturage();
@@ -507,7 +428,7 @@
                 $('#DropDownListPassagers').attr('disabled', true);
             } else {
                 $('#DropDownListPassagers').removeAttr('disabled');
-            }   
+            }
         }
 
         function toggleChangeConducteur()
@@ -516,7 +437,7 @@
                 $('#DropDownListDriverChange').attr('disabled', true);
             } else {
                 $('#DropDownListDriverChange').removeAttr('disabled');
-            }   
+            }
         }
     </script>
 }

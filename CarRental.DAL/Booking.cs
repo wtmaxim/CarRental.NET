@@ -28,7 +28,7 @@ namespace CarRental.DAL
         public string Licence_Plate { get; set; }
         public int id_Request_Booking { get; set; }
     
-        public virtual Car Car { get; set; }
+        public virtual RequestBooking RequestBooking { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarReport> CarReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -37,5 +37,6 @@ namespace CarRental.DAL
         public virtual ICollection<StopOver> StopOver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBooking> UserBooking { get; set; }
+        public virtual Car Car { get; set; }
     }
 }

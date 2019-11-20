@@ -14,5 +14,6 @@ namespace CarRental.DAL.Interface
         List<RequestBookingDTO> List(int idUser);
         IEnumerable<RequestBookingDTO> List();
         RequestBookingDTO GetByRequestBooking(int idRequestBooking);
+        void Update(int idRequestBooking, int idStatus);
     }
 }

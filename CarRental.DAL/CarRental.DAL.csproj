@@ -250,6 +250,12 @@
     <Compile Include="usp_Notification_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Notification_List_Result1.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Notification_List_Result2.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_PasswordResetToken_get_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

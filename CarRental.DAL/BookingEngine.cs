@@ -51,5 +51,13 @@ namespace CarRental.DAL
                 return bookingMapping.MapToBookingDTO(booking);
             }
         }
+
+        public void Update(int idBooking, string licencePlate)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                context.usp_Booking_Update(idBooking, licencePlate);
+            }
+        }
     }
 }

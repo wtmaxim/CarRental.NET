@@ -70,6 +70,7 @@ namespace CarRental.UI.Controllers
                 UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
                 AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
                 AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+                UserDTO createdBy = utilisateurLogic.Get(requestBooking.CreateBy);
 
 
                 bookings.Add(new Booking
@@ -83,7 +84,8 @@ namespace CarRental.UI.Controllers
                     driverAller = driverAller,
                     driverRetour = driverRetour,
                     addressRetour = addressRetour,
-                    addressAller = addressAller
+                    addressAller = addressAller,
+                    createdBy = createdBy
                 });
             }
 
@@ -107,6 +109,7 @@ namespace CarRental.UI.Controllers
             UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
             AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
             AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+            UserDTO createdBy = utilisateurLogic.Get(requestBooking.CreateBy);
 
             Booking _booking = new Booking
             {
@@ -119,7 +122,8 @@ namespace CarRental.UI.Controllers
                 driverAller = driverAller,
                 driverRetour = driverRetour,
                 addressRetour = addressRetour,
-                addressAller = addressAller
+                addressAller = addressAller,
+                createdBy = createdBy
             };
 
             vm.Booking = _booking;
@@ -133,6 +137,7 @@ namespace CarRental.UI.Controllers
             BookingAssignationViewsModel vm = new BookingAssignationViewsModel();
             List<CarDTO> _cars = carLogic.List();
             List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>> cars = new List<Tuple<CarDTO, CarModelDTO, CarMakeDTO>>();
+            BookingDTO booking = bookingLogic.GetByRequestBooking(id);
 
             foreach (CarDTO car in _cars)
             {
@@ -143,15 +148,30 @@ namespace CarRental.UI.Controllers
             }
 
             vm.Cars = cars;
+            vm.Booking = booking;
 
             return View(vm);
         }
 
-        [HttpPost]
-        public ActionResult AssignationCar(string CarValue)
+        public ActionResult RefuserBooking(int id)
         {
-            var po = CarValue;
-            return null;
+            RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(id);
+            requestBookingLogic.Update(id, 1002);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AssignationCar(string CarValue, int idBooking)
+        {
+            var licencePlate = CarValue;
+
+            bookingLogic.Update(idBooking, licencePlate);
+            BookingDTO booking = bookingLogic.Get(idBooking);
+            RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
+            requestBookingLogic.Update(requestBooking.id, 2);
+
+            return RedirectToAction("Index");
         }
 
         private List<SelectListItem> PopulateAddress()
@@ -227,9 +247,7 @@ namespace CarRental.UI.Controllers
                         addressAller = addressAller
                     });
                 }
-            }
-
-            
+            }           
 
             vm.Bookings = bookings;
 

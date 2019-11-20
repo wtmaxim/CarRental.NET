@@ -10,14 +10,15 @@
 namespace CarRental.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Event
+    public partial class usp_Notification_List_Result1
     {
         public int Id { get; set; }
-        public string Libelle { get; set; }
-        public System.DateTime Start_Date { get; set; }
-        public System.DateTime End_Date { get; set; }
-        public string Licence_Plate { get; set; }
+        public int IdUser { get; set; }
+        public byte IsRead { get; set; }
+        public System.DateTime CreationDateTimestamp { get; set; }
+        public byte IsForAdmin { get; set; }
+        public byte IsForNewRequest { get; set; }
+        public int IdRequestBooking { get; set; }
     }
 }

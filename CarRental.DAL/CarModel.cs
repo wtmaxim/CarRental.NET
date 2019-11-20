@@ -26,8 +26,8 @@ namespace CarRental.DAL
         public string Energy { get; set; }
         public int id_Car_Make { get; set; }
     
+        public virtual CarMake CarMake { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Car> Car { get; set; }
-        public virtual CarMake CarMake { get; set; }
     }
 }

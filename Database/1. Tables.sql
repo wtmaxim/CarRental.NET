@@ -136,7 +136,7 @@ CREATE TABLE Car
   is_Available TINYINT NOT NULL,
   Mileage INT NOT NULL,
   Licence_Plate VARCHAR(25) NOT NULL,
-  Energy_Value INT NOT NULL,
+  Energy_Value VARCHAR(50) NULL,
   is_Active TINYINT NOT NULL,
   Id_Company INT NOT NULL,
   Id_User INT NOT NULL,

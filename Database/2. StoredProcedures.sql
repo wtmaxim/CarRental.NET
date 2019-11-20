@@ -126,7 +126,7 @@ CREATE PROCEDURE [dbo].[usp_Car_Insert]
 	@is_Available TINYINT,
 	@mileage INT,
 	@licencePlate VARCHAR(25),
-	@energy_value INT,
+	@energy_value VARCHAR(50),
 	@is_Active TINYINT,
 	@id_Company INT,
 	@id_User INT,
@@ -1016,7 +1016,7 @@ BEGIN
 	set IsRead = 1
 	where Id = @idNotification
 END
-
+GO
 
 -- Archivage d'un utilisateur
 CREATE PROCEDURE usp_User_Archive
@@ -1027,6 +1027,31 @@ BEGIN
 	SET is_Active = 0
 	WHERE id = @id
 END
+GO
+
+CREATE PROCEDURE [dbo].[usp_Booking_Update]
+	@idBooking INT,
+	@licencePlate VARCHAR(25)
+AS
+
+BEGIN
+	UPDATE Booking
+	SET Licence_Plate = @licencePlate
+	WHERE Id = @idBooking
+END
+GO
+
+CREATE PROCEDURE [dbo].[usp_RequestBooking_Update]
+	@idStatus INT,
+	@id INT
+AS
+
+BEGIN
+	UPDATE RequestBooking
+	SET Id_Status = @idStatus
+	WHERE id = @id
+END
+GO
 
 -- UPDATE - USER
 CREATE PROCEDURE usp_User_Update

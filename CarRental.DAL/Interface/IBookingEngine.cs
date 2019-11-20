@@ -13,5 +13,6 @@ namespace CarRental.DAL
         BookingDTO Get(int id);
         List<BookingDTO> List(string licence_plate);
         BookingDTO GetByRequestBooking(int idRequestBooking);
+        void Update(int idBooking, string licencePlate);
     }
 }

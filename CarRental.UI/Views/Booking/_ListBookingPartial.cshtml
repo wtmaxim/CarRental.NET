@@ -91,13 +91,31 @@
                     <div class="box-body">
                         <dl class="dl-horizontal">
                             <dt>Raison du déplacement</dt>
-                            <dd>Devfest de Nantes 2019</dd>
-                            <dt>Catégorie</dt>
-                            <dd>Evenement</dd>
+                            <dd>@booking.requestBooking.Reason</dd>
                         </dl>
                     </div>
                 </div>
             </div>
+
+            @*@if (booking.status.Id == 2)
+            {*@
+                <div class="col-sm-12 text-center">
+                    <a class="btn btn-app">
+                        <i class="fa fa-edit"></i> Modifier réservation
+                    </a>
+                    <a class="btn btn-app" href="./addExpense.html">
+                        <i class="fa fa-eur"></i> Ajout dépense
+                    </a>
+                    <a class="btn btn-app" href="./vehicleReport.html">
+                        <i class="fa fa-exclamation-triangle"></i> Constat véhicule
+                    </a>
+                    <a class="btn btn-app bg-olive" href="@Html.Action("RendreCar", "Car", new { id = booking.booking.Id })">
+                        <i class="fa fa-check"></i> Rendre véhicule
+                    </a>
+                </div>
+            @*}*@
+
+
         </div>
     </div>
 }

@@ -30,7 +30,9 @@ namespace CarRental.UI
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/Ionicons/css/ionicons.css",
                       "~/Content/AdminLTE.min.css",
-                      "~/Content/skins/_all-skins.min.css"));
+                      "~/Content/skins/_all-skins.min.css",
+                      "~/Content/dataTables.bootstrap.min.css"
+                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
                 "~/Scripts/fullcalendar/core/main.js",
@@ -56,6 +58,7 @@ namespace CarRental.UI
                 "~/Content/bootstrap-datetimepicker.css",
                 "~/Content/bootstrap-datetimepicker.min.css"));
 
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
