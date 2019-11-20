@@ -2877,6 +2877,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_Car_Insert" FunctionName="CarRentalModel.Store.usp_Car_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Role_Insert" FunctionName="CarRentalModel.Store.usp_Role_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Role_Delete" FunctionName="CarRentalModel.Store.usp_Role_Delete" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
