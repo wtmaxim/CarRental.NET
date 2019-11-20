@@ -1558,7 +1558,10 @@
     <Content Include="Images\avatar\avatar2.png" />
     <Content Include="Images\avatar\avatar3.png" />
     <Content Include="Images\avatar\avatar5.png" />
+    <Content Include="Images\Cars\5556-BF21.jpg" />
     <Content Include="Images\Cars\AA00AA.jpg" />
+    <Content Include="Images\Cars\dadazdda.jpg" />
+    <Content Include="Images\Cars\VK-500.jpg" />
     <Content Include="Images\logoCarMake\Alfa Romeo.png" />
     <Content Include="Images\logoCarMake\Alpine.png" />
     <Content Include="Images\logoCarMake\ARO.png" />
@@ -1625,6 +1628,7 @@
     <Content Include="Images\logoCarMake\Volvo.png" />
     <Content Include="Images\logoCarMake\Zastava.png" />
     <Content Include="Images\Utilisateur\default.png" />
+    <Content Include="Scripts\adminlte.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1685,6 +1689,7 @@
     <Content Include="Content\Ionicons\scss\_ionicons-variables.scss" />
     <Content Include="Scripts\car.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\fr.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
