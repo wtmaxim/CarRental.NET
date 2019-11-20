@@ -25,5 +25,10 @@ namespace CarRental.BLL
         {
             return adressEngine.GetAddress(idBooking);
         }
+
+        public AddressDTO GetAddress(int idBooking, byte isDeparture)
+        {
+            return adressEngine.GetAddress(idBooking, isDeparture);
+        }
     }
 }

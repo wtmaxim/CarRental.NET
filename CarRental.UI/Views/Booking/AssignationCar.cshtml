@@ -1,68 +1,72 @@
 ﻿@model CarRental.UI.ViewsModels.Booking.BookingAssignationViewsModel
+@using System.Configuration
 
 @{
     ViewBag.Title = "AssignationCar";
+    var imageUrl = ConfigurationManager.AppSettings["CarImageURL"];
+        var logoUrl = "~/Images/logoCarMake/";
 }
 
-    <section class="content">
-        @using (Html.BeginForm("AssignationCar", "Booking", FormMethod.Post))
-        {
-            <div class="row">
+<section class="content">
+    @using (Html.BeginForm("AssignationCar", "Booking", FormMethod.Post))
+    {
+        <div class="row">
 
-                <!-- reservation -->
-                <div class="col-sm-12">
-                    <div class="box box-solid">
-                        <div class="box-header with-border">
-                            <i class="fa fa-car"></i>
-                            <h3 class="box-title">Liste des voitures</h3>
-                        </div>
-                        <div class="box-body">
-
-
-
-                            <div class="form-group">
-
-                                @for (int i = 0; i < Model.Cars.Count; i++)
-                                {
-                                    var item = Model.Cars[i];
-                                    var id = "optionsRadio" + i;
-
-                                    @Html.RadioButton("CarValue", item.Item1.Licence_Plate);
-                                    <img src="../../dist/img/cars/ab456gf.jpg" class="img-thumbnail carImg">
-                                    <div class="radioTxt">
-                                        <b> @item.Item3.Make @item.Item2.Model</b><br>
-                                        #@item.Item1.Licence_Plate
-                                    </div>
-                                    
-                                }
+            <!-- reservation -->
+            <div class="col-sm-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-car"></i>
+                        <h3 class="box-title">Liste des voitures</h3>
+                    </div>
+                    <div class="box-body">
 
 
-                            </div>
 
-                            @Html.Hidden("idBooking", Model.Booking.Id)
+                        <div class="form-group">
+
+                            @for (int i = 0; i < Model.Cars.Count; i++)
+                            {
+                                var item = Model.Cars[i];
+                                var id = "optionsRadio" + i;
+
+                                @Html.RadioButton("CarValue", item.Item1.Licence_Plate);
+                                <img src="@Url.Content(imageUrl + item.Item1.Licence_Plate + ".jpg")" class="img-thumbnail carImg">
+                                <div class="radioTxt">
+                                    <img src="@Url.Content(logoUrl + item.Item3.Make + ".png")" />
+                                    <b> @item.Item3.Make @item.Item2.Model</b>
+                                    #@item.Item1.Licence_Plate
+                                </div>
+
+                            }
+
 
                         </div>
+
+                        @Html.Hidden("idBooking", Model.Booking.Id)
+
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="box-footer text-center">
-                    <div class="col-xs-6">
-                        <a class="btn btn-default btn-block" href="./rents_validation_card.html">
-                            <i class="fa fa-mail-reply"></i> &nbsp;Annuler
-                        </a>
-                    </div>
-                    <div class="col-xs-6">
-                        <button type="submit" onclick="return validation()" class="btn bg-olive btn-block">
-                            <i class="fa fa-check"></i> &nbsp;Assigner la voiture
-                        </button>
-                        
-                    </div>
+        <div class="row">
+            <div class="box-footer text-center">
+                <div class="col-xs-6">
+                    <a class="btn btn-default btn-block" href="./rents_validation_card.html">
+                        <i class="fa fa-mail-reply"></i> &nbsp;Annuler
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <button type="submit" onclick="return validation()" class="btn bg-olive btn-block">
+                        <i class="fa fa-check"></i> &nbsp;Assigner la voiture
+                    </button>
+
                 </div>
             </div>
-        }
-    </section>
+        </div>
+    }
+</section>
 
 @section Scripts {
     <script>
@@ -71,10 +75,10 @@
             var rates = document.getElementsByName('CarValue');
             var rate_value;
             var index = 0;
-            for(var i = 0; i < rates.length; i++){
+            for (var i = 0; i < rates.length; i++) {
                 if (rates[i].checked) {
                     index++;
-                   rate_value = rates[i].value;
+                    rate_value = rates[i].value;
                 }
             }
 
@@ -87,6 +91,6 @@
             }
         }
 
-        
+
     </script>
 }

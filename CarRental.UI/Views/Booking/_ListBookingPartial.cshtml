@@ -97,18 +97,19 @@
                 </div>
             </div>
 
-            @if (booking.status.Id == 2)
+            @if (booking.status.Id == 1)
             {
                 <div class="col-sm-12 text-center">
                     <a class="btn btn-app">
                         <i class="fa fa-edit"></i> Modifier réservation
                     </a>
-                    <a class="btn btn-app" href="./addExpense.html">
+                    <a class="btn btn-app" href="#">
                         <i class="fa fa-eur"></i> Ajout dépense
                     </a>
-                    <a class="btn btn-app" href="./vehicleReport.html">
+                    <a class="btn btn-app" href="#">
                         <i class="fa fa-exclamation-triangle"></i> Constat véhicule
                     </a>
+                    
                     <a class="btn btn-app bg-olive" href="@Url.Action("RendreCar", "Car", new { idBooking = booking.booking.Id })">
                         <i class="fa fa-check"></i> Rendre véhicule
                     </a>

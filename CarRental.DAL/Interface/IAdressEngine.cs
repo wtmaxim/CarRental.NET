@@ -11,5 +11,6 @@ namespace CarRental.DAL
     {
         List<AddressDTO> List();
         AddressDTO GetAddress(int idBooking);
+        AddressDTO GetAddress(int idBooking, byte isDeparture);
     }
 }

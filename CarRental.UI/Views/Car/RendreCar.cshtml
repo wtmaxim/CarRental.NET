@@ -1,4 +1,6 @@
 ﻿@model CarRental.UI.ViewsModels.Car.CarRendreCarViewsModel
+@using CarRental.Model
+
 @{
     ViewBag.Title = "RendreCar";
 }
@@ -24,11 +26,11 @@
                 <div class="box-body">
                     <dl class="dl-horizontal">
                         <dt>Demande de</dt>
-                        <dd>Paul Martin</dd>
+                        <dd>@Model.Booking.createdBy.Firstname @Model.Booking.createdBy.Lastname</dd>
                         <dt>Date</dt>
-                        <dd>21/01 au 23/01</dd>
+                        <dd>@Model.Booking.stopOver.Departure_Date.ToString("dd/MM/yyyy") au @Model.Booking.stopOver.Arrival_Date.ToString("dd/MM/yyyy")</dd>
                         <dt>Destination</dt>
-                        <dd>Nantes à Bordeaux</dd>
+                        <dd>@Model.Booking.addressAller.Locality à @Model.Booking.addressRetour.Locality</dd>
                     </dl>
                 </div>
             </div>
@@ -44,15 +46,15 @@
                 <div class="box-body">
                     <dl class="dl-horizontal">
                         <dt>Raison du déplacement</dt>
-                        <dd>Devfest de Nantes 2019</dd>
+                        <dd>@Model.Booking.requestBooking.Reason</dd>
                         <dt>Véhicule attribué</dt>
                         <dd>
-                            <a class="profile" href="../car/car.html">Nissan Micra</a>
+                            <a class="profile" href="../car/car.html"></a>
                         </dd>
-                        <dt>Possesseur précédent</dt>
+                        @*<dt>Possesseur précédent</dt>
                         <dd>
                             <a class="profile" href="#">Jean Baptiste Meunier</a>
-                        </dd>
+                        </dd>*@
                     </dl>
                 </div>
             </div>
@@ -72,17 +74,18 @@
                     <dl class="dl-horizontal">
                         <dt>Chauffeur</dt>
                         <dd>
-                            <a href="#" class="profile">Blanche Denis</a>
+                            <a href="#" class="profile">@Model.Booking.driverAller.Firstname @Model.Booking.driverAller.Lastname</a>
                         </dd>
                         <dt>Passagers</dt>
                         <dd>
-                            <a href="../profile/profile.html" class="profile">Paul Martin</a>,
-                            <a href="#" class="profile">Laura Miel</a>,
-                            Sarah Martin
+                            @foreach (UserDTO user in Model.Booking.passagersAller)
+                            {
+                            <a href="#" class="profile">@user.Firstname @user.Lastname</a>
+                            }
                         </dd>
                         <dt>Adresse</dt>
-                        <dd>Cité des Congrès, 5 Rue de Valmy</dd>
-                        <dd>44000 Nantes</dd>
+                        <dd>@Model.Booking.addressAller.Name, @Model.Booking.addressAller.Route</dd>
+                        <dd>@Model.Booking.addressAller.Postal_Code @Model.Booking.addressAller.Locality</dd>
                     </dl>
                 </div>
             </div>
@@ -99,18 +102,18 @@
                     <dl class="dl-horizontal">
                         <dt>Chauffeur</dt>
                         <dd>
-                            <a href="../profile/profile.html" class="profile">Paul Martin</a>
+                            <a href="#" class="profile">@Model.Booking.driverRetour.Firstname @Model.Booking.driverRetour.Lastname</a>
                         </dd>
                         <dt>Passagers</dt>
                         <dd>
-                            <a href="#" class="profile">Blanche Denis</a>,
-                            <a href="#" class="profile">Laura Miel</a>,
-                            Sarah Martin
+                            @foreach (UserDTO user in Model.Booking.passagerRetour)
+                            {
+                                <a href="#" class="profile">@user.Firstname @user.Lastname</a>
+                            }
                         </dd>
                         <dt>Adresse</dt>
-                        <dd>
-                            <a href="" class="profile">Campus de Nantes</a>
-                        </dd>
+                        <dd>@Model.Booking.addressRetour.Name, @Model.Booking.addressRetour.Route</dd>
+                        <dd>@Model.Booking.addressRetour.Postal_Code @Model.Booking.addressRetour.Locality</dd>
                     </dl>
                 </div>
             </div>
