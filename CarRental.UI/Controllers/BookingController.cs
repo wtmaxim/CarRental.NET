@@ -156,7 +156,7 @@ namespace CarRental.UI.Controllers
         public ActionResult RefuserBooking(int id)
         {
             RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(id);
-            requestBookingLogic.Update(id, 1002);
+            requestBookingLogic.Update(id, 3);
 
             return RedirectToAction("Index");
         }
@@ -169,7 +169,7 @@ namespace CarRental.UI.Controllers
             bookingLogic.Update(idBooking, licencePlate);
             BookingDTO booking = bookingLogic.Get(idBooking);
             RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
-            requestBookingLogic.Update(requestBooking.id, 2);
+            requestBookingLogic.Update(requestBooking.id, 1);
 
             return RedirectToAction("Index");
         }

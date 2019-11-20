@@ -8,7 +8,7 @@
         <div class="box-header with-border">
             <strong><i class="fa fa-arrow-right margin-r-5"></i> @booking.requestBooking.CreateBy</strong> &nbsp;
             <span class="label label-danger">@booking.status.Libelle</span>
-            <p class="text-muted">@booking.stopOver.Departure_Date au @booking.stopOver.Arrival_Date - @booking.addressAller.Locality à @booking.addressRetour.Locality</p>
+            <p class="text-muted">@booking.stopOver.Departure_Date.ToString("dd/MM/yyyy") au @booking.stopOver.Arrival_Date.ToString("dd/MM/yyyy") - @booking.addressAller.Locality à @booking.addressRetour.Locality</p>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
                     <i class="fa fa-plus"></i>
@@ -40,7 +40,7 @@
                             <dt>Adresse</dt>
                             <dd>
 
-                                <a href="https://www.google.com/maps/search/?api=1&query=cite+congres+nantes" target="_blank">
+                                <a href="#" target="_blank">
                                     @booking.addressAller.Name , @booking.addressAller.Route
                                     @booking.addressAller.Postal_Code @booking.addressAller.Locality
                                 </a>
