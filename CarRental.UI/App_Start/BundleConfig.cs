@@ -31,7 +31,6 @@ namespace CarRental.UI
                       "~/Content/Ionicons/css/ionicons.css",
                       "~/Content/AdminLTE.min.css",
                       "~/Content/skins/_all-skins.min.css",
-                      "~/Content/bootstrap.min.css",
                       "~/Content/dataTables.bootstrap.min.css"
                       ));
 
@@ -59,6 +58,7 @@ namespace CarRental.UI
                 "~/Content/bootstrap-datetimepicker.css",
                 "~/Content/bootstrap-datetimepicker.min.css"));
 
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
