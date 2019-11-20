@@ -183,7 +183,7 @@ namespace CarRental.UI.Controllers
         {
             BookingDTO booking = bookingLogic.Get(idBooking);
             RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
-            requestBookingLogic.Update(requestBooking.id, 2002);
+            requestBookingLogic.Update(requestBooking.id, 4);
 
             carLogic.Update(LicencePlate, kilometrage);
 
