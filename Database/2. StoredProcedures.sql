@@ -1027,3 +1027,33 @@ BEGIN
 	SET is_Active = 0
 	WHERE id = @id
 END
+
+-- UPDATE - USER
+CREATE PROCEDURE usp_User_Update
+	@id int,
+	@firstname varchar(255),
+	@lastname varchar(255),
+	@email varchar(255),
+	@password varchar(255),
+	@isActive tinyint,
+	@job varchar(255),
+	@note text,
+	@phoneNumber varchar(13),
+	@isAddressPrivate tinyint,
+	@idCompany int
+AS
+BEGIN
+	UPDATE [User]
+	SET
+		Firstname = @firstname, 
+		Lastname = @lastname, 
+		Email = @email,
+		is_Active = @isActive,
+		Job = @job, 
+		Note = @note,
+		Phone_Number = @phoneNumber, 
+		is_Address_Private = @isAddressPrivate, 
+		Id_Company = @idCompany
+	WHERE Id = @id
+END
+GO

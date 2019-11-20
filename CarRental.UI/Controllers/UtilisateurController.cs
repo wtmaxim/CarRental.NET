@@ -17,12 +17,14 @@ namespace CarRental.UI.Controllers
         private readonly UtilisateurLogic userLogic;
         private readonly CompanyLogic companyLogic;
         private readonly RoleLogic roleLogic;
+        private readonly NotificationLogic notifLogic;
 
         public UtilisateurController()
         {
             userLogic = new UtilisateurLogic();
             companyLogic = new CompanyLogic();
             roleLogic = new RoleLogic();
+            notifLogic = new NotificationLogic();
         }
 
         ///<summary>
@@ -32,6 +34,9 @@ namespace CarRental.UI.Controllers
         [Authorize(Roles = "Gestion des utilisateurs")]
         public ActionResult Index()
         {
+            int idCurrentUser = (int)Session["userId"];
+            Session["notifs"] = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
+
             List<UserDTO> users = userLogic.ListActive();
             List<CompanyDTO> companies = companyLogic.List();
             List<RoleDTO> roles = roleLogic.List();
@@ -370,7 +375,7 @@ namespace CarRental.UI.Controllers
                 if (res.Item1)
                 {
                     userLogic.Update(user);
-                    userLogic.RemoveAllUserRole(userLogic.GetUserByMail(user.Email));
+                    userLogic.RemoveAllUserRole(userLogic.Get(user.Id));
                     foreach( string idRole in selectRole)
                     {
                         Int32.TryParse(idRole, out resRole);
