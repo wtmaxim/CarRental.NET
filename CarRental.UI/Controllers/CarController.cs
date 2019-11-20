@@ -117,6 +117,10 @@ namespace CarRental.UI.Controllers
             return new SelectList(addressesList, "Value", "Text");
         }
 
+        public ActionResult RendreCar(int idBooking)
+        {
+            return View();
+        }
 
         public ActionResult Detail(string licencePlate)
         {
