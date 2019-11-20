@@ -137,7 +137,7 @@ namespace CarRental.BLL
         /// <param name="id"></param>
         public void Unarchive(int id)
         {
-            utilisateurEngine.Archive(id);
+            utilisateurEngine.Unarchive(id);
         }
         /// <summary>
         /// 

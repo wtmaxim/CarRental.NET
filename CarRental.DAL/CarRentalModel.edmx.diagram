@@ -70,12 +70,10 @@
         <EntityTypeShape EntityType="CarRental.DAL.Notification" Width="1.5" PointX="9.75" PointY="19.375" />
         <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdReq__11D4A34F" />
         <AssociationConnector Association="CarRental.DAL.FK__Notificat__IdUse__10E07F16" />
-        <EntityTypeShape EntityType="CarRental.DAL.Car" Width="1.5" PointX="7.5" PointY="11.75" />
-        <AssociationConnector Association="CarRental.DAL.FK__Booking__Licence__719CDDE7" />
-        <AssociationConnector Association="CarRental.DAL.FK__Car__id_Car_Mode__14B10FFA" />
-        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_Company__15A53433" />
-        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_User__1699586C" />
-        <AssociationConnector Association="CarRental.DAL.FK__Event__Licence_P__7D0E9093" />
+        <EntityTypeShape EntityType="CarRental.DAL.Car" Width="1.5" PointX="7.5" PointY="11.875" />
+        <AssociationConnector Association="CarRental.DAL.FK__Car__id_Car_Mode__7B4643B2" />
+        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_Company__795DFB40" />
+        <AssociationConnector Association="CarRental.DAL.FK__Car__Id_User__7A521F79" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

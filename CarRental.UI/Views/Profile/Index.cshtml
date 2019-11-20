@@ -162,11 +162,11 @@
 
                     <hr>
 
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Note</strong>
                     @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
                     {
                         <form action="@Url.Action("UpdateInformationsForm", "Profile")" method="post">
-                            <textarea class="form-control" rows="3" value="@(Model.CurrentUser.Item1.Note ?? String.Empty)" placeholder=""></textarea>
+                            <textarea class="form-control" name="note" rows="3" placeholder="Inscrivez vos préférences de contact : moyen, horaires, etc.">@(Model.CurrentUser.Item1.Note ?? String.Empty)</textarea>
                             <div class="text-right">
                                 <button type="submit" class="btn btn-info btn-flat">
                                     Valider
@@ -174,7 +174,7 @@
                             </div>
                         </form>
                     }
-                    else if (Model.CurrentUser.Item1.Note != null && Model.CurrentUser.Item1.Note.Length > 0)
+                    else if (Model.CurrentUser.Item1.Note != null && Model.CurrentUser.Item1.Note.Trim().Length > 0)
                     {
                         <p class="text-muted">
                             @Model.CurrentUser.Item1.Note
