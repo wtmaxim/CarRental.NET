@@ -23,9 +23,11 @@ namespace CarRental.UI.Controllers
         private readonly StatusLogic statusLogic;
         private readonly StopOverLogic stopOverLogic;
         private readonly StopOverAddressLogic stopOverAddressLogic;
+        private readonly CompanyLogic companyLogic;
 
         public CarController()
         {
+            companyLogic = new CompanyLogic();
             carLogic = new CarLogic();
             carModelLogic = new CarModelLogic();
             carMakeLogic = new CarMakeLogic();
@@ -45,7 +47,7 @@ namespace CarRental.UI.Controllers
             CarIndexViewsModel vm = new CarIndexViewsModel
             {
                 CarsMakes = GetCarsMakes(),
-                Addresses = GetAddresses()
+                Companys = GetCompanys()
             };
 
             return View(vm);
@@ -123,6 +125,18 @@ namespace CarRental.UI.Controllers
             });
 
             return new SelectList(addressesList, "Value", "Text");
+        }
+        private IEnumerable<SelectListItem> GetCompanys()
+        {
+            List<CompanyDTO> companys = companyLogic.List();
+
+            var companyList = companys.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
+
+            return new SelectList(companyList, "Value", "Text");
         }
 
         [HttpGet]
@@ -224,7 +238,7 @@ namespace CarRental.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCar(HttpPostedFileBase CarImage, CarIndexViewsModel vm, int dropdownlistCarsModels, int AddressId, string Licence_Plate, int Mileage, string Energy)
+        public ActionResult AddCar(HttpPostedFileBase CarImage, CarIndexViewsModel vm, int dropdownlistCarsModels, int CompanyId, string Licence_Plate, int Mileage, string Energy)
         {
             CarDTO car = new CarDTO
             {
@@ -234,8 +248,8 @@ namespace CarRental.UI.Controllers
                 is_Available = 1,
                 Licence_Plate = Licence_Plate,
                 Mileage = Mileage,
-                Id_User = 1,
-                Id_Company = AddressId
+                Id_User = (int)Session["userId"],
+                Id_Company = CompanyId
             };
 
             if (CarImage != null && CarImage.ContentLength > 0)

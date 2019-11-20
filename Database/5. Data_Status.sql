@@ -1,4 +1,4 @@
-INSERT [dbo].[Status] ([Libelle]) VALUES (N'Accepté')
+INSERT [dbo].[Status] ([Libelle]) VALUES (N'Acceptï¿½')
 INSERT [dbo].[Status] ([Libelle]) VALUES (N'En acceptation')
-INSERT [dbo].[Status] ([Libelle]) VALUES (N'Refusé')
-INSERT [dbo].[Status] ([Libelle]) VALUES (N'Terminé')
+INSERT [dbo].[Status] ([Libelle]) VALUES (N'Refusï¿½')
+INSERT [dbo].[Status] ([Libelle]) VALUES (N'Terminï¿½')
