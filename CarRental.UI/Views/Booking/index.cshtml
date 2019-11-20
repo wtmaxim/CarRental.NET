@@ -61,13 +61,7 @@
                         @Html.ListBoxFor(m => m.userIdPassagers, Model.Users, new { id = "DropDownListPassagers", @class = "form-control select2" })
                     </div>
 
-                    <div class="form-group">
-                        <select class="form-control select2" multiple="multiple" data-placeholder="Catégorie du déplacement" style="width: 100%;">
-                            <option>Technique</option>
-                            <option>Formation</option>
-                            <option>Evenement</option>
-                        </select>
-                    </div>
+                    
 
                     <div class="form-group">
                         <input type="text" class="form-control" id="reason" placeholder="Raison du déplacement">
@@ -249,9 +243,7 @@
                 <div class="box-body">
                     <dl class="dl-horizontal">
                         <dt>Raison du déplacement</dt>
-                        <dd>Devfest de Nantes 2019</dd>
-                        <dt>Catégorie</dt>
-                        <dd>Evenement</dd>
+                        <dd id="ddReason"></dd>
                     </dl>
                 </div>
             </div>
@@ -424,6 +416,8 @@
 
                         $("#ddAddressArrival", $tmc).append("<a href='#'>" + response.addressRetour.Name + ", " + response.addressRetour.Route + " " + response.addressRetour.Postal_Code + " " + response.addressRetour.Locality);
                         $("#ddAddressDeparture", $tmc).append("<a href='#'>" + response.addressAller.Name + ", " + response.addressAller.Route + " " + response.addressAller.Postal_Code + " " + response.addressAller.Locality);
+
+                        $("#ddReason", $tmc).append(response.requestBooking.Reason);
 
                         $tmc.appendTo("#tempaltediv");
                     },

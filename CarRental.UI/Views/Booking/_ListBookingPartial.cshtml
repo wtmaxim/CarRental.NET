@@ -6,7 +6,7 @@
 {
     <div class="box collapsed-box">
         <div class="box-header with-border">
-            <strong><i class="fa fa-arrow-right margin-r-5"></i> @booking.requestBooking.CreateBy</strong> &nbsp;
+            <strong><i class="fa fa-arrow-right margin-r-5"></i> @booking.createdBy.Firstname @booking.createdBy.Lastname</strong> &nbsp;
             <span class="label label-danger">@booking.status.Libelle</span>
             <p class="text-muted">@booking.stopOver.Departure_Date.ToString("dd/MM/yyyy") au @booking.stopOver.Arrival_Date.ToString("dd/MM/yyyy") - @booking.addressAller.Locality à @booking.addressRetour.Locality</p>
             <div class="box-tools pull-right">
@@ -32,7 +32,7 @@
                             </dd>
                             <dt>Passagers</dt>
                             <dd>
-                                @foreach (UserDTO user in booking.passagers)
+                                @foreach (UserDTO user in booking.passagersAller)
                                 {
                                     <a href="#" class="profile">@user.Firstname  @user.Lastname</a>
                                 }
@@ -65,7 +65,7 @@
                             </dd>
                             <dt>Passagers</dt>
                             <dd>
-                                @foreach (UserDTO user in booking.passagers)
+                                @foreach (UserDTO user in booking.passagerRetour)
                                 {
                                     <a href="#" class="profile">@user.Firstname  @user.Lastname</a>
                                 }

@@ -60,6 +60,8 @@ namespace CarRental.DAL
         void Insert(UserDTO user);
         List<UserDTO> ListPassagers(int idBooking);
 
+        List<UserDTO> ListPassagers(int idBooking, byte isGoing);
+
         /// <summary>
         /// Ajout ou met à jour un utilisateur
         /// </summary>

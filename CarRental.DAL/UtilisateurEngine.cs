@@ -214,6 +214,15 @@ namespace CarRental.DAL
             }
         }
 
+        public List<UserDTO> ListPassagers(int idBooking, byte isGoing)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                List<User> users = context.usp_User_ListPassagers_idBooking_isGoing(idBooking, isGoing).ToList();
+                return UserMapping.MapToListUserDTO(users);
+            }
+        }
+
         public UserDTO GetDriverByBooking(int idBooking, byte isGoing)
         {
             using (CarRentalEntities context = new CarRentalEntities())
@@ -240,5 +249,7 @@ namespace CarRental.DAL
             }
            
         }
+
+       
     }
 }

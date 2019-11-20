@@ -370,6 +370,9 @@
     <Compile Include="usp_User_ListDrivers_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_User_ListPassagers_idBooking_isGoing_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_User_ListPassagers_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

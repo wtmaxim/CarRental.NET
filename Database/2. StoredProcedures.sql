@@ -1089,3 +1089,15 @@ BEGIN
 		Id_Company = @idCompany
 	WHERE Id = @id
 END
+GO
+CREATE PROCEDURE usp_User_ListPassagers_idBooking_isGoing
+	@idBooking INT,
+	@isGoing TINYINT
+AS
+
+BEGIN
+	SELECT u.Id, u.Firstname, u.Lastname, u.Email, u.Password, u.is_Active, u.Job, u.Note, u.Phone_Number, u.is_Address_Private, u.Id_Company
+	FROM [dbo].[User] u
+	INNER JOIN UserBooking ub ON u.Id = ub.Id_User
+	WHERE ub.Id_Booking = @idBooking AND ub.is_Going = @isGoing AND ub.is_Driver = 0
+END

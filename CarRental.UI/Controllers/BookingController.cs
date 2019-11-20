@@ -63,7 +63,8 @@ namespace CarRental.UI.Controllers
             {
                 BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
                 StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
-                List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+                List<UserDTO> passagersAller = utilisateurLogic.ListPassagers(booking.Id, 1);
+                List<UserDTO> passagersRetour = utilisateurLogic.ListPassagers(booking.Id, 0);
                 StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
                 StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
                 UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
@@ -78,7 +79,8 @@ namespace CarRental.UI.Controllers
                     booking = booking,
                     requestBooking = requestBooking,
                     stopOver = stopOver,
-                    passagers = passagers,
+                    passagersAller = passagersAller,
+                    passagerRetour = passagersRetour,
                     status = status,
                     stopOverAddress = stopOverAddress,
                     driverAller = driverAller,
@@ -102,7 +104,8 @@ namespace CarRental.UI.Controllers
 
             BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
             StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
-            List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+            List<UserDTO> passagersAller = utilisateurLogic.ListPassagers(booking.Id, 1);
+            List<UserDTO> passagersRetour = utilisateurLogic.ListPassagers(booking.Id, 0);
             StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
             StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
             UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
@@ -116,7 +119,8 @@ namespace CarRental.UI.Controllers
                 booking = booking,
                 requestBooking = requestBooking,
                 stopOver = stopOver,
-                passagers = passagers,
+                passagerRetour = passagersRetour,
+                passagersAller = passagersRetour,
                 status = status,
                 stopOverAddress = stopOverAddress,
                 driverAller = driverAller,
@@ -224,13 +228,15 @@ namespace CarRental.UI.Controllers
                 {
                     BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
                     StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
-                    List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+                    List<UserDTO> passagersAller = utilisateurLogic.ListPassagers(booking.Id, 1);
+                    List<UserDTO> passagersRetour = utilisateurLogic.ListPassagers(booking.Id, 0);
                     StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
                     StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
                     UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
                     UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
                     AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
                     AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+                    UserDTO createdBy = utilisateurLogic.Get(requestBooking.CreateBy);
 
 
                     bookings.Add(new Booking
@@ -238,13 +244,15 @@ namespace CarRental.UI.Controllers
                         booking = booking,
                         requestBooking = requestBooking,
                         stopOver = stopOver,
-                        passagers = passagers,
+                        passagersAller = passagersAller,
+                        passagerRetour = passagersRetour,
                         status = status,
                         stopOverAddress = stopOverAddress,
                         driverAller = driverAller,
                         driverRetour = driverRetour,
                         addressRetour = addressRetour,
-                        addressAller = addressAller
+                        addressAller = addressAller,
+                        createdBy = createdBy
                     });
                 }
             }           
