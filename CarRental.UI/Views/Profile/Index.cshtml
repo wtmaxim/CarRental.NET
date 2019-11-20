@@ -108,255 +108,259 @@
         </div>
     }
 
-    <div class="row">
+<div class="row">
 
-        <!-- Infos box -->
-        <div class="col-md-3">
-            <div class="box box-primary">
+    <!-- Infos box -->
+    <div class="col-md-3">
+        <div class="box box-primary">
 
-                <div class="box-header with-border">
-                    <h3 class="box-title">Mes informations</h3>
-                    <div class="pull-right box-tools">
-                        @if (Model.isSessionUserProfile) {
-                            if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on")
-                            {
-                                <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "off" })">
-                                    <i class="fa fa-close text-red"></i>
-                                </a>
-                            }
-                            else
-                            {
-                                <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "on" })">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                            }
+            <div class="box-header with-border">
+                <h3 class="box-title">Mes informations</h3>
+                <div class="pull-right box-tools">
+                    @if (Model.isSessionUserProfile)
+                    {
+                        if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on")
+                        {
+                            <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "off" })">
+                                <i class="fa fa-close text-red"></i>
+                            </a>
                         }
-                    </div>
+                        else
+                        {
+                            <a class="btn btn-sm" href="@Url.Action("ToggleInformationsForm", "Profile", new { toggleVal = "on" })">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        }
+                    }
                 </div>
+            </div>
 
-                <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> Poste</strong>
+            <div class="box-body">
+                <strong><i class="fa fa-book margin-r-5"></i> Poste</strong>
+                <p class="text-muted">
+                    @Model.CurrentUser.Item1.Job
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-map-marker margin-r-5"></i> Lieu de travail</strong>
+                <p class="text-muted">@Model.CurrentUser.Item2.Name</p>
+
+                <hr>
+
+                <strong><i class="fa fa-pencil margin-r-5"></i> Mot de passe</strong>
+                @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
+                {
+                    <br />
+                    <a href="@Url.Action("EditPassword", "Profile")">
+                        Modifier mot de passe
+                    </a>
+                }
+                else
+                {
+                    <p class="text-muted">**********</p>
+                }
+
+                <hr>
+
+                <strong><i class="fa fa-file-text-o margin-r-5"></i> Note</strong>
+                @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
+                {
+                    <form action="@Url.Action("UpdateInformationsForm", "Profile")" method="post">
+                        <textarea class="form-control" name="note" rows="3" placeholder="Inscrivez vos préférences de contact : moyen, horaires, etc.">@(Model.CurrentUser.Item1.Note ?? String.Empty)</textarea>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-info btn-flat">
+                                Valider
+                            </button>
+                        </div>
+                    </form>
+                }
+                else if (Model.CurrentUser.Item1.Note != null && Model.CurrentUser.Item1.Note.Trim().Length > 0)
+                {
                     <p class="text-muted">
-                        @Model.CurrentUser.Item1.Job
+                        @Model.CurrentUser.Item1.Note
+                    </p>
+                }
+                else
+                {
+                    <p class="text-muted">Aucune</p>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Contact box -->
+    <div class="col-md-3">
+        <div class="box box-primary">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Contact</h3>
+                <div class="pull-right box-tools">
+                    @if (Model.isSessionUserProfile)
+                    {
+                        if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on")
+                        {
+                            <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "off" })">
+                                <i class="fa fa-close text-red"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "on" })">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="box-body">
+
+                <strong><i class="fa fa-pencil margin-r-5"></i> Telephone</strong>
+                <p>
+                    @if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on" && Model.isSessionUserProfile)
+                    {
+                        <form action="@Url.Action("UpdateContactForm", "Profile")" method="post">
+                            <div class="input-group">
+                                <input type="text" name="cellphone" value="@(Model.CurrentUser.Item1.Phone_Number ?? String.Empty)" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-info btn-flat">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    }
+                    else if (Model.CurrentUser.Item1.Phone_Number != null && Model.CurrentUser.Item1.Phone_Number.Length > 0)
+                    {
+                        <a href="tel:@Model.CurrentUser.Item1.Phone_Number">@Model.CurrentUser.Item1.Phone_Number</a>
+                    }
+                    else
+                    {
+                    <p>Aucun</p>
+                }
                     </p>
 
                     <hr>
 
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Lieu de travail</strong>
-                    <p class="text-muted">@Model.CurrentUser.Item2.Name</p>
+                    <strong><i class="fa fa-pencil margin-r-5"></i> Email</strong>
+                    <p>
+                        <a href="mailto:@Model.CurrentUser.Item1.Email">@Model.CurrentUser.Item1.Email</a>
+                    </p>
 
-                    <hr>
-
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Mot de passe</strong>
-                    @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
-                    {
-                        <br />
-                        <a href="@Url.Action("EditPassword", "Profile")">
-                            Modifier mot de passe
-                        </a>
-                    }
-                    else
-                    {
-                        <p class="text-muted">**********</p>
-                    }
-
-                    <hr>
-
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Note</strong>
-                    @if (ViewBag.RenderInformationsForm != null && ViewBag.RenderInformationsForm == "on" && Model.isSessionUserProfile)
-                    {
-                        <form action="@Url.Action("UpdateInformationsForm", "Profile")" method="post">
-                            <textarea class="form-control" name="note" rows="3" placeholder="Inscrivez vos préférences de contact : moyen, horaires, etc.">@(Model.CurrentUser.Item1.Note ?? String.Empty)</textarea>
-                            <div class="text-right">
-                                <button type="submit" class="btn btn-info btn-flat">
-                                    Valider
-                                </button>
-                            </div>
-                        </form>
-                    }
-                    else if (Model.CurrentUser.Item1.Note != null && Model.CurrentUser.Item1.Note.Trim().Length > 0)
-                    {
-                        <p class="text-muted">
-                            @Model.CurrentUser.Item1.Note
-                        </p>
-                    }
-                    else
-                    {
-                        <p class="text-muted">Aucune</p>
-                    }
                 </div>
 
             </div>
         </div>
 
-        <!-- Contact box -->
-        <div class="col-md-3">
+        <!-- Driving licence box -->
+        <div class="col-md-6">
             <div class="box box-primary">
 
                 <div class="box-header with-border">
-                    <h3 class="box-title">Contact</h3>
+                    <h3 class="box-title">Mon permis de conduire</h3>
                     <div class="pull-right box-tools">
-                        @if (Model.isSessionUserProfile) { 
-                            if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on")
+                        @if (Model.isSessionUserProfile)
+                        {
+                            if (!(renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm))
                             {
-                                <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "off" })">
-                                    <i class="fa fa-close text-red"></i>
-                                </a>
-                            }
-                            else
-                            {
-                                <a class="btn btn-sm" href="@Url.Action("ToggleContactForm", "Profile", new { toggleVal = "on" })">
+                                <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "on" })">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             }
-                         }
+                            if (renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm)
+                            {
+                                <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "off" })">
+                                    <i class="fa fa-close text-red"></i>
+                                </a>
+                            }
+                        }
                     </div>
                 </div>
 
                 <div class="box-body">
-
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Telephone</strong>
-                    <p>
-                        @if (ViewBag.RenderContactForm != null && ViewBag.RenderContactForm == "on" && Model.isSessionUserProfile)
-                        {
-                            <form action="@Url.Action("UpdateContactForm", "Profile")" method="post">
-                                <div class="input-group">
-                                    <input type="text" name="cellphone" value="@(Model.CurrentUser.Item1.Phone_Number ?? String.Empty)" class="form-control" />
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-info btn-flat">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
-                        }
-                        else if (Model.CurrentUser.Item1.Phone_Number != null && Model.CurrentUser.Item1.Phone_Number.Length > 0)
-                        {
-                            <a href="tel:@Model.CurrentUser.Item1.Phone_Number">@Model.CurrentUser.Item1.Phone_Number</a>
-                        }
-                        else
-                        {
-                        <p>Aucun</p>
-                    }
-                        </p>
-
-                        <hr>
-
-                        <strong><i class="fa fa-pencil margin-r-5"></i> Email</strong>
-                        <p>
-                            <a href="mailto:@Model.CurrentUser.Item1.Email">@Model.CurrentUser.Item1.Email</a>
-                        </p>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Driving licence box -->
-            <div class="col-md-6">
-                <div class="box box-primary">
-
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Mon permis de conduire</h3>
-                        <div class="pull-right box-tools">
-                            @if (Model.isSessionUserProfile)
+                    <div class="col-md-6" style="margin-top: 10px">
+                        @{
+                            if (renderDrivingLicenceRectoForm && Model.isSessionUserProfile)
                             {
-                                if (!(renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm))
-                                {
-                                    <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "on" })">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                }
-                                if (renderDrivingLicenceVersoForm && renderDrivingLicenceRectoForm)
-                                {
-                                    <a class="btn btn-sm" href="@Url.Action("ToggleDrivingLicenceEditForm", "Profile", new { toggleVal = "off" })">
-                                        <i class="fa fa-close text-red"></i>
-                                    </a>
-                                }
+                                <form action="@Url.Action("AddDrivingLicence", "Profile")" method="post" enctype="multipart/form-data" runat="server">
+                                    <div class="form-group">
+                                        <label for="UtilisateurImageRecto">Recto (png ou jpeg)</label>
+                                        <input type="file" name="UtilisateurImageRecto" id="UtilisateurImageRecto"
+                                               class="form-control" accept="image/png, image/jpeg" onchange="this.form.submit()" />
+                                    </div>
+                                </form>
+                                <br />
                             }
-                        </div>
-                    </div>
 
-                    <div class="box-body">
-                        <div class="col-md-6" style="margin-top: 10px">
-                            @{
-                                if (renderDrivingLicenceRectoForm && Model.isSessionUserProfile)
-                                {
-                                    <form action="@Url.Action("AddDrivingLicence", "Profile")" method="post" enctype="multipart/form-data" runat="server">
-                                        <div class="form-group">
-                                            <label for="UtilisateurImageRecto">Recto (png ou jpeg)</label>
-                                            <input type="file" name="UtilisateurImageRecto" id="UtilisateurImageRecto"
-                                                   class="form-control" accept="image/png, image/jpeg" onchange="this.form.submit()" />
-                                        </div>
-                                    </form>
-                                    <br />
-                                }
-
-                                if (driverLicenceRectoPath != "")
-                                {
-                                    <img src="@Url.Content(driverLicenceRectoPath)" class="img-responsive">
-                                }
-                                else
-                                {
-                                    <p class="text-center">Pas de recto.</p>
-                                }
-                            }
-                        </div>
-                        <div class="col-md-6" style="margin-top: 10px">
-                            @{
-                                if (renderDrivingLicenceVersoForm && Model.isSessionUserProfile)
-                                {
-                                    <form action="@Url.Action("AddDrivingLicence", "Profile")" method="post" enctype="multipart/form-data" runat="server">
-                                        <div class="form-group">
-                                            <label for="UtilisateurImageVerso">Verso (png ou jpeg)</label>
-                                            <input type="file" name="UtilisateurImageVerso" id="UtilisateurImageVerso"
-                                                   class="form-control" accept="image/png, image/jpeg" onchange="this.form.submit()" />
-
-                                        </div>
-                                    </form>
-                                    <br />
-                                }
-
-                                if (driverLicenceVersoPath != "")
-                                {
-                                    <img src="@Url.Content(driverLicenceVersoPath)" class="img-responsive">
-                                }
-                                else
-                                {
-                                    <p class="text-center">Pas de verso.</p>
-                                }
-                            }
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Personal vehicle box  -->
-            <div class="col-md-6">
-                <div class="box box-primary">
-
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Mon véhicule personnel</h3>
-                        <div class="pull-right box-tools">
-                            @if (Model.isSessionUserProfile)
+                            if (driverLicenceRectoPath != "")
                             {
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                                <img src="@Url.Content(driverLicenceRectoPath)" class="img-responsive">
                             }
-                        </div>
+                            else
+                            {
+                                <p class="text-center">Pas de recto.</p>
+                            }
+                        }
                     </div>
+                    <div class="col-md-6" style="margin-top: 10px">
+                        @{
+                            if (renderDrivingLicenceVersoForm && Model.isSessionUserProfile)
+                            {
+                                <form action="@Url.Action("AddDrivingLicence", "Profile")" method="post" enctype="multipart/form-data" runat="server">
+                                    <div class="form-group">
+                                        <label for="UtilisateurImageVerso">Verso (png ou jpeg)</label>
+                                        <input type="file" name="UtilisateurImageVerso" id="UtilisateurImageVerso"
+                                               class="form-control" accept="image/png, image/jpeg" onchange="this.form.submit()" />
 
-                    <div class="box-body">
-                        <div class="col-md-12">
-                            Aucun véhicule enregistré.
-                        </div>
+                                    </div>
+                                </form>
+                                <br />
+                            }
+
+                            if (driverLicenceVersoPath != "")
+                            {
+                                <img src="@Url.Content(driverLicenceVersoPath)" class="img-responsive">
+                            }
+                            else
+                            {
+                                <p class="text-center">Pas de verso.</p>
+                            }
+                        }
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
+        <!--
+                     Personal vehicle box  
+        <div class="col-md-6">
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Mon véhicule personnel</h3>
+                    <div class="pull-right box-tools">
+                        @**if (Model.isSessionUserProfile)
+                        {
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        }
+                        *@
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="col-md-12">
+                        Aucun véhicule enregistré.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        -->
+
+    </div>
 
     </section>
