@@ -13,5 +13,6 @@ namespace CarRental.DAL
         List<CarDTO> List();
         CarDTO Get(string licencePlate);
         List<CarDTO> List(string searchWord);
+        void Update(string licencePlate, int kilometrage);
     }
 }

@@ -1,0 +1,252 @@
+﻿@model CarRental.UI.ViewsModels.Car.CarRendreCarViewsModel
+@{
+    ViewBag.Title = "RendreCar";
+}
+
+<section class="content-header">
+    <h1>
+        Rendre le véhicule
+    </h1>
+</section>
+
+<!-- Current request section -->
+<section class="content">
+
+    <div class="row">
+
+        <!-- reservation -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Reservation</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Demande de</dt>
+                        <dd>Paul Martin</dd>
+                        <dt>Date</dt>
+                        <dd>21/01 au 23/01</dd>
+                        <dt>Destination</dt>
+                        <dd>Nantes à Bordeaux</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- general -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">General</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Raison du déplacement</dt>
+                        <dd>Devfest de Nantes 2019</dd>
+                        <dt>Véhicule attribué</dt>
+                        <dd>
+                            <a class="profile" href="../car/car.html">Nissan Micra</a>
+                        </dd>
+                        <dt>Possesseur précédent</dt>
+                        <dd>
+                            <a class="profile" href="#">Jean Baptiste Meunier</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <!-- departure -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Aller</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Chauffeur</dt>
+                        <dd>
+                            <a href="#" class="profile">Blanche Denis</a>
+                        </dd>
+                        <dt>Passagers</dt>
+                        <dd>
+                            <a href="../profile/profile.html" class="profile">Paul Martin</a>,
+                            <a href="#" class="profile">Laura Miel</a>,
+                            Sarah Martin
+                        </dd>
+                        <dt>Adresse</dt>
+                        <dd>Cité des Congrès, 5 Rue de Valmy</dd>
+                        <dd>44000 Nantes</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- return -->
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Retour</h3>
+                </div>
+                <div class="box-body">
+                    <dl class="dl-horizontal">
+                        <dt>Chauffeur</dt>
+                        <dd>
+                            <a href="../profile/profile.html" class="profile">Paul Martin</a>
+                        </dd>
+                        <dt>Passagers</dt>
+                        <dd>
+                            <a href="#" class="profile">Blanche Denis</a>,
+                            <a href="#" class="profile">Laura Miel</a>,
+                            Sarah Martin
+                        </dd>
+                        <dt>Adresse</dt>
+                        <dd>
+                            <a href="" class="profile">Campus de Nantes</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @using (Html.BeginForm("RendreCar", "Car", FormMethod.Post))
+    {
+        <div class="row">
+
+            <!-- vehicle return -->
+            <div class="col-sm-6">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-arrow-right"></i>
+                        <h3 class="box-title">Retour du véhicule</h3>
+                    </div>
+                    <div id="retrievalForm" class="box-body">
+                        <div class="box-body">
+                            <dl class="dl-horizontal">
+                                @Html.Hidden("idBooking", Model.Booking.booking.Id)
+
+                                <dt class="margin10">KM de la voiture *</dt>
+                                <dd>
+                                    <input type="text" class="form-control" id="kilometrage" name="kilometrage" placeholder="Chiffres uniquement, ex    : 1000">
+                                </dd>
+                                @Html.Hidden("LicencePlate", Model.Booking.booking.Licence_Plate)
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- reservation expenses -->
+            <div class="col-sm-6">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-arrow-right"></i>
+                        <h3 class="box-title">Frais lié à la réservation</h3>
+                        <div class="box-tools pull-right">
+                            <a class="btn btn-box-plus" data-toggle="modal" data-target="#expensesModal">
+                                <i class="fa fa-plus text-green"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tr>
+                                <th>Frais</th>
+                                <th>Catégorie</th>
+                                <th>Montant</th>
+                            </tr>
+                            <tr>
+                                <td>Essence</td>
+                                <td>Carburant</td>
+                                <td>40€</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="box-footer text-center">
+                <div class="col-xs-6">
+                    <a class="btn btn-default btn-block" href="./my_rents.2.html">
+                        <i class="fa fa-mail-reply"></i> Annuler
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <button type="submit" class="btn bg-olive btn-block">
+                        <i class="fa fa-check"></i> Valider
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+<div class="modal fade" id="expensesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Ajouter un frais</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Libelle</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputEmail3"
+                                       placeholder="libelle">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Montant</label>
+
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="inputPassword3"
+                                       placeholder="montant">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Catégorie</label>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Carburant</option>
+                                    <option>Nourriture</option>
+                                    <option>Réparation véhicule</option>
+                                    <option>Fourniture véhicule</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left"
+                        data-dismiss="modal">
+                    Annuler
+                </button>
+                <button type="button" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

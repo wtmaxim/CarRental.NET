@@ -151,6 +151,7 @@
     <Compile Include="ViewsModels\Car\CarDetailViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexListCarViewsModel.cs" />
     <Compile Include="ViewsModels\Car\CarIndexViewsModel.cs" />
+    <Compile Include="ViewsModels\Car\CarRendreCarViewsModel.cs" />
     <Compile Include="ViewsModels\Configuration\ConfigurationIndexViewModel.cs" />
     <Compile Include="ViewsModels\Home\LoginViewModel.cs" />
     <Compile Include="ViewsModels\Notification\NotificationIndexViewModel.cs" />
@@ -2097,6 +2098,7 @@
     <Content Include="Views\Booking\Validations.cshtml" />
     <Content Include="Views\Booking\Validation.cshtml" />
     <Content Include="Views\Booking\AssignationCar.cshtml" />
+    <Content Include="Views\Car\RendreCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

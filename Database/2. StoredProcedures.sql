@@ -1049,3 +1049,14 @@ BEGIN
 	SET Id_Status = @idStatus
 	WHERE id = @id
 END
+GO
+CREATE PROCEDURE usp_Car_Update
+	@licencePlate VARCHAR(25),
+	@kilometrage INT
+AS
+
+BEGIN
+	UPDATE Car
+	SET Mileage = @kilometrage
+	WHERE Licence_Plate = @licencePlate
+END

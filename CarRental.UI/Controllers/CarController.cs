@@ -19,6 +19,10 @@ namespace CarRental.UI.Controllers
         private readonly RequestBookingLogic requestBookingLogic;
         private readonly EventLogic eventLogic;
         private readonly AdressLogic addressLogic;
+        private readonly UtilisateurLogic utilisateurLogic;
+        private readonly StatusLogic statusLogic;
+        private readonly StopOverLogic stopOverLogic;
+        private readonly StopOverAddressLogic stopOverAddressLogic;
 
         public CarController()
         {
@@ -29,6 +33,10 @@ namespace CarRental.UI.Controllers
             requestBookingLogic = new RequestBookingLogic();
             eventLogic = new EventLogic();
             addressLogic = new AdressLogic();
+            utilisateurLogic = new UtilisateurLogic();
+            statusLogic = new StatusLogic();
+            stopOverLogic = new StopOverLogic();
+            stopOverAddressLogic = new StopOverAddressLogic();
         }
 
         // GET: Voiture
@@ -117,9 +125,53 @@ namespace CarRental.UI.Controllers
             return new SelectList(addressesList, "Value", "Text");
         }
 
+        [HttpGet]
         public ActionResult RendreCar(int idBooking)
         {
-            return View();
+            CarRendreCarViewsModel vm = new CarRendreCarViewsModel();
+
+            BookingDTO booking = bookingLogic.Get(idBooking);
+            RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
+            StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
+            List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+            StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
+            StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
+            UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
+            UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
+            AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
+            AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+            UserDTO createdBy = utilisateurLogic.Get(requestBooking.CreateBy);
+
+            Booking _booking = new Booking
+            {
+                booking = booking,
+                requestBooking = requestBooking,
+                stopOver = stopOver,
+                passagers = passagers,
+                status = status,
+                stopOverAddress = stopOverAddress,
+                driverAller = driverAller,
+                driverRetour = driverRetour,
+                addressRetour = addressRetour,
+                addressAller = addressAller,
+                createdBy = createdBy
+            };
+
+            vm.Booking = _booking;
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult RendreCar(int kilometrage, int idBooking, string LicencePlate)
+        {
+            BookingDTO booking = bookingLogic.Get(idBooking);
+            RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
+            requestBookingLogic.Update(requestBooking.id, 2002);
+
+            carLogic.Update(LicencePlate, kilometrage);
+
+            return RedirectToAction("Index", "Booking");
         }
 
         public ActionResult Detail(string licencePlate)

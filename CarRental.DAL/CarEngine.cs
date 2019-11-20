@@ -50,5 +50,13 @@ namespace CarRental.DAL
                 return carMapping.MapToListCarDTO(cars);
             }
         }
+
+        public void Update(string licencePlate, int kilometrage)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                context.usp_Car_Update(licencePlate, kilometrage);
+            }
+        }
     }
 }

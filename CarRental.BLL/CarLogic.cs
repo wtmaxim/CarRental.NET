@@ -36,5 +36,10 @@ namespace CarRental.BLL
         {
             return carEngine.List();
         }
+
+        public void Update(string licencePlate, int kilometrage)
+        {
+            carEngine.Update(licencePlate, kilometrage);
+        }
     }
 }

@@ -620,6 +620,10 @@
         <Function Name="usp_Car_List_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="searchWord" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="usp_Car_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="licencePlate" Type="varchar" Mode="In" />
+          <Parameter Name="kilometrage" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_CarMake_Get_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -1335,6 +1339,10 @@
             <Parameter Name="id_Company" Mode="In" Type="Int32" />
             <Parameter Name="id_User" Mode="In" Type="Int32" />
             <Parameter Name="id_Car_Model" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Car_Update">
+            <Parameter Name="licencePlate" Mode="In" Type="String" />
+            <Parameter Name="kilometrage" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -2866,6 +2874,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_Car_Insert" FunctionName="CarRentalModel.Store.usp_Car_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Car_Update" FunctionName="CarRentalModel.Store.usp_Car_Update" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

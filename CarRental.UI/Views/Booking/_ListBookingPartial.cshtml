@@ -97,8 +97,8 @@
                 </div>
             </div>
 
-            @*@if (booking.status.Id == 2)
-            {*@
+            @if (booking.status.Id == 2)
+            {
                 <div class="col-sm-12 text-center">
                     <a class="btn btn-app">
                         <i class="fa fa-edit"></i> Modifier réservation
@@ -109,13 +109,11 @@
                     <a class="btn btn-app" href="./vehicleReport.html">
                         <i class="fa fa-exclamation-triangle"></i> Constat véhicule
                     </a>
-                    <a class="btn btn-app bg-olive" href="@Html.Action("RendreCar", "Car", new { id = booking.booking.Id })">
+                    <a class="btn btn-app bg-olive" href="@Url.Action("RendreCar", "Car", new { idBooking = booking.booking.Id })">
                         <i class="fa fa-check"></i> Rendre véhicule
                     </a>
                 </div>
-            @*}*@
-
-
+            }
         </div>
     </div>
 }

@@ -1359,5 +1359,18 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Car_Insert", is_AvailableParameter, mileageParameter, licencePlateParameter, energy_valueParameter, is_ActiveParameter, id_CompanyParameter, id_UserParameter, id_Car_ModelParameter);
         }
+    
+        public virtual int usp_Car_Update(string licencePlate, Nullable<int> kilometrage)
+        {
+            var licencePlateParameter = licencePlate != null ?
+                new ObjectParameter("licencePlate", licencePlate) :
+                new ObjectParameter("licencePlate", typeof(string));
+    
+            var kilometrageParameter = kilometrage.HasValue ?
+                new ObjectParameter("kilometrage", kilometrage) :
+                new ObjectParameter("kilometrage", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_Car_Update", licencePlateParameter, kilometrageParameter);
+        }
     }
 }
