@@ -25,7 +25,7 @@ namespace CarRental.UI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if(Session["userId"] != null)
+            if(Session["userId"] == null)
             {
                 return RedirectToAction("Login", "Account");
             }else
