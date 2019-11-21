@@ -271,6 +271,7 @@
 
             $('#datetimepicker2').datetimepicker({
                 locale: 'fr'
+
             });
 
             handleStatusChanged();
@@ -392,7 +393,7 @@
 
                 console.log("valideFOrm " + isValidForm);
 
-                $.ajax({
+                @*$.ajax({
                     type: "POST",
                     url: '@Url.Action("AddRequestBooking", "RequestBooking")',
                     data: '{requestBooking: ' + JSON.stringify(data.requestBooking) + ', _passagers: ' + JSON.stringify(data.passagers) + ', driver: ' + JSON.stringify(data.driver) + ', driver2: ' + JSON.stringify(data.driver2) + ', stopOver: ' + JSON.stringify(data.stopOver) + ', addressDeparture: ' + JSON.stringify(data.addressDeparture) + ', addressArrival: ' + JSON.stringify(data.addressArrival)+'}',
@@ -434,7 +435,7 @@
                     error: function (response) {
                         console.log(response.responseText);
                     }
-                });
+                });*@
             }
 
 

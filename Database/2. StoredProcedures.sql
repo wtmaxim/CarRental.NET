@@ -398,9 +398,11 @@ CREATE PROCEDURE [dbo].[usp_RequestBooking_List_IdUser]
 	@IdUser INT
 AS
 BEGIN
-	SELECT id, is_Personal_Car_Available, Date, Reason, Id_Status, CreateBy
-	FROM RequestBooking
-	WHERE @IdUser = CreateBy
+	SELECT DISTINCT r.id, r.is_Personal_Car_Available, r.Date, r.Reason, r.Id_Status, r.CreateBy
+    FROM RequestBooking r
+    INNER JOIN Booking b ON r.id = b.id_Request_Booking
+    INNER JOIN UserBooking ub ON ub.Id_Booking = b.Id
+    WHERE @IdUser = CreateBy OR @IdUser = ub.Id_User
 END
 GO
 /****** Object:  StoredProcedure [dbo].[usp_Role_GET]    Script Date: 06/10/2019 14:22:32 ******/
