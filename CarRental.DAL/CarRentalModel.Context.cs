@@ -1420,5 +1420,23 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Address>("usp_Address_Get_idBooking_isDeparture", mergeOption, idBookingParameter, isDepartureParameter);
         }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_List_IdStatus(Nullable<int> idStatus)
+        {
+            var idStatusParameter = idStatus.HasValue ?
+                new ObjectParameter("idStatus", idStatus) :
+                new ObjectParameter("idStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List_IdStatus", idStatusParameter);
+        }
+    
+        public virtual ObjectResult<RequestBooking> usp_RequestBooking_List_IdStatus(Nullable<int> idStatus, MergeOption mergeOption)
+        {
+            var idStatusParameter = idStatus.HasValue ?
+                new ObjectParameter("idStatus", idStatus) :
+                new ObjectParameter("idStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RequestBooking>("usp_RequestBooking_List_IdStatus", mergeOption, idStatusParameter);
+        }
     }
 }

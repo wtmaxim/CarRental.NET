@@ -59,7 +59,7 @@ namespace CarRental.UI.Controllers
             BookingValidationsViewsModel vm = new BookingValidationsViewsModel();
             List<Booking> bookings = new List<Booking>();
 
-            foreach (RequestBookingDTO requestBooking in requestBookingLogic.List())
+            foreach (RequestBookingDTO requestBooking in requestBookingLogic.ListbyStatus(2))
             {
                 BookingDTO booking = bookingLogic.GetByRequestBooking(requestBooking.id);
                 StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
