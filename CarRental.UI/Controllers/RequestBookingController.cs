@@ -88,6 +88,7 @@ namespace CarRental.UI.Controllers
         [HttpPost]
         public ActionResult Insert()
         {
+            Session["notifs"] = notificationLogic.ListAllForUser((int)Session["userId"]).FindAll(n => n.IsRead == 0).Count;
             return View();
         }
 
@@ -129,7 +130,7 @@ namespace CarRental.UI.Controllers
             // Ajout des notification pour les conducteurs
             notification.IdUser = driver;
             notificationLogic.Insert(notification);
-            if (driver2 != null)
+            if (driver2 != null && driver2 != notification.IdUser)
             {
                 notification.IdUser = driver2;
                 notificationLogic.Insert(notification);
@@ -184,7 +185,7 @@ namespace CarRental.UI.Controllers
                     }
                 }
             }
-            Session["notifs"] = notificationLogic.ListAllForUser((int)Session["userID"]).FindAll(n => n.IsRead == 0).Count;
+            // Session["notifs"] = notificationLogic.ListAllForUser((int)Session["userID"]).FindAll(n => n.IsRead == 0).Count;
 
             return Json(_booking);
         }
