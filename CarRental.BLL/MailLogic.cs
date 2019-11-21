@@ -55,8 +55,8 @@ namespace CarRental.BLL
             var verifyUrl = "/Account/ChangePassword/" + passwordResetTokenDTO.Token;
             var link = uri.Replace(pathAndQuery, verifyUrl);
             string subject = "Demande de changement de mot de passe";
-            string body = "Bonjour, veuillez cliquez sur ce <a href='" + link + "'>lien</a> pour changer votre mot de passe.<br/>" +
-                "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande";
+            string body = "Bonjour,<br> Veuillez cliquer sur ce <a href='" + link + "'>lien</a> pour changer votre mot de passe.<br/>" +
+                "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande. <br> <br> Bonne journée, <br> CarRental";
             SendEMail(emailTarget, subject, body);
         }
 
@@ -64,9 +64,9 @@ namespace CarRental.BLL
         {
             var verifyUrl = "/Account/ChangePassword/" + passwordResetTokenDTO.Token;
             var link = uri.Replace(pathAndQuery, verifyUrl);
-            string subject = "Bienvenu sur CarRental";
-            string body = "Bonjour, vous venez d'obtenir l'accès à l'application CarRental, veuillez cliquez sur ce <a href='" + link + "'>lien</a> afin de définir votre mot de passe.<br/>" +
-                "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez effectuer une demande manuelle de changement de mot passe";
+            string subject = "Bienvenue sur CarRental";
+            string body = "Bonjour,<br><br> Vous venez d'obtenir l'accès à l'application CarRental, veuillez cliquez sur ce <a href='" + link + "'>lien</a> afin de définir votre mot de passe.<br/>" +
+                "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez effectuer une demande manuelle de changement de mot passe <br> <br> Bonne journée, <br> CarRental";
             SendEMail(emailTarget, subject, body);
         }
         /// <summary>
