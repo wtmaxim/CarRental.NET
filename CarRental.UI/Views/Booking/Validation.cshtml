@@ -57,13 +57,13 @@
                     <dl class="dl-horizontal">
                         <dt>Chauffeur</dt>
                         <dd>
-                            <a href="#" class="profile">@Model.Booking.driverAller.Firstname @Model.Booking.driverAller.Lastname</a>
+                            <a href="@Url.Action("Index", "Profile", new { idUser = Model.Booking.driverAller.Id })" class="profile">@Model.Booking.driverAller.Firstname @Model.Booking.driverAller.Lastname</a>
                         </dd>
                         <dt>Passagers</dt>
                         <dd>
                             @foreach (UserDTO user in Model.Booking.passagersAller)
                             {
-                                <a href="#" class="profile">@user.Firstname @user.Lastname</a>
+                                <a href="@Url.Action("Index", "Profile", new { idUser = user.Id })" class="profile">@user.Firstname @user.Lastname</a>
                             }
                         </dd>
                         <dt>Adresse</dt>
@@ -89,13 +89,13 @@
                     <dl class="dl-horizontal">
                         <dt>Chauffeur</dt>
                         <dd>
-                            <a href="../profile/profile.html" class="profile">@Model.Booking.driverRetour.Firstname @Model.Booking.driverRetour.Lastname</a>
+                            <a href="@Url.Action("Index", "Profile", new { idUser = Model.Booking.driverRetour.Id })" class="profile">@Model.Booking.driverRetour.Firstname @Model.Booking.driverRetour.Lastname</a>
                         </dd>
                         <dt>Passagers</dt>
                         <dd>
                             @foreach (UserDTO user in Model.Booking.passagerRetour)
                             {
-                                <a href="#" class="profile">@user.Firstname @user.Lastname</a>
+                                <a href="@Url.Action("Index", "Profile", new { idUser = user.Id })" class="profile">@user.Firstname @user.Lastname</a>
                             }
                         </dd>
                         <dt>Adresse</dt>

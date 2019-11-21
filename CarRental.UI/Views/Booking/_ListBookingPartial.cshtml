@@ -7,7 +7,27 @@
     <div class="box collapsed-box">
         <div class="box-header with-border">
             <strong><i class="fa fa-arrow-right margin-r-5"></i> @booking.createdBy.Firstname @booking.createdBy.Lastname</strong> &nbsp;
-            <span class="label label-danger">@booking.status.Libelle</span>
+            @if (booking.status.Libelle.ToLower() == "en acceptation")
+            {
+                <span class="label label-primary">@booking.status.Libelle</span>
+            }
+            else if (booking.status.Libelle.ToLower() == "accepté")
+            {
+                <span class="label label-success">@booking.status.Libelle</span>
+            }
+            else if (booking.status.Libelle.ToLower() == "refusé")
+            {
+                <span class="label label-danger">@booking.status.Libelle</span>
+            }
+            else if (booking.status.Libelle.ToLower() == "terminé")
+            {
+                <span class="label label-default">@booking.status.Libelle</span>
+            }
+            else
+            {
+                <span class="label label-default">@booking.status.Libelle</span>
+            }
+
             <p class="text-muted">@booking.stopOver.Departure_Date.ToString("dd/MM/yyyy") au @booking.stopOver.Arrival_Date.ToString("dd/MM/yyyy") - @booking.addressAller.Locality à @booking.addressRetour.Locality</p>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -28,13 +48,13 @@
                         <dl class="dl-horizontal">
                             <dt>Chauffeur</dt>
                             <dd>
-                                <a href="#" class="profile">@booking.driverAller.Firstname @booking.driverAller.Lastname</a>
+                                <a href="@Url.Action("Index", "Profile", new { idUser = booking.driverAller.Id })" class="profile">@booking.driverAller.Firstname @booking.driverAller.Lastname</a>
                             </dd>
                             <dt>Passagers</dt>
                             <dd>
                                 @foreach (UserDTO user in booking.passagersAller)
                                 {
-                                    <a href="#" class="profile">@user.Firstname  @user.Lastname</a>
+                                    <a href="@Url.Action("Index", "Profile", new { idUser = user.Id })" class="profile">@user.Firstname  @user.Lastname</a>
                                 }
                             </dd>
                             <dt>Adresse</dt>
@@ -61,13 +81,13 @@
                         <dl class="dl-horizontal">
                             <dt>Chauffeur</dt>
                             <dd>
-                                <a href="#" class="profile">@booking.driverRetour.Firstname @booking.driverRetour.Lastname</a>
+                                <a href="@Url.Action("Index", "Profile", new { idUser = booking.driverRetour.Id })" class="profile">@booking.driverRetour.Firstname @booking.driverRetour.Lastname</a>
                             </dd>
                             <dt>Passagers</dt>
                             <dd>
                                 @foreach (UserDTO user in booking.passagerRetour)
                                 {
-                                    <a href="#" class="profile">@user.Firstname  @user.Lastname</a>
+                                    <a href="@Url.Action("Index", "Profile", new { idUser = user.Id })" class="profile">@user.Firstname  @user.Lastname</a>
                                 }
                             </dd>
                             <dt>Adresse</dt>

@@ -26,6 +26,7 @@
 
                     <!-- driver column -->
                     <div class="form-group">
+                        <label>Conducteur </label>
                         @Html.DropDownListFor(m => m.userIdDriver, Model.Users, new { id = "SelectedDriverId", @class = "form-control select2" })
                     </div>
 
@@ -36,7 +37,7 @@
                                 <input type="checkbox" id="checkBoxIsPersonalCarAvailable">
                                 Véhicule personnel disponible
                             </label>
-                            <label class="col-sm-6">
+                            <label class="col-sm-6" style="display:none;">
                                 <input type="checkbox" id="checkBoxDriverChange">
                                 Changement de conducteur
                             </label>
@@ -45,6 +46,7 @@
                     </div>
 
                     <div class="form-group" id="driverChange">
+                        <label>Conducteur retour</label>
                         @Html.DropDownListFor(m => m.userIdDriver2, Model.Users, new { id = "DropDownListDriverChange", @class = "form-control select2" })
                     </div>
 
@@ -58,6 +60,7 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Passagers</label>
                         @Html.ListBoxFor(m => m.userIdPassagers, Model.Users, new { id = "DropDownListPassagers", @class = "form-control select2" })
                     </div>
 
