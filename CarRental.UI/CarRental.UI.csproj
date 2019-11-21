@@ -1689,6 +1689,7 @@
     <Content Include="Content\Ionicons\scss\_ionicons-variables.scss" />
     <Content Include="Scripts\car.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\fr.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
