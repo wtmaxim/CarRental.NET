@@ -24,22 +24,26 @@
 
 
                         <div class="form-group">
-
                             @for (int i = 0; i < Model.Cars.Count; i++)
                             {
                                 var item = Model.Cars[i];
                                 var id = "optionsRadio" + i;
 
-                                @Html.RadioButton("CarValue", item.Item1.Licence_Plate);
-                                <img src="@Url.Content(imageUrl + item.Item1.Licence_Plate + ".jpg")" class="img-thumbnail carImg">
-                                <div class="radioTxt">
-                                    <img src="@Url.Content(logoUrl + item.Item3.Make + ".png")" />
-                                    <b> @item.Item3.Make @item.Item2.Model</b>
-                                    #@item.Item1.Licence_Plate
+                                <div class="col-md-4">
+                                    <div class="box box-solid">
+                                        <div class="box-header with-border">
+                                            @Html.RadioButton("CarValue", item.Item1.Licence_Plate)
+
+                                            <img class="img-carMake" src="@Url.Content(logoUrl + item.Item3.Make + ".png")" />
+                                            <h3 class="box-title"> @item.Item3.Make @item.Item2.Model  @item.Item1.Licence_Plate</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <img src="@Url.Content(imageUrl + item.Item1.Licence_Plate + ".jpg")" class="img-thumbnail img-carMake">
+              
+                                        </div>
+                                    </div>
                                 </div>
-
                             }
-
 
                         </div>
 
