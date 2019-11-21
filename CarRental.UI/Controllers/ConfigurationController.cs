@@ -13,11 +13,13 @@ namespace CarRental.UI.Controllers
     {
         private readonly RoleLogic roleLogic;
         private readonly ActionLogic actionLogic;
+        private readonly NotificationLogic notificationLogic;
 
         public ConfigurationController()
         {
             roleLogic = new RoleLogic();
             actionLogic = new ActionLogic();
+            notificationLogic = new NotificationLogic();
         }
 
         /// <summary>
@@ -31,7 +33,10 @@ namespace CarRental.UI.Controllers
             {
                 ListRoleWithActionTuple = actionLogic.GetListTupleRoleAction(roleLogic.List())
             };
-            
+
+            int idCurrentUser = (int)Session["userId"];
+            Session["notifs"] = notificationLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
+
             return View(Civm);
         }
         

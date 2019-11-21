@@ -19,6 +19,7 @@ namespace CarRental.UI.Controllers
         private readonly CompanyLogic companyLogic;
         private readonly RoleLogic roleLogic;
         private readonly PasswordResetTokenLogic passwordResetTokenLogic;
+        private readonly NotificationLogic notificationLogic;
 
         // Constantes des images définies dans les formulaires
         public const string DRIVING_LICENCE_RECTO = "UtilisateurImageRecto";
@@ -31,6 +32,7 @@ namespace CarRental.UI.Controllers
             companyLogic = new CompanyLogic();
             roleLogic = new RoleLogic();
             passwordResetTokenLogic = new PasswordResetTokenLogic();
+            notificationLogic = new NotificationLogic();
         }
 
         /**
@@ -43,9 +45,10 @@ namespace CarRental.UI.Controllers
             int idCurrentUser = idUser == null ? (int)Session["userId"] : (int)idUser;
             bool isMyProfile = idUser == null ? true : false;
             UserDTO user = userLogic.Get(idCurrentUser);
-            // RoleDTO role = roleLogic.List().Find(r => r.Id == user.Id_Role);
             RoleDTO role = new RoleDTO();
             CompanyDTO company = companyLogic.List().Find(c => c.Id == user.Id_Company);
+
+            Session["notifs"] = notificationLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
 
             ProfileIndexViewModel vm = new ProfileIndexViewModel
             {

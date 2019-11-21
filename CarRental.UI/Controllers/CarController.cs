@@ -23,6 +23,7 @@ namespace CarRental.UI.Controllers
         private readonly StatusLogic statusLogic;
         private readonly StopOverLogic stopOverLogic;
         private readonly StopOverAddressLogic stopOverAddressLogic;
+        private readonly NotificationLogic notificationLogic;
 
         public CarController()
         {
@@ -37,6 +38,7 @@ namespace CarRental.UI.Controllers
             statusLogic = new StatusLogic();
             stopOverLogic = new StopOverLogic();
             stopOverAddressLogic = new StopOverAddressLogic();
+            notificationLogic = new NotificationLogic();
         }
 
         // GET: Voiture
@@ -47,6 +49,9 @@ namespace CarRental.UI.Controllers
                 CarsMakes = GetCarsMakes(),
                 Addresses = GetAddresses()
             };
+
+            int idCurrentUser = (int)Session["userId"];
+            Session["notifs"] = notificationLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
 
             return View(vm);
         }

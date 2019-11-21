@@ -13,10 +13,13 @@ namespace CarRental.UI.Controllers
     {
         private readonly RoleLogic roleLogic;
         private readonly ActionLogic actionLogic;
+        private readonly NotificationLogic notifLogic;
+
         public RoleController()
         {
             roleLogic = new RoleLogic();
             actionLogic = new ActionLogic();
+            notifLogic = new NotificationLogic();
         }
         /// <summary>
         /// Affiche la page d'édition d'un role
@@ -26,15 +29,18 @@ namespace CarRental.UI.Controllers
         public ActionResult Edit(int id)
         {
            
-                RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
-                List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
-                RoleEditViewModel REVM = new RoleEditViewModel()
-                {
-                    RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
-                    allActions = actionLogic.List()
-                };
+            RoleDTO roleToEdit = roleLogic.Get_By_Id(id);
+            List<ActionDTO> roleToEditActions = actionLogic.get_Role_Actions(roleToEdit);
+            RoleEditViewModel REVM = new RoleEditViewModel()
+            {
+                RoleWithActionTuple = new Tuple<RoleDTO, List<ActionDTO>>(roleToEdit, roleToEditActions),
+                allActions = actionLogic.List()
+            };
 
-                return View(REVM);
+            int idCurrentUser = (int)Session["userId"];
+            Session["notifs"] = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
+
+            return View(REVM);
                        
         }
         /// <summary>

@@ -28,11 +28,13 @@ namespace CarRental.UI.Controllers
             if(Session["userId"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            }else
+            }
+            else
             {           
-            int idCurrentUser = (int)Session["userId"];
-            ViewBag.AdminNotifs = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0 && n.IsForAdmin == 1).Count;
-            return View();
+                int idCurrentUser = (int)Session["userId"];
+                ViewBag.AdminNotifs = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0 && n.IsForAdmin == 1).Count;
+                Session["notifs"] = notifLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
+                return View();
             }
         }
 

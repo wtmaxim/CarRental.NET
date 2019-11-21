@@ -44,6 +44,9 @@ namespace CarRental.UI.Controllers
             vm.Addresses = PopulateAddress();
             vm.Users = PopulateUsers();
 
+            int idCurrentUser = (int)Session["userId"];
+            Session["notifs"] = notificationLogic.ListAllForUser(idCurrentUser).FindAll(n => n.IsRead == 0).Count;
+
             return View(vm);
         }
 
