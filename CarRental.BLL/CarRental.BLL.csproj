@@ -49,6 +49,7 @@
     <Compile Include="CarModelLogic.cs" />
     <Compile Include="CompanyLogic.cs" />
     <Compile Include="EventLogic.cs" />
+    <Compile Include="MailLogic.cs" />
     <Compile Include="NotificationLogic.cs" />
     <Compile Include="PasswordResetTokenLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

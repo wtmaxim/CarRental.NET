@@ -185,7 +185,7 @@ namespace CarRental.UI.Controllers
                     }
                 }
             }
-            // Session["notifs"] = notificationLogic.ListAllForUser((int)Session["userID"]).FindAll(n => n.IsRead == 0).Count;
+            Session["notifs"] = notificationLogic.ListAllForUser((int)Session["userID"]).FindAll(n => n.IsRead == 0).Count;
 
             return Json(_booking);
         }

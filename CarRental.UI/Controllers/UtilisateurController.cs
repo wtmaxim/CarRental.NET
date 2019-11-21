@@ -18,6 +18,7 @@ namespace CarRental.UI.Controllers
         private readonly CompanyLogic companyLogic;
         private readonly RoleLogic roleLogic;
         private readonly NotificationLogic notifLogic;
+        private readonly MailLogic mailLogic;
 
         public UtilisateurController()
         {
@@ -25,6 +26,7 @@ namespace CarRental.UI.Controllers
             companyLogic = new CompanyLogic();
             roleLogic = new RoleLogic();
             notifLogic = new NotificationLogic();
+            mailLogic = new MailLogic();
         }
 
         ///<summary>
@@ -206,7 +208,7 @@ namespace CarRental.UI.Controllers
                     Int32.TryParse(idRole, out resRole);                    
                     roleLogic.Add_User_Role(userLogic.GetUserByMail(user.Email).Id, resRole);
                 }
-                
+                mailLogic.SendNewAccountLinkEmail(user.Email, mailLogic.GeneratePasswordResetToken(userLogic.GetUserByMail(user.Email)), Request.Url.AbsoluteUri, Request.Url.PathAndQuery);
                 TempData["SuccessModal"] = "Utilisateur " + user.Lastname + " " + user.Firstname + " ajouté avec succès";
             }
             else

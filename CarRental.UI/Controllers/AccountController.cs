@@ -16,6 +16,7 @@ namespace CarRental.UI.Controllers
         private readonly RoleLogic roleLogic;
         private readonly PasswordResetTokenLogic passwordResetTokenLogic;
         private readonly NotificationLogic notifLogic;
+        private readonly MailLogic mailLogic;
 
         public AccountController()
         {
@@ -23,6 +24,7 @@ namespace CarRental.UI.Controllers
             passwordResetTokenLogic = new PasswordResetTokenLogic();
             roleLogic = new RoleLogic();
             notifLogic = new NotificationLogic();
+            mailLogic = new MailLogic();
         }
         /// <summary>
         /// 
@@ -103,15 +105,11 @@ namespace CarRental.UI.Controllers
 
             }
             else
-            {
-                //Générer le token
-                PasswordResetTokenDTO passwordResetTokenDTO = new PasswordResetTokenDTO(userDetails.Id);
-                // Sauvegarder le token en base
-                passwordResetTokenLogic.Insert(passwordResetTokenDTO);
+            {               
 
                 // Générer le lien pour changer le mot de passe
                 // Envoyer un mail à l'utilisateur 
-                SendPasswordResetLinkEmail(userDTO.Email, passwordResetTokenDTO);
+                mailLogic.SendPasswordResetLinkEmail(userDTO.Email, mailLogic.GeneratePasswordResetToken(userDetails), Request.Url.AbsoluteUri, Request.Url.PathAndQuery);
                 message = "Un email contenant un lien vers la page d'édition de votre mot de passe vous à été envoyé.";
                 status = true;
             }
@@ -181,7 +179,7 @@ namespace CarRental.UI.Controllers
                     _user.confirmPassword = user.confirmPassword;
                     UpdatePassword(_user);
                     passwordResetTokenLogic.Delete(prt);
-                    SendPasswordChangedMail(_user.Email);
+                    mailLogic.SendPasswordChangedMail(_user.Email);
                     ViewBag.Message = "Votre mot de passe à correctement été modifié, veuillez vous identifier pour accéder à l'application.";
                     ViewBag.Status = true;
                 }
@@ -206,63 +204,9 @@ namespace CarRental.UI.Controllers
                 utilisateurLogic.UpdatePasswordByMail(userDTO);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="emailTarget"></param>
-        /// <param name="passwordResetTokenDTO"></param>
-        [NonAction]
-        public void SendPasswordResetLinkEmail(string emailTarget, PasswordResetTokenDTO passwordResetTokenDTO)
-        {
-            var verifyUrl = "/Account/ChangePassword/" + passwordResetTokenDTO.Token;
-            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-            string subject = "Demande de changement de mot de passe";
-            string body = "Bonjour, veuillez cliquez sur ce <a href='" + link + "'>lien</a> pour changer votre mot de passe.<br/>" +
-                "Ce lien a une durée de validité de 2 heures, passé ce délai vous devrez réitérer votre demande";
-            SendEMail(emailTarget, subject, body);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="emailTarget"></param>
-        [NonAction]
-        public void SendPasswordChangedMail(string emailTarget)
-        {
-            string subject = "Votre mot de passe à été changé";
-            string body = "Bonjour, nous vous confirmons le changement de votre mot de passe.";
-            SendEMail(emailTarget, subject, body);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="emailTarget"></param>
-        /// <param name="subject"></param>
-        /// <param name="body"></param>
-        [NonAction]
-        public void SendEMail(string emailTarget, string subject, string body)
-        {
-            var fromEmail = new MailAddress("mywebprocarental@gmail.com", "CarRental");
-            var toEmail = new MailAddress(emailTarget);
-            var fromEmailPassword = "@DminMsii";
-            var smtpClient = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
-
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            })
-                smtpClient.Send(message);
-            smtpClient.Dispose();
-        }
+        
+       
+       
     }
 
 }
