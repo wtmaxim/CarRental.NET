@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Detail";
     var imageUrl = ConfigurationManager.AppSettings["CarImageURL"];
+    var logoUrl = "~/Images/logoCarMake/";
 }
 
 <section class="content-header">
@@ -23,38 +24,20 @@
             <div class="col-md-4">
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <i class="fa fa-car"></i>
+                        <img src="@Url.Content(logoUrl + Model.carMake.Make + ".png")" />
                         <h3 class="box-title">@Html.Raw(Model.carMake.Make) @Html.Raw(Model.carModel.Model)</h3>
                     </div>
                     <div class="box-body">
                         <img src="@Url.Content(imageUrl + Model.car.Licence_Plate + ".jpg")" class="img-thumbnail">
                         <br><br>
 
-                        <div class="row">
-                            <div class="col-xs-4 text-center">
-                                <i class="fa fa-heartbeat"></i><br>
-                                28/06/2019
-                            </div>
-                            <div class="col-xs-2 text-center">
-                                <i class="fa fa-beer"></i><br>
-                                40%
-                            </div>
-                            <div class="col-xs-2 text-center">
-                                <i class="fa fa-clock-o"></i><br>
-                                2000
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <i class="fa fa-users"></i><br>
-                                @Html.Raw(Model.carModel.Places) places
-                            </div>
-                        </div>
                         <br>
 
                         <dl>
                             <dt>Immatriculation</dt>
                             <dd>@Html.Raw(Model.car.Licence_Plate)</dd>
                             <dt>Moteur</dt>
-                            <dd>@Html.Raw(Model.carModel.Energy)</dd>
+                            <dd>@Html.Raw(Model.car.Energy_Value)</dd>
                         </dl>
                     </div>
                 </div>

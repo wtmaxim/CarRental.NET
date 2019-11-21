@@ -21,7 +21,7 @@
                         <dt>Demande de</dt>
                         <dd>@Model.Booking.createdBy.Firstname @Model.Booking.createdBy.Lastname</dd>
                         <dt>Date</dt>
-                        <dd>@Model.Booking.stopOver.Departure_Date au @Model.Booking.stopOver.Arrival_Date</dd>
+                        <dd>@Model.Booking.stopOver.Departure_Date.ToString("dd/MM/yyyy") au @Model.Booking.stopOver.Arrival_Date.ToString("dd/MM/yyyy")</dd>
                     </dl>
                 </div>
             </div>
@@ -38,8 +38,6 @@
                     <dl class="dl-horizontal">
                         <dt>Raison du déplacement</dt>
                         <dd>@Model.Booking.requestBooking.Reason</dd>
-                        @*<dt>Catégorie</dt>
-                        <dd>Evenement</dd>*@
                     </dl>
                 </div>
             </div>
@@ -63,7 +61,7 @@
                         </dd>
                         <dt>Passagers</dt>
                         <dd>
-                            @foreach (UserDTO user in Model.Booking.passagers)
+                            @foreach (UserDTO user in Model.Booking.passagersAller)
                             {
                                 <a href="#" class="profile">@user.Firstname @user.Lastname</a>
                             }
@@ -95,7 +93,7 @@
                         </dd>
                         <dt>Passagers</dt>
                         <dd>
-                            @foreach (UserDTO user in Model.Booking.passagers)
+                            @foreach (UserDTO user in Model.Booking.passagerRetour)
                             {
                                 <a href="#" class="profile">@user.Firstname @user.Lastname</a>
                             }

@@ -24,9 +24,11 @@ namespace CarRental.UI.Controllers
         private readonly StopOverLogic stopOverLogic;
         private readonly StopOverAddressLogic stopOverAddressLogic;
         private readonly NotificationLogic notificationLogic;
+        private readonly CompanyLogic companyLogic;
 
         public CarController()
         {
+            companyLogic = new CompanyLogic();
             carLogic = new CarLogic();
             carModelLogic = new CarModelLogic();
             carMakeLogic = new CarMakeLogic();
@@ -47,7 +49,7 @@ namespace CarRental.UI.Controllers
             CarIndexViewsModel vm = new CarIndexViewsModel
             {
                 CarsMakes = GetCarsMakes(),
-                Addresses = GetAddresses()
+                Companys = GetCompanys()
             };
 
             int idCurrentUser = (int)Session["userId"];
@@ -129,6 +131,18 @@ namespace CarRental.UI.Controllers
 
             return new SelectList(addressesList, "Value", "Text");
         }
+        private IEnumerable<SelectListItem> GetCompanys()
+        {
+            List<CompanyDTO> companys = companyLogic.List();
+
+            var companyList = companys.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
+
+            return new SelectList(companyList, "Value", "Text");
+        }
 
         [HttpGet]
         public ActionResult RendreCar(int idBooking)
@@ -138,13 +152,14 @@ namespace CarRental.UI.Controllers
             BookingDTO booking = bookingLogic.Get(idBooking);
             RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
             StopOverDTO stopOver = stopOverLogic.GetByBooking(booking.Id);
-            List<UserDTO> passagers = utilisateurLogic.ListPassagers(booking.Id);
+            List<UserDTO> passagersAller = utilisateurLogic.ListPassagers(booking.Id, 1);
+            List<UserDTO> passagersRetour = utilisateurLogic.ListPassagers(booking.Id, 0);
             StatusDTO status = statusLogic.GetStatus(requestBooking.Id_Status);
             StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
             UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
             UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
-            AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
-            AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+            AddressDTO addressAller = addressLogic.GetAddress(booking.Id, 1);
+            AddressDTO addressRetour = addressLogic.GetAddress(booking.Id, 0);
             UserDTO createdBy = utilisateurLogic.Get(requestBooking.CreateBy);
 
             Booking _booking = new Booking
@@ -152,7 +167,8 @@ namespace CarRental.UI.Controllers
                 booking = booking,
                 requestBooking = requestBooking,
                 stopOver = stopOver,
-                passagers = passagers,
+                passagersAller = passagersAller,
+                passagerRetour = passagersRetour,
                 status = status,
                 stopOverAddress = stopOverAddress,
                 driverAller = driverAller,
@@ -172,7 +188,7 @@ namespace CarRental.UI.Controllers
         {
             BookingDTO booking = bookingLogic.Get(idBooking);
             RequestBookingDTO requestBooking = requestBookingLogic.GetByRequestBooking(booking.id_Request_Booking);
-            requestBookingLogic.Update(requestBooking.id, 2002);
+            requestBookingLogic.Update(requestBooking.id, 4);
 
             carLogic.Update(LicencePlate, kilometrage);
 
@@ -229,7 +245,7 @@ namespace CarRental.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCar(HttpPostedFileBase CarImage, CarIndexViewsModel vm, int dropdownlistCarsModels, int AddressId, string Licence_Plate, int Mileage, string Energy)
+        public ActionResult AddCar(HttpPostedFileBase CarImage, CarIndexViewsModel vm, int dropdownlistCarsModels, int CompanyId, string Licence_Plate, int Mileage, string Energy)
         {
             CarDTO car = new CarDTO
             {
@@ -239,8 +255,8 @@ namespace CarRental.UI.Controllers
                 is_Available = 1,
                 Licence_Plate = Licence_Plate,
                 Mileage = Mileage,
-                Id_User = 1,
-                Id_Company = AddressId
+                Id_User = (int)Session["userId"],
+                Id_Company = CompanyId
             };
 
             if (CarImage != null && CarImage.ContentLength > 0)

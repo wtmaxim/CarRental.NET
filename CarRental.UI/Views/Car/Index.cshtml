@@ -38,34 +38,7 @@
                             <select id="dropdownlistCarsModels" class="form-control select2CarModel" name="dropdownlistCarsModels"></select>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label>Nombre de place</label>
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 4
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 5
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 7
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Energie</label>
@@ -87,7 +60,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Entreprise</label>
-                            @Html.DropDownListFor(m => m.AddressId, Model.Addresses, "Selectionner l'entreprise où est stocké la voiture", new { @class = "select2CarMake form-control" })
+                            @Html.DropDownListFor(m => m.CompanyId, Model.Companys, "Selectionner l'entreprise où est stocké la voiture", new { @class = "select2CarMake form-control" })
                         </div>
                     </div>
                     <div class="col-sm-4">

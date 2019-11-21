@@ -17,8 +17,8 @@ namespace CarRental.UI.ViewsModels.Car
         public int SelectedCarsModelsId { get; set; }
         public IEnumerable<SelectListItem> CarsModels { get; set; }
 
-        public IEnumerable<SelectListItem> Addresses { get; set; }
-        public int AddressId { get; set; }
+        public IEnumerable<SelectListItem> Companys { get; set; }
+        public int CompanyId { get; set; }
 
     }
 }

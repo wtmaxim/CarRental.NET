@@ -1368,5 +1368,57 @@ namespace CarRental.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_User_Update", idParameter, firstnameParameter, lastnameParameter, emailParameter, passwordParameter, isActiveParameter, jobParameter, noteParameter, phoneNumberParameter, isAddressPrivateParameter, idCompanyParameter);
         }
+    
+        public virtual ObjectResult<User> usp_User_ListPassagers_idBooking_isGoing(Nullable<int> idBooking, Nullable<byte> isGoing)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            var isGoingParameter = isGoing.HasValue ?
+                new ObjectParameter("isGoing", isGoing) :
+                new ObjectParameter("isGoing", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_ListPassagers_idBooking_isGoing", idBookingParameter, isGoingParameter);
+        }
+    
+        public virtual ObjectResult<User> usp_User_ListPassagers_idBooking_isGoing(Nullable<int> idBooking, Nullable<byte> isGoing, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("idBooking", idBooking) :
+                new ObjectParameter("idBooking", typeof(int));
+    
+            var isGoingParameter = isGoing.HasValue ?
+                new ObjectParameter("isGoing", isGoing) :
+                new ObjectParameter("isGoing", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("usp_User_ListPassagers_idBooking_isGoing", mergeOption, idBookingParameter, isGoingParameter);
+        }
+    
+        public virtual ObjectResult<Address> usp_Address_Get_idBooking_isDeparture(Nullable<int> idBooking, Nullable<byte> isDeparture)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            var isDepartureParameter = isDeparture.HasValue ?
+                new ObjectParameter("isDeparture", isDeparture) :
+                new ObjectParameter("isDeparture", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Address>("usp_Address_Get_idBooking_isDeparture", idBookingParameter, isDepartureParameter);
+        }
+    
+        public virtual ObjectResult<Address> usp_Address_Get_idBooking_isDeparture(Nullable<int> idBooking, Nullable<byte> isDeparture, MergeOption mergeOption)
+        {
+            var idBookingParameter = idBooking.HasValue ?
+                new ObjectParameter("IdBooking", idBooking) :
+                new ObjectParameter("IdBooking", typeof(int));
+    
+            var isDepartureParameter = isDeparture.HasValue ?
+                new ObjectParameter("isDeparture", isDeparture) :
+                new ObjectParameter("isDeparture", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Address>("usp_Address_Get_idBooking_isDeparture", mergeOption, idBookingParameter, isDepartureParameter);
+        }
     }
 }

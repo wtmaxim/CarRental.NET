@@ -192,7 +192,7 @@ namespace CarRental.UI.Controllers
             Int32.TryParse(idCompany, out resCompany);
             int resRole = 0;
             
-            UserDTO user = new UserDTO() { Lastname = lastname, Firstname = firstname, Id_Company = resCompany, Email = mail, Job = job, Password = "Motdepasse1", Is_Active = 1, Note = "", Is_Address_Private = 1, Phone_Number = phone };
+            UserDTO user = new UserDTO() { Lastname = lastname, Firstname = firstname, Id_Company = resCompany, Email = mail, Job = job, Password = SecurePasswordHasherHelper.Hash("MotdePasse1"), Is_Active = 1, Note = "", Is_Address_Private = 1, Phone_Number = phone };
 
 
             Tuple<Boolean, String> res = this.isFormValid(lastname, firstname, idCompany, mail, phone, selectRole.GetValue(0).ToString(), job);

@@ -33,5 +33,14 @@ namespace CarRental.DAL
                 return addressMapping.MapToAdddressDTO(address);
             }
         }
+
+        public AddressDTO GetAddress(int idBooking, byte isDeparture)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                Address address = context.usp_Address_Get_idBooking_isDeparture(idBooking, isDeparture).FirstOrDefault();
+                return addressMapping.MapToAdddressDTO(address);
+            }
+        }
     }
 }

@@ -76,6 +76,11 @@ namespace CarRental.BLL
             return utilisateurEngine.ListPassagers(idBooking);
         }
 
+        public List<UserDTO> ListPassagers(int idBooking, byte isGoing)
+        {
+            return utilisateurEngine.ListPassagers(idBooking, isGoing);
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -193,6 +193,9 @@
     <Compile Include="usp_Address_GetAddress_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Address_Get_idBooking_isDeparture_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Adress_List_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
@@ -368,6 +371,9 @@
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_ListDrivers_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_User_ListPassagers_idBooking_isGoing_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_User_ListPassagers_Result.cs">
