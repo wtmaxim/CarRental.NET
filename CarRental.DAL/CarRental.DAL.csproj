@@ -274,6 +274,9 @@
     <Compile Include="usp_RequestBooking_Insert_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_RequestBooking_List_IdStatus_Result.cs">
+      <DependentUpon>CarRentalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_RequestBooking_List_IdUser_Result.cs">
       <DependentUpon>CarRentalModel.tt</DependentUpon>
     </Compile>

@@ -150,7 +150,7 @@
 
 
             <!-- reservation expenses -->
-            <div class="col-sm-6">
+            @*<div class="col-sm-6">
                 <div class="box box-solid">
                     <div class="box-header with-border">
                         <i class="fa fa-arrow-right"></i>
@@ -176,14 +176,14 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
         </div>
 
         <div class="row">
             <div class="box-footer text-center">
                 <div class="col-xs-6">
-                    <a class="btn btn-default btn-block" href="./my_rents.2.html">
+                    <a class="btn btn-default btn-block" href="@Url.Action("Index", "Booking")">
                         <i class="fa fa-mail-reply"></i> Annuler
                     </a>
                 </div>
@@ -242,10 +242,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left"
-                        data-dismiss="modal">
-                    Annuler
-                </button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Annuler</button>
                 <button type="button" class="btn btn-success">Ajouter</button>
             </div>
         </div>

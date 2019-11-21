@@ -150,8 +150,8 @@ namespace CarRental.UI.Controllers
             StopOverAddressDTO stopOverAddress = stopOverAddressLogic.GetStopOverAddress(stopOver.Id);
             UserDTO driverAller = utilisateurLogic.GetDriver(booking.Id, 1);
             UserDTO driverRetour = utilisateurLogic.GetDriver(booking.Id, 0);
-            AddressDTO addressAller = addressLogic.GetAddress(booking.Id);
-            AddressDTO addressRetour = addressLogic.GetAddress(booking.Id);
+            AddressDTO addressAller = addressLogic.GetAddress(booking.Id, 1);
+            AddressDTO addressRetour = addressLogic.GetAddress(booking.Id, 0);
 
             Booking _booking = new Booking
             {

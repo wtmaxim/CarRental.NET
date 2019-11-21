@@ -60,6 +60,15 @@ namespace CarRental.DAL
             }
         }
 
+        public IEnumerable<RequestBookingDTO> ListByStatus(int idStatus)
+        {
+            using (CarRentalEntities context = new CarRentalEntities())
+            {
+                List<RequestBooking> requestBookings = context.usp_RequestBooking_List_IdStatus(idStatus).ToList();
+                return requestBookingMapping.MapToListRequestBookingDTO(requestBookings);
+            }
+        }
+
         public void Update(int idRequestBooking, int idStatus)
         {
             using (CarRentalEntities context = new CarRentalEntities())

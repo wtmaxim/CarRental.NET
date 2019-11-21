@@ -679,6 +679,9 @@
           <Parameter Name="createBy" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_RequestBooking_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_RequestBooking_List_IdStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idStatus" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_RequestBooking_List_IdUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUser" Type="int" Mode="In" />
         </Function>
@@ -1371,6 +1374,9 @@
           <FunctionImport Name="usp_Address_Get_idBooking_isDeparture" EntitySet="Address" ReturnType="Collection(CarRental.DAL.Address)">
             <Parameter Name="IdBooking" Mode="In" Type="Int32" />
             <Parameter Name="isDeparture" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RequestBooking_List_IdStatus" EntitySet="RequestBooking" ReturnType="Collection(CarRental.DAL.RequestBooking)">
+            <Parameter Name="idStatus" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="usp_Car_Get_Result">
@@ -2569,6 +2575,14 @@
           <Property Type="String" Name="Route" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Street_Number" Nullable="true" MaxLength="7" />
         </ComplexType>
+        <ComplexType Name="usp_RequestBooking_List_IdStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Byte" Name="is_Personal_Car_Available" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Id_Status" Nullable="false" />
+          <Property Type="Int32" Name="CreateBy" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2931,6 +2945,8 @@
           <FunctionImportMapping FunctionImportName="usp_User_ListPassagers_idBooking_isGoing" FunctionName="CarRentalModel.Store.usp_User_ListPassagers_idBooking_isGoing">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_Address_Get_idBooking_isDeparture" FunctionName="CarRentalModel.Store.usp_Address_Get_idBooking_isDeparture">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RequestBooking_List_IdStatus" FunctionName="CarRentalModel.Store.usp_RequestBooking_List_IdStatus">
           </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>

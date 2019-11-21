@@ -1115,3 +1115,12 @@ BEGIN
 	INNER JOIN Booking booking ON stopOver.Id_Booking = booking.Id
 	WHERE booking.Id = @IdBooking AND stopOverAddress.is_Departure = @isDeparture
 END
+GO
+CREATE PROCEDURE [dbo].[usp_RequestBooking_List_IdStatus]
+	@idStatus INT
+AS
+BEGIN
+	SELECT id, is_Personal_Car_Available, Date, Reason, Id_Status, CreateBy
+	FROM RequestBooking
+	WHERE Id_Status = @idStatus
+END

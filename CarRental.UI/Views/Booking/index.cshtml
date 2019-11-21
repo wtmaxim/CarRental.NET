@@ -199,7 +199,7 @@
                             <a href="#" class="profile" id="driver1Profil"></a>
                         </dd>
                         <dt>Passagers</dt>
-                        <dd id="ddPasagers">
+                        <dd id="ddPasagersAller">
                         </dd>
                         <dt>Adresse</dt>
                         <dd id="ddAddressDeparture">
@@ -223,7 +223,7 @@
                             <a href="#" class="profile" id="driver2Profil"></a>
                         </dd>
                         <dt>Passagers</dt>
-                        <dd id="ddPasagers">
+                        <dd id="ddPasagersRetour">
                         </dd>
                         <dt>Adresse</dt>
                         <dd id="ddAddressArrival">
@@ -409,9 +409,12 @@
                         $("#driver1Profil", $tmc).text(response.driverAller.Firstname + " " + response.driverAller.Lastname);
                         $("#driver2Profil", $tmc).text(response.driverRetour.Firstname + " " + response.driverRetour.Lastname);
 
-                        
-                        for (var i = 0; i < response.passagers.length; i++) {
-                            $("#ddPasagers", $tmc).append("<a href='#' class='profile'>" + response.passagers[i].Firstname + " " + response.passagers[i].Lastname+"</a>");
+                        for (var i = 0; i < response.passagersAller.length; i++) {
+                            $("#ddPasagersAller", $tmc).append("<a href='#' class='profile'>" + response.passagersAller[i].Firstname + " " + response.passagersAller[i].Lastname+"</a>");
+                        }
+
+                        for (var i = 0; i < response.passagerRetour.length; i++) {
+                            $("#ddPasagersRetour", $tmc).append("<a href='#' class='profile'>" + response.passagerRetour[i].Firstname + " " + response.passagerRetour[i].Lastname+"</a>");
                         }
 
                         $("#ddAddressArrival", $tmc).append("<a href='#'>" + response.addressRetour.Name + ", " + response.addressRetour.Route + " " + response.addressRetour.Postal_Code + " " + response.addressRetour.Locality);

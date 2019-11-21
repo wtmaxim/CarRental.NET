@@ -36,6 +36,11 @@ namespace CarRental.BLL
             return requestBookingEngine.List();
         }
 
+        public IEnumerable<RequestBookingDTO> ListbyStatus(int idStatus)
+        {
+            return requestBookingEngine.ListByStatus(idStatus);
+        }
+
         public RequestBookingDTO GetByRequestBooking(int idRequestBooking)
         {
             return requestBookingEngine.GetByRequestBooking(idRequestBooking);
