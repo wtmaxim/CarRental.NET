@@ -75,8 +75,8 @@ namespace CarRental.BLL
         /// <param name="emailTarget"></param>
         public void SendPasswordChangedMail(string emailTarget)
         {
-            string subject = "Votre mot de passe à été changé";
-            string body = "Bonjour, nous vous confirmons le changement de votre mot de passe.";
+            string subject = "Votre mot de passe à été modifié";
+            string body = "Bonjour,<br> Nous vous confirmons le changement de votre mot de passe. <br> <br> Bonne journée, <br> CarRental";
             SendEMail(emailTarget, subject, body);
         }
 
